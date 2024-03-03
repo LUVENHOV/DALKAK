@@ -4,7 +4,7 @@
 > 집에서 직접 바텐딩을 하는 사람들을 위한 칵테일 추천 서비스
 
 # 기능
-![Alt text](image.png)
+![gineng](/uploads/a9f2b08a97f50bbb267421e39c3b7a02/gineng.png)
 [Notion Link](https://maroon-swim-d29.notion.site/0179f45e9a844854b9fa20da241dc366?pvs=4)
 
 # 페르소나
