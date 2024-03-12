@@ -9,7 +9,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import store.dalkak.api.cocktail.domain.Cocktail;
@@ -18,12 +17,12 @@ import store.dalkak.api.cocktail.domain.Cocktail;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "cocktail_tool")
+@Table(name = "cocktail_base")
 public class CocktailBase{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cocktail_tool_id")
+    @Column(name = "cocktail_base_id")
     private Long id;
 
     @ManyToOne
@@ -31,7 +30,7 @@ public class CocktailBase{
     private Cocktail cocktail;
 
     @ManyToOne
-    @JoinColumn(name = "tool_id")
+    @JoinColumn(name = "base_id")
     private Base base;
 
 }

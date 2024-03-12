@@ -16,7 +16,6 @@ import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import store.dalkak.api.cocktail.domain.Base.CocktailBase;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

@@ -21,6 +21,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
+import store.dalkak.api.cocktail.domain.Base.CocktailBase;
 import store.dalkak.api.cocktail.domain.Ingredient.CocktailIngredient;
 import store.dalkak.api.cocktail.domain.Tool.CocktailTool;
 
@@ -62,6 +63,16 @@ public class Cocktail {
     @Column(name = "cocktail_ingredients")
     private List<CocktailIngredient> cocktailIngredients;
 
+    //칵테일베이스
+    @OneToMany(mappedBy = "cocktail", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(name = "cocktail_bases")
+    private List<CocktailBase> cocktailBases;
+
+    //칵테일컬렉션
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "collection_id")
+    private Collection collection;
+
     //원본칵테일 이름
     @Column(name = "cocktail_name", nullable = false)
     private String name;
@@ -74,9 +85,21 @@ public class Cocktail {
     @Column(name = "cocktail_recipe", nullable = false)
     private String recipe;
 
+    //원본칵테일 도수
+    @Column(name = "alcohol_content", nullable = false)
+    private Integer alcohol;
+
+    //원본칵테일 당도
+    @Column(name = "sweetness", nullable = false)
+    private Integer sweetness;
+
+    //원본칵테일 난이도
+    @Column(name = "exp")
+    private Integer experiment;
+
     //좋아요
-    @OneToMany(mappedBy = "cocktail", cascade = CascadeType.ALL)
-    Set<Heart> hearts = new HashSet<>();
+//    @OneToMany(mappedBy = "cocktail", cascade = CascadeType.ALL)
+//    Set<Heart> hearts = new HashSet<>();
 
     //좋아요 수
     @ColumnDefault("0")

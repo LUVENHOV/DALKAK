@@ -26,8 +26,4 @@ public class Category {
 
     @Column(name = "ingredient_category_name", nullable = false)
     private String name;
-
-    @OneToMany(mappedBy = "ingredient_category", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Ingredient> ingredients;
-
 }

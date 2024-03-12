@@ -12,18 +12,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 import store.dalkak.api.cocktail.domain.Cocktail;
-import store.dalkak.api.cocktail.domain.Ingredient.CocktailIngredient;
-import store.dalkak.api.user.domain.User;
 
 @Entity
 @Getter
@@ -44,14 +39,14 @@ public class Custom {
     private Cocktail cocktail;
 
     //회원아이디
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "member_id")
-    private User user;
+//    @ManyToOne(fetch = LAZY)
+//    @JoinColumn(name = "member_id")
+//    private User user;
 
     //커스텀칵테일재료
-    @OneToMany(mappedBy = "cocktail", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "custom", cascade = CascadeType.ALL, orphanRemoval = true)
     @Column(name = "custom_cocktail_ingredients")
-    private List<CocktailIngredient> cocktailIngredients;
+    private List<CustomIngredient> customIngredients;
 
     //커스텀칵테일 이름
     @Column(name = "custom_cocktail_name")
@@ -78,11 +73,11 @@ public class Custom {
     private Boolean open;
 
     @Builder
-    public Custom(Cocktail cocktail, User user, List<CocktailIngredient> cocktailIngredients,
-        String name, String image, String summary, String comment, String recipe, Boolean open) {
+
+    public Custom(Cocktail cocktail, List<CustomIngredient> customIngredients, String name,
+        String image, String summary, String comment, String recipe, Boolean open) {
         this.cocktail = cocktail;
-        this.user = user;
-        this.cocktailIngredients = cocktailIngredients;
+        this.customIngredients = customIngredients;
         this.name = name;
         this.image = image;
         this.summary = summary;

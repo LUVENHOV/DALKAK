@@ -11,7 +11,6 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import store.dalkak.api.cocktail.domain.Cocktail;
 import store.dalkak.api.cocktail.domain.Ingredient.Ingredient;
 import store.dalkak.api.cocktail.domain.Ingredient.Unit;
 
@@ -35,7 +34,7 @@ public class CustomIngredient {
     @JoinColumn(name = "ingredient_id")
     private Ingredient ingredient;
 
-    @Column(name = "origin_cocktail_ingredient_amount")
+    @Column(name = "custom_cocktail_ingredient_amount")
     private Double amount;
 
     @ManyToOne
