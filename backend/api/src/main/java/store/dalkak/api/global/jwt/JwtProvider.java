@@ -77,7 +77,7 @@ public class JwtProvider {
         return key;
     }
 
-    public boolean checkToken(String token){
+    public boolean validateToken(String token){
         try{
             Jws<Claims> claims = Jwts.parser().setSigningKey(this.generateKey()).parseClaimsJws(token);
             return true;
@@ -96,6 +96,7 @@ public class JwtProvider {
 //            throw new UnAuthorizedException();
         }
 
+        assert claims != null;
         Map<String, Object> value = claims.getBody();
         log.info("value : {}", value);
 

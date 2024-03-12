@@ -11,7 +11,7 @@ import store.dalkak.api.user.domain.embed.Provider;
 @Table(name="member")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User {
+public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
@@ -31,5 +31,7 @@ public class User {
 
     @Column(name="member_oauth_provider")
     private Provider oauthProvider;
+
+
 
 }

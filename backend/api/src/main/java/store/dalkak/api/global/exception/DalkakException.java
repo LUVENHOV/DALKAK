@@ -8,9 +8,9 @@ public class DalkakException extends RuntimeException{
     private final String errorCode;
     private final String message;
 
-    public DalkakException(ErrorCode code){
-        this.statusCode=code.getStatusCode();
-        this.errorCode=code.getErrorCode();
-        this.message=code.getMessage();
+    public DalkakException(ErrorCode errorCode){
+        this.statusCode=errorCode.getStatusCode();
+        this.errorCode=errorCode.getErrorCode();
+        this.message=errorCode.getMessage();
     }
 }
