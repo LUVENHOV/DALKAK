@@ -11,16 +11,16 @@ import store.dalkak.api.cocktail.domain.Cocktail;
 @Getter
 @Setter
 @AllArgsConstructor
-public class CocktailSearchResDto {
+public class CocktailFindResDto {
 
     private Long cocktailId;
     private String cocktailName;
     private String cocktailImage;
     private Integer heartCount;
 
-    public static Page<CocktailSearchResDto> toDtoList(Page<Cocktail> cocktails) {
+    public static Page<CocktailFindResDto> toDtoList(Page<Cocktail> cocktails) {
         return cocktails.map(m ->
-            CocktailSearchResDto.builder()
+            CocktailFindResDto.builder()
                 .cocktailId(m.getId())
                 .cocktailName(m.getName())
                 .cocktailImage(m.getImage())

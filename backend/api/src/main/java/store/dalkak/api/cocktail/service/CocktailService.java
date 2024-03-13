@@ -23,7 +23,7 @@ public class CocktailService {
         Integer sweetness,
         Integer difficulty, Long gender, Integer orderBy) {
 
-        return cocktailRepository.searchCocktailsByOption(page, cocktailName, ingredients, base,
+        return cocktailRepository.findCocktailsByOption(page, cocktailName, ingredients, base,
             alcoholContent, color, sweetness, difficulty, gender, orderBy);
     }
 }

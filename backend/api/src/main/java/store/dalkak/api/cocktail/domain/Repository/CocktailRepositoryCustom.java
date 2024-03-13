@@ -7,7 +7,7 @@ import store.dalkak.api.cocktail.domain.Cocktail;
 
 public interface CocktailRepositoryCustom {
 
-    Page<Cocktail> searchCocktailsByOption(
+    Page<Cocktail> findCocktailsByOption(
         Pageable page, String cocktailName, List<Long> ingredients, Long base, Integer alcoholContent, Long color, Integer sweetness,
         Integer difficulty, Long gender, Integer orderBy);
 }

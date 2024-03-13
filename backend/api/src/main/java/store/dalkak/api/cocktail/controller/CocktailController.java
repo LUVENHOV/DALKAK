@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import store.dalkak.api.cocktail.dto.response.CocktailSearchResDto;
+import store.dalkak.api.cocktail.dto.response.CocktailFindResDto;
 import store.dalkak.api.cocktail.service.CocktailService;
 
 @Slf4j
@@ -41,7 +41,7 @@ public class CocktailController {
         @RequestParam(required = false) Integer difficulty,
         @RequestParam(required = false) String gender,
         @RequestParam(required = false, defaultValue = "1") Integer orderBy) {
-        Page<CocktailSearchResDto> cocktailSearchResDtoPage = CocktailSearchResDto.toDtoList(
+        Page<CocktailFindResDto> cocktailSearchResDtoPage = CocktailFindResDto.toDtoList(
             cocktailService.getCocktailList(page, cocktailName, Ingredients, base, alcoholContent, color, sweetness, difficulty, gender, orderBy));
         return ResponseEntity.ok(cocktailSearchResDtoPage);
     }
