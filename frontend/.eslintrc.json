@@ -18,10 +18,9 @@
     "sourceType": "module"
   },
   "rules": {
-    "react/jsx-filename-extension": [
-      1,
-      {"extensions": [".js", ".jsx", ".tsx", ".ts"]}
-    ]
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".tsx", ".ts"] }],
+    // 아래는 CRLF와 LF 오류가 나서 추가한 코드
+    "linebreak-style": ["error", "windows"]
   },
   "settings": {
     "react": {

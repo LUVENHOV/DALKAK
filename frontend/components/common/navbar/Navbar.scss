@@ -1,0 +1,50 @@
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+}
+
+.navbar {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 4fr 4fr 4fr 4fr 1fr;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  text-align: center;
+  align-items: center;
+  box-shadow: 0.5px 0px 7px 0.1px grey;
+  color: #5c5c5c;
+  font-family: "Pretendard-Regular";
+
+  div {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .hi {
+    text-align: end;
+  }
+}
+
+.active {
+  color: #fe867f;
+  font-weight: 700;
+}
+
+.dalkak {
+  color: #999999;
+  font-size: 11px;
+  font-weight: 950;
+  text-align: start;
+}
+
+.nickname {
+  color: #fe867f;
+  font-weight: 700;
+}
+
+.logo {
+  margin-left: 20px;
+}
