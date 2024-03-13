@@ -1,9 +1,15 @@
 package store.dalkak.api.global.oauth.service;
 
+import static store.dalkak.api.global.util.DecodeUtil.payloadDecoder;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.reactive.function.client.WebClient;
+import store.dalkak.api.global.oauth.dto.KakaoUserAuthDto;
 
 @Service
 @Slf4j
@@ -18,11 +24,31 @@ public class KakaoService implements ProviderService{
 
     @Override
     public String userInfo(String token) {
-        return null;
+        String jwtPayload= token.split("\\.")[1];
+        log.info("payload: "+jwtPayload);
+        return payloadDecoder(jwtPayload);
     }
 
     @Override
     public String userAuth(String code) {
-        return null;
+        WebClient webClient=WebClient.builder()
+            .baseUrl(authBaseUrl)
+            .defaultHeader("Content-type", "application/x-www-form-urlencoded;charset=utf-8")
+            .build();
+
+        MultiValueMap<String, String> formData=new LinkedMultiValueMap<>();
+        formData.add("grant_type","authorization_code");
+        formData.add("client_id",clientId);
+        formData.add("redirect_uri",redirectUri);
+        formData.add("code", code);
+
+        KakaoUserAuthDto kakaoUserAuthDto=webClient
+            .post()
+            .bodyValue(formData)
+            .retrieve()
+            .bodyToMono(KakaoUserAuthDto.class)
+            .block();
+
+        return kakaoUserAuthDto.getIdToken();
     }
 }

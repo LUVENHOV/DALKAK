@@ -9,14 +9,18 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 public class NaverService implements ProviderService {
-    @Value("${google.auth_base_url}")
-    private String authBaseUrl;
-    @Value("${google.client_id}")
+    @Value("${naver.client_id}")
     private String clientId;
-    @Value("${google.redirect_uri}")
+    @Value("${naver.redirect_uri}")
     private String redirectUri;
-    @Value("${google.client_secret}")
+    @Value("${naver.client_secret}")
     private String clientSecret;
+    @Value("${naver.state}")
+    private String state;
+    @Value("${naver.auth_base_url}")
+    private String authBaseUrl;
+    @Value("${naver.info_base_url}")
+    private String infoBaseUrl;
     @Override
     public String userInfo(String token) {
         return null;
