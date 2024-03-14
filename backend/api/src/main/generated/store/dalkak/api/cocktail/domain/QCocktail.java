@@ -32,8 +32,6 @@ public class QCocktail extends EntityPathBase<Cocktail> {
 
     public final QColor color;
 
-    public final NumberPath<Integer> experiment = createNumber("experiment", Integer.class);
-
     public final QGlass glass;
 
     public final NumberPath<Integer> heartCount = createNumber("heartCount", Integer.class);
@@ -41,6 +39,8 @@ public class QCocktail extends EntityPathBase<Cocktail> {
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath image = createString("image");
+
+    public final StringPath krName = createString("krName");
 
     public final StringPath name = createString("name");
 

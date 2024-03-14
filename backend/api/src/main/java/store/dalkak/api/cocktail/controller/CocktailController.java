@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import store.dalkak.api.cocktail.domain.Repository.CocktailRepositoryImpl;
 import store.dalkak.api.cocktail.dto.response.CocktailFindResDto;
 import store.dalkak.api.cocktail.service.CocktailService;
 
@@ -21,6 +22,7 @@ import store.dalkak.api.cocktail.service.CocktailService;
 public class CocktailController {
 
     private final CocktailService cocktailService;
+    private final CocktailRepositoryImpl cocktailRepositoryImpl;
 
     //칵테일 상세보기
 //    @GetMapping("/{originCocktailId}")
@@ -31,18 +33,16 @@ public class CocktailController {
 
     @GetMapping("/search")
     public ResponseEntity<?> searchCocktailByOption(
-        @PageableDefault(value = 20) Pageable page,
-        @RequestParam(required = false) String cocktailName,
-        @RequestParam(required = false) List<String> Ingredients,
-        @RequestParam(required = false) String base,
-        @RequestParam(required = false) Integer alcoholContent,
-        @RequestParam(required = false) String color,
-        @RequestParam(required = false) Integer sweetness,
-        @RequestParam(required = false) Integer difficulty,
-        @RequestParam(required = false) String gender,
-        @RequestParam(required = false, defaultValue = "1") Integer orderBy) {
-        Page<CocktailFindResDto> cocktailSearchResDtoPage = CocktailFindResDto.toDtoList(
-            cocktailService.getCocktailList(page, cocktailName, Ingredients, base, alcoholContent, color, sweetness, difficulty, gender, orderBy));
+        @PageableDefault(value = 1) Pageable page,
+        @RequestParam(value = "cocktailName", required = false) String cocktailName,
+        @RequestParam(value = "ingredients", required = false) List<Long> ingredients,
+        @RequestParam(value = "base", required = false) Long base,
+        @RequestParam(value = "alcohol",required = false) Integer alcoholContent,
+        @RequestParam(value = "color",required = false) Long color,
+        @RequestParam(value = "sweetness",required = false) Integer sweetness,
+        @RequestParam(value = "orderBy",required = false) Integer orderBy) {
+        Page<CocktailFindResDto> cocktailSearchResDtoPage = cocktailService.getCocktailList(page, cocktailName, ingredients, base, alcoholContent, color, sweetness, orderBy);
+//        log.info(ingredients.toString());
         return ResponseEntity.ok(cocktailSearchResDtoPage);
     }
 

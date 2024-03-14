@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import store.dalkak.api.cocktail.domain.Cocktail;
 import store.dalkak.api.cocktail.domain.Repository.CocktailRepository;
+import store.dalkak.api.cocktail.dto.response.CocktailFindResDto;
 
 @Slf4j
 @Transactional
@@ -18,12 +19,11 @@ public class CocktailService {
 
     private final CocktailRepository cocktailRepository;
 
-    public Page<Cocktail> getCocktailList(Pageable page, String cocktailName,
+    public Page<CocktailFindResDto> getCocktailList(Pageable page, String cocktailName,
         List<Long> ingredients, Long base, Integer alcoholContent, Long color,
-        Integer sweetness,
-        Integer difficulty, Long gender, Integer orderBy) {
+        Integer sweetness, Integer orderBy) {
 
         return cocktailRepository.findCocktailsByOption(page, cocktailName, ingredients, base,
-            alcoholContent, color, sweetness, difficulty, gender, orderBy);
+            alcoholContent, color, sweetness, orderBy);
     }
 }

@@ -68,7 +68,7 @@ public class Cocktail {
     @Column(name = "cocktail_bases")
     private List<CocktailBase> cocktailBases;
 
-    //칵테일컬렉션
+    //칵테일특집
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "collection_id")
     private Collection collection;
@@ -76,6 +76,10 @@ public class Cocktail {
     //원본칵테일 이름
     @Column(name = "cocktail_name", nullable = false)
     private String name;
+
+    //원본칵테일 한글이름
+    @Column(name = "cocktail_kr_name")
+    private String krName;
 
     //원본칵테일 이미지
     @Column(name = "cocktail_image", nullable = false)
@@ -92,10 +96,6 @@ public class Cocktail {
     //원본칵테일 당도
     @Column(name = "sweetness", nullable = false)
     private Integer sweetness;
-
-    //원본칵테일 난이도
-    @Column(name = "exp")
-    private Integer experiment;
 
     //좋아요
 //    @OneToMany(mappedBy = "cocktail", cascade = CascadeType.ALL)

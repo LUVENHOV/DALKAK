@@ -31,6 +31,9 @@ public class Ingredient {
     @Column(name = "ingredient_name", nullable = false)
     private String name;
 
+    @Column(name = "ingredient_image")
+    private String image;
+
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name= "ingredient_category_id", nullable = false)
     private Category category;

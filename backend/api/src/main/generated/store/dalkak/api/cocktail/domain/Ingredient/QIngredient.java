@@ -28,6 +28,8 @@ public class QIngredient extends EntityPathBase<Ingredient> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final StringPath image = createString("image");
+
     public final StringPath name = createString("name");
 
     public QIngredient(String variable) {
