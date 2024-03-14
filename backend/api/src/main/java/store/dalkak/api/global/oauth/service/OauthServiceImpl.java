@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import store.dalkak.api.global.jwt.JwtProvider;
+import store.dalkak.api.global.jwt.dto.TokenDto;
 import store.dalkak.api.global.oauth.dto.request.OauthLoginReqDto;
 import store.dalkak.api.global.oauth.dto.response.OauthLoginResDto;
 import store.dalkak.api.user.domain.Member;
@@ -19,6 +21,7 @@ public class OauthServiceImpl implements OauthService{
     private final NaverService naverService;
     private final KakaoService kakaoService;
     private final MemberRepository memberRepository;
+    private final JwtProvider jwtProvider;
 
     @Override
     public OauthLoginResDto login(OauthLoginReqDto oauthLoginReqDto) {
@@ -27,10 +30,12 @@ public class OauthServiceImpl implements OauthService{
 
         // 없으면 회원가입
         if(!memberRepository.existsByOauthSubAndOauthProvider(sub,oauthLoginReqDto.getProvider())){
-            System.out.println("aaaaaaaaaaaaaaaaaaa");
             memberRepository.save(Member.builder().oauthSub(sub).oauthProvider(oauthLoginReqDto.getProvider()).build());
         }
-        return null;
+        log.info(sub);
+        Member member=memberRepository.findByOauthSubAndOauthProvider(sub,oauthLoginReqDto.getProvider()).orElseThrow();
+        //TODO: jwt 토큰 생성
+        return generateOauthLoginResDto(member.getId());
     }
 
     @Override
@@ -54,5 +59,30 @@ public class OauthServiceImpl implements OauthService{
 //            throw new OAuthException(OAuthErrorCode.FAIL_TO_GET_INFO);
 //        }
         return sub;
+    }
+
+    private OauthLoginResDto generateOauthLoginResDto(long id){
+        Member member = memberRepository.findById(id).orElseThrow();
+        String nickname = member.getNickname();
+
+        //generateVerifyTokenResponse 메서드는
+        //AccessToken, RefreshToken을 생성한 후
+        //AccessToken, RefreshToken, AccessTokenExpireTime에 대한 정보를 담아서 넘겨준다.
+        TokenDto accessToken = jwtProvider.createAccessToken(id);
+        TokenDto refreshToken = jwtProvider.createRefreshToken(id);
+
+        //redis 에 저장
+//    refreshTokenRepository.save(RefreshToken.builder()
+//        .id(id)
+//        .value(refreshToken.getToken())
+//        .build());
+        return OauthLoginResDto.builder()
+            .accessToken(accessToken.getToken())
+            .accessTokenExpiresIn(accessToken.getExpired())
+            .refreshToken(refreshToken.getToken())
+            .refreshTokenExpiresIn(refreshToken.getExpired())
+            .nickname(nickname)
+            .id(id)
+            .build();
     }
 }

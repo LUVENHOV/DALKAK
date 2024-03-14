@@ -22,6 +22,6 @@ public class OauthController {
     public ApiResponse<?> login(@RequestBody OauthLoginReqDto oauthLoginReqDto){
         log.info(oauthLoginReqDto.toString());
         oauthService.login(oauthLoginReqDto);
-        return ApiResponse.successWithoutData();
+        return ApiResponse.successWithData(oauthService.login(oauthLoginReqDto));
     }
 }
