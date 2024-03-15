@@ -1,14 +1,14 @@
 package store.dalkak.api.global.oauth.service;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import store.dalkak.api.global.jwt.JwtProvider;
 import store.dalkak.api.global.jwt.dto.TokenDto;
 import store.dalkak.api.global.oauth.dto.request.OauthLoginReqDto;
 import store.dalkak.api.global.oauth.dto.response.OauthLoginResDto;
+import store.dalkak.api.global.oauth.exception.OauthErrorCode;
+import store.dalkak.api.global.oauth.exception.OauthException;
 import store.dalkak.api.user.domain.Member;
 import store.dalkak.api.user.domain.MemberRepository;
 
@@ -27,14 +27,12 @@ public class OauthServiceImpl implements OauthService{
     public OauthLoginResDto login(OauthLoginReqDto oauthLoginReqDto) {
         System.out.println(oauthLoginReqDto.getProvider());
         String sub=sub(oauthLoginReqDto);
-
         // 없으면 회원가입
         if(!memberRepository.existsByOauthSubAndOauthProvider(sub,oauthLoginReqDto.getProvider())){
             memberRepository.save(Member.builder().oauthSub(sub).oauthProvider(oauthLoginReqDto.getProvider()).build());
         }
-        log.info(sub);
+
         Member member=memberRepository.findByOauthSubAndOauthProvider(sub,oauthLoginReqDto.getProvider()).orElseThrow();
-        //TODO: jwt 토큰 생성
         return generateOauthLoginResDto(member.getId());
     }
 
@@ -55,9 +53,9 @@ public class OauthServiceImpl implements OauthService{
                 sub=googleService.userInfo(accessToken);
             }
         }
-//        if(sub==null) {
-//            throw new OAuthException(OAuthErrorCode.FAIL_TO_GET_INFO);
-//        }
+        if(sub==null) {
+            throw new OauthException(OauthErrorCode.FAIL_TO_GET_INFO);
+        }
         return sub;
     }
 

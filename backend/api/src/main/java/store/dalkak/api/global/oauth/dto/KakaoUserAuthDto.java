@@ -17,8 +17,8 @@ public class KakaoUserAuthDto {
     String refreshToken;
     @NotNull
     String idToken;
-    int expiresIn;
+    Long expiresIn;
     String scope;
-    int refreshTokenExpiresIn;
+    Long refreshTokenExpiresIn;
 
 }

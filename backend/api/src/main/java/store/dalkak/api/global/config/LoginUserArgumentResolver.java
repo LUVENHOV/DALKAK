@@ -24,7 +24,6 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
     private final JwtProvider jwtProvider;
     private final MemberRepository memberRepository;
 
-
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         boolean isLoginUserAnnotation = parameter.hasParameterAnnotation(LoginUser.class);
@@ -36,12 +35,13 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
         NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-
+        log.info("----token ");
         HttpServletRequest httpServletRequest = webRequest.getNativeRequest(HttpServletRequest.class);
         if(httpServletRequest!=null){
             String token=httpServletRequest.getHeader("Authorization");
-            token=token.split(" ")[1]; //Bearer token
+
             if(token!=null){
+                token=token.split(" ")[1]; //Bearer token
                 if(jwtProvider.validateToken(token)){
                     long memberId = jwtProvider.getMemberPrimaryKeyId(token);
                     Member member = memberRepository.findById(memberId).orElseThrow(
@@ -56,6 +56,6 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
                 }
             }
         }
-        return null;
+        throw new JwtException(JwtErrorCode.INVALID_TOKEN);
     }
 }

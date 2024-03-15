@@ -5,6 +5,7 @@ import static store.dalkak.api.global.util.DecodeUtil.payloadDecoder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -25,7 +26,6 @@ public class KakaoService implements ProviderService{
     @Override
     public String userInfo(String token) {
         String jwtPayload= token.split("\\.")[1];
-        log.info("payload: "+jwtPayload);
         return payloadDecoder(jwtPayload);
     }
 

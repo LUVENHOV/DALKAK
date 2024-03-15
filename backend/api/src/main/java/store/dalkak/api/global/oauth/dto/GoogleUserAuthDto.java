@@ -14,7 +14,7 @@ import lombok.*;
 public class GoogleUserAuthDto {
     //access token, refresh token, id token
     String accessToken;
-    int expiresIn;
+    Long expiresIn;
     @NotNull
     String idToken;
     String scope;

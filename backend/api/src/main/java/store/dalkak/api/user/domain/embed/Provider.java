@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum Provider {
-    NAVER("naver"), KAKAO("kakao"), GOOGLE("google");
+    NAVER("NAVER"), KAKAO("KAKAO"), GOOGLE("GOOGLE");
 
     private final String value;
 

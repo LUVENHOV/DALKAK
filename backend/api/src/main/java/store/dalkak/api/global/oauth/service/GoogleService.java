@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
+import store.dalkak.api.global.exception.DalkakErrorCode;
+import store.dalkak.api.global.exception.DalkakException;
 import store.dalkak.api.global.oauth.dto.GoogleUserAuthDto;
 
 @Service
@@ -24,6 +26,7 @@ public class GoogleService implements ProviderService{
     private String redirectUri;
     @Value("${google.client_secret}")
     private String clientSecret;
+
     @Override
     public String userInfo(String token) {
         String jwtPayload= token.split("\\.")[1];
@@ -32,11 +35,6 @@ public class GoogleService implements ProviderService{
 
     @Override
     public String userAuth(String code) {
-
-        log.info(authBaseUrl);
-        log.info(clientId);
-        log.info(redirectUri);
-        log.info(clientSecret);
 
         // webclient로 통신해서 access token, refresh token받아오기
         WebClient webClient=WebClient.builder()
@@ -50,13 +48,16 @@ public class GoogleService implements ProviderService{
         formData.add("client_secret",clientSecret);
         formData.add("code", urlDecoder(code));
 
-        GoogleUserAuthDto googleUserAuthDto= webClient
-            .post()
-            .bodyValue(formData)
-            .retrieve()
-            .bodyToMono(GoogleUserAuthDto.class)
-            .block();
-
-        return googleUserAuthDto.getIdToken();
+        try{
+            GoogleUserAuthDto googleUserAuthDto= webClient
+                .post()
+                .bodyValue(formData)
+                .retrieve()
+                .bodyToMono(GoogleUserAuthDto.class)
+                .block();
+            return googleUserAuthDto.getIdToken();
+        }catch (Exception e){
+            throw new DalkakException(DalkakErrorCode.INTERNAL_SERVER_ERROR);
+        }
     }
 }

@@ -3,8 +3,10 @@ package store.dalkak.api.user.dto;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import store.dalkak.api.user.domain.embed.Provider;
 
+@Getter
 @Builder
 @AllArgsConstructor
 public class MemberDto {
@@ -14,4 +16,5 @@ public class MemberDto {
     private String gender;
     private String oauthSub;
     private Provider oauthProvider;
+    private Boolean surveyCompletion;
 }

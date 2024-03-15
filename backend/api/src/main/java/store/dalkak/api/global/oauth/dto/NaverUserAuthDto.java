@@ -16,7 +16,7 @@ public class NaverUserAuthDto {
     String accessToken;
     String refreshToken;
     String tokenType;
-    int expiresIn;
+    Long expiresIn;
     String error;
     String errorDescription;
 

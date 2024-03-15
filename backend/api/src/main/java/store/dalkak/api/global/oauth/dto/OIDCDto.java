@@ -19,6 +19,4 @@ import lombok.NoArgsConstructor;
 public class OIDCDto {
     @NotNull(message="sub 반드시")
     private String sub;
-//    @NotNull(message="email 반드시")
-//    private String email;
 }

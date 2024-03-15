@@ -35,13 +35,17 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Provider oauthProvider;
 
+    @Column(name="survey_completion")
+    private Boolean surveyCompletion;
+
     @Builder
-    public Member(String nickname,LocalDate birthdate, String gender,String oauthSub,Provider oauthProvider){
+    public Member(String nickname,LocalDate birthdate, String gender,String oauthSub,Provider oauthProvider,Boolean surveyCompletion){
         this.nickname=nickname;
         this.birthdate=birthdate;
         this.gender=gender;
         this.oauthSub=oauthSub;
         this.oauthProvider=oauthProvider;
+        this.surveyCompletion=surveyCompletion;
     }
 
 
