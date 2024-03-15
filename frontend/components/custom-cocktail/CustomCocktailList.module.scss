@@ -11,46 +11,6 @@
   padding: 1.3vw;
 }
 
-.grid-item {
-  padding: 0.7vw;
-  cursor: pointer;
-  margin-bottom: 2vw;
-}
-
-.image-box {
-  position: relative;
-  text-align: center;
-  cursor: pointer;
-}
-
-.custom-img {
-  border-radius: 1.3vw;
-  width: 17vw;
-  height: 17vw;
-}
-
-.author {
-  position: absolute;
-  color: white;
-  font-size: 0.85vw;
-  border-radius: 1.5vw;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 0.3vw 1vw;
-  bottom: 0.85vw;
-  right: 0.8vw;
-}
-
-.title {
-  margin-top: 1.2vw;
-  font-size: 1.2vw;
-  font-weight: 950;
-}
-
-.comment {
-  margin-top: 0.3vw;
-  font-size: 0.97vw;
-}
-
 .line {
   width: 75%;
   margin: 0 auto;

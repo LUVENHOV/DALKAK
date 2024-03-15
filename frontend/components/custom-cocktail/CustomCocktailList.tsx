@@ -2,11 +2,11 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import styles from './CustomCocktailList.module.scss';
 import cocktails from '../../public/assets/imgs/cocktails.png';
 import cocktails2 from '../../public/assets/imgs/cocktails2.png';
 import fireworks from '../../public/assets/imgs/fireworks.png';
+import CustomCocktailCard from './CustomCocktailCard.tsx';
 
 interface Dummy {
   title: string;
@@ -20,10 +20,6 @@ interface Props {
 }
 
 export default function CustomCocktailList({ dummy }: Props) {
-  const router = useRouter();
-  const goToDetail = () => {
-    router.push('/cocktail/1');
-  };
   return (
     <div>
       <div className={styles.line}>
@@ -37,31 +33,13 @@ export default function CustomCocktailList({ dummy }: Props) {
         <hr className={styles.divided} />
       </div>
 
+      {/* 커스텀 칵테일 카드 테스트 */}
+
       <div className={styles.container}>
         <ul className={styles['grid-container']}>
-          {dummy.map((data, index) => (
+          {dummy.map((custom, index) => (
             // eslint-disable-next-line react/no-array-index-key
-            <li key={index} className={styles['grid-item']}>
-              <div>
-                <button
-                  type="button"
-                  onClick={goToDetail}
-                  className={styles['image-box']}
-                >
-                  <img
-                    className={styles['custom-img']}
-                    src={data.imageLink}
-                    alt={data.title}
-                  />
-                  <div className={styles.author}>
-                    by&nbsp;
-                    {data.author}
-                  </div>
-                </button>
-                <div className={styles.title}>{data.title}</div>
-                <div className={styles.comment}>{data.comment}</div>
-              </div>
-            </li>
+            <CustomCocktailCard key={index} custom={custom} />
           ))}
         </ul>
       </div>
