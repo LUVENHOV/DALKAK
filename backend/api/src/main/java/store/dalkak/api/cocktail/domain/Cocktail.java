@@ -13,9 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,7 +37,7 @@ public class Cocktail {
     private Long id;
 
     //칵테일글라스
-    @OneToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name= "glass_id", nullable = false)
     private Glass glass;
 
@@ -49,7 +47,7 @@ public class Cocktail {
     private Color color;
 
     //칵테일시기
-    @OneToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name= "occasion_id")
     private Occasion occasion;
 

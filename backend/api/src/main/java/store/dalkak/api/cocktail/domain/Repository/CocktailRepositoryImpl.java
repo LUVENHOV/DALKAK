@@ -9,7 +9,7 @@ import static store.dalkak.api.cocktail.domain.QCocktail.cocktail;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -41,27 +41,24 @@ public class CocktailRepositoryImpl implements CocktailRepositoryCustom {
     }
 
     private BooleanExpression nameFilter(String cocktailName) {
-        return cocktailName != null ? cocktail.name.eq(cocktailName) : null;
+        return cocktailName != null ? cocktail.name.eq(cocktailName).or(cocktail.krName.eq(cocktailName)) : null;
     }
+
 
     private BooleanExpression ingredientFilter(List<Long> ingredients) {
-        return ingredients == null || ingredients.isEmpty() ? null : combineIngredientConditions(ingredients);
-
-    }
-
-    private BooleanExpression combineIngredientConditions(List<Long> ingredients) {
-        BooleanExpression condition = Expressions.asBoolean(true).isTrue();
-        for (Long ingredientId : ingredients) {
-            condition = condition.and(filteredIngredient(ingredientId));
+        if (ingredients == null || ingredients.isEmpty()) {
+            return null;
         }
-        return condition;
+        // 재료 개수를 세어, 주어진 재료 리스트의 크기와 같은지 비교
+        return JPAExpressions
+            .select(cocktailIngredient.ingredient.id.countDistinct())
+            .from(cocktailIngredient)
+            .where(cocktailIngredient.cocktail.id.eq(cocktail.id)
+                .and(cocktailIngredient.ingredient.id.in(ingredients)))
+            .groupBy(cocktailIngredient.cocktail.id)
+            .having(cocktailIngredient.ingredient.id.countDistinct().eq(Long.valueOf(ingredients.size())))
+            .exists();
     }
-
-    private BooleanExpression filteredIngredient(Long ingredientId) {
-        return cocktailIngredient.ingredient.id.eq(ingredientId)
-            .and(cocktailIngredient.cocktail.eq(cocktail));
-    }
-
 
     private BooleanExpression baseFilter(Long baseDrink) {
         return baseDrink != null ? base.id.eq(baseDrink) : null;
@@ -78,40 +75,102 @@ public class CocktailRepositoryImpl implements CocktailRepositoryCustom {
     private BooleanExpression sweetnessFilter(Integer sweetness) {
         return sweetness != null ? cocktail.sweetness.eq(sweetness) : null;
     }
+//
+//    public Page<CocktailFindResDto> findCocktailsByOption(Pageable page, String cocktailName,
+//        List<Long> ingredients, Long baseDrink, Integer alcoholContent, Long cocktailColor,
+//        Integer sweetness, Integer orderBy) {
+//
+//        OrderSpecifier<?> orderSpecifier = orderByCondition(orderBy);
+//
+//        List<CocktailFindResDto> cocktailFindResDtoQueryResults = queryFactory
+//            .select(Projections.constructor(
+//                CocktailFindResDto.class,
+//                cocktail.id,
+//                cocktail.name,
+//                cocktail.krName,
+//                cocktail.image,
+//                cocktail.heartCount))
+//            .distinct()
+//            .from(cocktail)
+//            .leftJoin(cocktail.cocktailBases, cocktailBase) // 기반 음료 조인
+//            .leftJoin(cocktailBase.base, base) // 베이스 조인
+//            .leftJoin(cocktail.cocktailIngredients, cocktailIngredient) // 칵테일 재료 조인
+//            .leftJoin(cocktailIngredient.ingredient, ingredient) // 재료 조인
+//            .where(
+//                nameFilter(cocktailName),
+//                ingredientFilter(ingredients),
+//                baseFilter(baseDrink),
+//                alcoholFilter(alcoholContent),
+//                colorFilter(cocktailColor),
+//                sweetnessFilter(sweetness)
+//            )
+//            .offset(page.getOffset())
+//            .limit(page.getPageSize())
+//            .orderBy(orderSpecifier)
+//            .fetch();
+//
+//        Long totalResult = queryFactory
+//            .select(cocktail.countDistinct())
+//            .from(cocktail)
+//            .leftJoin(cocktail.cocktailBases, cocktailBase)
+//            .leftJoin(cocktailBase.base, base)
+//            .leftJoin(cocktail.cocktailIngredients, cocktailIngredient)
+//            .leftJoin(cocktailIngredient.ingredient, ingredient)
+//            .where(
+//                nameFilter(cocktailName),
+//                ingredientFilter(ingredients),
+//                baseFilter(baseDrink),
+//                alcoholFilter(alcoholContent),
+//                colorFilter(cocktailColor),
+//                sweetnessFilter(sweetness)
+//            )
+//            .fetchOne();
+//
+//        long total = totalResult != null ? totalResult : 0;
+//
+//        return new PageImpl<>(cocktailFindResDtoQueryResults, page, total);
+//    }
+public Page<CocktailFindResDto> findCocktailsByOption(Pageable page, String cocktailName,
+    List<Long> ingredients, Long baseDrink, Integer alcoholContent, Long cocktailColor,
+    Integer sweetness, Integer orderBy) {
 
-    public Page<CocktailFindResDto> findCocktailsByOption(Pageable page, String cocktailName,
-        List<Long> ingredients, Long baseDrink, Integer alcoholContent, Long cocktailColor,
-        Integer sweetness, Integer orderBy) {
+    OrderSpecifier<?> orderSpecifier = orderByCondition(orderBy);
 
-        OrderSpecifier<?> orderSpecifier = orderByCondition(orderBy);
+    List<Long> distinctCocktailIds = queryFactory
+        .select(cocktail.id)
+        .from(cocktail)
+        .leftJoin(cocktail.cocktailBases, cocktailBase)
+        .leftJoin(cocktailBase.base, base)
+        .leftJoin(cocktail.cocktailIngredients, cocktailIngredient)
+        .leftJoin(cocktailIngredient.ingredient, ingredient)
+        .where(
+            nameFilter(cocktailName),
+            ingredientFilter(ingredients),
+            baseFilter(baseDrink),
+            alcoholFilter(alcoholContent),
+            colorFilter(cocktailColor),
+            sweetnessFilter(sweetness)
+        )
+        .fetch();
 
-        List<CocktailFindResDto> cocktailFindResDtoQueryResults = queryFactory
-            .select(Projections.constructor(
-                CocktailFindResDto.class,
-                cocktail.id,
-                cocktail.image,
-                cocktail.name,
-                cocktail.heartCount))
-            .from(cocktail)
-            .leftJoin(cocktail.cocktailBases, cocktailBase) // 기반 음료 조인
-            .leftJoin(cocktailBase.base, base) // 베이스 조인
-            .leftJoin(cocktail.cocktailIngredients, cocktailIngredient) // 칵테일 재료 조인
-            .leftJoin(cocktailIngredient.ingredient, ingredient) // 재료 조인
-            .where(
-                nameFilter(cocktailName),
-                ingredientFilter(ingredients),
-                baseFilter(baseDrink),
-                alcoholFilter(alcoholContent),
-                colorFilter(cocktailColor),
-                sweetnessFilter(sweetness)
-            )
-            .offset(page.getOffset())
-            .limit(page.getPageSize())
-            .orderBy(orderSpecifier)
-            .fetch();
+    List<CocktailFindResDto> cocktailFindResDtoQueryResults = queryFactory
+        .select(Projections.constructor(
+            CocktailFindResDto.class,
+            cocktail.id,
+            cocktail.name,
+            cocktail.krName,
+            cocktail.image,
+            cocktail.heartCount))
+        .from(cocktail)
+        .where(cocktail.id.in(distinctCocktailIds))
+        .offset(page.getOffset())
+        .limit(page.getPageSize())
+        .orderBy(orderSpecifier)
+        .fetch();
 
-        long total = cocktailFindResDtoQueryResults.size();
+    long total = distinctCocktailIds.size();
 
-        return new PageImpl<>(cocktailFindResDtoQueryResults, page, total);
-    }
+    return new PageImpl<>(cocktailFindResDtoQueryResults, page, total);
+}
+
 }

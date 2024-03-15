@@ -15,6 +15,7 @@ public class CocktailFindResDto {
 
     private Long cocktailId;
     private String cocktailName;
+    private String cocktailKrName;
     private String cocktailImage;
     private Integer heartCount;
 
@@ -23,6 +24,7 @@ public class CocktailFindResDto {
             CocktailFindResDto.builder()
                 .cocktailId(m.getId())
                 .cocktailName(m.getName())
+                .cocktailKrName(m.getKrName())
                 .cocktailImage(m.getImage())
                 .heartCount(m.getHeartCount())
                 .build());

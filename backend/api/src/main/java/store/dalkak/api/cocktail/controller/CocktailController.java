@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import store.dalkak.api.cocktail.domain.Repository.CocktailRepositoryImpl;
 import store.dalkak.api.cocktail.dto.response.CocktailFindResDto;
 import store.dalkak.api.cocktail.service.CocktailService;
 
@@ -22,7 +21,6 @@ import store.dalkak.api.cocktail.service.CocktailService;
 public class CocktailController {
 
     private final CocktailService cocktailService;
-    private final CocktailRepositoryImpl cocktailRepositoryImpl;
 
     //칵테일 상세보기
 //    @GetMapping("/{originCocktailId}")
@@ -33,7 +31,7 @@ public class CocktailController {
 
     @GetMapping("/search")
     public ResponseEntity<?> searchCocktailByOption(
-        @PageableDefault(value = 1) Pageable page,
+        @PageableDefault(value = 10) Pageable page,
         @RequestParam(value = "cocktailName", required = false) String cocktailName,
         @RequestParam(value = "ingredients", required = false) List<Long> ingredients,
         @RequestParam(value = "base", required = false) Long base,
