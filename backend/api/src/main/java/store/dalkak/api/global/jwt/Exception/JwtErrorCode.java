@@ -7,7 +7,7 @@ import store.dalkak.api.global.exception.ErrorCode;
 @Getter
 @AllArgsConstructor
 public enum JwtErrorCode implements ErrorCode {
-    INVALID_TOKEN(409,"JWT_01","유효하지 않은 토큰입니다.");
+    INVALID_TOKEN(401,"JWT_01","유효하지 않은 토큰입니다.");
 
     private final int statusCode;
     private final String errorCode;

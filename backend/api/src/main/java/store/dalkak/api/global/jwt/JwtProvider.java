@@ -10,6 +10,8 @@ import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import store.dalkak.api.global.jwt.Exception.JwtErrorCode;
+import store.dalkak.api.global.jwt.Exception.JwtException;
 import store.dalkak.api.global.jwt.dto.TokenDto;
 
 @Slf4j
@@ -77,23 +79,24 @@ public class JwtProvider {
         return key;
     }
 
+    //토큰 검증
     public boolean validateToken(String token){
         try{
             Jws<Claims> claims = Jwts.parser().setSigningKey(this.generateKey()).parseClaimsJws(token);
-            return true;
+            return new Date(System.currentTimeMillis()).getTime() <= claims.getBody()
+                .getExpiration().getTime();
         } catch(Exception e){
-            log.error(e.getMessage());
             return false;
         }
     }
 
+    // 토큰에서 사용자 id값 가져오기
     public Long getMemberPrimaryKeyId(String token){
         Jws<Claims> claims = null;
         try{
             claims = Jwts.parser().setSigningKey(this.generateKey()).parseClaimsJws(token);
         } catch(Exception e){
-            log.error(e.getMessage());
-//            throw new UnAuthorizedException();
+            throw new JwtException(JwtErrorCode.INVALID_TOKEN);
         }
 
         assert claims != null;
