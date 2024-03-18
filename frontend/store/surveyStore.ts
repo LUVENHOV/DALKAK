@@ -2,6 +2,16 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
+const Question = [
+  '좋아하는 칵테일을 최소 1개 입력해주세요',
+  '언제 주로 술을 마시나요?',
+  '어떤 베이스 술로 만들어진 칵테일을 원하시나요?',
+  '선호하는 도수가 어떻게 되나요?',
+  '선호하는 단맛 정도는 어떻게 되나요?',
+  '싫어하는 재료가 있나요?',
+  '설문조사가 완료되었어요!',
+];
+
 interface storeState {
   progress: number;
   surveyCocktails: number[];
@@ -10,6 +20,7 @@ interface storeState {
   alcoholContent: number;
   sweatness: number;
   surveyIngredients: number;
+  getQuestion: (process: number) => string;
   nextProgress: () => void;
   beforeProgress: () => void;
   setSurveyCocktails: (cocktails: number[]) => void;
@@ -31,10 +42,19 @@ const surveyStore = create(
       alcoholContent: 0,
       sweatness: 0,
       surveyIngredients: 0,
+      getQuestion: (process: number) => Question[process],
       // 다음 페이지 이동
-      nextProgress: () => set({ progress: get().progress + 1 }),
+      nextProgress: () => {
+        if (get().progress < 6) {
+          set({ progress: get().progress + 1 });
+        }
+      },
       // 이전 페이지로 이동
-      beforeProgress: () => set({ progress: get().progress - 1 }),
+      beforeProgress: () => {
+        if (get().progress > 0) {
+          set({ progress: get().progress - 1 });
+        }
+      },
 
       // set survey states
       setSurveyCocktails: (cocktails: number[]) =>

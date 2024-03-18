@@ -30,7 +30,7 @@ export default function Navbar() {
       <div />
       <div>
         현재 가장 인기 있는 칵테일&nbsp;&nbsp;&nbsp;|
-        <span className="top-cocktail">&nbsp;&nbsp;&nbsp;1 갓파더</span>
+        <span className="top-cocktail">1 갓파더</span>
       </div>
       <div />
       <div className="hi">
