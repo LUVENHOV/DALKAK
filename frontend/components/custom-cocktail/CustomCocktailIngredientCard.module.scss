@@ -1,0 +1,60 @@
+.container {
+  margin-bottom: 2.5vw;
+}
+
+.count {
+  display: flex;
+  justify-content: center;
+  margin-top: 1vw;
+  font-size: 1.02vw;
+}
+
+.ingredient-img {
+  width: 4vw;
+  height: 4vw;
+  margin-top: 0.5vw;
+}
+
+.ingredient-name {
+  margin-top: 0.9vw;
+  margin-bottom: 0.3vw;
+  font-size: 1.02vw;
+}
+
+.start-ingredient {
+  border: solid var(--color-placeholder);
+  border-width: 0.1vw 0.1vw 0.1vw 0.1vw;
+  border-radius: 1vw 0vw 0vw 1vw;
+  width: 7.5vw;
+  height: 7.5vw;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.last-ingredient {
+  border: solid var(--color-placeholder);
+  border-width: 0.1vw 0.1vw 0.1vw 0vw;
+  border-radius: 0vw 1vw 1vw 0vw;
+  width: 7.5w;
+  height: 7.5vw;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.inner-ingredient {
+  border: solid var(--color-placeholder);
+  border-width: 0.1vw 0.1vw 0.1vw 0vw;
+  width: 7.5vw;
+  height: 7.5vw;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
