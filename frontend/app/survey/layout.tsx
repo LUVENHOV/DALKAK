@@ -35,6 +35,8 @@ export default function Layout({
       <div className="surveyWrapper">{children}</div>
       <div className="progressWrapper">
         {progress > 0 && (
+          // temp
+          // progress < 6 &&
           <button
             className="before"
             type="button"
@@ -44,15 +46,33 @@ export default function Layout({
           </button>
         )}
 
-        {progress < 6 && (
+        {progress < 5 && (
           <button className="next" type="button" onClick={() => nextProgress()}>
             다음
           </button>
         )}
 
-        {progress == 6 && (
-          <button className="next" type="button" onClick={() => {}}>
+        {progress === 5 && (
+          <button
+            className="next"
+            type="button"
+            onClick={() => {
+              nextProgress();
+              // submit API
+            }}
+          >
             제출
+          </button>
+        )}
+        {progress === 6 && (
+          <button
+            className="next"
+            type="button"
+            onClick={() => {
+              // route to home
+            }}
+          >
+            홈으로
           </button>
         )}
       </div>
