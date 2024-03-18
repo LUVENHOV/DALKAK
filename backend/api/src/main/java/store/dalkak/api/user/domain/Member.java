@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import store.dalkak.api.user.domain.embed.Gender;
 import store.dalkak.api.user.domain.embed.Provider;
 
 @Entity
@@ -26,7 +27,7 @@ public class Member {
     private LocalDate birthdate;
 
     @Column(name="gender")
-    private String gender;
+    private Gender gender;
 
     @Column(name="oauth_sub")
     private String oauthSub;
@@ -39,7 +40,7 @@ public class Member {
     private Boolean surveyCompletion;
 
     @Builder
-    public Member(String nickname,LocalDate birthdate, String gender,String oauthSub,Provider oauthProvider,Boolean surveyCompletion){
+    public Member(String nickname,LocalDate birthdate, Gender gender,String oauthSub,Provider oauthProvider,Boolean surveyCompletion){
         this.nickname=nickname;
         this.birthdate=birthdate;
         this.gender=gender;
