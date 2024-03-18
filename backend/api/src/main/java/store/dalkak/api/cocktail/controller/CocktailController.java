@@ -8,9 +8,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import store.dalkak.api.cocktail.dto.response.CocktailDetailResDto;
 import store.dalkak.api.cocktail.dto.response.CocktailFindResDto;
 import store.dalkak.api.cocktail.service.CocktailService;
 
@@ -23,12 +25,13 @@ public class CocktailController {
     private final CocktailService cocktailService;
 
     //칵테일 상세보기
-//    @GetMapping("/{originCocktailId}")
-//    public ResponseEntity<?> cocktailDetail(@PathVariable Long originCocktailId) {
-//        CocktailDetailResDto cocktail = cocktailService.findCocktail(originCocktailId);
-//
-//    }
+    @GetMapping("/{originCocktailId}")
+    public ResponseEntity<?> cocktailDetail(@PathVariable Long originCocktailId) {
+        CocktailDetailResDto cocktail = cocktailService.findCocktail(originCocktailId);
+        return ResponseEntity.ok(cocktail);
+    }
 
+    //칵테일 검색
     @GetMapping("/search")
     public ResponseEntity<?> searchCocktailByOption(
         @PageableDefault(value = 10) Pageable page,
@@ -44,7 +47,9 @@ public class CocktailController {
         return ResponseEntity.ok(cocktailSearchResDtoPage);
     }
 
-
-
+//    @GetMapping
+//    public ResponseEntity<?> searchIngredients(
+//
+//    )
 
 }
