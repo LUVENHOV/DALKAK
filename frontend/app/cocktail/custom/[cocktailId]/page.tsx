@@ -3,19 +3,18 @@ import CustomCocktailList from '../../../../components/custom-cocktail/CustomCoc
 import CustomCocktailWriteButton from '../../../../components/custom-cocktail/CustomCocktailWriteButton.tsx';
 import Pagination from '../../../../components/common/pagination/Pagination.tsx';
 
+interface TotalData {
+  custom_cocktails: DummyList[];
+  total_count: number;
+  total_pages: number;
+  current_page: number;
+}
 interface DummyList {
   id: number;
   title: string;
   comment: string;
   author: string;
   imageLink: string;
-}
-
-interface TotalData {
-  custom_cocktails: DummyList[];
-  total_count: number;
-  total_pages: number;
-  current_page: number;
 }
 
 export default function Page() {
