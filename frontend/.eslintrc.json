@@ -18,10 +18,22 @@
     "sourceType": "module"
   },
   "rules": {
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
     "react/jsx-filename-extension": [
       1,
-      {"extensions": [".js", ".jsx", ".tsx", ".ts"]}
-    ]
+      { "extensions": [".js", ".jsx", ".tsx", ".ts"] }
+    ],
+    // 아래는 CRLF와 LF 오류가 나서 추가한 코드
+    "linebreak-style": ["error", "windows"]
   },
   "settings": {
     "react": {
