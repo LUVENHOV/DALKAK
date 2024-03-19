@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+  .input-style {
+    border: solid 2px;
+    border-radius: 0.5vw;
+    width: 18vw;
+    height: 2.5vw;
+    font-size: 1vw;
+  }
+
+  .text-length {
+    align-self: end;
+  }
+}
