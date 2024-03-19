@@ -3,12 +3,13 @@ package store.dalkak.api.custom.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import store.dalkak.api.cocktail.domain.ingredient.Unit;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomIngredientDto {
-    Long id;
+public class CustomIngredientModifyDto {
+    Long customCocktailId;
     Double amount;
-    Long unitId;
+    Unit unit;
 }
