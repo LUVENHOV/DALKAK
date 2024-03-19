@@ -1,14 +1,11 @@
-package store.dalkak.api.cocktail.domain.Ingredient;
+package store.dalkak.api.cocktail.domain.ingredient;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,8 +13,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "INGREDIENT_CATEGORY")
-public class Category {
+@Table(name = "UNIT")
+public class Unit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +23,5 @@ public class Category {
 
     @Column(name = "name", nullable = false)
     private String name;
+
 }

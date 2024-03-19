@@ -1,4 +1,4 @@
-package store.dalkak.api.cocktail.domain.Base;
+package store.dalkak.api.cocktail.domain.base;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

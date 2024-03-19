@@ -1,4 +1,4 @@
-package store.dalkak.api.cocktail.dto.response;
+package store.dalkak.api.cocktail.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class UnitResDto {
+public class UnitDto {
 
     private Long unitId;
     private String unitName;

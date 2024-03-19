@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import store.dalkak.api.custom.dto.response.CustomDetailResDto;
+import store.dalkak.api.cocktail.dto.IngredientDto;
+import store.dalkak.api.cocktail.dto.ToolDto;
+import store.dalkak.api.custom.dto.CocktailCustomDto;
 
 @Builder
 @Getter
@@ -18,11 +20,13 @@ public class CocktailDetailResDto {
     private String cocktailKrName;
     private String cocktailImage;
     private Integer heartCount;
+    private Integer viewCount;
     private Integer alcoholContent;
     private Integer cocktailSweetness;
     private String cocktailRecipe;
-    List<IngredientResDto> cocktailIngredients;
-    List<ToolResDto> cocktailTools;
-    List<CustomDetailResDto> customCocktails;
-
+    List<IngredientDto> cocktailIngredients;
+    List<ToolDto> cocktailTools;
+    List<CocktailCustomDto> customCocktails;
 }
+
+

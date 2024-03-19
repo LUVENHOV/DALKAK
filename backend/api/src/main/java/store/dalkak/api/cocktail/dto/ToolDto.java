@@ -1,4 +1,4 @@
-package store.dalkak.api.cocktail.dto.response;
+package store.dalkak.api.cocktail.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ToolResDto {
+public class ToolDto {
 
     private Long toolId;
     private String toolName;

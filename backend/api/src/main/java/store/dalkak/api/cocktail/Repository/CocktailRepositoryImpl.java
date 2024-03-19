@@ -1,9 +1,9 @@
 package store.dalkak.api.cocktail.Repository;
 
-import static store.dalkak.api.cocktail.domain.Base.QBase.base;
-import static store.dalkak.api.cocktail.domain.Base.QCocktailBase.cocktailBase;
-import static store.dalkak.api.cocktail.domain.Ingredient.QCocktailIngredient.cocktailIngredient;
-import static store.dalkak.api.cocktail.domain.Ingredient.QIngredient.ingredient;
+import static store.dalkak.api.cocktail.domain.base.QBase.base;
+import static store.dalkak.api.cocktail.domain.base.QCocktailBase.cocktailBase;
+import static store.dalkak.api.cocktail.domain.ingredient.QCocktailIngredient.cocktailIngredient;
+import static store.dalkak.api.cocktail.domain.ingredient.QIngredient.ingredient;
 import static store.dalkak.api.cocktail.domain.QCocktail.cocktail;
 
 import com.querydsl.core.types.OrderSpecifier;
@@ -29,19 +29,22 @@ public class CocktailRepositoryImpl implements CocktailRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     private OrderSpecifier<?> orderByCondition(Integer orderBy) {
-        if (orderBy == null) return cocktail.heartCount.desc(); // 기본 정렬: 하트 수 내림차순
+        if (orderBy == null) {
+            return cocktail.heartCount.desc(); // 기본 정렬: 하트 수 내림차순
+        }
 
         return switch (orderBy) {
-            case 1 -> cocktail.heartCount.desc(); // 하트 수 내림차순
-            case 2 -> cocktail.heartCount.asc(); // 하트 수 오름차순
-            case 3 -> cocktail.name.asc(); // 예: 이름 오름차순
-            case 4 -> cocktail.name.desc(); // 예: 이름 내림차순
-            default -> cocktail.heartCount.desc(); // 기본값
+            case 1 -> cocktail.name.asc(); // 이름 오름차순
+            case 2 -> cocktail.name.desc(); // 이름 내림차순
+            case 3 -> cocktail.heartCount.asc(); // 하트 수 오름차순
+            case 4 -> cocktail.heartCount.desc(); // 하트 수 내림차순
+            default -> cocktail.heartCount.desc(); // 기본값 4
         };
     }
 
     private BooleanExpression nameFilter(String cocktailName) {
-        return cocktailName != null ? cocktail.name.eq(cocktailName).or(cocktail.krName.eq(cocktailName)) : null;
+        return cocktailName != null ? cocktail.name.eq(cocktailName)
+            .or(cocktail.krName.eq(cocktailName)) : null;
     }
 
 
@@ -56,7 +59,8 @@ public class CocktailRepositoryImpl implements CocktailRepositoryCustom {
             .where(cocktailIngredient.cocktail.id.eq(cocktail.id)
                 .and(cocktailIngredient.ingredient.id.in(ingredients)))
             .groupBy(cocktailIngredient.cocktail.id)
-            .having(cocktailIngredient.ingredient.id.countDistinct().eq(Long.valueOf(ingredients.size())))
+            .having(cocktailIngredient.ingredient.id.countDistinct()
+                .eq(Long.valueOf(ingredients.size())))
             .exists();
     }
 
@@ -64,8 +68,8 @@ public class CocktailRepositoryImpl implements CocktailRepositoryCustom {
         return baseDrink != null ? base.id.eq(baseDrink) : null;
     }
 
-    private BooleanExpression alcoholFilter(Integer alcoholContent) {
-        return alcoholContent != null ? cocktail.alcohol.eq(alcoholContent) : null;
+    private BooleanExpression alcoholFilter(Integer min, Integer max) {
+        return min != null && max != null ? cocktail.alcohol.between(min, max) : null;
     }
 
     private BooleanExpression colorFilter(Long cocktailColor) {
@@ -76,47 +80,50 @@ public class CocktailRepositoryImpl implements CocktailRepositoryCustom {
         return sweetness != null ? cocktail.sweetness.eq(sweetness) : null;
     }
 
-public Page<CocktailFindResDto> findCocktailsByOption(Pageable page, String cocktailName,
-    List<Long> ingredients, Long baseDrink, Integer alcoholContent, Long cocktailColor,
-    Integer sweetness, Integer orderBy) {
+    public Page<CocktailFindResDto> findCocktailsByOption(Pageable page, String cocktailName,
+        List<Long> ingredients, Long baseDrink, Integer minAlcoholContent,
+        Integer maxAlcoholContent, Long cocktailColor,
+        Integer sweetness, Integer orderBy) {
 
-    OrderSpecifier<?> orderSpecifier = orderByCondition(orderBy);
+        OrderSpecifier<?> orderSpecifier = orderByCondition(orderBy);
 
-    List<Long> distinctCocktailIds = queryFactory
-        .select(cocktail.id)
-        .from(cocktail)
-        .leftJoin(cocktail.cocktailBases, cocktailBase)
-        .leftJoin(cocktailBase.base, base)
-        .leftJoin(cocktail.cocktailIngredients, cocktailIngredient)
-        .leftJoin(cocktailIngredient.ingredient, ingredient)
-        .where(
-            nameFilter(cocktailName),
-            ingredientFilter(ingredients),
-            baseFilter(baseDrink),
-            alcoholFilter(alcoholContent),
-            colorFilter(cocktailColor),
-            sweetnessFilter(sweetness)
-        )
-        .fetch();
+        List<Long> distinctCocktailIds = queryFactory
+            .select(cocktail.id)
+            .from(cocktail)
+            .leftJoin(cocktail.cocktailBases, cocktailBase)
+            .leftJoin(cocktailBase.base, base)
+            .leftJoin(cocktail.cocktailIngredients, cocktailIngredient)
+            .leftJoin(cocktailIngredient.ingredient, ingredient)
+            .where(
+                nameFilter(cocktailName),
+                ingredientFilter(ingredients),
+                baseFilter(baseDrink),
+                alcoholFilter(minAlcoholContent, maxAlcoholContent),
+                colorFilter(cocktailColor),
+                sweetnessFilter(sweetness)
+            )
+            .groupBy(cocktail.id)
+            .fetch();
 
-    List<CocktailFindResDto> cocktailFindResDtoQueryResults = queryFactory
-        .select(Projections.constructor(
-            CocktailFindResDto.class,
-            cocktail.id,
-            cocktail.name,
-            cocktail.krName,
-            cocktail.image,
-            cocktail.heartCount))
-        .from(cocktail)
-        .where(cocktail.id.in(distinctCocktailIds))
-        .offset(page.getOffset())
-        .limit(page.getPageSize())
-        .orderBy(orderSpecifier)
-        .fetch();
+        List<CocktailFindResDto> cocktailFindResDtoQueryResults = queryFactory
+            .select(Projections.constructor(
+                CocktailFindResDto.class,
+                cocktail.id,
+                cocktail.name,
+                cocktail.krName,
+                cocktail.image,
+                cocktail.heartCount))
+            .from(cocktail)
+            .where(cocktail.id.in(distinctCocktailIds))
+            .offset(page.getOffset())
+            .limit(page.getPageSize())
+            .orderBy(orderSpecifier)
+            .fetch();
 
-    long total = distinctCocktailIds.size();
+        long total = distinctCocktailIds.size();
 
-    return new PageImpl<>(cocktailFindResDtoQueryResults, page, total);
-}
+        return new PageImpl<>(cocktailFindResDtoQueryResults, page, total);
+
+    }
 
 }

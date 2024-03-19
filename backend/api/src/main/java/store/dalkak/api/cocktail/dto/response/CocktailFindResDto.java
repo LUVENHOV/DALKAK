@@ -19,15 +19,4 @@ public class CocktailFindResDto {
     private String cocktailImage;
     private Integer heartCount;
 
-    public static Page<CocktailFindResDto> toDtoList(Page<Cocktail> cocktails) {
-        return cocktails.map(m ->
-            CocktailFindResDto.builder()
-                .cocktailId(m.getId())
-                .cocktailName(m.getName())
-                .cocktailKrName(m.getKrName())
-                .cocktailImage(m.getImage())
-                .heartCount(m.getHeartCount())
-                .build());
-    }
-
 }

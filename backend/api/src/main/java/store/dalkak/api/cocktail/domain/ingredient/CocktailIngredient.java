@@ -1,4 +1,4 @@
-package store.dalkak.api.cocktail.domain.Ingredient;
+package store.dalkak.api.cocktail.domain.ingredient;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

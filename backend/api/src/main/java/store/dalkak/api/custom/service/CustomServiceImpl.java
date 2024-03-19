@@ -1,24 +1,17 @@
 package store.dalkak.api.custom.service;
 
 import jakarta.transaction.Transactional;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import store.dalkak.api.cocktail.domain.Cocktail;
-import store.dalkak.api.cocktail.domain.Ingredient.Ingredient;
-import store.dalkak.api.cocktail.domain.Ingredient.Unit;
 import store.dalkak.api.cocktail.Repository.CocktailRepository;
 import store.dalkak.api.cocktail.Repository.ingredient.IngredientRepository;
 //import store.dalkak.api.cocktail.Repository.UnitRepository;
-import store.dalkak.api.custom.domain.Custom;
-import store.dalkak.api.custom.domain.CustomIngredient;
 import store.dalkak.api.custom.domain.CustomIngredientRepository;
 import store.dalkak.api.custom.domain.CustomRepository;
 import store.dalkak.api.custom.dto.request.CustomCreateReqDto;
 import store.dalkak.api.global.config.ImageConfig;
-import store.dalkak.api.user.domain.Member;
 //import store.dalkak.api.user.domain.UserRepository;
 
 @Service
