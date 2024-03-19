@@ -37,3 +37,9 @@ out/
 .vscode/
 
 .DS_Store
+
+### generated ###
+**/src/main/generated
+
+### application.log ###
+**/*.gz
