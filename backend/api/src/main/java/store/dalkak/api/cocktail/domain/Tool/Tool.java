@@ -16,18 +16,18 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "tool")
+@Table(name = "TOOL")
 public class Tool {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "tool_id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "tool_name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "tool_detail")
+    @Column(name = "detail")
     private String detail;
 
     @OneToMany(mappedBy = "tool", cascade = CascadeType.ALL, orphanRemoval = true)

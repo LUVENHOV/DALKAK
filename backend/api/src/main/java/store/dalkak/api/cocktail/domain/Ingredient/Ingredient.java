@@ -20,18 +20,18 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "ingredient")
+@Table(name = "INGREDIENT")
 public class Ingredient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ingredient_id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "ingredient_name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "ingredient_image")
+    @Column(name = "image")
     private String image;
 
     @ManyToOne(fetch = LAZY)

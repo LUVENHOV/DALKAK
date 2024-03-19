@@ -17,12 +17,12 @@ import store.dalkak.api.cocktail.domain.Cocktail;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "cocktail_ingredient")
+@Table(name = "COCKTAIL_INGREDIENT")
 public class CocktailIngredient{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cocktail_ingredient_id")
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne
@@ -33,7 +33,7 @@ public class CocktailIngredient{
     @JoinColumn(name = "ingredient_id")
     private Ingredient ingredient;
 
-    @Column(name = "origin_cocktail_ingredient_amount")
+    @Column(name = "amount")
     private Double amount;
 
     @ManyToOne

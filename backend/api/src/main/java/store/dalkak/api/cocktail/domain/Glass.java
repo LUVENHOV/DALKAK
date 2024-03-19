@@ -16,15 +16,15 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "glass")
+@Table(name = "GLASS")
 public class Glass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "glass_id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "glass_name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
 }
