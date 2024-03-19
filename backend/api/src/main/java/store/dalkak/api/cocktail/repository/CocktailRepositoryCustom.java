@@ -1,9 +1,8 @@
-package store.dalkak.api.cocktail.domain.Repository;
+package store.dalkak.api.cocktail.repository;
 
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import store.dalkak.api.cocktail.domain.Cocktail;
 import store.dalkak.api.cocktail.dto.response.CocktailFindResDto;
 
 public interface CocktailRepositoryCustom {

@@ -1,4 +1,4 @@
-package store.dalkak.api.cocktail.domain.Base;
+package store.dalkak.api.cocktail.domain.base;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -16,15 +16,15 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "base")
+@Table(name = "BASE")
 public class Base {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "base_id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "base_name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @OneToMany(mappedBy = "base", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -11,7 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.util.List;
 import lombok.AccessLevel;
@@ -19,21 +18,21 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
-import store.dalkak.api.cocktail.domain.Base.CocktailBase;
-import store.dalkak.api.cocktail.domain.Ingredient.CocktailIngredient;
-import store.dalkak.api.cocktail.domain.Tool.CocktailTool;
+import store.dalkak.api.cocktail.domain.base.CocktailBase;
+import store.dalkak.api.cocktail.domain.ingredient.CocktailIngredient;
+import store.dalkak.api.cocktail.domain.tool.CocktailTool;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Table(name = "cocktail")
+@Table(name = "COCKTAIL")
 public class Cocktail {
 
     //칵테일아이디
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cocktail_id")
+    @Column(name = "id")
     private Long id;
 
     //칵테일글라스
@@ -72,19 +71,19 @@ public class Cocktail {
     private Collection collection;
 
     //원본칵테일 이름
-    @Column(name = "cocktail_name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     //원본칵테일 한글이름
-    @Column(name = "cocktail_kr_name")
+    @Column(name = "korean_name")
     private String krName;
 
     //원본칵테일 이미지
-    @Column(name = "cocktail_image", nullable = false)
+    @Column(name = "image", nullable = false)
     private String image;
 
     //원본칵테일 레시피
-    @Column(name = "cocktail_recipe", nullable = false)
+    @Column(name = "recipe", nullable = false)
     private String recipe;
 
     //원본칵테일 도수
@@ -101,12 +100,12 @@ public class Cocktail {
 
     //좋아요 수
     @ColumnDefault("0")
-    @Column(name = "cocktail_heart_cnt", nullable = false)
+    @Column(name = "heart_count", nullable = false)
     private Integer heartCount;
 
     //조회수
     @ColumnDefault("0")
-    @Column(name = "cocktail_view_cnt",nullable = false)
+    @Column(name = "view_count",nullable = false)
     private Integer viewCount;
 
 }

@@ -1,4 +1,4 @@
-package store.dalkak.api.cocktail.domain.Ingredient;
+package store.dalkak.api.cocktail.domain.tool;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -16,14 +16,20 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "ingredient_category")
-public class Category {
+@Table(name = "TOOL")
+public class Tool {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ingredient_category_id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "ingredient_category_name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "detail")
+    private String detail;
+
+    @OneToMany(mappedBy = "tool", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CocktailTool> cocktailTools;
 }

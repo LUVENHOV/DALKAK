@@ -1,9 +1,9 @@
-package store.dalkak.api.cocktail.domain.Repository;
+package store.dalkak.api.cocktail.repository;
 
-import static store.dalkak.api.cocktail.domain.Base.QBase.base;
-import static store.dalkak.api.cocktail.domain.Base.QCocktailBase.cocktailBase;
-import static store.dalkak.api.cocktail.domain.Ingredient.QCocktailIngredient.cocktailIngredient;
-import static store.dalkak.api.cocktail.domain.Ingredient.QIngredient.ingredient;
+import static store.dalkak.api.cocktail.domain.base.QBase.base;
+import static store.dalkak.api.cocktail.domain.base.QCocktailBase.cocktailBase;
+import static store.dalkak.api.cocktail.domain.ingredient.QCocktailIngredient.cocktailIngredient;
+import static store.dalkak.api.cocktail.domain.ingredient.QIngredient.ingredient;
 import static store.dalkak.api.cocktail.domain.QCocktail.cocktail;
 
 import com.querydsl.core.types.OrderSpecifier;

@@ -1,4 +1,4 @@
-package store.dalkak.api.cocktail.domain.Base;
+package store.dalkak.api.cocktail.domain.ingredient;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,12 +17,12 @@ import store.dalkak.api.cocktail.domain.Cocktail;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "cocktail_base")
-public class CocktailBase{
+@Table(name = "COCKTAIL_INGREDIENT")
+public class CocktailIngredient{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cocktail_base_id")
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne
@@ -30,7 +30,14 @@ public class CocktailBase{
     private Cocktail cocktail;
 
     @ManyToOne
-    @JoinColumn(name = "base_id")
-    private Base base;
+    @JoinColumn(name = "ingredient_id")
+    private Ingredient ingredient;
+
+    @Column(name = "amount")
+    private Double amount;
+
+    @ManyToOne
+    @JoinColumn(name = "unit_id")
+    private Unit unit;
 
 }

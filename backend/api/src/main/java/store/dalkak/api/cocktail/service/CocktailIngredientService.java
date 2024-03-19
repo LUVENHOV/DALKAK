@@ -6,8 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import store.dalkak.api.cocktail.domain.Cocktail;
-import store.dalkak.api.cocktail.domain.Ingredient.CocktailIngredient;
-import store.dalkak.api.cocktail.domain.Repository.ingredient.CocktailIngredientRepository;
+import store.dalkak.api.cocktail.domain.ingredient.CocktailIngredient;
+import store.dalkak.api.cocktail.repository.ingredient.CocktailIngredientRepository;
 
 @Slf4j
 @Transactional

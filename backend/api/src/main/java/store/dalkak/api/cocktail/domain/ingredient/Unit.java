@@ -1,4 +1,4 @@
-package store.dalkak.api.cocktail.domain.Ingredient;
+package store.dalkak.api.cocktail.domain.ingredient;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,15 +13,15 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "unit")
+@Table(name = "UNIT")
 public class Unit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "unit_id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "unit_name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
 }
