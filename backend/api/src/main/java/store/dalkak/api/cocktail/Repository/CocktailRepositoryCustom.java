@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import store.dalkak.api.cocktail.domain.Cocktail;
 import store.dalkak.api.cocktail.dto.response.CocktailFindResDto;
+import store.dalkak.api.user.dto.CocktailDto;
 
 public interface CocktailRepositoryCustom {
 

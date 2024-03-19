@@ -50,23 +50,23 @@ public class Custom {
     private List<CustomIngredient> customIngredients;
 
     //커스텀칵테일 이름
-    @Column(name = "custom_cocktail_name")
+    @Column(name = "name")
     private String name;
 
     //커스텀칵테일 이미지
-    @Column(name = "custom_cocktail_image")
+    @Column(name = "image")
     private String image;
 
     //커스텀칵테일 요약
-    @Column(name = "custom_cocktail_summary")
+    @Column(name = "summary")
     private String summary;
 
     //커스텀칵테일 코멘트
-    @Column(name = "custom_cocktail_comment")
+    @Column(name = "comment")
     private String comment;
 
     //커스텀칵테일 레시피
-    @Column(name = "custom_cocktail_recipe")
+    @Column(name = "recipe")
     private String recipe;
 
     //커스텀칵테일 이미지

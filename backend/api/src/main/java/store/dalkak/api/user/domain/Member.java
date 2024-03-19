@@ -48,6 +48,4 @@ public class Member {
         this.oauthProvider=oauthProvider;
         this.surveyCompletion=surveyCompletion;
     }
-
-
 }

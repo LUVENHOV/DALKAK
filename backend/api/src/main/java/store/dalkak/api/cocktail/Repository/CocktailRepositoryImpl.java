@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import store.dalkak.api.cocktail.dto.response.CocktailFindResDto;
+import store.dalkak.api.user.dto.CocktailDto;
 
 
 @Transactional(readOnly = true)
@@ -118,5 +119,6 @@ public Page<CocktailFindResDto> findCocktailsByOption(Pageable page, String cock
 
     return new PageImpl<>(cocktailFindResDtoQueryResults, page, total);
 }
+
 
 }
