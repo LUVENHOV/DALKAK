@@ -1,4 +1,4 @@
-package store.dalkak.api.cocktail.domain.Repository;
+package store.dalkak.api.cocktail.Repository;
 
 import static store.dalkak.api.cocktail.domain.Base.QBase.base;
 import static store.dalkak.api.cocktail.domain.Base.QCocktailBase.cocktailBase;

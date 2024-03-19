@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import store.dalkak.api.cocktail.domain.Cocktail;
 import store.dalkak.api.cocktail.domain.Ingredient.CocktailIngredient;
-import store.dalkak.api.cocktail.domain.Repository.CocktailRepository;
+import store.dalkak.api.cocktail.Repository.CocktailRepository;
 import store.dalkak.api.cocktail.dto.response.CocktailDetailResDto;
 import store.dalkak.api.cocktail.dto.response.CocktailFindResDto;
 import store.dalkak.api.cocktail.dto.response.IngredientResDto;

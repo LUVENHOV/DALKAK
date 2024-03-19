@@ -22,12 +22,12 @@ public class CustomController {
     private final CustomService customService;
 
     // 로그인한 Member 추가
-    @PostMapping
-    public ResponseEntity<ApiResponse<String>> createCustomCocktail(
-        @RequestPart("image") MultipartFile image,
-        @RequestPart("CustomCreateReqDto") CustomCreateReqDto customCreateReqDto) {
-        customService.createCustomCocktail(image, customCreateReqDto);
-        return ResponseEntity.status(HttpStatus.CREATED)
-            .body(ApiResponse.successWithData("이미지가 생성되었습니다."));
-    }
+//    @PostMapping
+//    public ResponseEntity<ApiResponse<String>> createCustomCocktail(
+//        @RequestPart("image") MultipartFile image,
+//        @RequestPart("CustomCreateReqDto") CustomCreateReqDto customCreateReqDto) {
+//        customService.createCustomCocktail(image, customCreateReqDto);
+//        return ResponseEntity.status(HttpStatus.CREATED)
+//            .body(ApiResponse.successWithData("이미지가 생성되었습니다."));
+//    }
 }

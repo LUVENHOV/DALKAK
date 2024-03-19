@@ -17,15 +17,15 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "collection")
+@Table(name = "COLLECTION")
 public class Collection {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "collection_id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "collection_name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "collection_cocktails")
