@@ -2,7 +2,6 @@
   font-family: 'Pretendard-Regular';
   src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
     format('woff');
-  font-weight: 400;
   font-style: normal;
 }
 
@@ -17,11 +16,6 @@ body {
   ::-webkit-scrollbar {
     display: none;
   }
-}
-
-input,
-button {
-  font-size: 1.2vw;
 }
 
 :root {
@@ -66,4 +60,8 @@ button {
 
 input {
   font-family: 'Pretendard-Regular';
+}
+
+input::placeholder {
+  color: var(--color-placeholder);
 }
