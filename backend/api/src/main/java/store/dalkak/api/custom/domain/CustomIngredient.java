@@ -9,6 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import store.dalkak.api.cocktail.domain.Ingredient.Ingredient;
@@ -18,12 +19,12 @@ import store.dalkak.api.cocktail.domain.Ingredient.Unit;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "custom_cocktail_ingredient")
+@Table(name = "CUSTOM_COCKTAIL_INGREDIENT")
 public class CustomIngredient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "custom_cocktail_ingredient_id")
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne
@@ -34,11 +35,19 @@ public class CustomIngredient {
     @JoinColumn(name = "ingredient_id")
     private Ingredient ingredient;
 
-    @Column(name = "custom_cocktail_ingredient_amount")
+    @Column(name = "amount")
     private Double amount;
 
     @ManyToOne
     @JoinColumn(name = "unit_id")
     private Unit unit;
+
+    @Builder
+    public CustomIngredient(Custom custom, Ingredient ingredient, Double amount, Unit unit) {
+        this.custom = custom;
+        this.ingredient = ingredient;
+        this.amount = amount;
+        this.unit = unit;
+    }
 
 }

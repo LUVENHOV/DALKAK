@@ -19,18 +19,19 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import store.dalkak.api.cocktail.domain.Cocktail;
+import store.dalkak.api.user.domain.Member;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Table(name = "custom_cocktail")
+@Table(name = "CUSTOM_COCKTAIL")
 public class Custom {
 
     //커스텀칵테일아이디
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "custom_cocktail_id")
+    @Column(name = "id")
     private Long id;
 
     //원본칵테일아이디
@@ -39,9 +40,9 @@ public class Custom {
     private Cocktail cocktail;
 
     //회원아이디
-//    @ManyToOne(fetch = LAZY)
-//    @JoinColumn(name = "member_id")
-//    private User user;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     //커스텀칵테일재료
     @OneToMany(mappedBy = "custom", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -73,10 +74,10 @@ public class Custom {
     private Boolean open;
 
     @Builder
-
-    public Custom(Cocktail cocktail, List<CustomIngredient> customIngredients, String name,
+    public Custom(Cocktail cocktail, Member member, List<CustomIngredient> customIngredients, String name,
         String image, String summary, String comment, String recipe, Boolean open) {
         this.cocktail = cocktail;
+        this.member = member;
         this.customIngredients = customIngredients;
         this.name = name;
         this.image = image;
