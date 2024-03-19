@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  justify-content: flex-end;
+
+  .selected {
+    font-weight: 900;
+  }
+
+  button {
+    cursor: pointer;
+    padding: 5vh 0;
+  }
+
+  .division {
+    margin: 0 1vw;
+    padding: 5vh 0;
+  }
+}
