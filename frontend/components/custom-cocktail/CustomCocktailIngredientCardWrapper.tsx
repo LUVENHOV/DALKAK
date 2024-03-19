@@ -17,12 +17,24 @@ interface Ingredients {
   };
 }
 
+interface StoreData {
+  id: number;
+  name: string;
+  image: string | StaticImageData;
+  category: {
+    id: number;
+    name: string;
+  };
+}
+
 interface Props {
   ingredients: Ingredients[];
+  storeData: StoreData[];
 }
 
 export default function CustomCocktailIngredientCardWrapper({
   ingredients,
+  storeData,
 }: Props) {
   const lastIndex = ingredients.length - 1;
 
@@ -41,6 +53,7 @@ export default function CustomCocktailIngredientCardWrapper({
             ingredient={ingredient}
             index={index}
             lastIndex={lastIndex}
+            storeData={storeData}
           />
         ))}
       </ul>

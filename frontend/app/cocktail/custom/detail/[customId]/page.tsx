@@ -15,6 +15,10 @@ import CustomCocktailInfo from '@/components/custom-cocktail/CustomCocktailInfo.
 
 import CustomCocktailRecipe from '@/components/custom-cocktail/CustomCocktailRecipe.tsx';
 
+import CustomCocktailModifyButton from '@/components/custom-cocktail/CustomCocktailModifyButton.tsx';
+
+import CustomCocktailDeleteButton from '@/components/custom-cocktail/CustomCocktailDeleteButton.tsx';
+
 import styles from './page.module.scss';
 
 interface IngredientsList {
@@ -47,6 +51,20 @@ interface CustomDetailData {
   comment: string;
   custom_cocktail_ingredients: ingredientsList[];
   open: boolean;
+}
+
+interface Ingredient {
+  id: number;
+  name: string;
+  image: string | StaticImageData;
+  category: {
+    id: number;
+    name: string;
+  };
+}
+
+interface StoreData {
+  ingredients: Ingredient[];
 }
 
 interface ingredientsList {}
@@ -171,8 +189,51 @@ export default function Page() {
     open: true,
   };
 
+  const storeData: StoreData = {
+    ingredients: [
+      {
+        id: 2,
+        name: '레몬',
+        image: lemon,
+        category: {
+          id: 2,
+          name: 'fruit',
+        },
+      },
+      {
+        id: 3,
+        name: '얼음',
+        image: ice,
+        category: {
+          id: 3,
+          name: 'beverage',
+        },
+      },
+      {
+        id: 7,
+        name: '보드카',
+        image: vodka,
+        category: {
+          id: 1,
+          name: 'alcohol',
+        },
+      },
+      {
+        id: 8,
+        name: '어쩌고',
+        image: vodka,
+        category: {
+          id: 1,
+          name: 'alcohol',
+        },
+      },
+    ],
+  };
+
   const ingredientsList: IngredientsList[] =
     customDetailData.custom_cocktail_ingredients;
+
+  const storeList: StoreData[] = storeData.ingredients;
 
   return (
     <div className={styles['flex-container']}>
@@ -183,10 +244,15 @@ export default function Page() {
             by&nbsp;{customDetailData.user.name}
           </div>
           <div></div>
-          <div className={styles.button}>
-            <button>🖍&nbsp;&nbsp;수정</button>
-            &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-            <button>🗑&nbsp;&nbsp;삭제</button>
+
+          <div className={styles.buttons}>
+            <div className={styles.button}>
+              <CustomCocktailModifyButton />
+            </div>
+            <div className={styles['divide-line']}>|</div>
+            <div className={styles.button}>
+              <CustomCocktailDeleteButton />
+            </div>
           </div>
         </div>
         <hr className={styles.hr} />
@@ -202,6 +268,7 @@ export default function Page() {
           <div className={styles.space}>
             <CustomCocktailIngredientCardWrapper
               ingredients={ingredientsList}
+              storeData={storeList}
             />
             <CustomCocktailRecipe recipe={customDetailData.recipe} />
           </div>

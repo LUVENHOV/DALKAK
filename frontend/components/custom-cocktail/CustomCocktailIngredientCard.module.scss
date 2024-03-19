@@ -19,6 +19,11 @@
   margin-top: 0.9vw;
   margin-bottom: 0.3vw;
   font-size: 1.02vw;
+
+  .stored-ingredient {
+    color: var(--color-point);
+    font-weight: 600;
+  }
 }
 
 .start-ingredient {
@@ -50,6 +55,19 @@
 .inner-ingredient {
   border: solid var(--color-placeholder);
   border-width: 0.1vw 0.1vw 0.1vw 0vw;
+  width: 7.5vw;
+  height: 7.5vw;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.start-last-ingredient {
+  border: solid var(--color-placeholder);
+  border-width: 0.1vw 0.1vw 0.1vw 0.1vw;
+  border-radius: 1vw 1vw 1vw 1vw;
   width: 7.5vw;
   height: 7.5vw;
   text-align: center;
