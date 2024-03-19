@@ -12,8 +12,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import store.dalkak.api.cocktail.domain.Ingredient.Ingredient;
-import store.dalkak.api.cocktail.domain.Ingredient.Unit;
+import store.dalkak.api.cocktail.domain.ingredient.Ingredient;
+import store.dalkak.api.cocktail.domain.ingredient.Unit;
 
 @Entity
 @Getter
