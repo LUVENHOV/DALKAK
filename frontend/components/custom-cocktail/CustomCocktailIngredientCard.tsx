@@ -17,25 +17,58 @@ interface Ingredient {
   };
 }
 
+interface StoreData {
+  id: number;
+  name: string;
+  image: string | StaticImageData;
+  category: {
+    id: number;
+    name: string;
+  };
+}
+
 interface Props {
   ingredient: Ingredient;
   index: number;
   lastIndex: number;
+  storeData: StoreData[];
 }
 
 export default function CustomCocktailIngredientCard({
   ingredient,
   index,
   lastIndex,
+  storeData,
 }: Props) {
+  // console.log(storeData);
+
   let className = '';
 
-  if (index == 0 || index == 5 || index === 10) {
+  let isStored = '';
+
+  if (
+    (index == 0 && index !== lastIndex) ||
+    (index == 5 && index !== lastIndex) ||
+    (index === 10 && index !== lastIndex)
+  ) {
     className = styles['start-ingredient'];
-  } else if (index === 4 || index === 11 || index === lastIndex) {
+  } else if (
+    (index == 0 && index === lastIndex) ||
+    (index == 5 && index === lastIndex) ||
+    (index === 10 && index === lastIndex)
+  ) {
+    className = styles['start-last-ingredient'];
+  } else if (index === 4 || index === 9 || index === lastIndex) {
     className = styles['last-ingredient'];
   } else {
     className = styles['inner-ingredient'];
+  }
+
+  for (let i = 0; i < storeData.length; i++) {
+    if (ingredient.ingredient.id === storeData[i].id) {
+      isStored = styles['stored-ingredient'];
+      console.log(ingredient.ingredient.id);
+    }
   }
 
   return (
@@ -47,7 +80,7 @@ export default function CustomCocktailIngredientCard({
           alt="재료 이미지"
         />
         <div className={styles['ingredient-name']}>
-          {ingredient.ingredient.name}
+          <div className={isStored}>{ingredient.ingredient.name}</div>
         </div>
       </div>
       <div className={styles.count}>

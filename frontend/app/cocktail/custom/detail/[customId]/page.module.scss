@@ -9,8 +9,9 @@
 }
 
 .title-container {
+  width: 98%;
   display: grid;
-  grid-template-columns: 4fr 2fr 2fr 2fr;
+  grid-template-columns: 4fr 2fr 2fr 1.5fr;
   margin-bottom: 2vw;
 
   .name {
@@ -23,17 +24,32 @@
     align-self: end;
   }
 
-  .button {
+  .buttons {
+    display: flex;
     position: relative;
-    height: 0.8vw;
+    top: 0.8vw;
     align-self: end;
-    text-align: center;
+    // text-align: center;
+    justify-content: space-evenly;
     color: var(--color-placeholder);
+    // border: solid 1px;
+
+    .button {
+      color: var(--color-placeholder);
+      cursor: pointer;
+    }
+
+    .divide-line {
+      color: var(--color-placeholder);
+      position: relative;
+      top: 0.2vw;
+    }
 
     button {
       font-size: 1vw;
       color: var(--color-placeholder);
       cursor: pointer;
+      // margin-left: 2vw;
     }
   }
 }
