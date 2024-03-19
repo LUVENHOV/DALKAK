@@ -75,61 +75,7 @@ public class CocktailRepositoryImpl implements CocktailRepositoryCustom {
     private BooleanExpression sweetnessFilter(Integer sweetness) {
         return sweetness != null ? cocktail.sweetness.eq(sweetness) : null;
     }
-//
-//    public Page<CocktailFindResDto> findCocktailsByOption(Pageable page, String cocktailName,
-//        List<Long> ingredients, Long baseDrink, Integer alcoholContent, Long cocktailColor,
-//        Integer sweetness, Integer orderBy) {
-//
-//        OrderSpecifier<?> orderSpecifier = orderByCondition(orderBy);
-//
-//        List<CocktailFindResDto> cocktailFindResDtoQueryResults = queryFactory
-//            .select(Projections.constructor(
-//                CocktailFindResDto.class,
-//                cocktail.id,
-//                cocktail.name,
-//                cocktail.krName,
-//                cocktail.image,
-//                cocktail.heartCount))
-//            .distinct()
-//            .from(cocktail)
-//            .leftJoin(cocktail.cocktailBases, cocktailBase) // 기반 음료 조인
-//            .leftJoin(cocktailBase.base, base) // 베이스 조인
-//            .leftJoin(cocktail.cocktailIngredients, cocktailIngredient) // 칵테일 재료 조인
-//            .leftJoin(cocktailIngredient.ingredient, ingredient) // 재료 조인
-//            .where(
-//                nameFilter(cocktailName),
-//                ingredientFilter(ingredients),
-//                baseFilter(baseDrink),
-//                alcoholFilter(alcoholContent),
-//                colorFilter(cocktailColor),
-//                sweetnessFilter(sweetness)
-//            )
-//            .offset(page.getOffset())
-//            .limit(page.getPageSize())
-//            .orderBy(orderSpecifier)
-//            .fetch();
-//
-//        Long totalResult = queryFactory
-//            .select(cocktail.countDistinct())
-//            .from(cocktail)
-//            .leftJoin(cocktail.cocktailBases, cocktailBase)
-//            .leftJoin(cocktailBase.base, base)
-//            .leftJoin(cocktail.cocktailIngredients, cocktailIngredient)
-//            .leftJoin(cocktailIngredient.ingredient, ingredient)
-//            .where(
-//                nameFilter(cocktailName),
-//                ingredientFilter(ingredients),
-//                baseFilter(baseDrink),
-//                alcoholFilter(alcoholContent),
-//                colorFilter(cocktailColor),
-//                sweetnessFilter(sweetness)
-//            )
-//            .fetchOne();
-//
-//        long total = totalResult != null ? totalResult : 0;
-//
-//        return new PageImpl<>(cocktailFindResDtoQueryResults, page, total);
-//    }
+
 public Page<CocktailFindResDto> findCocktailsByOption(Pageable page, String cocktailName,
     List<Long> ingredients, Long baseDrink, Integer alcoholContent, Long cocktailColor,
     Integer sweetness, Integer orderBy) {
