@@ -1,11 +1,11 @@
-package store.dalkak.api.user.exception;
+package store.dalkak.api.global.jwt.Exception;
 
 import store.dalkak.api.global.exception.DalkakException;
 import store.dalkak.api.global.exception.ErrorCode;
 
-public class UserException extends DalkakException {
+public class JwtException extends DalkakException{
 
-    public UserException(ErrorCode errorCode) {
+    public JwtException(ErrorCode errorCode) {
         super(errorCode);
     }
 }
