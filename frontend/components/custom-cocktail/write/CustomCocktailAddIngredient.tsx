@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useEffect } from 'react';
 
 import styles from './CustomCocktailAddIngredient.module.scss';
@@ -25,6 +25,14 @@ const unitList = ['조각', '슬라이스', '그램', 'ml', '개'];
 
 export default function CustomCocktailAddIngredient({ origin }: Props) {
   const [tempList, setTempList] = useState(origin);
+  // const [amount, setAmount] = useState(origin.ingredient_amount)
+  const [inputValues, setInputValues] = useState<string[]>(
+    origin.map((item) => String(item.ingredient_amount)),
+  );
+
+  const [inputUnitValues, setInputUnitValues] = useState<string[]>(
+    origin.map((item) => String(item.unit.name)),
+  );
 
   useEffect(() => {
     console.log(tempList);
@@ -35,6 +43,31 @@ export default function CustomCocktailAddIngredient({ origin }: Props) {
       const updatedList = prevList.filter((data) => data.ingredient.id !== id);
       return updatedList;
     });
+  };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>, id: number) => {
+    const { value } = e.target;
+    setInputValues((prevValues) => {
+      const updatedValues = [...prevValues];
+      updatedValues[id - 1] = value;
+      return updatedValues;
+    });
+
+    console.log(inputValues);
+  };
+
+  const handleUnitInputChange = (
+    e: ChangeEvent<HTMLSelectElement>,
+    id: number,
+  ) => {
+    const { value } = e.target;
+    setInputUnitValues((prevUnitValues) => {
+      const updatedUnitValues = [...prevUnitValues];
+      updatedUnitValues[id - 1] = value;
+      return updatedUnitValues;
+    });
+
+    console.log(inputUnitValues);
   };
 
   return (
@@ -48,18 +81,44 @@ export default function CustomCocktailAddIngredient({ origin }: Props) {
               <div className={styles['grid-container']}>
                 <div>{data.ingredient.name}</div>
                 <div></div>
-                <div>{data.ingredient_amount}</div>
                 <div>
-                  <select value={data.unit.name}>
-                    <option>조각</option>
+                  <input
+                    type="text"
+                    pattern="[0-9]+"
+                    className={styles['amount-input']}
+                    value={inputValues[index]}
+                    onChange={(e) => handleInputChange(e, data.ingredient.id)}
+                    maxLength={4}
+                  />
+                </div>
+                <div>
+                  <select
+                    className={styles['unit-input']}
+                    value={inputUnitValues[index]}
+                    onChange={(e) =>
+                      handleUnitInputChange(e, data.ingredient.id)
+                    }
+                  >
+                    <option>개</option>
+                    <option>웨지</option>
                     <option>슬라이스</option>
+                    <option>꼬집</option>
+                    <option>조각</option>
                     <option>ml</option>
+                    <option>스쿱</option>
+                    <option>방울</option>
+                    <option>그램</option>
+                    <option>잎</option>
+                    <option>none</option>
                   </select>
                 </div>
                 <div></div>
                 <div>
-                  <button onClick={() => removeItem(data.ingredient.id)}>
-                    x
+                  <button
+                    className={styles['delete-button']}
+                    onClick={() => removeItem(data.ingredient.id)}
+                  >
+                    ✕
                   </button>
                 </div>
               </div>
