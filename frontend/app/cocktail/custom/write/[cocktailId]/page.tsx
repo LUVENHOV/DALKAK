@@ -1,6 +1,13 @@
+'use client';
+
 import React from 'react';
 
 import styles from './page.module.scss';
+
+import BtnWithIcon from '@/components/common/BtnWithIcon';
+
+import LockOutlined from '@mui/icons-material/LockOutlined';
+import PublicOutlined from '@mui/icons-material/PublicOutlined';
 
 import CustomCocktailImageUpload from '@/components/custom-cocktail/write/CustomCocktailImageUpload';
 
@@ -9,7 +16,10 @@ import CustomCocktailInput from '@/components/custom-cocktail/write/CustomCockta
 import CustomCocktailAddIngredient from '@/components/custom-cocktail/write/CustomCocktailAddIngredient';
 
 import CustomCocktailAddRecipe from '@/components/custom-cocktail/write/CustomCocktailAddRecipe';
-import { StaticImageData } from 'next/image';
+// import { StaticImageData } from 'next/image';
+import { useRouter } from 'next/navigation';
+
+import { useState } from 'react';
 
 interface IngredientsList {
   ingredient: {
@@ -24,10 +34,18 @@ interface IngredientsList {
 }
 
 interface OriginIngredient {
+  recipe: string;
+  summary: string;
+  comment: string;
   ingredientList: IngredientsList[];
 }
 
 const originIngredientList: OriginIngredient = {
+  recipe:
+    '1. 먼저 얼음으로 하이볼 글라스를 차갑게 만들어주세요.|2. 앱솔루트 망고 크란베리 주스와 오랜지 주스를 부어 넣어주세요.|3. 모든 재료를 조심스레 섞어주세요.|4. 망고 웨지로 가니쉬를 해주어 장식해 주세요.|5. 짜잔 이제 당신만의 망고 브리즈를 즐길 수 있게 되었습니다 망고 브리즈는 단순히 음료가 아니에요 햇볕이 피부를 따스히 감싸고 모래사장이 있는 푸른 바다 위에서 해먹에 누워있는 듯한 경험을 선사해 주죠.|6. 따라서 특별한 기념일을 축하하거나 아무때나 마시세요.',
+  summary: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
+  comment:
+    '집에 다른 칵테일 만들다 남은 레몬이랑 레몬 리큐르가 애매하게 남아서한 번 넣어봤는데 원래 먹던 것보다 상큼하고 사람들이 좀 더 대중적으로 좋아할 것 같은 맛이 된 것 같아요 ㅋㅋ 둘 중 하나만 넣어도 괜찮을 것 같고... 재레몬 넣으시는 거 추천 드립니다!',
   ingredientList: [
     {
       ingredient: {
@@ -108,10 +126,10 @@ const originIngredientList: OriginIngredient = {
     },
     {
       ingredient: {
-        id: 7,
-        name: '보드카',
+        id: 8,
+        name: '앱솔루트 자몽',
       },
-      ingredient_amount: 40,
+      ingredient_amount: 30,
       unit: {
         id: 4,
         name: 'ml',
@@ -119,54 +137,50 @@ const originIngredientList: OriginIngredient = {
     },
     {
       ingredient: {
-        id: 7,
-        name: '보드카',
+        id: 9,
+        name: '체리',
       },
-      ingredient_amount: 40,
+      ingredient_amount: 3,
       unit: {
-        id: 4,
-        name: 'ml',
-      },
-    },
-    {
-      ingredient: {
-        id: 7,
-        name: '보드카',
-      },
-      ingredient_amount: 40,
-      unit: {
-        id: 4,
-        name: 'ml',
-      },
-    },
-    {
-      ingredient: {
-        id: 7,
-        name: '보드카',
-      },
-      ingredient_amount: 40,
-      unit: {
-        id: 4,
-        name: 'ml',
-      },
-    },
-    {
-      ingredient: {
-        id: 7,
-        name: '보드카',
-      },
-      ingredient_amount: 40,
-      unit: {
-        id: 4,
-        name: 'ml',
+        id: 5,
+        name: '개',
       },
     },
   ],
 };
 
+const recipe: string = originIngredientList.recipe;
 const origin: IngredientsList[] = originIngredientList.ingredientList;
 
 export default function Page() {
+  const [isPublic, setIsPublic] = useState(false);
+  const router = useRouter();
+
+  const [inputValue, setInputValue] = useState('');
+
+  const infoPlaceholder =
+    '추가 설명이나 후기를 알려주세요.\n\n 이런 내용이 들어가면 좋아요!| - 이 재료는 다른 걸로 대체할 수 있어요| - 기존 레시피와 비교해서 맛이 이렇게 달라요| - 이럴 때 마시는 걸 추천해요';
+
+  const splitedInfoPlaceholder = (infoPlaceholder: string) => {
+    return infoPlaceholder.split('|').join('\n');
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleIsPublic = () => {
+    if (isPublic == false) {
+      setIsPublic(true);
+    } else {
+      setIsPublic(false);
+    }
+  };
+
+  const handleNavigation = () => {
+    alert('커스텀 칵테일 레시피가 등록되었습니다.');
+    router.push('/cocktail/custom/detail/1');
+  };
   return (
     <div className={styles['flex-container']}>
       <div className={styles.container}>
@@ -182,35 +196,53 @@ export default function Page() {
           <div></div>
 
           <div className={styles.buttons}>
-            <div className={styles.button}>
-              <button>나만 보기</button>
+            <div className={`${styles.button} ${styles.button1}`}>
+              <BtnWithIcon
+                icon={isPublic ? PublicOutlined : LockOutlined}
+                text={isPublic ? '전체 공개' : '나만 보기'}
+                btnStyle="empty-dark"
+                handleOnClick={handleIsPublic}
+              />
             </div>
-
-            <div className={styles.button}>
-              <button>커스텀 칵테일 등록</button>
+            <div className={`${styles.button} ${styles.button2}`}>
+              <BtnWithIcon
+                text={'커스텀 칵테일 등록'}
+                btnStyle="full-point"
+                handleOnClick={handleNavigation}
+              />
             </div>
           </div>
         </div>
 
-        <hr className={styles.hr} />
         <div className={styles['inner-container']}>
           <div className={styles.space}>
             <CustomCocktailImageUpload />
             <div className={styles['input-container']}>
               <div className={styles.inputs}>
-                <CustomCocktailInput />
+                <CustomCocktailInput
+                  max={15}
+                  placeText="커스텀 칵테일 이름을 입력해주세요"
+                />
               </div>
               <div className={styles.inputs}>
-                <CustomCocktailInput />
+                <CustomCocktailInput
+                  max={20}
+                  placeText="기존 칵테일과 어떻게 다른가요?"
+                />
               </div>
               <div className={styles.inputs}>
-                <CustomCocktailInput />
+                <textarea
+                  className={styles['info-input']}
+                  value={inputValue}
+                  placeholder={splitedInfoPlaceholder(infoPlaceholder)}
+                  onChange={(e) => handleInputChange(e)}
+                />
               </div>
             </div>
           </div>
           <div className={styles.space}>
             <CustomCocktailAddIngredient origin={origin} />
-            <CustomCocktailAddRecipe />
+            <CustomCocktailAddRecipe recipe={recipe} />
           </div>
         </div>
       </div>

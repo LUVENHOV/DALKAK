@@ -5,6 +5,9 @@ import React from 'react';
 import { usePathname } from 'next/navigation';
 import HomeIcon from '@mui/icons-material/Home';
 import styles from './Navbar.module.scss';
+import Image from 'next/image';
+
+import logo from '@/public/assets/imgs/logo.png';
 
 export default function Navbar() {
   const pathName = usePathname();
@@ -13,8 +16,9 @@ export default function Navbar() {
     <div className={styles.navbar}>
       <Link href="/">
         <div className="dalkak">
-          <div>DAL</div>
-          <div>KAK</div>
+          {/* <div>DAL</div>
+          <div>KAK</div> */}
+          <Image src={logo} alt="logo" />
         </div>
       </Link>
       <Link href="/cocktail">
