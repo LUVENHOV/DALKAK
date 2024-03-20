@@ -55,7 +55,7 @@ const colorList = [
 
 interface propsType {
   color: string;
-  handleColor: () => void;
+  handleColor: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export default function SearchColor(props: propsType) {
