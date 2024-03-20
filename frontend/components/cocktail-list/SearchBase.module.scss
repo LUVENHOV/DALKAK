@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  width: 53vw;
+
+  .block {
+    width: 10%;
+    height: 100%;
+    background-color: white;
+    padding: 0 1vw;
+    border: 0.1vw solid var(--color-text);
+    box-sizing: border-box;
+  }
+
+  .block:first-child {
+    padding-left: 1.2vw;
+    border-radius: 1vw 0 0 1vw;
+  }
+  .block:last-child {
+    padding-right: 1.2vw;
+    border-radius: 0 1vw 1vw 0;
+  }
+
+  .selectedBlock {
+    background-color: var(--color-text);
+    color: white;
+    font-weight: 900;
+  }
+}

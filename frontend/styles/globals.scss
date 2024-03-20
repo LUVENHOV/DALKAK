@@ -13,8 +13,19 @@ body {
   user-select: none;
   -ms-overflow-style: none;
 
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
   ::-webkit-scrollbar {
-    display: none;
+    -webkit-appearance: none;
+    width: 1vw;
+    border-radius: 1vw;
+    background-color: var(--color-base);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 1vh;
+    background-color: var(--color-placeholder);
   }
 }
 

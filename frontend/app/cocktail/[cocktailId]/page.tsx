@@ -1,9 +1,6 @@
-import React from 'react';
+export default function Page({ params }: { params: { cocktailId: string } }) {
+  const { cocktailId } = params;
+  console.log(cocktailId);
 
-export default function Page() {
-  return (
-    <div>
-      <h1>칵테일 상세 페이지</h1>
-    </div>
-  );
+  return <div>{cocktailId}</div>;
 }
