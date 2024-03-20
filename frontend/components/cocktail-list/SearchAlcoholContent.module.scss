@@ -1,0 +1,46 @@
+.container {
+  width: 53vw;
+
+  .barArea {
+    width: 100%;
+    background-color: var(--color-base);
+    height: 1vw;
+    border-radius: 1vw;
+
+    .bar {
+      height: 1vw;
+      width: 98%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin: 0 auto;
+
+      .btn {
+        position: absolute;
+        top: 150%;
+
+        .btnCircle {
+          width: 1.7vw;
+          height: 1.7vw;
+          border-radius: 100%;
+          background-color: var(--color-text);
+        }
+
+        .btnNum {
+          font-size: 1rem;
+          padding-top: 0.5vw;
+        }
+      }
+      .btn:focus {
+        outline: none;
+      }
+
+      .mid {
+        position: absolute;
+        display: flex;
+        background-color: var(--color-text);
+        height: 1vw;
+      }
+    }
+  }
+}
