@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Getter
@@ -19,7 +20,7 @@ public class UserCreateSurveyResultReqDto {
     List<Long> surveyCocktails;
     Long occasionId;
     Long baseId;
-    Long alcoholContent;
-    Long sweetness;
+    Integer alcoholContent;
+    Integer sweetness;
     List<Long> surveyIngredients;
 }

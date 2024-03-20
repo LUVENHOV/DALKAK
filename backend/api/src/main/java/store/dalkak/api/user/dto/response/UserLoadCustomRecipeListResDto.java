@@ -14,16 +14,16 @@ import store.dalkak.api.user.dto.CustomCocktailDto;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class UserLoadCustomRecipeListResDto {
-    List<CustomCocktailDto> custom_cocktails;
-    Integer totalCount;
+    List<CustomCocktailDto> customCocktails;
+    Long totalCount;
     Integer totalPage;
     Integer currentPage;
 
     @Builder
-    public UserLoadCustomRecipeListResDto(List<CustomCocktailDto> custom_cocktails,
-        Integer totalCount,
+    public UserLoadCustomRecipeListResDto(List<CustomCocktailDto> customCocktails,
+        Long totalCount,
         Integer totalPage, Integer currentPage) {
-        this.custom_cocktails = custom_cocktails;
+        this.customCocktails = customCocktails;
         this.totalCount = totalCount;
         this.totalPage = totalPage;
         this.currentPage = currentPage;

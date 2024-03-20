@@ -14,12 +14,12 @@ import store.dalkak.api.user.dto.CocktailDto;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class UserLoadRecommendListResDto {
     List<CocktailDto> cocktails;
-    Integer totalCount;
+    Long totalCount;
     Integer totalPage;
     Integer currentPage;
 
     @Builder
-    public UserLoadRecommendListResDto(List<CocktailDto> cocktails, Integer totalCount,
+    public UserLoadRecommendListResDto(List<CocktailDto> cocktails, Long totalCount,
         Integer totalPage, Integer currentPage) {
         this.cocktails = cocktails;
         this.totalCount = totalCount;

@@ -1,5 +1,6 @@
 package store.dalkak.api.user.service;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import store.dalkak.api.user.domain.Member;
 import store.dalkak.api.user.dto.request.UserCreateSurveyResultReqDto;
@@ -21,8 +22,8 @@ public interface UserService {
     UserLoadProfileResDto loadProfile(MemberDto memberDto);
     void modifyProfile(MemberDto memberDto, UserModifyProfileReqDto userModifyProfileReqDto);
     void hasNickname(MemberDto memberDto, UserHasNicknameReqDto userHasNicknameReqDto);
-    UserLoadHeartListResDto loadHeartList(MemberDto memberDto);
-    UserLoadCustomRecipeListResDto loadCustomRecipeList(MemberDto memberDto);
-    UserLoadRecommendListResDto loadRecommendList(MemberDto memberDto);
+    UserLoadHeartListResDto loadHeartList(MemberDto memberDto, Pageable pageable);
+    UserLoadCustomRecipeListResDto loadCustomRecipeList(MemberDto memberDto,Pageable pageable);
+    UserLoadRecommendListResDto loadRecommendList(MemberDto memberDto,Pageable pageable);
 
 }

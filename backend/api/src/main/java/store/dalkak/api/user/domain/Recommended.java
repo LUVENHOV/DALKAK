@@ -9,36 +9,31 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import store.dalkak.api.cocktail.domain.Ingredient.Ingredient;
+import org.hibernate.annotations.CreationTimestamp;
+import store.dalkak.api.cocktail.domain.Cocktail;
 
 @Entity
-@Table(name="SURVEY_INGREDIENT")
+@Table(name="RECOMMENDED")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class SurveyIngredient {
+public class Recommended {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
+    //원본칵테일아이디
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "survey_id")
-    private Survey survey;
+    @JoinColumn(name = "cocktail_id")
+    private Cocktail cocktail;
 
+    //회원아이디
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "ingredient_id")
-    private Ingredient ingredient;
-
-    @Builder
-    public SurveyIngredient(Long id, Survey survey, Ingredient ingredient) {
-        this.id = id;
-        this.survey = survey;
-        this.ingredient = ingredient;
-    }
+    @JoinColumn(name = "member_id")
+    private Member member;
 }

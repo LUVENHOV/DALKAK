@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import store.dalkak.api.cocktail.domain.Base.Base;
@@ -43,4 +44,15 @@ public class Survey {
 
     @Column(name="sweetness")
     private Integer sweetness;
+
+    @Builder
+    public Survey(Long id, Member member, Occasion occasion, Base base, Integer alcoholContent,
+        Integer sweetness) {
+        this.id = id;
+        this.member = member;
+        this.occasion = occasion;
+        this.base = base;
+        this.alcoholContent = alcoholContent;
+        this.sweetness = sweetness;
+    }
 }

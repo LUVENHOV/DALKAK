@@ -13,13 +13,14 @@ import store.dalkak.api.user.dto.CocktailDto;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class UserLoadHeartListResDto {
+
     List<CocktailDto> cocktails;
-    Integer totalCount;
+    Long totalCount;
     Integer totalPage;
     Integer currentPage;
 
     @Builder
-    public UserLoadHeartListResDto(List<CocktailDto> cocktails, Integer totalCount, Integer totalPage,Integer currentPage) {
+    public UserLoadHeartListResDto(List<CocktailDto> cocktails, Long totalCount, Integer totalPage,Integer currentPage) {
         this.cocktails = cocktails;
         this.totalCount = totalCount;
         this.totalPage = totalPage;

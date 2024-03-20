@@ -1,11 +1,10 @@
 package store.dalkak.api.user.repository;
 
-import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import store.dalkak.api.user.domain.Heart;
+import store.dalkak.api.user.domain.Recommended;
 
-public interface HeartRepository extends JpaRepository<Heart,Long> {
-    Page<Heart> findAllByMember_Id(Long id, Pageable pageable);
+public interface RecommendedRepository extends JpaRepository<Recommended,Long> {
+    Page<Recommended> findAllByMember_Id(Long id, Pageable pageable);
 }

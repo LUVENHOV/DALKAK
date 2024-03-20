@@ -11,8 +11,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import store.dalkak.api.cocktail.domain.Cocktail;
 
 @Entity
 @Table(name="SURVEY_COCKTAIL")
@@ -30,7 +32,12 @@ public class SurveyCocktail {
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "cocktail_id")
-    private Survey cocktail;
+    private Cocktail cocktail;
 
-
+    @Builder
+    public SurveyCocktail(Long id, Survey survey, Cocktail cocktail) {
+        this.id = id;
+        this.survey = survey;
+        this.cocktail = cocktail;
+    }
 }
