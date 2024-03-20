@@ -1,4 +1,4 @@
-package store.dalkak.api.cocktail.Repository.ingredient;
+package store.dalkak.api.cocktail.repository.ingredient;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;

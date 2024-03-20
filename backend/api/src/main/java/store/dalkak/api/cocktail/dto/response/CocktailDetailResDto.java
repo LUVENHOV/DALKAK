@@ -1,20 +1,25 @@
 package store.dalkak.api.cocktail.dto.response;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
-import store.dalkak.api.cocktail.dto.IngredientDto;
+import store.dalkak.api.cocktail.domain.Cocktail;
+import store.dalkak.api.cocktail.dto.CocktailIngredientDto;
 import store.dalkak.api.cocktail.dto.ToolDto;
-import store.dalkak.api.custom.dto.CocktailCustomDto;
+import store.dalkak.api.cocktail.dto.CocktailCustomDto;
 
-@Builder
 @Getter
-@Setter
+@Builder
 @AllArgsConstructor
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CocktailDetailResDto {
 
+    List<CocktailIngredientDto> cocktailIngredients;
+    List<ToolDto> cocktailTools;
+    List<CocktailCustomDto> customCocktails;
     private Long cocktailId;
     private String cocktailName;
     private String cocktailKrName;
@@ -24,9 +29,26 @@ public class CocktailDetailResDto {
     private Integer alcoholContent;
     private Integer cocktailSweetness;
     private String cocktailRecipe;
-    List<IngredientDto> cocktailIngredients;
-    List<ToolDto> cocktailTools;
-    List<CocktailCustomDto> customCocktails;
+
+    public static CocktailDetailResDto of(Cocktail cocktail,
+        List<CocktailIngredientDto> ingredients, List<ToolDto> tools,
+        List<CocktailCustomDto> customCocktails) {
+
+        return CocktailDetailResDto.builder()
+            .cocktailIngredients(ingredients)
+            .cocktailTools(tools)
+            .customCocktails(customCocktails)
+            .cocktailId(cocktail.getId())
+            .cocktailName(cocktail.getName())
+            .cocktailKrName(cocktail.getKrName())
+            .cocktailImage(cocktail.getImage())
+            .heartCount(cocktail.getHeartCount())
+            .viewCount(cocktail.getViewCount())
+            .alcoholContent(cocktail.getAlcohol())
+            .cocktailSweetness(cocktail.getSweetness())
+            .cocktailRecipe(cocktail.getRecipe())
+            .build();
+    }
 }
 
 

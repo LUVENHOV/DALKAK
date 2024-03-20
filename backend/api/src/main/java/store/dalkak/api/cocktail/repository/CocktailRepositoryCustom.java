@@ -1,4 +1,4 @@
-package store.dalkak.api.cocktail.Repository;
+package store.dalkak.api.cocktail.repository;
 
 import java.util.List;
 import org.springframework.data.domain.Page;

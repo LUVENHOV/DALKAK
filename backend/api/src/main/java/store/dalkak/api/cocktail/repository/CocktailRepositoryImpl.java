@@ -1,4 +1,4 @@
-package store.dalkak.api.cocktail.Repository;
+package store.dalkak.api.cocktail.repository;
 
 import static store.dalkak.api.cocktail.domain.base.QBase.base;
 import static store.dalkak.api.cocktail.domain.base.QCocktailBase.cocktailBase;
@@ -43,8 +43,8 @@ public class CocktailRepositoryImpl implements CocktailRepositoryCustom {
     }
 
     private BooleanExpression nameFilter(String cocktailName) {
-        return cocktailName != null ? cocktail.name.eq(cocktailName)
-            .or(cocktail.krName.eq(cocktailName)) : null;
+        return cocktailName != null ? cocktail.name.contains(cocktailName)
+            .or(cocktail.krName.contains(cocktailName)) : null;
     }
 
 
@@ -87,6 +87,16 @@ public class CocktailRepositoryImpl implements CocktailRepositoryCustom {
 
         OrderSpecifier<?> orderSpecifier = orderByCondition(orderBy);
 
+//        int currentPage = page.getPageNumber();
+//        int pageSize = page.getPageSize();
+//
+//        if (currentPage < 0) {
+//
+//             throw new CocktailException(FAIL_TO_FIND_PAGE); // 사용자 정의 예외를 사용하는 경우
+//        } else {
+//
+//            page = PageRequest.of(currentPage, pageSize);
+//        }
         List<Long> distinctCocktailIds = queryFactory
             .select(cocktail.id)
             .from(cocktail)

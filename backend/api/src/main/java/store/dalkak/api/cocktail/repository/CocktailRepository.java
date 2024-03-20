@@ -1,4 +1,4 @@
-package store.dalkak.api.cocktail.Repository;
+package store.dalkak.api.cocktail.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import store.dalkak.api.cocktail.domain.Cocktail;

@@ -1,20 +1,21 @@
-package store.dalkak.api.cocktail.dto;
+package store.dalkak.api.cocktail.dto.response;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import lombok.AccessLevel;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
+@Builder
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class ToolDto {
-    private Long toolId;
-    private String toolName;
-    private String toolImage;
+public class CocktailPageResDto {
+
+    private List<CocktailFindResDto> cocktails;
+    private Long totalElements;
+    private Integer totalPage;
+    private Integer currentPage;
+
 }

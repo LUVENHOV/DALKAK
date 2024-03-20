@@ -30,6 +30,9 @@ public class Tool {
     @Column(name = "detail")
     private String detail;
 
+    @Column(name = "image")
+    private String image;
+
     @OneToMany(mappedBy = "tool", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CocktailTool> cocktailTools;
 }
