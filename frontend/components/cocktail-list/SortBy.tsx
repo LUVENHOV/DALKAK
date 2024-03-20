@@ -37,16 +37,15 @@ export default function SortBy() {
   return (
     <div className={styles.container}>
       {sortingList.map((sort, idx: number) => (
-        <>
+        <div key={sort.sortBy}>
           <button
             className={selected === idx + 1 ? styles.selected : ''}
-            key={sort.text}
             onClick={(e) => handleOnClick(e, idx + 1)}
           >
             {sort.text}
+            {idx != 3 ? '\u00A0\u00A0|\u00A0\u00A0' : null}
           </button>
-          {idx != 3 ? <div className={styles.division}>|</div> : null}
-        </>
+        </div>
       ))}
     </div>
   );
