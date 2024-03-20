@@ -11,7 +11,7 @@ interface btnProps {
   handleOnClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export default function (props: btnProps) {
+export default function BtnWithIcon(props: btnProps) {
   const { icon: Icon, text, btnStyle, handleOnClick } = props;
 
   return (

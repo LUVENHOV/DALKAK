@@ -1,5 +1,4 @@
 .page-container {
-  // background-color: pink;
   width: 80vw;
   margin: 0 auto;
 }
@@ -12,5 +11,7 @@
   }
 
   .cocktail-list {
+    display: flex;
+    flex-wrap: wrap;
   }
 }
