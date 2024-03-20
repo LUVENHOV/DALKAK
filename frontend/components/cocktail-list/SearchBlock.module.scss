@@ -6,7 +6,9 @@
     height: 100%;
     background-color: white;
     padding: 0 1vw;
-    border: 0.1vw solid var(--color-text);
+    border-top: 0.2vw solid var(--color-placeholder);
+    border-left: 0.2vw solid var(--color-placeholder);
+    border-bottom: 0.2vw solid var(--color-placeholder);
     box-sizing: border-box;
     font-size: 1rem;
     cursor: pointer;
@@ -19,11 +21,12 @@
   .block:last-child {
     padding-right: 1.2vw;
     border-radius: 0 1vw 1vw 0;
+    border-right: 0.2vw solid var(--color-placeholder);
   }
 
-  .selectedBlock {
-    background-color: var(--color-text);
+  .selected {
     color: white;
+    background-color: var(--color-placeholder);
     font-weight: 900;
   }
 }

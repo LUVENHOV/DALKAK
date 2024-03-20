@@ -20,7 +20,7 @@ export default function SearchBlock(props: propsType) {
         <button
           key={now.id}
           value={now.id}
-          className={`${styles.block} ${state === now.id ? styles.selectedBlock : ''}`}
+          className={`${styles.block} ${state === now.id ? styles.selected : ''}`}
           onClick={handleState}
         >
           {now.name}
