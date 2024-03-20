@@ -38,3 +38,20 @@
     fill: var(--color-placeholder);
   }
 }
+
+.full-point {
+  color: white;
+  background-color: var(--color-point);
+
+  svg {
+    fill: var(--color-placeholder);
+  }
+}
+
+.full-dark {
+  background-color: var(--color-text);
+  color: white;
+  svg {
+    fill: var(--color-placeholder);
+  }
+}
