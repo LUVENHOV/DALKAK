@@ -5,7 +5,7 @@ import { useRef, useState } from 'react';
 import { useRanger, Ranger } from '@tanstack/react-ranger';
 
 interface propsType {
-  alcoholContent: number[];
+  alcoholContent: readonly number[];
   handleAlcoholContent: (arr: readonly number[]) => void;
 }
 

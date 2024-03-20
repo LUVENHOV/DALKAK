@@ -1,5 +1,7 @@
 .container {
+  display: flex;
   width: 53vw;
+  align-items: center;
 
   .barArea {
     width: 100%;
@@ -18,6 +20,7 @@
       .btn {
         position: absolute;
         top: 150%;
+        cursor: pointer;
 
         .btnCircle {
           width: 1.7vw;
