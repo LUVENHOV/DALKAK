@@ -7,6 +7,8 @@ import alcohol from '../../../../../public/assets/imgs/alcohol.png';
 import vodka from '../../../../../public/assets/imgs/vodka.png';
 import { StaticImageData } from 'next/image';
 
+import styles from './page.module.scss';
+
 import CustomCocktailImage from '@/components/custom-cocktail/CustomCocktailImage';
 
 import CustomCocktailIngredientCardWrapper from '../../../../../components/custom-cocktail/CustomCocktailIngredientCardWrapper.tsx';
@@ -18,8 +20,6 @@ import CustomCocktailRecipe from '@/components/custom-cocktail/CustomCocktailRec
 import CustomCocktailModifyButton from '@/components/custom-cocktail/CustomCocktailModifyButton.tsx';
 
 import CustomCocktailDeleteButton from '@/components/custom-cocktail/CustomCocktailDeleteButton.tsx';
-
-import styles from './page.module.scss';
 
 interface IngredientsList {
   ingredient: {
@@ -151,18 +151,6 @@ export default function Page() {
       },
       {
         ingredient: {
-          id: 5,
-          name: '사과 리큐르',
-          image: alcohol,
-        },
-        ingredient_amount: 15,
-        unit: {
-          id: 4,
-          name: 'ml',
-        },
-      },
-      {
-        ingredient: {
           id: 6,
           name: '쿠앵트로',
           image: alcohol,
@@ -255,6 +243,7 @@ export default function Page() {
             </div>
           </div>
         </div>
+
         <hr className={styles.hr} />
         <div className={styles['inner-container']}>
           <div className={styles.space}>

@@ -18,7 +18,7 @@ interface Props {
 export default function CustomCocktailCard({ custom }: Props) {
   const router = useRouter();
   const goToDetail = () => {
-    router.push('/cocktail/1');
+    router.push('/cocktail/custom/detail/1');
   };
   return (
     <div className={styles['grid-item']}>

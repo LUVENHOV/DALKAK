@@ -1,13 +1,15 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 
 import styles from './CustomCocktailWriteButton.module.scss';
 
 export default function CustomCocktailWriteButton() {
   const cocktailName = 'Apple Martini';
+  const router = useRouter();
   const alertPopup = () => {
-    alert('추후 커스텀 칵테일 작성 페이지로 이동');
+    router.push('/cocktail/custom/write/1');
   };
 
   const goToBaseCocktail = () => {

@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.uploaded-image {
+  border-radius: 1.3vw;
+  width: 19vw;
+  height: 19vw;
+  background-color: var(--color-base);
+}
+
+.upload-button {
+  background-color: var(--color-text);
+  color: white;
+  align-self: end;
+  margin-top: 1vw;
+  border-radius: 0.5vw;
+  width: 5.5vw;
+  height: 2.5vw;
+  font-size: 1.1vw;
+}
