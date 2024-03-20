@@ -5,14 +5,17 @@
 }
 
 .container {
+  display: flex;
   flex-direction: column;
+  // justify-content: center;
 }
 
 .title-container {
-  // width: 98%;
+  align-self: center;
+  // max-width: 90%;
   display: grid;
-  grid-template-columns: 1fr 2fr 2fr 3fr;
-  margin-bottom: 2vw;
+  grid-template-columns: 1.5fr 2.5fr 2.5fr 3.5fr;
+  margin-bottom: 1vw;
 
   .name {
     font-size: 1.3vw;
@@ -33,23 +36,29 @@
 
   .buttons {
     display: flex;
-    // position: relative;
-    // top: 0.8vw;
-    align-self: end;
 
-    justify-content: space-evenly;
-    color: var(--color-placeholder);
-
-    .button {
-      color: var(--color-placeholder);
-      cursor: pointer;
+    .button1 {
+      button {
+        position: relative;
+        top: 0.1vw;
+        font-size: 1vw;
+        cursor: pointer;
+        height: 2.5vw;
+      }
     }
 
-    button {
-      font-size: 1vw;
-      color: var(--color-placeholder);
-      cursor: pointer;
-      // margin-left: 2vw;
+    .button2 {
+      margin-left: 1vw;
+
+      button {
+        position: relative;
+        top: 0.1vw;
+        font-size: 1vw;
+        justify-content: center;
+        cursor: pointer;
+        height: 2.5vw;
+        width: 12vw;
+      }
     }
   }
 }
@@ -70,12 +79,12 @@
 
 .inner-container {
   display: flex;
-
+  justify-content: center;
   margin-top: 3vw;
   margin-bottom: 5vw;
 
   .space {
-    margin: 0 2vw;
+    margin: 0 3vw;
 
     .input-container {
       max-width: 18vw;
@@ -83,7 +92,20 @@
 
       .inputs {
         margin-bottom: 1vw;
+        textarea::placeholder {
+          color: var(--color-placeholder);
+        }
       }
     }
   }
+}
+
+.info-input {
+  border: solid 2px;
+  border-radius: 0.5vw;
+  width: 17.5vw;
+  height: 17vw;
+  font-size: 0.95vw;
+  padding: 0.7vw 0.7vw;
+  resize: none;
 }
