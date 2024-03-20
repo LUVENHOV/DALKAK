@@ -12,6 +12,7 @@ import BtnWithIcon from '../common/BtnWithIcon';
 import SearchBlock from './SearchBlock';
 import SearchAlcoholContent from './SearchAlcoholContent';
 import SearchColor from './SearchColor';
+import SortBy from './SortBy';
 
 const baseList = [
   {
@@ -120,6 +121,10 @@ export default function CocktailSearchForm() {
     setSweetness(e.currentTarget.value);
   };
 
+  const handleDetailSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log();
+  };
+
   return (
     <>
       <div className={styles['keyword-search-container']}>
@@ -193,8 +198,16 @@ export default function CocktailSearchForm() {
                 handleState={handleSweetness}
               />
             </div>
+            <div className={styles.searchBtn}>
+              <BtnWithIcon
+                text="적용"
+                btnStyle="full-point"
+                handleOnClick={handleDetailSearch}
+              />
+            </div>
           </div>
         ) : null}
+        <SortBy />
       </div>
     </>
   );
