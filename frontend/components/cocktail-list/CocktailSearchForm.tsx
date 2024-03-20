@@ -9,9 +9,74 @@ import {
   Replay,
 } from '@mui/icons-material';
 import BtnWithIcon from '../common/BtnWithIcon';
-import SearchBase from './SearchBase';
+import SearchBlock from './SearchBlock';
 import SearchAlcoholContent from './SearchAlcoholContent';
 import SearchColor from './SearchColor';
+
+const baseList = [
+  {
+    id: '1',
+    name: '샴페인',
+  },
+  {
+    id: '2',
+    name: '럼',
+  },
+  {
+    id: '3',
+    name: '위스키',
+  },
+  {
+    id: '4',
+    name: '보드카',
+  },
+  {
+    id: '5',
+    name: '진',
+  },
+  {
+    id: '6',
+    name: '테킬라',
+  },
+  {
+    id: '7',
+    name: '브랜디',
+  },
+  {
+    id: '8',
+    name: '리큐어',
+  },
+  {
+    id: '9',
+    name: '와인',
+  },
+  {
+    id: '10',
+    name: '비터즈',
+  },
+];
+const sweetnessList = [
+  {
+    id: '1',
+    name: '매우 낮음',
+  },
+  {
+    id: '2',
+    name: '씁쓸함',
+  },
+  {
+    id: '3',
+    name: '보통',
+  },
+  {
+    id: '4',
+    name: '달콤함',
+  },
+  {
+    id: '5',
+    name: '매우 달콤함',
+  },
+];
 
 export default function CocktailSearchForm() {
   const [isVisible, setIsVisible] = useState(true);
@@ -49,6 +114,10 @@ export default function CocktailSearchForm() {
 
   const handleColor = (e: React.MouseEvent<HTMLButtonElement>) => {
     setColor(e.currentTarget.value);
+  };
+
+  const handleSweetness = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setSweetness(e.currentTarget.value);
   };
 
   return (
@@ -99,7 +168,11 @@ export default function CocktailSearchForm() {
             </div>
             <div className={`${styles.searchRow} ${styles.base}`}>
               <div className={styles.title}>베이스</div>
-              <SearchBase base={base} handleBase={handleBase} />
+              <SearchBlock
+                list={baseList}
+                state={base}
+                handleState={handleBase}
+              />
             </div>
             <div className={`${styles.searchRow} ${styles.alcoholContent}`}>
               <div className={styles.title}>도수</div>
@@ -114,7 +187,11 @@ export default function CocktailSearchForm() {
             </div>
             <div className={`${styles.searchRow} ${styles.sweetness}`}>
               <div className={styles.title}>당도</div>
-              <div>당도 설정 ~~~~~</div>
+              <SearchBlock
+                list={sweetnessList}
+                state={sweetness}
+                handleState={handleSweetness}
+              />
             </div>
           </div>
         ) : null}
