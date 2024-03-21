@@ -1,33 +1,21 @@
 package store.dalkak.api.cocktail.dto.response;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
-import org.springframework.data.domain.Page;
-import store.dalkak.api.cocktail.domain.Cocktail;
 
-@Builder
 @Getter
-@Setter
+@Builder
 @AllArgsConstructor
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CocktailFindResDto {
 
-    private Long cocktailId;
-    private String cocktailName;
-    private String cocktailKrName;
-    private String cocktailImage;
+    private Long id;
+    private String name;
+    private String koreanName;
+    private String image;
     private Integer heartCount;
-
-    public static Page<CocktailFindResDto> toDtoList(Page<Cocktail> cocktails) {
-        return cocktails.map(m ->
-            CocktailFindResDto.builder()
-                .cocktailId(m.getId())
-                .cocktailName(m.getName())
-                .cocktailKrName(m.getKrName())
-                .cocktailImage(m.getImage())
-                .heartCount(m.getHeartCount())
-                .build());
-    }
 
 }

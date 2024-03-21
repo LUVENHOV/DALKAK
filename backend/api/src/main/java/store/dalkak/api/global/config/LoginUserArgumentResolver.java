@@ -14,7 +14,7 @@ import store.dalkak.api.global.jwt.Exception.JwtErrorCode;
 import store.dalkak.api.global.jwt.Exception.JwtException;
 import store.dalkak.api.global.jwt.JwtProvider;
 import store.dalkak.api.user.domain.Member;
-import store.dalkak.api.user.domain.MemberRepository;
+import store.dalkak.api.user.repository.MemberRepository;
 import store.dalkak.api.user.dto.MemberDto;
 
 @Slf4j

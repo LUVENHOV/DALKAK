@@ -35,7 +35,7 @@ public class ImageConfig {
     @Value("${cloud.aws.folder.custom}")
     private String folderName;
 
-    @Value("${IMAGE_ENDPOINT}")
+    @Value("${cloud.aws.endpoint}")
     private String endPoint;
 
     private BufferedImage resizeImage(BufferedImage originalImage, int targetWidth,

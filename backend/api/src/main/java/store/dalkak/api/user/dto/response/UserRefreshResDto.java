@@ -1,4 +1,4 @@
-package store.dalkak.api.user.domain.response;
+package store.dalkak.api.user.dto.response;
 
 import lombok.AccessLevel;
 import lombok.Builder;
