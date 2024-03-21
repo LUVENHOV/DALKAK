@@ -5,12 +5,6 @@ import Pagination from '../../../../components/common/pagination/Pagination.tsx'
 
 import CustomCocktailCardWrapper from '@/components/custom-cocktail/CustomCocktailCardWrapper.tsx';
 
-interface TotalData {
-  custom_cocktails: DummyList[];
-  total_count: number;
-  total_pages: number;
-  current_page: number;
-}
 interface DummyList {
   id: number;
   title: string;
@@ -18,7 +12,12 @@ interface DummyList {
   author: string;
   imageLink: string;
 }
-
+interface TotalData {
+  custom_cocktails: DummyList[];
+  total_count: number;
+  total_pages: number;
+  current_page: number;
+}
 export default function Page() {
   const totalData: TotalData = {
     custom_cocktails: [
@@ -292,9 +291,9 @@ export default function Page() {
     current_page: 1,
   };
 
-  const totalCount = totalData.total_count;
+  // const totalCount = totalData.total_count;
   const totalPages = totalData.total_pages;
-  const currentPage = totalData.current_page;
+  // const currentPage = totalData.current_page;
 
   const dummyList: DummyList[] = totalData.custom_cocktails;
 
@@ -307,9 +306,9 @@ export default function Page() {
 
       <Pagination
         articles={dummyList}
-        totalCount={totalCount}
+        // totalCount={totalCount}
         totalPages={totalPages}
-        currentPage={currentPage}
+        // currentPage={currentPage}
       />
     </div>
   );

@@ -1,8 +1,8 @@
 import { StaticImageData } from 'next/image';
-
+import React from 'react';
 import styles from './CustomCocktailIngredientCardWrapper.module.scss';
 
-import CustomCocktailToolCard from './CustomCocktailToolCard';
+import CustomCocktailToolCard from './CustomCocktailToolCard.tsx';
 
 interface CocktailTools {
   id: number;
@@ -27,6 +27,7 @@ export default function CustomCocktailToolCardWrapper({
       <ul className={styles['grid-container']}>
         {cocktailTools.map((tool, index) => (
           <CustomCocktailToolCard
+            // eslint-disable-next-line react/no-array-index-key
             key={index}
             cocktailTool={tool}
             index={index}

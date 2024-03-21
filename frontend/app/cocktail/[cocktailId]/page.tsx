@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { StaticImageData } from 'next/image';
 import apple from '@/public/assets/imgs/apple.png';
 import ice from '@/public/assets/imgs/ice.png';
 import lemon from '@/public/assets/imgs/lemon.png';
@@ -10,28 +11,12 @@ import jigger from '@/public/assets/imgs/jigger.png';
 import shaker from '@/public/assets/imgs/shaker.png';
 import muddler from '@/public/assets/imgs/muddler.png';
 
-import { StaticImageData } from 'next/image';
-
 import styles from './page.module.scss';
-import CustomCocktailImage from '@/components/custom-cocktail/CustomCocktailImage';
-import CustomCocktailInfo from '@/components/custom-cocktail/CustomCocktailInfo';
-import CustomCocktailIngredientCardWrapper from '@/components/custom-cocktail/CustomCocktailIngredientCardWrapper';
-import CustomCocktailRecipe from '@/components/custom-cocktail/CustomCocktailRecipe';
-import CustomCocktailToolCardWrapper from '@/components/custom-cocktail/CustomCocktailToolCardWrapper';
-
-interface CocktailData {
-  id: number;
-  name: string;
-  korean_name: string;
-  image: string;
-  heart_count: number;
-  alcohol_content: number;
-  sweetness: number;
-  recipe: string;
-  cocktail_ingredients: CocktailIngredients[];
-  cocktail_tools: CocktailTools[];
-  custom_cocktails: CustomCocktails[];
-}
+import CustomCocktailImage from '@/components/custom-cocktail/CustomCocktailImage.tsx';
+// import CustomCocktailInfo from '@/components/custom-cocktail/CustomCocktailInfo';
+import CustomCocktailIngredientCardWrapper from '@/components/custom-cocktail/CustomCocktailIngredientCardWrapper.tsx';
+import CustomCocktailRecipe from '@/components/custom-cocktail/CustomCocktailRecipe.tsx';
+import CustomCocktailToolCardWrapper from '@/components/custom-cocktail/CustomCocktailToolCardWrapper.tsx';
 
 interface CocktailIngredients {
   ingredient: {
@@ -61,8 +46,18 @@ interface CustomCocktails {
   user_nickname: string;
 }
 
-interface StoreData {
-  ingredients: Ingredient[];
+interface CocktailData {
+  id: string;
+  name: string;
+  korean_name: string;
+  image: string;
+  heart_count: number;
+  alcohol_content: number;
+  sweetness: number;
+  recipe: string;
+  cocktail_ingredients: CocktailIngredients[];
+  cocktail_tools: CocktailTools[];
+  custom_cocktails: CustomCocktails[];
 }
 
 interface Ingredient {
@@ -73,6 +68,10 @@ interface Ingredient {
     id: number;
     name: string;
   };
+}
+
+interface StoreData {
+  ingredients: Ingredient[];
 }
 
 const storeData: StoreData = {
@@ -117,7 +116,7 @@ const storeData: StoreData = {
 };
 
 const cocktailData: CocktailData = {
-  id: 1,
+  id: '1',
   name: 'Apple Martini',
   korean_name: '애플 마티니',
 
@@ -265,12 +264,11 @@ export default function Page({ params }: { params: { cocktailId: string } }) {
   const { cocktailId } = params;
   console.log(cocktailId);
 
-  const cocktailIngredients: CocktailIngredients[] =
-    cocktailData.cocktail_ingredients;
+  const cocktailIngredients: CocktailIngredients[] = cocktailData.cocktail_ingredients;
 
   const cocktailTools: CocktailTools[] = cocktailData.cocktail_tools;
 
-  const customCocktails: CustomCocktails[] = cocktailData.custom_cocktails;
+  // const customCocktails: CustomCocktails[] = cocktailData.custom_cocktails;
 
   const storeList = storeData.ingredients;
 
@@ -285,7 +283,7 @@ export default function Page({ params }: { params: { cocktailId: string } }) {
           </div>
           <div className={styles.nickname}>{cocktailData.alcohol_content}</div>
           <div className={styles.nickname}>{cocktailData.sweetness}</div>
-          <div></div>
+          <div />
           <div className={styles.buttons}>
             <div className={styles.button}>커스텀레시피 만들기</div>
           </div>

@@ -1,7 +1,6 @@
-import { StaticImageData } from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import React from 'react';
 
-import Image from 'next/image';
 import styles from './CustomCocktailIngredientCard.module.scss';
 
 interface CocktailTool {
@@ -24,11 +23,11 @@ export default function CustomCocktailToolCard({
   console.log(cocktailTool);
   let className = '';
 
-  if (index == 0 && index !== lastIndex) {
+  if (index === 0 && index !== lastIndex) {
     className = styles['start-ingredient'];
-  } else if (index == 0 && index == lastIndex) {
+  } else if (index === 0 && index === lastIndex) {
     className = styles['start-last-ingredient'];
-  } else if (index == 1 && index !== lastIndex) {
+  } else if (index === 1 && index !== lastIndex) {
     className = styles['inner-ingredient'];
   } else {
     className = styles['last-ingredient'];
