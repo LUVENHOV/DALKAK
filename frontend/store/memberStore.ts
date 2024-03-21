@@ -2,13 +2,25 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
+interface MemberActions{
+    setId: (id: string) => void;
+    setNickname: (nickname: string) => void;
+    setBirthDate: (birthDate: string) => void;
+    setGender :(gender:string) => void;
+    setIsLoggedIn: (isLoggedIn: boolean) => void;
+    clearAll: () => void;
+    tmp: () => void;
+}
+
 interface StoreState {
+  actions: MemberActions;
   id: string;
   nickname: string;
   birthDate: string;
   gender: 'male' | 'female' | '';
   isLoggedIn: boolean;
 }
+
 const memberStore = create(
   persist<StoreState>(
     (set) => ({
@@ -16,12 +28,13 @@ const memberStore = create(
       nickname: '',
       birthDate: '',
       gender: '',
-      isLoggedIn: false,
+      isLoggedIn: true,
       actions: {
         setId: (id: string) => set({ id }),
         setNickname: (nickname: string) => set({ nickname }),
         setBirthDate: (birthDate: string) => set({ birthDate }),
         setGender: (gender: 'male' | 'female') => set({ gender }),
+        setIsLoggedIn: (isLoggedIn: boolean) => set({ isLoggedIn }),
         clearAll: () =>
           set({
             id: '',
@@ -29,6 +42,15 @@ const memberStore = create(
             birthDate: '',
             gender: '',
             isLoggedIn: false,
+          }),
+
+        tmp: () =>
+          set({
+            id: 'tmp',
+            nickname: '김형진',
+            birthDate: '1998-01-17 ',
+            gender: 'male',
+            isLoggedIn: true,
           }),
       },
     }),

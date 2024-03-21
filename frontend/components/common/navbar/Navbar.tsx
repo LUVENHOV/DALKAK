@@ -5,10 +5,17 @@ import React from 'react';
 import './Navbar.scss';
 import { usePathname } from 'next/navigation';
 import HomeIcon from '@mui/icons-material/Home';
+import memberStore from '@/store/memberStore';
 
 export default function Navbar() {
   const pathName = usePathname();
-  const tempName = '끼리코';
+  const tmp = memberStore((state) => state.actions.tmp);
+  // eslint-disable-next-line no-unused-expressions
+  const isLoggedIn = memberStore((state) => state.isLoggedIn);
+  const nickname = memberStore((state) => state.nickname);
+  const clearAll = memberStore((state) => state.actions.clearAll);
+
+  //temp
   return (
     <div className="navbar">
       <Link href="/">
@@ -33,12 +40,17 @@ export default function Navbar() {
         <span className="top-cocktail">1 갓파더</span>
       </div>
       <div />
-      <div className="hi">
-        안녕하세요
-        <span>&nbsp;&nbsp;</span>
-        <span className="nickname">{tempName}</span>
-        님!
-      </div>
+      {isLoggedIn ? (
+        <div className="hi">
+          안녕하세요
+          <span>&nbsp;&nbsp;</span>
+          <span
+            className="nickname" 
+            onClick={clearAll}>{nickname}</span>
+          님!
+        </div>
+      ) : (<div className="hi"
+            onClick={tmp}>로그인 해주세요!</div>)}
 
       <Link href="/member">
         <HomeIcon />

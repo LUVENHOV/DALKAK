@@ -7,16 +7,16 @@ interface storeState {
  refreshToken: string;
 }
 
-const memberStore = create(
+const authStore = create(
   persist<storeState>(
     (set, get) => ({
       accessToken: '',
       refreshToken: '',
       actions: {
         setAccessToken: (accessToken: string) =>
-          set({ accessToken });,
-        setRefreshToken: (refreshToken: string) => 
-          set({ refreshToken });,
+          set({ accessToken }),
+        setRefreshToken: (refreshToken: string) =>
+          set({ refreshToken }),
         clearTokens: () =>
           set({
             accessToken: '',
@@ -30,4 +30,4 @@ const memberStore = create(
     },
   ),
 );
-export default memberStore;
+export default authStore;
