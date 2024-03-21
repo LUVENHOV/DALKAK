@@ -1,27 +1,23 @@
 import React from 'react';
 
 import { StaticImageData } from 'next/image';
-import apple from '../../../../../public/assets/imgs/apple.png';
-import ice from '../../../../../public/assets/imgs/ice.png';
-import lemon from '../../../../../public/assets/imgs/lemon.png';
-import alcohol from '../../../../../public/assets/imgs/alcohol.png';
-import vodka from '../../../../../public/assets/imgs/vodka.png';
 
 import styles from './page.module.scss';
 
-import CustomCocktailImage from '@/components/custom-cocktail/CustomCocktailImage.tsx';
-
-import CustomCocktailIngredientCardWrapper from '../../../../../components/custom-cocktail/CustomCocktailIngredientCardWrapper.tsx';
+import CustomCocktailIngredientCardWrapper from '../../../../../components/custom-cocktail/CustomCocktailIngredientCardWrapper';
 import alcohol from '../../../../../public/assets/imgs/alcohol.png';
+
 import apple from '../../../../../public/assets/imgs/apple.png';
+
 import ice from '../../../../../public/assets/imgs/ice.png';
 import lemon from '../../../../../public/assets/imgs/lemon.png';
 import vodka from '../../../../../public/assets/imgs/vodka.png';
-import CustomCocktailDeleteButton from '@/components/custom-cocktail/CustomCocktailDeleteButton.tsx';
+
+import CustomCocktailDeleteButton from '@/components/custom-cocktail/CustomCocktailDeleteButton';
 import CustomCocktailImage from '@/components/custom-cocktail/CustomCocktailImage';
-import CustomCocktailInfo from '@/components/custom-cocktail/CustomCocktailInfo.tsx';
-import CustomCocktailModifyButton from '@/components/custom-cocktail/CustomCocktailModifyButton.tsx';
-import CustomCocktailRecipe from '@/components/custom-cocktail/CustomCocktailRecipe.tsx';
+import CustomCocktailInfo from '@/components/custom-cocktail/CustomCocktailInfo';
+import CustomCocktailModifyButton from '@/components/custom-cocktail/CustomCocktailModifyButton';
+import CustomCocktailRecipe from '@/components/custom-cocktail/CustomCocktailRecipe';
 
 interface IngredientsList {
   ingredient: {

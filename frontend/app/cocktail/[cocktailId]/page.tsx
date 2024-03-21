@@ -1,22 +1,21 @@
 import React from 'react';
 
 import { StaticImageData } from 'next/image';
-import apple from '@/public/assets/imgs/apple.png';
-import ice from '@/public/assets/imgs/ice.png';
-import lemon from '@/public/assets/imgs/lemon.png';
-import alcohol from '@/public/assets/imgs/alcohol.png';
-import vodka from '@/public/assets/imgs/vodka.png';
-
-import jigger from '@/public/assets/imgs/jigger.png';
-import shaker from '@/public/assets/imgs/shaker.png';
-import muddler from '@/public/assets/imgs/muddler.png';
 
 import styles from './page.module.scss';
-import CustomCocktailImage from '@/components/custom-cocktail/CustomCocktailImage.tsx';
+import CustomCocktailImage from '@/components/custom-cocktail/CustomCocktailImage';
 // import CustomCocktailInfo from '@/components/custom-cocktail/CustomCocktailInfo';
-import CustomCocktailIngredientCardWrapper from '@/components/custom-cocktail/CustomCocktailIngredientCardWrapper.tsx';
-import CustomCocktailRecipe from '@/components/custom-cocktail/CustomCocktailRecipe.tsx';
-import CustomCocktailToolCardWrapper from '@/components/custom-cocktail/CustomCocktailToolCardWrapper.tsx';
+import CustomCocktailIngredientCardWrapper from '@/components/custom-cocktail/CustomCocktailIngredientCardWrapper';
+import CustomCocktailRecipe from '@/components/custom-cocktail/CustomCocktailRecipe';
+import CustomCocktailToolCardWrapper from '@/components/custom-cocktail/CustomCocktailToolCardWrapper';
+import alcohol from '@/public/assets/imgs/alcohol.png';
+import apple from '@/public/assets/imgs/apple.png';
+import ice from '@/public/assets/imgs/ice.png';
+import jigger from '@/public/assets/imgs/jigger.png';
+import lemon from '@/public/assets/imgs/lemon.png';
+import muddler from '@/public/assets/imgs/muddler.png';
+import shaker from '@/public/assets/imgs/shaker.png';
+import vodka from '@/public/assets/imgs/vodka.png';
 
 interface CocktailIngredients {
   ingredient: {
@@ -260,11 +259,12 @@ const cocktailData: CocktailData = {
   ],
 };
 
-export default function Page({ params }: { params: { cocktailId: string } }) {
-  const { cocktailId } = params;
+export default function Page(/* { params }: { params: { cocktailId: string } } */) {
+  // const { cocktailId } = params;
   // console.log(cocktailId);
 
-  const cocktailIngredients: CocktailIngredients[] = cocktailData.cocktail_ingredients;
+  const cocktailIngredients: CocktailIngredients[] =
+    cocktailData.cocktail_ingredients;
 
   const cocktailTools: CocktailTools[] = cocktailData.cocktail_tools;
 

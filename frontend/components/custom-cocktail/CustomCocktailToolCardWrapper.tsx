@@ -1,8 +1,8 @@
-import { StaticImageData } from 'next/image';
 import React from 'react';
+import { StaticImageData } from 'next/image';
 import styles from './CustomCocktailIngredientCardWrapper.module.scss';
 
-import CustomCocktailToolCard from './CustomCocktailToolCard.tsx';
+import CustomCocktailToolCard from './CustomCocktailToolCard';
 
 interface CocktailTools {
   id: number;

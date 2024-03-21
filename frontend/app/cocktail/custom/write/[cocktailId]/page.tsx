@@ -7,7 +7,6 @@ import PublicOutlined from '@mui/icons-material/PublicOutlined';
 import { useRouter } from 'next/navigation';
 import styles from './page.module.scss';
 
-import styles from './page.module.scss';
 import BtnWithIcon from '@/components/common/BtnWithIcon';
 import CustomCocktailAddIngredient from '@/components/custom-cocktail/write/CustomCocktailAddIngredient';
 import CustomCocktailAddRecipe from '@/components/custom-cocktail/write/CustomCocktailAddRecipe';

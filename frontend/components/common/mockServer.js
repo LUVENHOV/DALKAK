@@ -93,9 +93,12 @@ const dummy = [
   },
 ];
 
-export const serverDelay = (func) => (duration) => new Promise((resolve, reject) => setTimeout(() => {
-  resolve(func());
-}, duration || 1000));
+export const serverDelay = (func) => (duration) =>
+  new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(func());
+    }, duration || 1000);
+  });
 
 export const getWhitelistFromServer = serverDelay(() => dummy);
 

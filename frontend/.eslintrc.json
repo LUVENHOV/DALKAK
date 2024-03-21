@@ -18,6 +18,7 @@
     "sourceType": "module"
   },
   "rules": {
+    "operator-linebreak": "off",
     "react/jsx-props-no-spreading": "off",
     "function-paren-newline": "off",
     "implicit-arrow-linebreak": "off",
@@ -43,8 +44,9 @@
     ],
     "import/extensions": [
       "error",
-      "ignorePackages",
       {
+        "scss": "true",
+        "png": "true",
         "js": "never",
         "tsx": "never",
         "ts": "never"

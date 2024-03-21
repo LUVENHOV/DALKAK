@@ -48,8 +48,9 @@ export default function SearchAlcoholContent(props: propsType) {
                 },
                 i,
               ) => (
-                <div key={i} className={styles.tmpBox}>
+                <div key={value} className={styles.tmpBox}>
                   <button
+                    type="button"
                     className={styles.btn}
                     onKeyDown={onKeyDownHandler}
                     onMouseDown={onMouseDownHandler}

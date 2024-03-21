@@ -1,6 +1,9 @@
 import React from 'react';
 
-import CustomCocktailCardWrapper from '@/components/custom-cocktail/CustomCocktailCardWrapper.tsx';
+import Pagination from '@/components/common/pagination/Pagination';
+import CustomCocktailCardWrapper from '@/components/custom-cocktail/CustomCocktailCardWrapper';
+import CustomCocktailList from '@/components/custom-cocktail/CustomCocktailList';
+import CustomCocktailWriteButton from '@/components/custom-cocktail/CustomCocktailWriteButton';
 
 interface DummyList {
   id: number;

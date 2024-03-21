@@ -18,6 +18,7 @@ export default function SearchBlock(props: propsType) {
     <div className={styles.container}>
       {list.map((now) => (
         <button
+          type="button"
           key={now.id}
           value={now.id}
           className={`${styles.block} ${state === now.id ? styles.selected : ''}`}
