@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import store.dalkak.api.user.domain.embed.Provider;
 
-@Data
 @Builder
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
