@@ -49,7 +49,7 @@ interface CustomDetailData {
   recipe: string;
   summary: string;
   comment: string;
-  custom_cocktail_ingredients: ingredientsList[];
+  custom_cocktail_ingredients: IngredientsList[];
   open: boolean;
 }
 
@@ -66,8 +66,6 @@ interface Ingredient {
 interface StoreData {
   ingredients: Ingredient[];
 }
-
-interface ingredientsList {}
 
 export default function Page() {
   const customDetailData: CustomDetailData = {
@@ -218,10 +216,9 @@ export default function Page() {
     ],
   };
 
-  const ingredientsList: IngredientsList[] =
-    customDetailData.custom_cocktail_ingredients;
+  const ingredientsList = customDetailData.custom_cocktail_ingredients;
 
-  const storeList: StoreData[] = storeData.ingredients;
+  const storeList = storeData.ingredients;
 
   return (
     <div className={styles['flex-container']}>
