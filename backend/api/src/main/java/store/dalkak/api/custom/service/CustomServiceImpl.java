@@ -35,7 +35,7 @@ public class CustomServiceImpl implements CustomService {
 
     private final CocktailRepository cocktailRepository;
 
-//    private final UnitRepository unitRepository;
+    private final UnitRepository unitRepository;
 
     private final IngredientRepository ingredientRepository;
 
