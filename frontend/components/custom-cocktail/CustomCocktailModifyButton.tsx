@@ -1,5 +1,7 @@
 'use client';
 
+import React from 'react';
+
 import { useRouter } from 'next/navigation';
 
 export default function CustomCocktailModifyButton() {
@@ -10,7 +12,9 @@ export default function CustomCocktailModifyButton() {
   };
   return (
     <div>
-      <button onClick={ModifyClick}>🖍&nbsp;수정</button>
+      <button type="button" onClick={ModifyClick}>
+        🖍&nbsp;수정
+      </button>
     </div>
   );
 }

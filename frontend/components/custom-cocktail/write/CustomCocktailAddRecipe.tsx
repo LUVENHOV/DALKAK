@@ -8,9 +8,7 @@ interface Props {
   recipe: string;
 }
 
-const splitedRecipe = (recipe: string) => {
-  return recipe.split('|').join('\n\n');
-};
+const splitedRecipe = (recipe: string) => recipe.split('|').join('\n\n');
 
 console.log(splitedRecipe);
 

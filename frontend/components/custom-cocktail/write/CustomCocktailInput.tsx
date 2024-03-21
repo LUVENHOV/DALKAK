@@ -1,17 +1,17 @@
 'use client';
 
-import styles from './CustomCocktailInput.module.scss';
+import React, { ChangeEvent, useState } from 'react';
 
-import { ChangeEvent, useState } from 'react';
+import styles from './CustomCocktailInput.module.scss';
 
 interface Props {
   max: number;
-  placeText?: string;
+  placeText: string;
 }
 
-interface StringNumberPair {
-  slice(start?: number, end?: number): Array<string | number>;
-}
+// interface StringNumberPair {
+//   slice(start?: number, end?: number): Array<string | number>;
+// }
 
 export default function CustomCocktailInput({ max, placeText }: Props) {
   const [inputValue, setInputValue] = useState('');

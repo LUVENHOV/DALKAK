@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+
 import { useRouter } from 'next/navigation';
 
 import styles from './CustomCocktailWriteButton.module.scss';
@@ -20,9 +21,13 @@ export default function CustomCocktailWriteButton() {
     <div>
       <div className={styles.container}>
         <h2 className={styles.flex}>
-          <span onClick={goToBaseCocktail} className={styles['cocktail-name']}>
+          <button
+            type="button"
+            onClick={goToBaseCocktail}
+            className={styles['cocktail-name']}
+          >
             {cocktailName}
-          </span>
+          </button>
           <span className={styles['after-name']}>
             &nbsp;를 활용한 다른 회원들의 색다른 레시피를 확인해보세요!
           </span>

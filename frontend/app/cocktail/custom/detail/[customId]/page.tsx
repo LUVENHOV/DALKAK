@@ -1,25 +1,27 @@
 import React from 'react';
 
+import { StaticImageData } from 'next/image';
 import apple from '../../../../../public/assets/imgs/apple.png';
 import ice from '../../../../../public/assets/imgs/ice.png';
 import lemon from '../../../../../public/assets/imgs/lemon.png';
 import alcohol from '../../../../../public/assets/imgs/alcohol.png';
 import vodka from '../../../../../public/assets/imgs/vodka.png';
-import { StaticImageData } from 'next/image';
 
 import styles from './page.module.scss';
 
-import CustomCocktailImage from '@/components/custom-cocktail/CustomCocktailImage';
+import CustomCocktailImage from '@/components/custom-cocktail/CustomCocktailImage.tsx';
 
 import CustomCocktailIngredientCardWrapper from '../../../../../components/custom-cocktail/CustomCocktailIngredientCardWrapper.tsx';
-
-import CustomCocktailInfo from '@/components/custom-cocktail/CustomCocktailInfo.tsx';
-
-import CustomCocktailRecipe from '@/components/custom-cocktail/CustomCocktailRecipe.tsx';
-
-import CustomCocktailModifyButton from '@/components/custom-cocktail/CustomCocktailModifyButton.tsx';
-
+import alcohol from '../../../../../public/assets/imgs/alcohol.png';
+import apple from '../../../../../public/assets/imgs/apple.png';
+import ice from '../../../../../public/assets/imgs/ice.png';
+import lemon from '../../../../../public/assets/imgs/lemon.png';
+import vodka from '../../../../../public/assets/imgs/vodka.png';
 import CustomCocktailDeleteButton from '@/components/custom-cocktail/CustomCocktailDeleteButton.tsx';
+import CustomCocktailImage from '@/components/custom-cocktail/CustomCocktailImage';
+import CustomCocktailInfo from '@/components/custom-cocktail/CustomCocktailInfo.tsx';
+import CustomCocktailModifyButton from '@/components/custom-cocktail/CustomCocktailModifyButton.tsx';
+import CustomCocktailRecipe from '@/components/custom-cocktail/CustomCocktailRecipe.tsx';
 
 interface IngredientsList {
   ingredient: {
@@ -228,7 +230,7 @@ export default function Page() {
           <div className={styles.nickname}>
             by&nbsp;{customDetailData.user.name}
           </div>
-          <div></div>
+          <div />
 
           <div className={styles.buttons}>
             <div className={styles.button}>

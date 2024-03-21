@@ -1,8 +1,13 @@
+import React from 'react';
+
 import styles from './CustomCocktailInfo.module.scss';
 
 interface Props {
-  cocktail?: string;
+  // eslint-disable-next-line react/require-default-props
+  cocktail?: string | undefined;
+  // eslint-disable-next-line react/require-default-props
   summary?: string;
+  // eslint-disable-next-line react/require-default-props
   comment?: string;
 }
 

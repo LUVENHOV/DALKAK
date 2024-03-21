@@ -1,7 +1,6 @@
 'use client';
 
-import { ChangeEvent, useState } from 'react';
-import { useEffect } from 'react';
+import { ChangeEvent, useState, useEffect } from 'react';
 
 import styles from './CustomCocktailAddIngredient.module.scss';
 
@@ -21,7 +20,7 @@ interface Props {
   origin: Origin[];
 }
 
-const unitList = ['조각', '슬라이스', '그램', 'ml', '개'];
+// const unitList = ['조각', '슬라이스', '그램', 'ml', '개'];
 
 export default function CustomCocktailAddIngredient({ origin }: Props) {
   const [tempList, setTempList] = useState(origin);
@@ -77,10 +76,11 @@ export default function CustomCocktailAddIngredient({ origin }: Props) {
       <div className={styles.scrollable}>
         <div className={styles.add}>
           {tempList.map((data, index) => (
+            // eslint-disable-next-line react/no-array-index-key
             <div key={index}>
               <div className={styles['grid-container']}>
                 <div>{data.ingredient.name}</div>
-                <div></div>
+                <div />
                 <div>
                   <input
                     type="text"
@@ -95,9 +95,7 @@ export default function CustomCocktailAddIngredient({ origin }: Props) {
                   <select
                     className={styles['unit-input']}
                     value={inputUnitValues[index]}
-                    onChange={(e) =>
-                      handleUnitInputChange(e, data.ingredient.id)
-                    }
+                    onChange={(e) => handleUnitInputChange(e, data.ingredient.id)}
                   >
                     <option>개</option>
                     <option>웨지</option>
@@ -112,9 +110,10 @@ export default function CustomCocktailAddIngredient({ origin }: Props) {
                     <option>none</option>
                   </select>
                 </div>
-                <div></div>
+                <div />
                 <div>
                   <button
+                    type="button"
                     className={styles['delete-button']}
                     onClick={() => removeItem(data.ingredient.id)}
                   >

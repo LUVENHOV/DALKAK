@@ -69,10 +69,11 @@ export default function SearchColor(props: propsType) {
           key={c.id}
         >
           <button
+            type="button"
             value={c.id}
             className={`${styles.btn} ${styles[c.name]}`}
             onClick={handleColor}
-          ></button>
+          />
           <div className={styles.title}>{c.korName}</div>
         </div>
       ))}

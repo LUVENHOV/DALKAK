@@ -1,5 +1,4 @@
 {
-  "import/no-unresolved": "off",
   "extends": [
     "airbnb",
     "airbnb/hooks",
@@ -19,6 +18,39 @@
     "sourceType": "module"
   },
   "rules": {
+    "react/jsx-props-no-spreading": "off",
+    "function-paren-newline": "off",
+    "implicit-arrow-linebreak": "off",
+    "object-curly-newline": "off",
+    "react/react-in-jsx-scope": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal"],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["react"],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "tsx": "never",
+        "ts": "never"
+      }
+    ],
+    "import/no-unresolved": "off",
     "react/jsx-filename-extension": [
       1,
       { "extensions": [".js", ".jsx", ".tsx", ".ts"] }

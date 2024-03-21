@@ -1,25 +1,20 @@
 'use client';
 
-import React from 'react';
-
-import styles from './page.module.scss';
-
-import BtnWithIcon from '@/components/common/BtnWithIcon';
+import React, { useState } from 'react';
 
 import LockOutlined from '@mui/icons-material/LockOutlined';
 import PublicOutlined from '@mui/icons-material/PublicOutlined';
+import { useRouter } from 'next/navigation';
+import styles from './page.module.scss';
 
+import styles from './page.module.scss';
+import BtnWithIcon from '@/components/common/BtnWithIcon';
+import CustomCocktailAddIngredient from '@/components/custom-cocktail/write/CustomCocktailAddIngredient';
+import CustomCocktailAddRecipe from '@/components/custom-cocktail/write/CustomCocktailAddRecipe';
 import CustomCocktailImageUpload from '@/components/custom-cocktail/write/CustomCocktailImageUpload';
-
 import CustomCocktailInput from '@/components/custom-cocktail/write/CustomCocktailInput';
 
-import CustomCocktailAddIngredient from '@/components/custom-cocktail/write/CustomCocktailAddIngredient';
-
-import CustomCocktailAddRecipe from '@/components/custom-cocktail/write/CustomCocktailAddRecipe';
 // import { StaticImageData } from 'next/image';
-import { useRouter } from 'next/navigation';
-
-import { useState } from 'react';
 
 interface IngredientsList {
   ingredient: {
@@ -149,7 +144,7 @@ const originIngredientList: OriginIngredient = {
   ],
 };
 
-const recipe: string = originIngredientList.recipe;
+const { recipe } = originIngredientList;
 const origin: IngredientsList[] = originIngredientList.ingredientList;
 
 export default function Page() {
@@ -158,19 +153,17 @@ export default function Page() {
 
   const [inputValue, setInputValue] = useState('');
 
-  const infoPlaceholder =
-    '추가 설명이나 후기를 알려주세요.\n\n 이런 내용이 들어가면 좋아요!| - 이 재료는 다른 걸로 대체할 수 있어요| - 기존 레시피와 비교해서 맛이 이렇게 달라요| - 이럴 때 마시는 걸 추천해요';
+  const infoPlaceholder = '추가 설명이나 후기를 알려주세요.\n\n 이런 내용이 들어가면 좋아요!| - 이 재료는 다른 걸로 대체할 수 있어요| - 기존 레시피와 비교해서 맛이 이렇게 달라요| - 이럴 때 마시는 걸 추천해요';
 
-  const splitedInfoPlaceholder = (infoPlaceholder: string) => {
-    return infoPlaceholder.split('|').join('\n');
-  };
+  // eslint-disable-next-line no-shadow
+  const splitedInfoPlaceholder = (infoPlaceholder: string) => infoPlaceholder.split('|').join('\n');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
   };
 
   const handleIsPublic = () => {
-    if (isPublic == false) {
+    if (isPublic === false) {
       setIsPublic(true);
     } else {
       setIsPublic(false);
@@ -193,7 +186,7 @@ export default function Page() {
           <div className={styles.explain}>
             &nbsp;&nbsp;Apple Martini, 애플 마티니
           </div>
-          <div></div>
+          <div />
 
           <div className={styles.buttons}>
             <div className={`${styles.button} ${styles.button1}`}>
@@ -206,7 +199,7 @@ export default function Page() {
             </div>
             <div className={`${styles.button} ${styles.button2}`}>
               <BtnWithIcon
-                text={'커스텀 칵테일 등록'}
+                text="커스텀 칵테일 등록"
                 btnStyle="full-point"
                 handleOnClick={handleNavigation}
               />
