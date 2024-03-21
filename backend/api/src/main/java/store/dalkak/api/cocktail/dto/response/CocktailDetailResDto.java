@@ -17,36 +17,36 @@ import store.dalkak.api.cocktail.dto.CocktailCustomDto;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CocktailDetailResDto {
 
-    List<CocktailIngredientDto> cocktailIngredients;
-    List<ToolDto> cocktailTools;
-    List<CocktailCustomDto> customCocktails;
-    private Long cocktailId;
-    private String cocktailName;
-    private String cocktailKrName;
-    private String cocktailImage;
+    private Long id;
+    private String name;
+    private String koreanName;
+    private String image;
     private Integer heartCount;
     private Integer viewCount;
     private Integer alcoholContent;
-    private Integer cocktailSweetness;
-    private String cocktailRecipe;
+    private Integer sweetness;
+    private String recipe;
+    List<CocktailIngredientDto> cocktailIngredients;
+    List<ToolDto> cocktailTools;
+    List<CocktailCustomDto> customCocktails;
 
     public static CocktailDetailResDto of(Cocktail cocktail,
         List<CocktailIngredientDto> ingredients, List<ToolDto> tools,
         List<CocktailCustomDto> customCocktails) {
 
         return CocktailDetailResDto.builder()
-            .cocktailIngredients(ingredients)
-            .cocktailTools(tools)
-            .customCocktails(customCocktails)
-            .cocktailId(cocktail.getId())
-            .cocktailName(cocktail.getName())
-            .cocktailKrName(cocktail.getKrName())
-            .cocktailImage(cocktail.getImage())
+            .id(cocktail.getId())
+            .name(cocktail.getName())
+            .koreanName(cocktail.getKrName())
+            .image(cocktail.getImage())
             .heartCount(cocktail.getHeartCount())
             .viewCount(cocktail.getViewCount())
             .alcoholContent(cocktail.getAlcohol())
-            .cocktailSweetness(cocktail.getSweetness())
-            .cocktailRecipe(cocktail.getRecipe())
+            .sweetness(cocktail.getSweetness())
+            .recipe(cocktail.getRecipe())
+            .cocktailIngredients(ingredients)
+            .cocktailTools(tools)
+            .customCocktails(customCocktails)
             .build();
     }
 }

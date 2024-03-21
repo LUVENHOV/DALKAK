@@ -6,12 +6,15 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import store.dalkak.api.cocktail.domain.ingredient.Category;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class IngredientDto {
-    private Long ingredientId;
-    private String ingredientName;
+    private Long id;
+    private String name;
+    private String image;
+    private Category category;
 }

@@ -3,7 +3,6 @@ package store.dalkak.api.cocktail.controller;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -15,10 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import store.dalkak.api.cocktail.dto.IngredientDto;
 import store.dalkak.api.cocktail.dto.response.CocktailDetailResDto;
-import store.dalkak.api.cocktail.dto.response.CocktailFindResDto;
 import store.dalkak.api.cocktail.dto.response.CocktailPageResDto;
-import store.dalkak.api.cocktail.exception.CocktailSearchErrorCode;
-import store.dalkak.api.cocktail.exception.CocktailException;
 import store.dalkak.api.cocktail.service.CocktailService;
 import store.dalkak.api.global.response.ApiResponse;
 
@@ -66,7 +62,7 @@ public class CocktailController {
 
     @GetMapping("/ingredients")
     public ResponseEntity<ApiResponse<List<IngredientDto>>> searchIngredients(
-        @RequestParam(value = "ingredient-name") String ingredientName){
+        @RequestParam(value = "ingredient-name",required = false) String ingredientName){
 
         List<IngredientDto> ingredients = cocktailService.findIngredient(ingredientName);
 

@@ -13,9 +13,10 @@ import store.dalkak.api.cocktail.domain.ingredient.Unit;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CocktailIngredientDto {
-    private Long ingredientId;
-    private String ingredientName;
-    private String ingredientImage;
-    private Double ingredientAmount;
-    private Unit ingredientUnit;
+    private Long id;
+    private String name;
+    private String image;
+    private Long categoryId;
+    private Double amount;
+    private Unit unit;
 }

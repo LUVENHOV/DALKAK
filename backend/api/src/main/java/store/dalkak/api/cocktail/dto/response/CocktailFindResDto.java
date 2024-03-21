@@ -5,9 +5,6 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
-import org.springframework.data.domain.Page;
-import store.dalkak.api.cocktail.domain.Cocktail;
 
 @Getter
 @Builder
@@ -15,10 +12,10 @@ import store.dalkak.api.cocktail.domain.Cocktail;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CocktailFindResDto {
 
-    private Long cocktailId;
-    private String cocktailName;
-    private String cocktailKrName;
-    private String cocktailImage;
+    private Long id;
+    private String name;
+    private String koreanName;
+    private String image;
     private Integer heartCount;
 
 }
