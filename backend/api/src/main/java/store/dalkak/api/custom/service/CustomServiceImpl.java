@@ -115,7 +115,7 @@ public class CustomServiceImpl implements CustomService {
 
         String imageUrl;
         // 만약 이미지를 변경했다면
-        if(image != null) {
+        if(!image.isEmpty()) {
             imageConfig.deleteImage(custom.getImage());
             imageUrl = imageConfig.uploadImage(image);
         } else {

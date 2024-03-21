@@ -29,7 +29,7 @@ public class CustomController {
     // 로그인한 Member 추가
     @PostMapping
     public ResponseEntity<ApiResponse<String>> createCustomCocktail(
-        @RequestPart("image") MultipartFile image,
+        @RequestPart(value = "image") MultipartFile image,
         @RequestPart("CustomCreateReqDto") CustomCreateReqDto customCreateReqDto,
         @LoginUser MemberDto memberDto) {
         customService.createCustomCocktail(image, customCreateReqDto, memberDto);
@@ -38,7 +38,9 @@ public class CustomController {
     }
 
     @PatchMapping("/{customCocktailId}")
-    public ResponseEntity<ApiResponse<String>> modifyCustomCocktail(@PathVariable("customCocktailId") Long customCocktailId, @RequestPart("image") MultipartFile image,
+    public ResponseEntity<ApiResponse<String>> modifyCustomCocktail(
+        @PathVariable("customCocktailId") Long customCocktailId,
+        @RequestPart(value = "image") MultipartFile image,
         @RequestPart("CustomCreateReqDto") CustomCreateReqDto customCreateReqDto) {
         customService.modifyCustomCocktail(customCocktailId, image, customCreateReqDto);
         return ResponseEntity.status(HttpStatus.OK)
@@ -46,7 +48,8 @@ public class CustomController {
     }
 
     @DeleteMapping("/{customCocktailId}")
-    public ResponseEntity<ApiResponse<String>> deleteCustomCocktail(@PathVariable("customCocktailId") Long customCocktailId) {
+    public ResponseEntity<ApiResponse<String>> deleteCustomCocktail(
+        @PathVariable("customCocktailId") Long customCocktailId) {
         customService.deleteCustomCocktail(customCocktailId);
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, "커스텀 칵테일이 삭제되었습니다."));
     }
