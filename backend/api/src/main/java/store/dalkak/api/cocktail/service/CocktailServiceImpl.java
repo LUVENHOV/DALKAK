@@ -31,7 +31,7 @@ import store.dalkak.api.cocktail.exception.CocktailSearchErrorCode;
 import store.dalkak.api.cocktail.repository.CocktailRepository;
 import store.dalkak.api.cocktail.repository.ingredient.CocktailIngredientRepository;
 import store.dalkak.api.cocktail.repository.tool.CocktailToolRepository;
-import store.dalkak.api.custom.domain.CustomRepository;
+import store.dalkak.api.custom.repository.CustomRepository;
 
 @Slf4j
 @Transactional
