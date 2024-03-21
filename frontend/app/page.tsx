@@ -17,19 +17,25 @@ export default function Home() {
         bgcolor="google"
         icon="../assets/imgs/icon-google.svg"
         text="Sign in with Google"
-        onClick={() => {}}
+        onClick={() => {
+          window.location.href = process.env.NEXT_PUBLIC_OAUTH_GOOGLE || '';
+        }}
       />
       <OauthButton
         bgcolor="kakao"
         icon="../assets/imgs/icon-kakao.svg"
         text="Sign in with Kakao"
-        onClick={() => {}}
+        onClick={() => {
+          window.location.href = process.env.NEXT_PUBLIC_OAUTH_KAKAO || '';
+        }}
       />
       <OauthButton
         bgcolor="naver"
         icon="../assets/imgs/icon-naver.svg"
         text="Sign in with Naver"
-        onClick={() => {}}
+        onClick={() => {
+          window.location.href = process.env.NEXT_PUBLIC_OAUTH_NAVER || '';
+        }}
       />
     </div>
   );
