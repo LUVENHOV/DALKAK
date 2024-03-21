@@ -121,8 +121,18 @@ export default function CocktailSearchForm() {
     setSweetness(e.currentTarget.value);
   };
 
+  const handleOrderBy = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setOrderBy(e.currentTarget.value);
+  };
+
   const handleDetailSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log();
+    console.log(keyword);
+    console.log(ingredients);
+    console.log(base);
+    console.log(alcoholContent);
+    console.log(color);
+    console.log(sweetness);
+    console.log(orderBy);
   };
 
   return (
@@ -207,7 +217,7 @@ export default function CocktailSearchForm() {
             </div>
           </div>
         ) : null}
-        <SortBy />
+        <SortBy orderBy={orderBy} handleOrderBy={handleOrderBy} />
       </div>
     </>
   );
