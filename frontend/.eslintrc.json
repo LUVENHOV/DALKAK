@@ -1,0 +1,52 @@
+{
+  "import/no-unresolved": "off",
+  "extends": [
+    "airbnb",
+    "airbnb/hooks",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "rules": {
+    "react/jsx-filename-extension": [
+      1,
+      { "extensions": [".js", ".jsx", ".tsx", ".ts"] }
+    ],
+    //아래는 자동저장하면 자꾸 에러나서 한 줄에 1개의
+    //jsx 요소만 사용하지 않아도 된다고 설정해놓은건데...
+    "react/jsx-one-expression-per-line": "off",
+    // 아래는 CRLF와 LF 오류가 나서 추가한 코드
+    "linebreak-style": ["error", "windows"]
+    // "react/function-component-definition": [
+    //   2,
+    //   { "namedComponents": "arrow-function" }
+    // ]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "node": {
+        "paths": ["."],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  }
+}
