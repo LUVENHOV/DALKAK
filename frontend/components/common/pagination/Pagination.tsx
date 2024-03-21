@@ -12,6 +12,14 @@ interface Props {
   currentPage: number;
 }
 
+interface Articles {
+  id: number;
+  title: string;
+  comment: string;
+  author: string;
+  imageLink: string;
+}
+
 export default function Pagination({
   articles,
   totalCount,
@@ -23,7 +31,7 @@ export default function Pagination({
   const endOffset = itemOffset + 20;
   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
 
-  const handlePageClick = (e) => {
+  const handlePageClick = (e: any) => {
     const newOffset = (e.selected * 20) % articles.length;
     console.log(
       `User requested page number ${e.selected}, which is offset ${newOffset}`,
