@@ -61,7 +61,7 @@
     //jsx 요소만 사용하지 않아도 된다고 설정해놓은건데...
     "react/jsx-one-expression-per-line": "off",
     // 아래는 CRLF와 LF 오류가 나서 추가한 코드
-    "linebreak-style": ["error", "windows"]
+    "linebreak-style": ["error", "windows", "unix"]
     // "react/function-component-definition": [
     //   2,
     //   { "namedComponents": "arrow-function" }
