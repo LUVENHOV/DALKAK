@@ -20,7 +20,7 @@ interface Props {
   origin: Origin[];
 }
 
-const unitList = ['조각', '슬라이스', '그램', 'ml', '개'];
+// const unitList = ['조각', '슬라이스', '그램', 'ml', '개'];
 
 export default function CustomCocktailAddIngredient({ origin }: Props) {
   const [tempList, setTempList] = useState(origin);
@@ -76,6 +76,7 @@ export default function CustomCocktailAddIngredient({ origin }: Props) {
       <div className={styles.scrollable}>
         <div className={styles.add}>
           {tempList.map((data, index) => (
+            // eslint-disable-next-line react/no-array-index-key
             <div key={index}>
               <div className={styles['grid-container']}>
                 <div>{data.ingredient.name}</div>
@@ -112,6 +113,7 @@ export default function CustomCocktailAddIngredient({ origin }: Props) {
                 <div />
                 <div>
                   <button
+                    type="button"
                     className={styles['delete-button']}
                     onClick={() => removeItem(data.ingredient.id)}
                   >

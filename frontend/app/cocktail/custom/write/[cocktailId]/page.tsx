@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import LockOutlined from '@mui/icons-material/LockOutlined';
 import PublicOutlined from '@mui/icons-material/PublicOutlined';
 import { useRouter } from 'next/navigation';
+import styles from './page.module.scss';
 
 import styles from './page.module.scss';
 import BtnWithIcon from '@/components/common/BtnWithIcon';
@@ -154,6 +155,7 @@ export default function Page() {
 
   const infoPlaceholder = '추가 설명이나 후기를 알려주세요.\n\n 이런 내용이 들어가면 좋아요!| - 이 재료는 다른 걸로 대체할 수 있어요| - 기존 레시피와 비교해서 맛이 이렇게 달라요| - 이럴 때 마시는 걸 추천해요';
 
+  // eslint-disable-next-line no-shadow
   const splitedInfoPlaceholder = (infoPlaceholder: string) => infoPlaceholder.split('|').join('\n');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -161,7 +163,7 @@ export default function Page() {
   };
 
   const handleIsPublic = () => {
-    if (isPublic == false) {
+    if (isPublic === false) {
       setIsPublic(true);
     } else {
       setIsPublic(false);

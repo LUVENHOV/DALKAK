@@ -1,5 +1,8 @@
+import React from 'react';
+
 import { FavoriteBorder } from '@mui/icons-material';
 import Link from 'next/link';
+import styles from './CocktailCard.module.scss';
 
 import styles from './CocktailCard.module.scss';
 

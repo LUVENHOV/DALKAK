@@ -48,6 +48,7 @@ export default function CustomCocktailIngredientCardWrapper({
       <ul className={styles['grid-container']}>
         {ingredients.map((ingredient, index) => (
           <CustomCocktailIngredientCard
+            // eslint-disable-next-line react/no-array-index-key
             key={index}
             ingredient={ingredient}
             index={index}

@@ -1,36 +1,41 @@
 'use client';
 
-// API 완성 후 다시 구현
-import React, { useState } from 'react';
+
+import { useState } from 'react';
 
 import ReactPaginate from 'react-paginate';
 
 import styles from './Pagination.module.scss';
 
-interface Props {
-  articles: Articles[];
-  totalCount: number;
-  totalPages: number;
-  currentPage: number;
+interface Articles {
+  id: number;
+  title: string;
+  comment: string;
+  author: string;
+  imageLink: string;
 }
 
-export default function Pagination({
-  articles,
-  totalCount,
-  totalPages,
-  currentPage,
-}: Props) {
+interface Props {
+  articles: Articles[];
+  // totalCount: number;
+  totalPages: number;
+  // currentPage: number;
+}
+
+export default function Pagination({ articles, totalPages }: Props) {
   const [itemOffset, setItemOffset] = useState(0);
 
   const endOffset = itemOffset + 20;
   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
 
-  const handlePageClick = (e) => {
-    const newOffset = (e.selected * 20) % articles.length;
-    console.log(
-      `User requested page number ${e.selected}, which is offset ${newOffset}`,
-    );
-    setItemOffset(newOffset);
+  const handlePageClick = (e: { selected: number }) => {
+    if (articles) {
+      const newOffset = (e.selected * 20) % articles.length;
+      console.log(
+        `User requested page number ${e.selected}, which is offset ${newOffset}`,
+      );
+      setItemOffset(newOffset);
+    }
   };
 
   return (

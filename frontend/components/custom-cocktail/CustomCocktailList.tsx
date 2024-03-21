@@ -10,18 +10,7 @@ import cocktails from '../../public/assets/imgs/cocktails.png';
 import cocktails2 from '../../public/assets/imgs/cocktails2.png';
 import fireworks from '../../public/assets/imgs/fireworks.png';
 
-interface Dummy {
-  title: string;
-  comment: string;
-  author: string;
-  imageLink: string;
-}
-
-interface Props {
-  dummy: Dummy[];
-}
-
-export default function CustomCocktailList({ dummy }: Props) {
+export default function CustomCocktailList() {
   return (
     <div>
       <div className={styles.line}>
@@ -33,17 +22,6 @@ export default function CustomCocktailList({ dummy }: Props) {
           </div>
         </div>
         <hr className={styles.divided} />
-      </div>
-
-      {/* 커스텀 칵테일 카드 테스트 */}
-
-      <div className={styles.container}>
-        <ul className={styles['grid-container']}>
-          {dummy.map((custom, index) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <CustomCocktailCard key={index} custom={custom} />
-          ))}
-        </ul>
       </div>
     </div>
   );

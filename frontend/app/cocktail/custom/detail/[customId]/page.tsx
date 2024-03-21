@@ -1,8 +1,16 @@
 import React from 'react';
 
 import { StaticImageData } from 'next/image';
+import apple from '../../../../../public/assets/imgs/apple.png';
+import ice from '../../../../../public/assets/imgs/ice.png';
+import lemon from '../../../../../public/assets/imgs/lemon.png';
+import alcohol from '../../../../../public/assets/imgs/alcohol.png';
+import vodka from '../../../../../public/assets/imgs/vodka.png';
 
 import styles from './page.module.scss';
+
+import CustomCocktailImage from '@/components/custom-cocktail/CustomCocktailImage.tsx';
+
 import CustomCocktailIngredientCardWrapper from '../../../../../components/custom-cocktail/CustomCocktailIngredientCardWrapper.tsx';
 import alcohol from '../../../../../public/assets/imgs/alcohol.png';
 import apple from '../../../../../public/assets/imgs/apple.png';
@@ -43,7 +51,7 @@ interface CustomDetailData {
   recipe: string;
   summary: string;
   comment: string;
-  custom_cocktail_ingredients: ingredientsList[];
+  custom_cocktail_ingredients: IngredientsList[];
   open: boolean;
 }
 
@@ -60,8 +68,6 @@ interface Ingredient {
 interface StoreData {
   ingredients: Ingredient[];
 }
-
-interface ingredientsList {}
 
 export default function Page() {
   const customDetailData: CustomDetailData = {
@@ -212,9 +218,9 @@ export default function Page() {
     ],
   };
 
-  const ingredientsList: IngredientsList[] = customDetailData.custom_cocktail_ingredients;
+  const ingredientsList = customDetailData.custom_cocktail_ingredients;
 
-  const storeList: StoreData[] = storeData.ingredients;
+  const storeList = storeData.ingredients;
 
   return (
     <div className={styles['flex-container']}>

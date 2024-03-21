@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Image, { StaticImageData } from 'next/image';
-
 import styles from './CustomCocktailIngredientCard.module.scss';
 
 interface Ingredient {
@@ -47,14 +46,14 @@ export default function CustomCocktailIngredientCard({
   let isStored = '';
 
   if (
-    (index == 0 && index !== lastIndex)
-    || (index == 5 && index !== lastIndex)
+    (index === 0 && index !== lastIndex)
+    || (index === 5 && index !== lastIndex)
     || (index === 10 && index !== lastIndex)
   ) {
     className = styles['start-ingredient'];
   } else if (
-    (index == 0 && index === lastIndex)
-    || (index == 5 && index === lastIndex)
+    (index === 0 && index === lastIndex)
+    || (index === 5 && index === lastIndex)
     || (index === 10 && index === lastIndex)
   ) {
     className = styles['start-last-ingredient'];
@@ -64,6 +63,7 @@ export default function CustomCocktailIngredientCard({
     className = styles['inner-ingredient'];
   }
 
+  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < storeData.length; i++) {
     if (ingredient.ingredient.id === storeData[i].id) {
       isStored = styles['stored-ingredient'];
