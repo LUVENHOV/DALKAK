@@ -1,14 +1,16 @@
 'use client';
 
 import React from 'react';
-import styles from './BtnWithIcon.module.scss';
+
 import { SvgIconComponent } from '@mui/icons-material';
+
+import styles from './BtnWithIcon.module.scss';
 
 interface btnProps {
   icon?: SvgIconComponent;
   text: string;
   btnStyle: string;
-  handleOnClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  handleOnClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export default function BtnWithIcon(props: btnProps) {
@@ -17,7 +19,7 @@ export default function BtnWithIcon(props: btnProps) {
   return (
     <button
       type="button"
-      onClick={(e) => handleOnClick(e)}
+      onClick={handleOnClick ? (e) => handleOnClick(e) : () => {}}
       className={`${styles.btn} ${styles[btnStyle]}`}
     >
       {Icon ? <Icon /> : null}
@@ -25,3 +27,8 @@ export default function BtnWithIcon(props: btnProps) {
     </button>
   );
 }
+
+BtnWithIcon.defaultProps = {
+  icon: null,
+  handleOnClick: () => {},
+};
