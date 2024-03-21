@@ -59,7 +59,6 @@
     }
 
     .searchRow {
-      // background-color: lightblue;
       width: 60vw;
       line-height: 5vh;
       text-align: start;
@@ -68,9 +67,18 @@
       gap: 1vw;
 
       .title {
-        background-color: orange;
         width: 7vw;
         font-size: 1.2rem;
+      }
+    }
+
+    .searchBtn {
+      button {
+        font-size: 2vw;
+        font-weight: 900;
+        padding: 0.8vw 3vw;
+        border-radius: 1vw;
+        margin: 0 auto;
       }
     }
   }

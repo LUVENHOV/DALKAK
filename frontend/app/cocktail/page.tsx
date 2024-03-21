@@ -54,12 +54,9 @@ export default function Page() {
   return (
     <div className={styles['page-container']}>
       <div className={styles['search-container']}>
-        {/* <CocktailSearchForm /> */}
+        <CocktailSearchForm />
       </div>
       <div className={styles['list-container']}>
-        <div className={styles['sort-container']}>
-          <SortBy />
-        </div>
         <div className={styles['cocktail-list']}>
           {dummy.map((cocktail) => (
             <CocktailCard
