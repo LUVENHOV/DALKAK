@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../components/common/Navbar';
+import Navbar from '../components/common/Navbar.tsx';
 import '../styles/globals.scss';
 
 export default function RootLayout({

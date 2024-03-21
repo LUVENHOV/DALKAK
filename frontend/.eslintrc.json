@@ -1,5 +1,4 @@
 {
-  "import/no-unresolved": "off",
   "extends": [
     "airbnb",
     "airbnb/hooks",
@@ -19,6 +18,7 @@
     "sourceType": "module"
   },
   "rules": {
+    "import/no-unresolved": "off",
     "react/jsx-filename-extension": [
       1,
       { "extensions": [".js", ".jsx", ".tsx", ".ts"] }
