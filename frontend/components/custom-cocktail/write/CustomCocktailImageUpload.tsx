@@ -3,8 +3,7 @@
 import React, { useState, useRef, ChangeEvent } from 'react';
 
 import styles from './CustomCocktailImageUpload.module.scss';
-
-import BtnWithIcon from '@/components/common/BtnWithIcon.tsx';
+import BtnWithIcon from '@/components/common/BtnWithIcon';
 
 export default function CustomCocktailImageUpload() {
   const [image, setImage] = useState<string | null>(null);

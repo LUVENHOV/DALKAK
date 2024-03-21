@@ -7,15 +7,13 @@ import PublicOutlined from '@mui/icons-material/PublicOutlined';
 import { useRouter } from 'next/navigation';
 import styles from './page.module.scss';
 
-import BtnWithIcon from '@/components/common/BtnWithIcon.tsx';
+import styles from './page.module.scss';
+import BtnWithIcon from '@/components/common/BtnWithIcon';
+import CustomCocktailAddIngredient from '@/components/custom-cocktail/write/CustomCocktailAddIngredient';
+import CustomCocktailAddRecipe from '@/components/custom-cocktail/write/CustomCocktailAddRecipe';
+import CustomCocktailImageUpload from '@/components/custom-cocktail/write/CustomCocktailImageUpload';
+import CustomCocktailInput from '@/components/custom-cocktail/write/CustomCocktailInput';
 
-import CustomCocktailImageUpload from '@/components/custom-cocktail/write/CustomCocktailImageUpload.tsx';
-
-import CustomCocktailInput from '@/components/custom-cocktail/write/CustomCocktailInput.tsx';
-
-import CustomCocktailAddIngredient from '@/components/custom-cocktail/write/CustomCocktailAddIngredient.tsx';
-
-import CustomCocktailAddRecipe from '@/components/custom-cocktail/write/CustomCocktailAddRecipe.tsx';
 // import { StaticImageData } from 'next/image';
 
 interface IngredientsList {

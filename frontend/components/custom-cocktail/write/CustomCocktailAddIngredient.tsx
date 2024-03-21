@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ChangeEvent, useState, useEffect } from 'react';
+import { ChangeEvent, useState, useEffect } from 'react';
 
 import styles from './CustomCocktailAddIngredient.module.scss';
 

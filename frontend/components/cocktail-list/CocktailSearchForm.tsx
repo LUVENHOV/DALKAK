@@ -1,18 +1,20 @@
 'use client';
 
 import React, { ChangeEvent, useState } from 'react';
-import styles from './CocktailSearchForm.module.scss';
 import {
   Search,
   KeyboardArrowUp,
   KeyboardArrowDown,
   Replay,
 } from '@mui/icons-material';
-import BtnWithIcon from '../common/BtnWithIcon';
-import SearchBlock from './SearchBlock';
+import styles from './CocktailSearchForm.module.scss';
+
 import SearchAlcoholContent from './SearchAlcoholContent';
+import SearchBlock from './SearchBlock';
 import SearchColor from './SearchColor';
 import SortBy from './SortBy';
+import BtnWithIcon from '../common/BtnWithIcon';
+import SearchIngredients from '../common/SearchIngredients';
 
 const baseList = [
   {
@@ -81,8 +83,10 @@ const sweetnessList = [
 
 export default function CocktailSearchForm() {
   const [isVisible, setIsVisible] = useState(true);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [keyword, setKeyword] = useState('');
-  const [ingredients, setIngredients] = useState([]);
+  // eslint-disable-next-line import/extensions, import/no-unresolved
+  // const [ingredients, setIngredients] = useState([]);
   const [base, setBase] = useState('');
   const [alcoholContent, setAlcoholContent] = useState<readonly number[]>([
     15, 35,
@@ -95,9 +99,9 @@ export default function CocktailSearchForm() {
     setKeyword(e.target.value);
   };
 
-  const handleReset = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleReset = () => {
     setKeyword('');
-    setIngredients([]);
+    // setIngredients([]);
     setBase('');
     setAlcoholContent([15, 35]);
     setColor('');
@@ -125,14 +129,14 @@ export default function CocktailSearchForm() {
     setOrderBy(e.currentTarget.value);
   };
 
-  const handleDetailSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(keyword);
-    console.log(ingredients);
-    console.log(base);
-    console.log(alcoholContent);
-    console.log(color);
-    console.log(sweetness);
-    console.log(orderBy);
+  const handleDetailSearch = () => {
+    // console.log(keyword);
+    // console.log(ingredients);
+    // console.log(base);
+    // console.log(alcoholContent);
+    // console.log(color);
+    // console.log(sweetness);
+    // console.log(orderBy);
   };
 
   return (
@@ -144,7 +148,7 @@ export default function CocktailSearchForm() {
           name="keyword"
           onChange={(e) => handleKeyword(e)}
         />
-        <button type="submit" onClick={() => console.log(keyword)}>
+        <button type="submit" onClick={() => handleDetailSearch}>
           <Search />
         </button>
       </div>
@@ -179,7 +183,7 @@ export default function CocktailSearchForm() {
             </div>
             <div className={`${styles.searchRow} ${styles.ingredients}`}>
               <div className={styles.title}>재료</div>
-              <div>재료 검색창 ~~~~~</div>
+              <SearchIngredients />
             </div>
             <div className={`${styles.searchRow} ${styles.base}`}>
               <div className={styles.title}>베이스</div>

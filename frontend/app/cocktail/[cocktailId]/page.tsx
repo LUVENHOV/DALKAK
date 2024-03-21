@@ -262,7 +262,7 @@ const cocktailData: CocktailData = {
 
 export default function Page({ params }: { params: { cocktailId: string } }) {
   const { cocktailId } = params;
-  console.log(cocktailId);
+  // console.log(cocktailId);
 
   const cocktailIngredients: CocktailIngredients[] = cocktailData.cocktail_ingredients;
 

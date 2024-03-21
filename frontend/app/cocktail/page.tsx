@@ -1,9 +1,8 @@
 import React from 'react';
 
 import styles from './cocktail-list.module.scss';
-// import CocktailSearchForm from '@/components/cocktail-list/CocktailSearchForm';
-import SortBy from '@/components/cocktail-list/SortBy.tsx';
-import CocktailCard from '@/components/cocktail-list/CocktailCard.tsx';
+import CocktailCard from '@/components/cocktail-list/CocktailCard';
+import CocktailSearchForm from '@/components/cocktail-list/CocktailSearchForm';
 
 /** cocktail list data fetching */
 

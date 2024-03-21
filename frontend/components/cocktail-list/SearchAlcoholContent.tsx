@@ -1,8 +1,10 @@
 'use client';
 
-import styles from './SearchAlcoholContent.module.scss';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
+
 import { useRanger, Ranger } from '@tanstack/react-ranger';
+
+import styles from './SearchAlcoholContent.module.scss';
 
 interface propsType {
   alcoholContent: readonly number[];
@@ -61,7 +63,7 @@ export default function SearchAlcoholContent(props: propsType) {
                       zIndex: isActive ? '1' : '0',
                     }}
                   >
-                    <div className={styles.btnCircle}></div>
+                    <div className={styles.btnCircle} />
                     <div className={styles.btnNum}>{value}</div>
                   </button>
                   {i === 0 ? (
@@ -72,7 +74,7 @@ export default function SearchAlcoholContent(props: propsType) {
                         left: `${rangerInstance.getPercentageForValue(values[0])}%`,
                         width: `${rangerInstance.getPercentageForValue(values[1] - values[0]) + 2}%`,
                       }}
-                    ></div>
+                    />
                   ) : null}
                 </div>
               ),

@@ -1,7 +1,9 @@
 'use client';
 
 import React from 'react';
+
 import { useRouter } from 'next/navigation';
+
 import styles from './CustomCocktailCard.module.scss';
 
 interface Custom {

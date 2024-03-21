@@ -1,7 +1,4 @@
 import React from 'react';
-import CustomCocktailList from '../../../../components/custom-cocktail/CustomCocktailList.tsx';
-import CustomCocktailWriteButton from '../../../../components/custom-cocktail/CustomCocktailWriteButton.tsx';
-import Pagination from '../../../../components/common/pagination/Pagination.tsx';
 
 import CustomCocktailCardWrapper from '@/components/custom-cocktail/CustomCocktailCardWrapper.tsx';
 

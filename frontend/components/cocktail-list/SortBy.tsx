@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './SortBy.module.scss';
 
 interface propsType {
@@ -35,13 +35,14 @@ export default function SortBy(props: propsType) {
       {sortingList.map((sort, idx: number) => (
         <div key={sort.id}>
           <button
+            type="button"
             value={sort.id}
             className={sort.id === orderBy ? styles.selected : ''}
             onClick={(e) => handleOrderBy(e)}
           >
             {sort.text}
           </button>
-          {idx != 3 ? '\u00A0\u00A0|\u00A0\u00A0' : null}
+          {idx !== 3 ? '\u00A0\u00A0|\u00A0\u00A0' : null}
         </div>
       ))}
     </div>
