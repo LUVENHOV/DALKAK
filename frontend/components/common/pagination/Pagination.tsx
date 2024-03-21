@@ -2,7 +2,9 @@
 
 // API 완성 후 다시 구현
 import React, { useState } from 'react';
+
 import ReactPaginate from 'react-paginate';
+
 import styles from './Pagination.module.scss';
 
 interface Props {

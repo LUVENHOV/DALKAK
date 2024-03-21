@@ -1,20 +1,21 @@
 import React from 'react';
-import CustomCocktailList from '../../../../components/custom-cocktail/CustomCocktailList.tsx';
-import CustomCocktailWriteButton from '../../../../components/custom-cocktail/CustomCocktailWriteButton.tsx';
-import Pagination from '../../../../components/common/pagination/Pagination.tsx';
 
-interface TotalData {
-  custom_cocktails: DummyList[];
-  total_count: number;
-  total_pages: number;
-  current_page: number;
-}
+import Pagination from '../../../../components/common/pagination/Pagination';
+import CustomCocktailList from '../../../../components/custom-cocktail/CustomCocktailList';
+import CustomCocktailWriteButton from '../../../../components/custom-cocktail/CustomCocktailWriteButton';
+
 interface DummyList {
   id: number;
   title: string;
   comment: string;
   author: string;
   imageLink: string;
+}
+interface TotalData {
+  custom_cocktails: DummyList[];
+  total_count: number;
+  total_pages: number;
+  current_page: number;
 }
 
 export default function Page() {

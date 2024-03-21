@@ -3,7 +3,6 @@
 import { useState, useRef } from 'react';
 
 import styles from './CustomCocktailImageUpload.module.scss';
-
 import BtnWithIcon from '@/components/common/BtnWithIcon';
 
 export default function CustomCocktailImageUpload() {
@@ -38,7 +37,7 @@ export default function CustomCocktailImageUpload() {
           {image ? (
             <img src={image} alt="Uploaded" />
           ) : (
-            <div className={styles['uploaded-image']}></div>
+            <div className={styles['uploaded-image']} />
           )}
         </div>
       </a>

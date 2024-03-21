@@ -1,12 +1,14 @@
 'use client';
 
 import React from 'react';
+
 import Image from 'next/image';
+
+import CustomCocktailCard from './CustomCocktailCard.tsx';
 import styles from './CustomCocktailList.module.scss';
 import cocktails from '../../public/assets/imgs/cocktails.png';
 import cocktails2 from '../../public/assets/imgs/cocktails2.png';
 import fireworks from '../../public/assets/imgs/fireworks.png';
-import CustomCocktailCard from './CustomCocktailCard.tsx';
 
 interface Dummy {
   title: string;

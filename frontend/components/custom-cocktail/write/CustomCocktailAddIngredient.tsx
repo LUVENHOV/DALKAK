@@ -1,7 +1,6 @@
 'use client';
 
-import { ChangeEvent, useState } from 'react';
-import { useEffect } from 'react';
+import { ChangeEvent, useState, useEffect } from 'react';
 
 import styles from './CustomCocktailAddIngredient.module.scss';
 
@@ -80,7 +79,7 @@ export default function CustomCocktailAddIngredient({ origin }: Props) {
             <div key={index}>
               <div className={styles['grid-container']}>
                 <div>{data.ingredient.name}</div>
-                <div></div>
+                <div />
                 <div>
                   <input
                     type="text"
@@ -95,9 +94,7 @@ export default function CustomCocktailAddIngredient({ origin }: Props) {
                   <select
                     className={styles['unit-input']}
                     value={inputUnitValues[index]}
-                    onChange={(e) =>
-                      handleUnitInputChange(e, data.ingredient.id)
-                    }
+                    onChange={(e) => handleUnitInputChange(e, data.ingredient.id)}
                   >
                     <option>개</option>
                     <option>웨지</option>
@@ -112,7 +109,7 @@ export default function CustomCocktailAddIngredient({ origin }: Props) {
                     <option>none</option>
                   </select>
                 </div>
-                <div></div>
+                <div />
                 <div>
                   <button
                     className={styles['delete-button']}

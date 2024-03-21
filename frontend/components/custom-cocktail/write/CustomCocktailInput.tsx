@@ -1,8 +1,8 @@
 'use client';
 
-import styles from './CustomCocktailInput.module.scss';
-
 import { SetStateAction, useState } from 'react';
+
+import styles from './CustomCocktailInput.module.scss';
 
 interface Props {
   max?: number;

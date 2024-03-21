@@ -1,7 +1,6 @@
 import { StaticImageData } from 'next/image';
 
 import CustomCocktailIngredientCard from './CustomCocktailIngredientCard';
-
 import styles from './CustomCocktailIngredientCardWrapper.module.scss';
 
 interface Ingredients {
