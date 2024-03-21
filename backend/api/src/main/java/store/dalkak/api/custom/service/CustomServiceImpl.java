@@ -23,7 +23,7 @@ import store.dalkak.api.custom.repository.CustomIngredientRepository;
 import store.dalkak.api.custom.repository.CustomRepository;
 import store.dalkak.api.global.config.ImageConfig;
 import store.dalkak.api.user.domain.Member;
-import store.dalkak.api.user.domain.MemberRepository;
+import store.dalkak.api.user.repository.MemberRepository;
 import store.dalkak.api.user.dto.MemberDto;
 
 @Service
