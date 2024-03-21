@@ -14,7 +14,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import store.dalkak.api.cocktail.domain.Ingredient.Ingredient;
+import store.dalkak.api.cocktail.domain.ingredient.Ingredient;
 
 @Entity
 @Table(name="SURVEY_INGREDIENT")

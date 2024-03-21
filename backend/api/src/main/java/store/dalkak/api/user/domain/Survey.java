@@ -14,7 +14,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import store.dalkak.api.cocktail.domain.Base.Base;
+import store.dalkak.api.cocktail.domain.base.Base;
 import store.dalkak.api.cocktail.domain.Occasion;
 @Entity
 @Table(name="SURVEY")

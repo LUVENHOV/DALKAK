@@ -16,10 +16,10 @@ import store.dalkak.api.cocktail.exception.CocktailException;
 import store.dalkak.api.cocktail.exception.IngredientSearchErrorCode;
 import store.dalkak.api.cocktail.repository.ingredient.IngredientRepository;
 import store.dalkak.api.user.domain.Member;
-import store.dalkak.api.user.domain.MemberRepository;
 import store.dalkak.api.user.dto.MemberDto;
 import store.dalkak.api.user.exception.UserErrorCode;
 import store.dalkak.api.user.exception.UserException;
+import store.dalkak.api.user.repository.MemberRepository;
 
 @Slf4j
 @Transactional
@@ -53,7 +53,7 @@ public class BasketServiceImpl implements BasketService {
     public void deleteBasket(MemberDto memberDto, Long ingredientId) {
         Member member = memberRepository.findById(memberDto.getId())
             .orElseThrow(() -> new UserException(
-                UserErrorCode.INVALID_TOKEN));
+                UserErrorCode.INVALID_USER));
         Ingredient ingredient = ingredientRepository.findById(ingredientId)
             .orElseThrow(() -> new CocktailException(
                 IngredientSearchErrorCode.FAIL_TO_FIND_INGREDIENT));

@@ -16,10 +16,10 @@ import store.dalkak.api.refrigerator.exception.RefrigeratorErrorCode;
 import store.dalkak.api.refrigerator.exception.RefrigeratorException;
 import store.dalkak.api.refrigerator.repository.RefrigeratorRepository;
 import store.dalkak.api.user.domain.Member;
-import store.dalkak.api.user.domain.MemberRepository;
 import store.dalkak.api.user.dto.MemberDto;
 import store.dalkak.api.user.exception.UserErrorCode;
 import store.dalkak.api.user.exception.UserException;
+import store.dalkak.api.user.repository.MemberRepository;
 
 @Slf4j
 @Transactional
@@ -52,7 +52,7 @@ public class RefrigeratorServiceImpl implements RefrigeratorService {
     @Override
     public void deleteRefrigerator(MemberDto memberDto, Long ingredientId) {
         Member member = memberRepository.findById(memberDto.getId()).orElseThrow(() -> new UserException(
-            UserErrorCode.INVALID_TOKEN));
+            UserErrorCode.INVALID_USER));
         Ingredient ingredient = ingredientRepository.findById(ingredientId).orElseThrow(() -> new CocktailException(
             IngredientSearchErrorCode.FAIL_TO_FIND_INGREDIENT));
         Refrigerator refrigerator = refrigeratorRepository.findByMemberAndIngredient(member,
