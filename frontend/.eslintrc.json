@@ -41,7 +41,15 @@
         }
       }
     ],
-    "import/extensions": ["error", "never"],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "tsx": "never",
+        "ts": "never"
+      }
+    ],
     "import/no-unresolved": "off",
     "react/jsx-filename-extension": [
       1,
