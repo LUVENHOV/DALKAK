@@ -15,7 +15,7 @@ import store.dalkak.api.cocktail.domain.Cocktail;
 import store.dalkak.api.cocktail.domain.ingredient.Ingredient;
 import store.dalkak.api.cocktail.domain.Occasion;
 import store.dalkak.api.custom.domain.Custom;
-import store.dalkak.api.custom.domain.CustomRepository;
+import store.dalkak.api.custom.repository.CustomRepository;
 import store.dalkak.api.global.jwt.JwtProvider;
 import store.dalkak.api.user.domain.Heart;
 import store.dalkak.api.user.domain.Member;
