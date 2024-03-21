@@ -42,6 +42,7 @@ dependencies {
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
 	//querydsl 추가
 	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
@@ -54,6 +55,7 @@ dependencies {
 
 	// 이미지 리사이징 을 위한 라이브러리
 	implementation group: 'org.imgscalr', name: 'imgscalr-lib', version: '4.2'
+
 }
 
 tasks.named('test') {
