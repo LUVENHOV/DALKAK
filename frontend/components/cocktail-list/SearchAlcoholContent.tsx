@@ -46,9 +46,9 @@ export default function SearchAlcoholContent(props: propsType) {
                 },
                 i,
               ) => (
-                <>
+                <div key={i} className={styles.tmpBox}>
                   <button
-                    key={i}
+                    className={styles.btn}
                     onKeyDown={onKeyDownHandler}
                     onMouseDown={onMouseDownHandler}
                     onTouchStart={onTouchStart}
@@ -56,11 +56,9 @@ export default function SearchAlcoholContent(props: propsType) {
                     aria-valuemin={rangerInstance.options.min}
                     aria-valuemax={rangerInstance.options.max}
                     aria-valuenow={value}
-                    className={styles.btn}
                     style={{
                       left: `${rangerInstance.getPercentageForValue(value)}%`,
                       zIndex: isActive ? '1' : '0',
-                      transform: 'translate(-50%, -50%)',
                     }}
                   >
                     <div className={styles.btnCircle}></div>
@@ -68,7 +66,6 @@ export default function SearchAlcoholContent(props: propsType) {
                   </button>
                   {i === 0 ? (
                     <div
-                      key={i + 1}
                       className={styles.mid}
                       ref={midRef}
                       style={{
@@ -77,7 +74,7 @@ export default function SearchAlcoholContent(props: propsType) {
                       }}
                     ></div>
                   ) : null}
-                </>
+                </div>
               ),
             )}
         </div>

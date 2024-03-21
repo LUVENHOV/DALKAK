@@ -8,19 +8,22 @@
     background-color: var(--color-base);
     height: 1vw;
     border-radius: 1vw;
+    position: relative;
 
     .bar {
       height: 1vw;
-      width: 98%;
-      position: relative;
+      width: 51vw;
       display: flex;
-      align-items: center;
-      margin: 0 auto;
+      position: relative;
+      left: 0.6vw;
 
       .btn {
         position: absolute;
-        top: 150%;
         cursor: pointer;
+        width: 1.7vw;
+        display: flex;
+        flex-direction: column;
+        transform: translate(-1vw, -0.3vw);
 
         .btnCircle {
           width: 1.7vw;
@@ -31,7 +34,6 @@
 
         .btnNum {
           font-size: 1rem;
-          padding-top: 0.5vw;
         }
       }
       .btn:focus {
@@ -40,7 +42,6 @@
 
       .mid {
         position: absolute;
-        display: flex;
         background-color: var(--color-text);
         height: 1vw;
       }
