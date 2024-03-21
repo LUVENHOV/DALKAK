@@ -1,9 +1,12 @@
 package store.dalkak.api.custom.repository;
 
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import static store.dalkak.api.custom.domain.QCustom.custom;
+import store.dalkak.api.cocktail.dto.CocktailCustomDto;
 import store.dalkak.api.custom.domain.Custom;
 import store.dalkak.api.custom.domain.CustomIngredient;
 import store.dalkak.api.custom.domain.QCustom;
@@ -33,5 +36,14 @@ public class CustomRepositoryImpl implements CustomRepositoryCustom {
             .set(qCustom.open, customModifyDto.getOpen())
             .set(qCustom.image, customModifyDto.getImageUrl())
             .where(qCustom.id.eq(customCocktailId)).execute();
+    }
+
+    @Override
+    public List<CocktailCustomDto> findAllByCocktailId(Long cocktailId) {
+        return queryFactory.select(Projections.constructor
+            (CocktailCustomDto.class, custom.id, custom.name, custom.summary, custom.member.id, custom.member.nickname))
+            .from(custom)
+            .where(custom.cocktail.id.eq(cocktailId))
+            .fetch();
     }
 }
