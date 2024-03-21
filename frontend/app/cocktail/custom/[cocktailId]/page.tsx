@@ -3,6 +3,8 @@ import CustomCocktailList from '../../../../components/custom-cocktail/CustomCoc
 import CustomCocktailWriteButton from '../../../../components/custom-cocktail/CustomCocktailWriteButton.tsx';
 import Pagination from '../../../../components/common/pagination/Pagination.tsx';
 
+import CustomCocktailCardWrapper from '@/components/custom-cocktail/CustomCocktailCardWrapper.tsx';
+
 interface TotalData {
   custom_cocktails: DummyList[];
   total_count: number;
@@ -299,7 +301,10 @@ export default function Page() {
   return (
     <div>
       <CustomCocktailWriteButton />
-      <CustomCocktailList dummy={dummyList} />
+      <CustomCocktailList />
+
+      <CustomCocktailCardWrapper dummy={dummyList} />
+
       <Pagination
         articles={dummyList}
         totalCount={totalCount}
