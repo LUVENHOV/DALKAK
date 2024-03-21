@@ -1,18 +1,12 @@
 'use client';
 
 import React from 'react';
-
-import { usePathname } from 'next/navigation';
-import HomeIcon from '@mui/icons-material/Home';
-import Image from 'next/image';
-import styles from './Navbar.module.scss';
-
 import HomeIcon from '@mui/icons-material/Home';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
 import styles from './Navbar.module.scss';
+
 import logo from '@/public/assets/imgs/logo.png';
 
 export default function Navbar() {

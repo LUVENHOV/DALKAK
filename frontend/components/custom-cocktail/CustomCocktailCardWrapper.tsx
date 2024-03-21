@@ -1,9 +1,8 @@
 'use client';
 
 import React from 'react';
+import CustomCocktailCard from './CustomCocktailCard';
 import styles from './CustomCocktailCardWrapper.module.scss';
-
-import CustomCocktailCard from './CustomCocktailCard.tsx';
 
 interface Dummy {
   title: string;
