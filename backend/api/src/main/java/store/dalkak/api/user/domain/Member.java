@@ -27,6 +27,7 @@ public class Member {
     private LocalDate birthdate;
 
     @Column(name="gender")
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @Column(name="oauth_sub")
@@ -47,5 +48,17 @@ public class Member {
         this.oauthSub=oauthSub;
         this.oauthProvider=oauthProvider;
         this.surveyCompletion=surveyCompletion;
+    }
+
+    public void updateMember(String nickname, LocalDate birthdate, Gender gender){
+        if(nickname!=null){
+            this.nickname=nickname;
+        }
+        if(birthdate!=null){
+            this.birthdate=birthdate;
+        }
+        if(gender!=null){
+            this.gender=gender;
+        }
     }
 }

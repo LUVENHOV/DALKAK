@@ -8,8 +8,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import store.dalkak.api.user.domain.embed.Gender;
 
+@ToString
 @Builder
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

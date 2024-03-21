@@ -1,5 +1,6 @@
 package store.dalkak.api.user.service;
 
+import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -74,6 +75,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @Transactional
     public void createSurveyResult(MemberDto memberDto,
         UserCreateSurveyResultReqDto userCreateSurveyResultReqDto) {
         Member member=memberRepository.findById(memberDto.getId()).orElseThrow();
@@ -88,7 +90,6 @@ public class UserServiceImpl implements UserService{
             .sweetness(userCreateSurveyResultReqDto.getSweetness())
             .build());
 
-        //TODO: 외래키 에러 해결
         for(Long id:userCreateSurveyResultReqDto.getSurveyCocktails()){
             Cocktail cocktail=cocktailRepository.findById(id).orElseThrow();
             surveyCocktailRepository.save(SurveyCocktail.builder().cocktail(cocktail).survey(survey).build());
@@ -101,18 +102,35 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @Transactional
     public UserLoadProfileResDto loadProfile(MemberDto memberDto) {
-        return null;
+        Member member=memberRepository.findById(memberDto.getId()).orElseThrow();
+        List<Heart> hearts = heartRepository.findTop5ByMember_IdOrderByIdDesc(
+            memberDto.getId());
+        List<Custom> customs = customRepository.findTop5ByMember_IdOrderByIdDesc(
+            memberDto.getId());
+        return UserLoadProfileResDto.builder()
+            .id(member.getId())
+            .nickname(member.getNickname())
+            .birthDate(member.getBirthdate())
+            .gender(member.getGender())
+            .heartCocktails(toHeartsCocktailDtoList(hearts))
+            .customCocktails(toCustomCocktailDtoList(customs))
+            .build();
     }
 
     @Override
+    @Transactional
     public void modifyProfile(MemberDto memberDto,
         UserModifyProfileReqDto userModifyProfileReqDto) {
-
-
+        Member member=memberRepository.findById(memberDto.getId()).orElseThrow();
+        member.updateMember(userModifyProfileReqDto.getNickname(),userModifyProfileReqDto.getBirthDate(),userModifyProfileReqDto.getGender());
+        log.info("{}",member);
+        memberRepository.save(member);
     }
 
     @Override
+    @Transactional
     public void hasNickname(MemberDto memberDto, UserHasNicknameReqDto userHasNicknameReqDto) {
         if(memberRepository.existsByNickname(userHasNicknameReqDto.getNickname())){
             throw new UserException(UserErrorCode.NICKNAME_EXISTS);
@@ -120,11 +138,44 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @Transactional
     public UserLoadHeartListResDto loadHeartList(MemberDto memberDto,Pageable pageable) {
         Page<Heart> page=heartRepository.findAllByMember_Id(memberDto.getId(),pageable);
+        return UserLoadHeartListResDto.builder()
+            .cocktails(toHeartsCocktailDtoList(page.getContent()))
+            .currentPage(page.getPageable().getPageNumber()+1)
+            .totalPage(page.getTotalPages())
+            .totalCount(page.getTotalElements())
+            .build();
+    }
 
+    @Override
+    @Transactional
+    public UserLoadCustomRecipeListResDto loadCustomRecipeList(MemberDto memberDto,Pageable pageable) {
+        Page<Custom> page=customRepository.findAllByMember_Id(memberDto.getId(),pageable);
+        return UserLoadCustomRecipeListResDto.builder()
+            .customCocktails(toCustomCocktailDtoList(page.getContent()))
+            .currentPage(page.getPageable().getPageNumber()+1)
+            .totalPage(page.getTotalPages())
+            .totalCount(page.getTotalElements())
+            .build();
+    }
+
+    @Override
+    @Transactional
+    public UserLoadRecommendListResDto loadRecommendList(MemberDto memberDto,Pageable pageable) {
+        Page<Recommended> page=recommendedRepository.findAllByMember_Id(memberDto.getId(),pageable);
+        return UserLoadRecommendListResDto.builder()
+            .cocktails(toRecommendCocktailDtoList(page.getContent()))
+            .currentPage(page.getPageable().getPageNumber()+1)
+            .totalPage(page.getTotalPages())
+            .totalCount(page.getTotalElements())
+            .build();
+    }
+
+    private List<CocktailDto> toHeartsCocktailDtoList(List<Heart> hearts){
         List<CocktailDto> cocktailDtoList=new ArrayList<>();
-        for(Heart heart:page.getContent()){
+        for(Heart heart: hearts){
             cocktailDtoList
                 .add(CocktailDto
                     .builder()
@@ -135,44 +186,12 @@ public class UserServiceImpl implements UserService{
                     .heartCount(heart.getCocktail().getHeartCount())
                     .build());
         }
-        return UserLoadHeartListResDto.builder()
-            .cocktails(cocktailDtoList)
-            .currentPage(page.getPageable().getPageNumber()+1)
-            .totalPage(page.getTotalPages())
-            .totalCount(page.getTotalElements())
-            .build();
+        return cocktailDtoList;
     }
 
-    @Override
-    public UserLoadCustomRecipeListResDto loadCustomRecipeList(MemberDto memberDto,Pageable pageable) {
-        Page<Custom> page=customRepository.findAllByMember_Id(memberDto.getId(),pageable);
-
-        List<CustomCocktailDto> customCocktailDtoList=new ArrayList<>();
-        for(Custom custom:page.getContent()){
-            customCocktailDtoList
-                .add(CustomCocktailDto
-                    .builder()
-                    .id(custom.getId())
-                    .image(custom.getCocktail().getImage())
-                    .name(custom.getName())
-                    .summary(custom.getSummary())
-                    .user(UserDto.builder().id(custom.getMember().getId()).nickname(custom.getMember().getNickname()).build())
-                    .build());
-        }
-        return UserLoadCustomRecipeListResDto.builder()
-            .customCocktails(customCocktailDtoList)
-            .currentPage(page.getPageable().getPageNumber()+1)
-            .totalPage(page.getTotalPages())
-            .totalCount(page.getTotalElements())
-            .build();
-    }
-
-    @Override
-    public UserLoadRecommendListResDto loadRecommendList(MemberDto memberDto,Pageable pageable) {
-        Page<Recommended> page=recommendedRepository.findAllByMember_Id(memberDto.getId(),pageable);
-
+    private List<CocktailDto> toRecommendCocktailDtoList(List<Recommended> recommends){
         List<CocktailDto> cocktailDtoList=new ArrayList<>();
-        for(Recommended recommended:page.getContent()){
+        for(Recommended recommended: recommends){
             cocktailDtoList
                 .add(CocktailDto
                     .builder()
@@ -183,11 +202,22 @@ public class UserServiceImpl implements UserService{
                     .heartCount(recommended.getCocktail().getHeartCount())
                     .build());
         }
-        return UserLoadRecommendListResDto.builder()
-            .cocktails(cocktailDtoList)
-            .currentPage(page.getPageable().getPageNumber()+1)
-            .totalPage(page.getTotalPages())
-            .totalCount(page.getTotalElements())
-            .build();
+        return cocktailDtoList;
+    }
+
+    private List<CustomCocktailDto> toCustomCocktailDtoList(List<Custom> customs){
+        List<CustomCocktailDto> customCocktailDtoList=new ArrayList<>();
+        for(Custom custom:customs){
+            customCocktailDtoList
+                .add(CustomCocktailDto
+                    .builder()
+                    .id(custom.getId())
+                    .image(custom.getCocktail().getImage())
+                    .name(custom.getName())
+                    .summary(custom.getSummary())
+                    .user(UserDto.builder().id(custom.getMember().getId()).nickname(custom.getMember().getNickname()).build())
+                    .build());
+        }
+        return customCocktailDtoList;
     }
 }

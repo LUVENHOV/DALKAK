@@ -16,6 +16,7 @@ import store.dalkak.api.global.annotation.LoginUser;
 import store.dalkak.api.global.response.ApiResponse;
 import store.dalkak.api.user.dto.request.UserCreateSurveyResultReqDto;
 import store.dalkak.api.user.dto.request.UserHasNicknameReqDto;
+import store.dalkak.api.user.dto.request.UserModifyProfileReqDto;
 import store.dalkak.api.user.dto.response.UserLoadProfileResDto;
 import store.dalkak.api.user.dto.response.UserRefreshResDto;
 import store.dalkak.api.user.dto.MemberDto;
@@ -46,17 +47,21 @@ public class UserController {
     @PostMapping("/survey")
     public ResponseEntity<?> createSurveyResult(@LoginUser MemberDto memberDto,@RequestBody UserCreateSurveyResultReqDto userCreateSurveyResultReqDto){
         userService.createSurveyResult(memberDto, userCreateSurveyResultReqDto);
-        return null;
+        return ResponseEntity.ok(ApiResponse.of(201,null));
     }
 
     @GetMapping("/profile")
-    public ResponseEntity<UserLoadProfileResDto> loadProfile(@LoginUser MemberDto memberDto){
-        return null;
+    public ResponseEntity<ApiResponse<UserLoadProfileResDto>> loadProfile(@LoginUser MemberDto memberDto){
+        ApiResponse<UserLoadProfileResDto> apiResponse=ApiResponse.of(200,userService.loadProfile(memberDto));
+        return ResponseEntity.ok(apiResponse);
     }
 
     @PatchMapping("/profile")
-    public ResponseEntity<?> modifyProfile(@LoginUser MemberDto memberDto){
-        return null;
+    public ResponseEntity<?> modifyProfile(@LoginUser MemberDto memberDto, @RequestBody UserModifyProfileReqDto userModifyProfileReqDto){
+
+        log.info("-------{}",userModifyProfileReqDto.toString());
+        userService.modifyProfile(memberDto, userModifyProfileReqDto);
+        return ResponseEntity.ok(ApiResponse.of(200,null));
     }
 
     @PostMapping("/profile/dupcheck")
