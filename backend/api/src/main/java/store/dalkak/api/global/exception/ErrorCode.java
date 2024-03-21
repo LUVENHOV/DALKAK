@@ -1,5 +1,7 @@
 package store.dalkak.api.global.exception;
 
-public class ErrorCode {
-
+public interface ErrorCode {
+    int getStatusCode();
+    String getErrorCode();
+    String getMessage();
 }

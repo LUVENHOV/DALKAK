@@ -1,5 +1,11 @@
 package store.dalkak.api.user.exception;
 
-public class UserException {
+import store.dalkak.api.global.exception.DalkakException;
+import store.dalkak.api.global.exception.ErrorCode;
 
+public class UserException extends DalkakException {
+
+    public UserException(ErrorCode errorCode) {
+        super(errorCode);
+    }
 }
