@@ -7,8 +7,8 @@ import styles from './CustomCocktailImageUpload.module.scss';
 import BtnWithIcon from '@/components/common/BtnWithIcon';
 
 export default function CustomCocktailImageUpload() {
-  const [image, setImage] = useState(null);
-  const fileInput = useRef<HTMLDivElement>(null);
+  const [image, setImage] = useState<any | null>(null);
+  const fileInput = useRef<HTMLInputElement>(null);
 
   const handleUploadImage = () => {
     if (fileInput.current != null) {
@@ -16,7 +16,7 @@ export default function CustomCocktailImageUpload() {
     }
   };
 
-  const handleImage = async (e) => {
+  const handleImage = async (e: any) => {
     const file = e.target.files[0];
 
     if (!file) return;
@@ -24,7 +24,7 @@ export default function CustomCocktailImageUpload() {
     const reader = new FileReader();
     reader.readAsDataURL(file);
 
-    reader.onload = (e) => {
+    reader.onload = (e: any) => {
       if (reader.readyState === 2) {
         setImage(e.target.result);
       }
