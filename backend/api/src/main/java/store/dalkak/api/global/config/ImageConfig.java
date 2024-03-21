@@ -1,9 +1,13 @@
 package store.dalkak.api.global.config;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ListObjectsV2Request;
+import com.amazonaws.services.s3.model.ListObjectsV2Result;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -31,7 +35,7 @@ public class ImageConfig {
     @Value("${cloud.aws.folder.custom}")
     private String folderName;
 
-    @Value("${IMAGE_ENDPOINT}")
+    @Value("${cloud.aws.endpoint}")
     private String endPoint;
 
     private BufferedImage resizeImage(BufferedImage originalImage, int targetWidth,
@@ -39,6 +43,7 @@ public class ImageConfig {
         return Scalr.resize(originalImage, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_EXACT,
             targetWidth, targetHeight, Scalr.OP_ANTIALIAS);
     }
+
 
     public String uploadImage(MultipartFile image) {
         String originalFileName = image.getOriginalFilename();
@@ -64,11 +69,15 @@ public class ImageConfig {
             e.printStackTrace();
             return null;
         }
-
     }
 
-    public void deleteImage(Long customCocktailId) {
-
+    public void deleteImage(String imageUrl) {
+        int slash = imageUrl.lastIndexOf("/");
+        String prefix = folderName + "/" + imageUrl.substring(slash+1);
+        try {
+            amazonS3Client.deleteObject(bucketName, prefix);
+        } catch(AmazonS3Exception e) {
+            e.printStackTrace();
+        }
     }
-
 }

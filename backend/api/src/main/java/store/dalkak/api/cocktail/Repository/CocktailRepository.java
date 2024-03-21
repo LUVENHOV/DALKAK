@@ -1,8 +1,0 @@
-package store.dalkak.api.cocktail.Repository;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-import store.dalkak.api.cocktail.domain.Cocktail;
-
-public interface CocktailRepository extends JpaRepository<Cocktail, Long>, CocktailRepositoryCustom {
-
-}

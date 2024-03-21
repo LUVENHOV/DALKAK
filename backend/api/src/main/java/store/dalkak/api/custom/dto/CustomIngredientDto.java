@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class CustomIngredientDto {
     Long id;
     Double amount;
-    Long unit_id;
+    Long unitId;
 }

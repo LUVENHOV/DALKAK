@@ -12,7 +12,7 @@ import store.dalkak.api.global.oauth.dto.response.OauthLoginResDto;
 import store.dalkak.api.global.oauth.exception.OauthErrorCode;
 import store.dalkak.api.global.oauth.exception.OauthException;
 import store.dalkak.api.user.domain.Member;
-import store.dalkak.api.user.domain.MemberRepository;
+import store.dalkak.api.user.repository.MemberRepository;
 
 @Service
 @Slf4j
