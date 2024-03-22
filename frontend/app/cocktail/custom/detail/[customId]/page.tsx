@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { StaticImageData } from 'next/image';
-
 import styles from './page.module.scss';
 
 import CustomCocktailIngredientCardWrapper from '../../../../../components/custom-cocktail/CustomCocktailIngredientCardWrapper';
@@ -16,7 +14,7 @@ interface IngredientsList {
   ingredient: {
     id: number;
     name: string;
-    image: string | StaticImageData;
+    image: string;
   };
   ingredient_amount: number;
   unit: {
@@ -47,7 +45,7 @@ interface CustomDetailData {
 interface Ingredient {
   id: number;
   name: string;
-  image: string | StaticImageData;
+  image: string;
   category: {
     id: number;
     name: string;

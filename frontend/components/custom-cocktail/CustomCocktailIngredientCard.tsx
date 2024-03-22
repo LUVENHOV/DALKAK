@@ -1,13 +1,13 @@
 import React from 'react';
 
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import styles from './CustomCocktailIngredientCard.module.scss';
 
 interface Ingredient {
   ingredient: {
     id: number;
     name: string;
-    image: string | StaticImageData;
+    image: string;
   };
   ingredient_amount: number;
   unit: {
@@ -19,7 +19,7 @@ interface Ingredient {
 interface StoreData {
   id: number;
   name: string;
-  image: string | StaticImageData;
+  image: string;
   category: {
     id: number;
     name: string;

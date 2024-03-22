@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { StaticImageData } from 'next/image';
-
 import styles from './page.module.scss';
 import CustomCocktailImage from '@/components/custom-cocktail/CustomCocktailImage';
 // import CustomCocktailInfo from '@/components/custom-cocktail/CustomCocktailInfo';
@@ -13,7 +11,7 @@ interface CocktailIngredients {
   ingredient: {
     id: number;
     name: string;
-    image: string | StaticImageData;
+    image: string;
   };
   ingredient_amount: number;
   unit: {
@@ -25,7 +23,7 @@ interface CocktailIngredients {
 interface CocktailTools {
   id: number;
   name: string;
-  image: string | StaticImageData;
+  image: string;
 }
 
 interface CustomCocktails {
@@ -54,7 +52,7 @@ interface CocktailData {
 interface Ingredient {
   id: number;
   name: string;
-  image: string | StaticImageData;
+  image: string;
   category: {
     id: number;
     name: string;
