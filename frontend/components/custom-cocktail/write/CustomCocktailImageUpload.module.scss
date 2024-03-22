@@ -4,7 +4,7 @@
 }
 
 .uploaded-image {
-  border-radius: 1.3vw;
+  border-radius: 10%;
   width: 19vw;
   height: 19vw;
   background-color: var(--color-base);
@@ -14,7 +14,7 @@
   img {
     width: 19vw;
     height: 19vw;
-    border-radius: 1.3vw;
+    border-radius: 10%;
     object-fit: cover;
   }
 }
@@ -33,7 +33,7 @@
 }
 
 .uploaded {
-  border-radius: 1.3vw;
+  border-radius: 10%;
 
   input {
     display: none;
