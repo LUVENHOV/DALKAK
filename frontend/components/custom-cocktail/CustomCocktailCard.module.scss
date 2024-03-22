@@ -5,9 +5,15 @@
 }
 
 .custom-img {
-  border-radius: 1.3vw;
+  border-radius: 10%;
   width: 17vw;
   height: 17vw;
+}
+
+.custom-img-preview {
+  border-radius: 10%;
+  width: 14vw;
+  height: 14vw;
 }
 
 .author {
@@ -27,9 +33,20 @@
   font-weight: 950;
 }
 
+.title-preview {
+  margin-top: 1.2vw;
+  font-size: 1vw;
+  font-weight: 950;
+}
+
 .comment {
   margin-top: 0.3vw;
   font-size: 0.97vw;
+}
+
+.comment-preview {
+  margin-top: 0.3vw;
+  font-size: 0.85vw;
 }
 
 .grid-item {
