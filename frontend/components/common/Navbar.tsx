@@ -6,12 +6,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.scss';
-
+import memberStore from '@/store/memberStore';
 import logo from '@/public/assets/imgs/logo.png';
 
 export default function Navbar() {
   const pathName = usePathname();
-  const tempName = '끼리코';
+  // const tmp = memberStore((state) => state.actions.tmp);
+  // eslint-disable-next-line no-unused-expressions
+  const isLoggedIn = memberStore((state) => state.isLoggedIn);
+  const nickname = memberStore((state) => state.nickname);
+  // const clearAll = memberStore((state) => state.actions.clearAll);
   return (
     <div className={styles.navbar}>
       <Link href="/">
@@ -22,7 +26,7 @@ export default function Navbar() {
         </div>
       </Link>
       <Link href="/cocktail">
-        <div className={pathName.startsWith('/cocktail') ? styles.active : ''}>
+        <div className={pathName?.startsWith('/cocktail') ? styles.active : ''}>
           칵테일 목록
         </div>
       </Link>
@@ -44,7 +48,7 @@ export default function Navbar() {
       <div className={styles.hi}>
         안녕하세요
         <span>&nbsp;&nbsp;</span>
-        <span className={styles.nickname}>{tempName}</span>
+        <span className={styles.nickname}></span>
         님!
       </div>
 
