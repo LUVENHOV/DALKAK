@@ -61,4 +61,17 @@ public class Member {
             this.gender=gender;
         }
     }
+
+    public void updateSurveyComp(){
+        this.surveyCompletion=true;
+    }
+
+    public void deleteMember(){
+        this.nickname="탈퇴한 사용자";
+        this.birthdate=null;
+        this.gender=null;
+        this.oauthSub="0";
+        this.oauthProvider=Provider.NONE;
+        this.surveyCompletion=null;
+    }
 }
