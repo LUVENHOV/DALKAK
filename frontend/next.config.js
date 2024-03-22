@@ -12,7 +12,7 @@ module.exports = {
   distDir: 'build',
   output: 'export',
   images: {
-    domains : [kr.object.ncloudstorage.com],
+    domains : ['kr.object.ncloudstorage.com'],
     
     // remotePatterns: [
     //   // 재료, 도구 이미지 경로
