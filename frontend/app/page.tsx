@@ -14,28 +14,22 @@ export default function Home() {
       </button>
       <div className="login-comment">SNS로 간편하게 로그인/회원가입 하기</div>
       <OauthButton
+        provider="GOOGLE"
         bgcolor="google"
         icon="../assets/imgs/icon-google.svg"
         text="Sign in with Google"
-        onClick={() => {
-          window.location.href = process.env.NEXT_PUBLIC_OAUTH_GOOGLE || '';
-        }}
       />
       <OauthButton
+        provider="KAKAO"
         bgcolor="kakao"
         icon="../assets/imgs/icon-kakao.svg"
         text="Sign in with Kakao"
-        onClick={() => {
-          window.location.href = process.env.NEXT_PUBLIC_OAUTH_KAKAO || '';
-        }}
       />
       <OauthButton
+        provider="NAVER"
         bgcolor="naver"
         icon="../assets/imgs/icon-naver.svg"
         text="Sign in with Naver"
-        onClick={() => {
-          window.location.href = process.env.NEXT_PUBLIC_OAUTH_NAVER || '';
-        }}
       />
     </div>
   );

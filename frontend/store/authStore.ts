@@ -2,9 +2,15 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
+interface actionState {
+  setAccessToken: (accessToken: string) => void;
+  setRefreshToken: (refreshToken: string) => void;
+  clearTokens: () => void;
+}
 interface storeState {
   accessToken: string;
   refreshToken: string;
+  actions: actionState;
 }
 
 const authStore = create(
