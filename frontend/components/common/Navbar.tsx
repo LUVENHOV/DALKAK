@@ -6,15 +6,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.scss';
-import memberStore from '@/store/memberStore';
 import logo from '@/public/assets/imgs/logo.png';
+// import memberStore from '@/store/memberStore';
 
 export default function Navbar() {
   const pathName = usePathname();
   // const tmp = memberStore((state) => state.actions.tmp);
   // eslint-disable-next-line no-unused-expressions
-  const isLoggedIn = memberStore((state) => state.isLoggedIn);
-  const nickname = memberStore((state) => state.nickname);
+  // const isLoggedIn = memberStore((state) => state.isLoggedIn);
+  // const nickname = memberStore((state) => state.nickname);
   // const clearAll = memberStore((state) => state.actions.clearAll);
   return (
     <div className={styles.navbar}>
@@ -48,7 +48,7 @@ export default function Navbar() {
       <div className={styles.hi}>
         안녕하세요
         <span>&nbsp;&nbsp;</span>
-        <span className={styles.nickname}></span>
+        <span className={styles.nickname}>test</span>
         님!
       </div>
 

@@ -70,6 +70,7 @@ export default function SearchColor(props: propsType) {
         >
           <button
             type="button"
+            aria-label="Color Button"
             value={c.id}
             className={`${styles.btn} ${styles[c.name]}`}
             onClick={handleColor}
