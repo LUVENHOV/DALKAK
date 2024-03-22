@@ -1,8 +1,7 @@
 import React from 'react';
 import { StaticImageData } from 'next/image';
-import styles from './CustomCocktailIngredientCardWrapper.module.scss';
-
-import CustomCocktailToolCard from './CustomCocktailToolCard';
+import styles from './IngredientCardWrapper.module.scss';
+import ToolCard from './ToolCard';
 
 interface CocktailTools {
   id: number;
@@ -14,9 +13,7 @@ interface Props {
   cocktailTools: CocktailTools[];
 }
 
-export default function CustomCocktailToolCardWrapper({
-  cocktailTools,
-}: Props) {
+export default function ToolCardWrapper({ cocktailTools }: Props) {
   const lastIndex = cocktailTools.length - 1;
 
   return (
@@ -26,7 +23,7 @@ export default function CustomCocktailToolCardWrapper({
       </div>
       <ul className={styles['grid-container']}>
         {cocktailTools.map((tool, index) => (
-          <CustomCocktailToolCard
+          <ToolCard
             // eslint-disable-next-line react/no-array-index-key
             key={index}
             cocktailTool={tool}

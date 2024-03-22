@@ -1,7 +1,7 @@
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 
-import styles from './CustomCocktailIngredientCard.module.scss';
+import styles from './IngredientCard.module.scss';
 
 interface CocktailTool {
   id: number;
@@ -15,12 +15,7 @@ interface Props {
   lastIndex: number;
 }
 
-export default function CustomCocktailToolCard({
-  cocktailTool,
-  index,
-  lastIndex,
-}: Props) {
-  console.log(cocktailTool);
+export default function ToolCard({ cocktailTool, index, lastIndex }: Props) {
   let className = '';
 
   if (index === 0 && index !== lastIndex) {
