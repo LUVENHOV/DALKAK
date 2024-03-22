@@ -1,17 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const withExportImages = require('next-export-optimize-images');
 
-export default withExportImages({
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: 'http://127.0.0.1/:path*',
-  //       destination: 'https://dalkak.store/:path*',
-  //       permanent: true,
-  //     },
-  //   ];
-  // },
-
+const nextConfig = withExportImages({
   distDir: 'build',
   output: 'export',
   images: {
@@ -40,3 +30,5 @@ export default withExportImages({
     ],
   },
 });
+
+module.exports = nextConfig;
