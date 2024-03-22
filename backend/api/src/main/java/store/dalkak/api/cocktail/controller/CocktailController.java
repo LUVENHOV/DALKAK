@@ -16,7 +16,9 @@ import store.dalkak.api.cocktail.dto.IngredientDto;
 import store.dalkak.api.cocktail.dto.response.CocktailDetailResDto;
 import store.dalkak.api.cocktail.dto.response.CocktailPageResDto;
 import store.dalkak.api.cocktail.service.CocktailService;
+import store.dalkak.api.global.annotation.LoginUser;
 import store.dalkak.api.global.response.ApiResponse;
+import store.dalkak.api.user.dto.MemberDto;
 
 @Slf4j
 @RestController
@@ -28,7 +30,8 @@ public class CocktailController {
 
     //칵테일 상세보기
     @GetMapping("/{cocktailId}")
-    public ResponseEntity<ApiResponse<CocktailDetailResDto>> cocktailDetail(@PathVariable("cocktailId") Long originCocktailId) {
+    public ResponseEntity<ApiResponse<CocktailDetailResDto>> cocktailDetail(
+        @PathVariable("cocktailId") Long originCocktailId) {
         CocktailDetailResDto cocktail = cocktailService.findCocktail(originCocktailId);
 
         ApiResponse<CocktailDetailResDto> apiResponse = ApiResponse.of(200,
@@ -62,13 +65,25 @@ public class CocktailController {
 
     @GetMapping("/ingredients")
     public ResponseEntity<ApiResponse<List<IngredientDto>>> searchIngredients(
-        @RequestParam(value = "ingredient-name",required = false) String ingredientName){
+        @RequestParam(value = "ingredient-name", required = false) String ingredientName) {
 
         List<IngredientDto> ingredients = cocktailService.findIngredient(ingredientName);
 
         ApiResponse<List<IngredientDto>> apiResponse = ApiResponse.of(200, ingredients);
 
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+
+    @GetMapping("/{cocktailId}/like")
+    public ResponseEntity<ApiResponse<String>> createHeart(@LoginUser MemberDto memberDto, @PathVariable("cocktailId") Long cocktailId) {
+        cocktailService.createHeart(memberDto, cocktailId);
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, "좋아요가 완료되었습니다."));
+    }
+
+    @GetMapping("/{cocktailId}/dislike")
+    public ResponseEntity<ApiResponse<String>> deleteHeart(@LoginUser MemberDto memberDto, @PathVariable("cocktailId") Long cocktailId) {
+        cocktailService.deleteHeart(memberDto, cocktailId);
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, "좋아요가 취소되었습니다."));
     }
 
 }
