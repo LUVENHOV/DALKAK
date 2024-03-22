@@ -5,13 +5,6 @@ import { StaticImageData } from 'next/image';
 import styles from './page.module.scss';
 
 import CustomCocktailIngredientCardWrapper from '../../../../../components/custom-cocktail/CustomCocktailIngredientCardWrapper';
-import alcohol from '../../../../../public/assets/imgs/alcohol.png';
-
-import apple from '../../../../../public/assets/imgs/apple.png';
-
-import ice from '../../../../../public/assets/imgs/ice.png';
-import lemon from '../../../../../public/assets/imgs/lemon.png';
-import vodka from '../../../../../public/assets/imgs/vodka.png';
 
 import CustomCocktailDeleteButton from '@/components/custom-cocktail/CustomCocktailDeleteButton';
 import CustomCocktailImage from '@/components/custom-cocktail/CustomCocktailImage';
@@ -89,7 +82,8 @@ export default function Page() {
         ingredient: {
           id: 1,
           name: '사과',
-          image: apple,
+          image:
+            'https://kr.object.ncloudstorage.com/dalkak/basic/cb86f720-74fc-4497-8d4b-a703de8088e3.png',
         },
         ingredient_amount: 50,
         unit: {
@@ -101,7 +95,8 @@ export default function Page() {
         ingredient: {
           id: 2,
           name: '레몬',
-          image: lemon,
+          image:
+            'https://kr.object.ncloudstorage.com/dalkak/basic/46e98c37-db68-442f-b533-0cebbc9224de.png',
         },
         ingredient_amount: 3,
         unit: {
@@ -113,7 +108,8 @@ export default function Page() {
         ingredient: {
           id: 3,
           name: '얼음',
-          image: ice,
+          image:
+            'https://kr.object.ncloudstorage.com/dalkak/basic/22b57041-b96b-4a3e-a35f-da404a509551.png',
         },
         ingredient_amount: 100,
         unit: {
@@ -125,7 +121,8 @@ export default function Page() {
         ingredient: {
           id: 4,
           name: '레몬 리큐르',
-          image: alcohol,
+          image:
+            'https://kr.object.ncloudstorage.com/dalkak/basic/6786e8b2-814b-40ff-894a-50dd7e42a40a.png',
         },
         ingredient_amount: 5,
         unit: {
@@ -137,7 +134,8 @@ export default function Page() {
         ingredient: {
           id: 5,
           name: '사과 리큐르',
-          image: alcohol,
+          image:
+            'https://kr.object.ncloudstorage.com/dalkak/basic/6786e8b2-814b-40ff-894a-50dd7e42a40a.png',
         },
         ingredient_amount: 15,
         unit: {
@@ -149,7 +147,8 @@ export default function Page() {
         ingredient: {
           id: 6,
           name: '쿠앵트로',
-          image: alcohol,
+          image:
+            'https://kr.object.ncloudstorage.com/dalkak/basic/6786e8b2-814b-40ff-894a-50dd7e42a40a.png',
         },
         ingredient_amount: 15,
         unit: {
@@ -161,7 +160,8 @@ export default function Page() {
         ingredient: {
           id: 7,
           name: '보드카',
-          image: vodka,
+          image:
+            'https://kr.object.ncloudstorage.com/dalkak/basic/2f1cb4d3-6fb7-4909-8b91-865b7d156c9a.png',
         },
         ingredient_amount: 40,
         unit: {
@@ -178,7 +178,8 @@ export default function Page() {
       {
         id: 2,
         name: '레몬',
-        image: lemon,
+        image:
+          'https://kr.object.ncloudstorage.com/dalkak/basic/46e98c37-db68-442f-b533-0cebbc9224de.png',
         category: {
           id: 2,
           name: 'fruit',
@@ -187,7 +188,8 @@ export default function Page() {
       {
         id: 3,
         name: '얼음',
-        image: ice,
+        image:
+          'https://kr.object.ncloudstorage.com/dalkak/basic/22b57041-b96b-4a3e-a35f-da404a509551.png',
         category: {
           id: 3,
           name: 'beverage',
@@ -196,7 +198,8 @@ export default function Page() {
       {
         id: 7,
         name: '보드카',
-        image: vodka,
+        image:
+          'https://kr.object.ncloudstorage.com/dalkak/basic/2f1cb4d3-6fb7-4909-8b91-865b7d156c9a.png',
         category: {
           id: 1,
           name: 'alcohol',
@@ -205,7 +208,8 @@ export default function Page() {
       {
         id: 8,
         name: '어쩌고',
-        image: vodka,
+        image:
+          'https://kr.object.ncloudstorage.com/dalkak/basic/2f1cb4d3-6fb7-4909-8b91-865b7d156c9a.png',
         category: {
           id: 1,
           name: 'alcohol',

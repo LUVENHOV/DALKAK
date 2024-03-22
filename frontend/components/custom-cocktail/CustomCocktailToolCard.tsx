@@ -1,12 +1,12 @@
 import React from 'react';
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 
 import styles from './CustomCocktailIngredientCard.module.scss';
 
 interface CocktailTool {
   id: number;
   name: string;
-  image: string | StaticImageData;
+  image: string;
 }
 
 interface Props {
@@ -38,6 +38,8 @@ export default function CustomCocktailToolCard({
       <div className={className}>
         <Image
           className={styles['ingredient-img']}
+          width={1000}
+          height={1000}
           src={cocktailTool.image}
           alt="도구 이미지"
         />

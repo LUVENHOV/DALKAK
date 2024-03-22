@@ -14,10 +14,28 @@ export default function CustomCocktailList() {
     <div>
       <div className={styles.line}>
         <div className={styles.space}>
-          <Image className={styles.img1} src={cocktails} alt="칵테일1" />
+          <Image
+            className={styles.img1}
+            src={cocktails}
+            width={1000}
+            height={1000}
+            alt="칵테일1"
+          />
           <div className={styles.overlap}>
-            <Image className={styles.img3} src={fireworks} alt="폭죽" />
-            <Image className={styles.img2} src={cocktails2} alt="칵테일2" />
+            <Image
+              className={styles.img3}
+              src={fireworks}
+              width={1000}
+              height={1000}
+              alt="폭죽"
+            />
+            <Image
+              className={styles.img2}
+              src={cocktails2}
+              width={1000}
+              height={1000}
+              alt="칵테일2"
+            />
           </div>
         </div>
         <hr className={styles.divided} />
