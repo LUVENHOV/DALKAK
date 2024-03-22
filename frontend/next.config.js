@@ -1,4 +1,5 @@
-import withExportImages from 'next-export-optimize-images';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const withExportImages = require('next-export-optimize-images');
 
 export default withExportImages({
   // async redirects() {
