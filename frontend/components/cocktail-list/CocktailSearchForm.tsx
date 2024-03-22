@@ -148,7 +148,11 @@ export default function CocktailSearchForm() {
           name="keyword"
           onChange={(e) => handleKeyword(e)}
         />
-        <button type="submit" onClick={() => handleDetailSearch}>
+        <button
+          type="submit"
+          aria-label="Search Button"
+          onClick={() => handleDetailSearch}
+        >
           <Search />
         </button>
       </div>

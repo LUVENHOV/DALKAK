@@ -1,17 +1,20 @@
-module.exports = {
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: 'http://127.0.0.1/:path*',
-  //       destination: 'https://dalkak.store/:path*',
-  //       permanent: true,
-  //     },
-  //   ];
-  // },
+const nextConfig = {
+  async redirects() {
+    return [
+      {
+        source: '/127.0.0.1/:path*',
+        destination: '/dalkak.store/:path*',
+        permanent: true,
+      },
+    ];
+  },
 
   distDir: 'build',
   output: 'export',
   images: {
+    loader: 'custom',
+    loaderFile: './image-loader.ts',
+
     remotePatterns: [
       // 재료, 도구 이미지 경로
       {
@@ -20,20 +23,22 @@ module.exports = {
         port: '',
         pathname: '/dalkak/basic/**',
       },
-      // // 앱솔루트 이미지 경로
-      // {
-      //   protocol: 'https',
-      //   hostname: 'images.absolutdrinks.com',
-      //   port: '',
-      //   pathname: '/drink-images/**',
-      // },
-      // // iba 이미지 경로
-      // {
-      //   protocol: 'https',
-      //   hostname: 'i.namu.wiki',
-      //   port: '',
-      //   pathname: '/i/**',
-      // },
+      // 앱솔루트 이미지 경로
+      {
+        protocol: 'https',
+        hostname: 'images.absolutdrinks.com',
+        port: '',
+        pathname: '/drink-images/**',
+      },
+      // iba 이미지 경로
+      {
+        protocol: 'https',
+        hostname: 'i.namu.wiki',
+        port: '',
+        pathname: '/i/**',
+      },
     ],
   },
 };
+
+module.exports = nextConfig;
