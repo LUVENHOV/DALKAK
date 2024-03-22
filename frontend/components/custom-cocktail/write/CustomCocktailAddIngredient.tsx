@@ -95,7 +95,10 @@ export default function CustomCocktailAddIngredient({ origin }: Props) {
                   <select
                     className={styles['unit-input']}
                     value={inputUnitValues[index]}
-                    onChange={(e) => handleUnitInputChange(e, data.ingredient.id)}
+                    onChange={
+                      (e) => handleUnitInputChange(e, data.ingredient.id)
+                      // eslint-disable-next-line react/jsx-curly-newline
+                    }
                   >
                     <option>개</option>
                     <option>웨지</option>
