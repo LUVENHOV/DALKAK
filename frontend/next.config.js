@@ -1,4 +1,6 @@
-module.exports = {
+import withExportImages from 'next-export-optimize-images';
+
+export default withExportImages({
   // async redirects() {
   //   return [
   //     {
@@ -12,30 +14,28 @@ module.exports = {
   distDir: 'build',
   output: 'export',
   images: {
-    domains : ['kr.object.ncloudstorage.com'],
-    
-    // remotePatterns: [
-    //   // 재료, 도구 이미지 경로
-    //   {
-    //     protocol: 'https',
-    //     hostname: 'kr.object.ncloudstorage.com',
-    //     port: '',
-    //     pathname: '/dalkak/**',
-    //   },
-    //   // 앱솔루트 이미지 경로
-    //   {
-    //     protocol: 'https',
-    //     hostname: 'images.absolutdrinks.com',
-    //     port: '',
-    //     pathname: '/drink-images/**',
-    //   },
-    //   // iba 이미지 경로
-    //   {
-    //     protocol: 'https',
-    //     hostname: 'i.namu.wiki',
-    //     port: '',
-    //     pathname: '/i/**',
-    //   },
-    // ],
+    remotePatterns: [
+      // 재료, 도구 이미지 경로
+      {
+        protocol: 'https',
+        hostname: 'kr.object.ncloudstorage.com',
+        port: '',
+        pathname: '/dalkak/basic/**',
+      },
+      // 앱솔루트 이미지 경로
+      {
+        protocol: 'https',
+        hostname: 'images.absolutdrinks.com',
+        port: '',
+        pathname: '/drink-images/**',
+      },
+      // iba 이미지 경로
+      {
+        protocol: 'https',
+        hostname: 'i.namu.wiki',
+        port: '',
+        pathname: '/i/**',
+      },
+    ],
   },
-};
+});
