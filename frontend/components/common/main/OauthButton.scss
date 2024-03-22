@@ -1,0 +1,41 @@
+.button-oauth {
+  margin-top: 10px;
+  border-radius: 50px;
+  border: 2px solid #dddddd;
+  width: 400px;
+  height: 60px;
+  display: flex;
+  font-size: 20px;
+  align-items: center;
+  &:hover {
+    cursor: pointer;
+  }
+
+  padding: 20px;
+  img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+  .text-field-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+  }
+}
+.kakao {
+  background-color: #f7e600;
+  border: none;
+  div {
+    color: white;
+  }
+}
+.naver {
+  background-color: #2db400;
+  border: none;
+  div {
+    color: white;
+  }
+}
