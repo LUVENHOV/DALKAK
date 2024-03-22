@@ -2,8 +2,8 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: 'http://127.0.0.1/',
-        destination: 'https://dalkak.store/',
+        source: '/127.0.0.1/:path*',
+        destination: '/dalkak.store/:path*',
         permanent: true,
       },
     ];
