@@ -1,13 +1,13 @@
-'use client';
+// 'use client';
 
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 
-import LockOutlined from '@mui/icons-material/LockOutlined';
-import PublicOutlined from '@mui/icons-material/PublicOutlined';
-import { useRouter } from 'next/navigation';
+// import LockOutlined from '@mui/icons-material/LockOutlined';
+// import PublicOutlined from '@mui/icons-material/PublicOutlined';
+// import { useRouter } from 'next/navigation';
 import styles from './page.module.scss';
 
-import BtnWithIcon from '@/components/common/BtnWithIcon';
+// import BtnWithIcon from '@/components/common/BtnWithIcon';
 import CustomCocktailAddIngredient from '@/components/custom-cocktail/write/CustomCocktailAddIngredient';
 import CustomCocktailAddRecipe from '@/components/custom-cocktail/write/CustomCocktailAddRecipe';
 import CustomCocktailImageUpload from '@/components/custom-cocktail/write/CustomCocktailImageUpload';
@@ -147,32 +147,36 @@ const { recipe } = originIngredientList;
 const origin: IngredientsList[] = originIngredientList.ingredientList;
 
 export default function Page() {
-  const [isPublic, setIsPublic] = useState(false);
-  const router = useRouter();
+  // const [isPublic, setIsPublic] = useState(false);
+  // const router = useRouter();
 
-  const [inputValue, setInputValue] = useState('');
+  // const [inputValue, setInputValue] = useState('');
 
-  const infoPlaceholder = '추가 설명이나 후기를 알려주세요.\n\n 이런 내용이 들어가면 좋아요!| - 이 재료는 다른 걸로 대체할 수 있어요| - 기존 레시피와 비교해서 맛이 이렇게 달라요| - 이럴 때 마시는 걸 추천해요';
+  // const infoPlaceholder =
+  //   '추가 설명이나 후기를 알려주세요.\n\n 이런 내용이 들어가면 좋아요!| -
+  // 이 재료는 다른 걸로 대체할 수 있어요 | -
+  // 기존 레시피와 비교해서 맛이 이렇게 달라요 | - 이럴 때 마시는 걸 추천해요';
 
   // eslint-disable-next-line no-shadow
-  const splitedInfoPlaceholder = (infoPlaceholder: string) => infoPlaceholder.split('|').join('\n');
+  // const splitedInfoPlaceholder = (infoPlaceholder: string) =>
+  //   infoPlaceholder.split('|').join('\n');
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInputValue(e.target.value);
-  };
+  // const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  //   setInputValue(e.target.value);
+  // };
 
-  const handleIsPublic = () => {
-    if (isPublic === false) {
-      setIsPublic(true);
-    } else {
-      setIsPublic(false);
-    }
-  };
+  // const handleIsPublic = () => {
+  //   if (isPublic === false) {
+  //     setIsPublic(true);
+  //   } else {
+  //     setIsPublic(false);
+  //   }
+  // };
 
-  const handleNavigation = () => {
-    alert('커스텀 칵테일 레시피가 등록되었습니다.');
-    router.push('/cocktail/custom/detail/1');
-  };
+  // const handleNavigation = () => {
+  //   alert('커스텀 칵테일 레시피가 등록되었습니다.');
+  //   router.push('/cocktail/custom/detail/1');
+  // };
   return (
     <div className={styles['flex-container']}>
       <div className={styles.container}>
@@ -188,7 +192,7 @@ export default function Page() {
           <div />
 
           <div className={styles.buttons}>
-            <div className={`${styles.button} ${styles.button1}`}>
+            {/* <div className={`${styles.button} ${styles.button1}`}>
               <BtnWithIcon
                 icon={isPublic ? PublicOutlined : LockOutlined}
                 text={isPublic ? '전체 공개' : '나만 보기'}
@@ -202,7 +206,7 @@ export default function Page() {
                 btnStyle="full-point"
                 handleOnClick={handleNavigation}
               />
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -223,12 +227,12 @@ export default function Page() {
                 />
               </div>
               <div className={styles.inputs}>
-                <textarea
+                {/* <textarea
                   className={styles['info-input']}
                   value={inputValue}
                   placeholder={splitedInfoPlaceholder(infoPlaceholder)}
                   onChange={(e) => handleInputChange(e)}
-                />
+                /> */}
               </div>
             </div>
           </div>
@@ -240,4 +244,18 @@ export default function Page() {
       </div>
     </div>
   );
+}
+
+export async function generateStaticParams() {
+  const dummyCocktailId = [
+    { id: '1' },
+    { id: '2' },
+    { id: '3' },
+    { id: '4' },
+    { id: '5' },
+  ];
+
+  return dummyCocktailId.map((cocktail) => ({
+    cocktailId: cocktail.id.toString(),
+  }));
 }
