@@ -11,8 +11,10 @@ import store.dalkak.api.cocktail.domain.ingredient.Unit;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class CustomIngredientModifyDto {
-    Long customCocktailId;
-    Double amount;
-    Unit unit;
+public class CustomIngredientDetailDto {
+    private Long id;
+    private String name;
+    private String image;
+    private Double ingredientAmount;
+    private Unit unit;
 }

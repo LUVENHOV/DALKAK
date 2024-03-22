@@ -12,8 +12,8 @@ import store.dalkak.api.basket.exception.BasketIngredientAddErrorCode;
 import store.dalkak.api.basket.repository.BasketRepository;
 import store.dalkak.api.cocktail.domain.ingredient.Ingredient;
 import store.dalkak.api.cocktail.dto.IngredientDto;
+import store.dalkak.api.cocktail.exception.CocktailErrorCode;
 import store.dalkak.api.cocktail.exception.CocktailException;
-import store.dalkak.api.cocktail.exception.IngredientSearchErrorCode;
 import store.dalkak.api.cocktail.repository.ingredient.IngredientRepository;
 import store.dalkak.api.user.domain.Member;
 import store.dalkak.api.user.dto.MemberDto;
@@ -56,7 +56,7 @@ public class BasketServiceImpl implements BasketService {
                 UserErrorCode.INVALID_USER));
         Ingredient ingredient = ingredientRepository.findById(ingredientId)
             .orElseThrow(() -> new CocktailException(
-                IngredientSearchErrorCode.FAIL_TO_FIND_INGREDIENT));
+                CocktailErrorCode.FAIL_TO_FIND_INGREDIENT));
         Basket basket = basketRepository.findByMemberAndIngredient(member,
                 ingredient)
             .orElseThrow(() -> new BasketException(BasketErrorCode.REFRIGERATOR_ERROR_CODE));

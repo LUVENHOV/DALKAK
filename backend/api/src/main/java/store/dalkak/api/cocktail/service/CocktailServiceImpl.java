@@ -8,7 +8,6 @@ import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import io.micrometer.common.util.StringUtils;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,19 +18,21 @@ import org.springframework.transaction.annotation.Transactional;
 import store.dalkak.api.cocktail.domain.Cocktail;
 import store.dalkak.api.cocktail.domain.ingredient.CocktailIngredient;
 import store.dalkak.api.cocktail.domain.tool.CocktailTool;
-import store.dalkak.api.cocktail.dto.CocktailCustomDto;
+import store.dalkak.api.cocktail.dto.CocktailDto;
 import store.dalkak.api.cocktail.dto.CocktailIngredientDto;
 import store.dalkak.api.cocktail.dto.IngredientDto;
 import store.dalkak.api.cocktail.dto.ToolDto;
 import store.dalkak.api.cocktail.dto.response.CocktailDetailResDto;
-import store.dalkak.api.cocktail.dto.response.CocktailFindResDto;
 import store.dalkak.api.cocktail.dto.response.CocktailPageResDto;
+import store.dalkak.api.cocktail.exception.CocktailErrorCode;
 import store.dalkak.api.cocktail.exception.CocktailException;
-import store.dalkak.api.cocktail.exception.CocktailSearchErrorCode;
 import store.dalkak.api.cocktail.repository.CocktailRepository;
 import store.dalkak.api.cocktail.repository.ingredient.CocktailIngredientRepository;
 import store.dalkak.api.cocktail.repository.tool.CocktailToolRepository;
+import store.dalkak.api.custom.domain.Custom;
+import store.dalkak.api.custom.dto.CustomCocktailDto;
 import store.dalkak.api.custom.repository.CustomRepository;
+import store.dalkak.api.user.dto.UserDto;
 
 @Slf4j
 @Transactional
@@ -51,29 +52,23 @@ public class CocktailServiceImpl implements CocktailService{
         Long color,
         Integer sweetness, Integer orderBy) {
 
-        Page<CocktailFindResDto> cocktailFindResDtoList = cocktailRepository.findCocktailsByOption(page, cocktailName, ingredients, base,
+        Page<CocktailDto> cocktailFindResDtoPage = cocktailRepository.findCocktailsByOption(page, cocktailName, ingredients, base,
             minAlcoholContent, maxAlcoholContent, color, sweetness, orderBy);
 
-        CocktailPageResDto cocktailPageResDto = new CocktailPageResDto(
-            cocktailFindResDtoList.getContent(), cocktailFindResDtoList.getTotalElements(),
-            cocktailFindResDtoList.getTotalPages(), cocktailFindResDtoList.getPageable().getPageNumber()+ 1);
-
-        if (cocktailPageResDto.getTotalElements() == 0) {
-            throw new CocktailException(CocktailSearchErrorCode.FAIL_TO_FIND_COCKTAIL);
-        }
-
-        return cocktailPageResDto;
+        return new CocktailPageResDto(
+            cocktailFindResDtoPage.getContent(), cocktailFindResDtoPage.getTotalElements(),
+            cocktailFindResDtoPage.getTotalPages(), cocktailFindResDtoPage.getPageable().getPageNumber()+ 1);
     }
 
     public CocktailDetailResDto findCocktail(Long originCocktailId) {
         Cocktail targetCocktail = cocktailRepository.findById(originCocktailId)
             .orElseThrow(
-                () -> new CocktailException(CocktailSearchErrorCode.FAIL_TO_FIND_COCKTAIL));
+                () -> new CocktailException(CocktailErrorCode.FAIL_TO_FIND_COCKTAIL));
         //재료 리스트
         List<CocktailIngredient> cocktailIngredients = cocktailIngredientRepository.findAllByCocktail(
             targetCocktail);
         List<CocktailIngredientDto> cocktailIngredientDtoList = new ArrayList<>();
-        for (CocktailIngredient cocktailIngredient : cocktailIngredients) {
+        for(CocktailIngredient cocktailIngredient : cocktailIngredients) {
             cocktailIngredientDtoList.add(new CocktailIngredientDto(
                 cocktailIngredient.getIngredient().getId(),
                 cocktailIngredient.getIngredient().getName(),
@@ -86,7 +81,7 @@ public class CocktailServiceImpl implements CocktailService{
         //도구 리스트
         List<CocktailTool> cocktailTools = cocktailToolRepository.findAllByCocktail(targetCocktail);
         List<ToolDto> toolDtoList = new ArrayList<>();
-        for (CocktailTool cocktailTool : cocktailTools) {
+        for(CocktailTool cocktailTool : cocktailTools) {
             toolDtoList.add(new ToolDto(
                 cocktailTool.getTool().getId(),
                 cocktailTool.getTool().getName(),
@@ -94,14 +89,22 @@ public class CocktailServiceImpl implements CocktailService{
             ));
         }
         //커스텀 레시피 리스트
-        List<CocktailCustomDto> customs = customRepository.findAllByCocktailId(originCocktailId);
-        List<CocktailCustomDto> cocktailCustomDtoList = customs.stream()
-            .sorted(Comparator.comparing(CocktailCustomDto::getCustomId).reversed())
-            .limit(4)
-            .toList();
+        List<Custom> customCocktails = customRepository.findAllByCocktailOrderByIdDesc(targetCocktail);
+        List<CustomCocktailDto> customCocktailDtoList = new ArrayList<>();
+        for(Custom custom : customCocktails) {
+            customCocktailDtoList
+                .add(CustomCocktailDto
+                    .builder()
+                    .id(custom.getId())
+                    .image(custom.getCocktail().getImage())
+                    .name(custom.getName())
+                    .summary(custom.getSummary())
+                    .user(UserDto.builder().id(custom.getMember().getId()).nickname(custom.getMember().getNickname()).build())
+                    .build());
+        }
 
         return CocktailDetailResDto.of(targetCocktail, cocktailIngredientDtoList, toolDtoList,
-            cocktailCustomDtoList);
+            customCocktailDtoList);
     }
 
     public List<IngredientDto> findIngredient(String ingredientName) {
@@ -112,7 +115,7 @@ public class CocktailServiceImpl implements CocktailService{
             .where(this.searchKeyword(ingredientName))
             .fetch();
 
-        if(ingredientDtoList.isEmpty()) throw new CocktailException(CocktailSearchErrorCode.FAIL_TO_FIND_COCKTAIL);
+        if(ingredientDtoList.isEmpty()) throw new CocktailException(CocktailErrorCode.FAIL_TO_FIND_COCKTAIL);
 
         return ingredientDtoList;
     }

@@ -18,7 +18,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import store.dalkak.api.cocktail.dto.response.CocktailFindResDto;
+import store.dalkak.api.cocktail.dto.CocktailDto;
 
 
 @Transactional(readOnly = true)
@@ -80,7 +80,7 @@ public class CocktailRepositoryImpl implements CocktailRepositoryCustom {
         return sweetness != null ? cocktail.sweetness.eq(sweetness) : null;
     }
 
-    public Page<CocktailFindResDto> findCocktailsByOption(Pageable page, String cocktailName,
+    public Page<CocktailDto> findCocktailsByOption(Pageable page, String cocktailName,
         List<Long> ingredients, Long baseDrink, Integer minAlcoholContent,
         Integer maxAlcoholContent, Long cocktailColor,
         Integer sweetness, Integer orderBy) {
@@ -115,9 +115,9 @@ public class CocktailRepositoryImpl implements CocktailRepositoryCustom {
             .groupBy(cocktail.id)
             .fetch();
 
-        List<CocktailFindResDto> cocktailFindResDtoQueryResults = queryFactory
+        List<CocktailDto> cocktailDtoQueryResults = queryFactory
             .select(Projections.constructor(
-                CocktailFindResDto.class,
+                CocktailDto.class,
                 cocktail.id,
                 cocktail.name,
                 cocktail.krName,
@@ -132,7 +132,7 @@ public class CocktailRepositoryImpl implements CocktailRepositoryCustom {
 
         long total = distinctCocktailIds.size();
 
-        return new PageImpl<>(cocktailFindResDtoQueryResults, page, total);
+        return new PageImpl<>(cocktailDtoQueryResults, page, total);
 
     }
 
