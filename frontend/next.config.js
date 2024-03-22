@@ -1,10 +1,10 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const withExportImages = require('next-export-optimize-images');
-
-const nextConfig = withExportImages({
+const nextConfig = {
   distDir: 'build',
   output: 'export',
   images: {
+    loader: 'custom',
+    loaderFile: './image-loader.ts',
+
     remotePatterns: [
       // 재료, 도구 이미지 경로
       {
@@ -29,6 +29,6 @@ const nextConfig = withExportImages({
       },
     ],
   },
-});
+};
 
 module.exports = nextConfig;
