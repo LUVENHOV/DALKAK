@@ -18,6 +18,7 @@ interface TotalData {
   total_pages: number;
   current_page: number;
 }
+
 export default function Page() {
   const totalData: TotalData = {
     custom_cocktails: [
@@ -312,4 +313,18 @@ export default function Page() {
       />
     </div>
   );
+}
+
+export async function generateStaticParams() {
+  const dummyCocktailId = [
+    { id: '1' },
+    { id: '2' },
+    { id: '3' },
+    { id: '4' },
+    { id: '5' },
+  ];
+
+  return dummyCocktailId.map((cocktail) => ({
+    cocktailId: cocktail.id.toString(),
+  }));
 }
