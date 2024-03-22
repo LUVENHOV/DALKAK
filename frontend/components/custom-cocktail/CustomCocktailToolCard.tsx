@@ -3,14 +3,14 @@ import Image from 'next/image';
 
 import styles from './CustomCocktailIngredientCard.module.scss';
 
-interface CocktailTools {
+interface CocktailTool {
   id: number;
   name: string;
   image: string;
 }
 
 interface Props {
-  cocktailTool: CocktailTools;
+  cocktailTool: CocktailTool;
   index: number;
   lastIndex: number;
 }
