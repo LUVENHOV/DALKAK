@@ -48,7 +48,7 @@ export default function Navbar() {
       <div className={styles.hi}>
         안녕하세요
         <span>&nbsp;&nbsp;</span>
-        <span className={styles.nickname}>{tempName}</span>
+        <span className={styles.nickname}></span>
         님!
       </div>
 
