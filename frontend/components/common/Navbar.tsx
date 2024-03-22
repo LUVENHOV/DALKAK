@@ -22,7 +22,7 @@ export default function Navbar() {
         <div className="dalkak">
           {/* <div>DAL</div>
           <div>KAK</div> */}
-          <Image src={logo} alt="logo" />
+          <Image src={logo} width={1000} height={1000} alt="logo" />
         </div>
       </Link>
       <Link href="/cocktail">

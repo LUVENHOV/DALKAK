@@ -1,13 +1,13 @@
 import React from 'react';
 
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import styles from './CustomCocktailIngredientCard.module.scss';
 
 interface Ingredient {
   ingredient: {
     id: number;
     name: string;
-    image: string | StaticImageData;
+    image: string;
   };
   ingredient_amount: number;
   unit: {
@@ -19,7 +19,7 @@ interface Ingredient {
 interface StoreData {
   id: number;
   name: string;
-  image: string | StaticImageData;
+  image: string;
   category: {
     id: number;
     name: string;
@@ -46,15 +46,15 @@ export default function CustomCocktailIngredientCard({
   let isStored = '';
 
   if (
-    (index === 0 && index !== lastIndex)
-    || (index === 5 && index !== lastIndex)
-    || (index === 10 && index !== lastIndex)
+    (index === 0 && index !== lastIndex) ||
+    (index === 5 && index !== lastIndex) ||
+    (index === 10 && index !== lastIndex)
   ) {
     className = styles['start-ingredient'];
   } else if (
-    (index === 0 && index === lastIndex)
-    || (index === 5 && index === lastIndex)
-    || (index === 10 && index === lastIndex)
+    (index === 0 && index === lastIndex) ||
+    (index === 5 && index === lastIndex) ||
+    (index === 10 && index === lastIndex)
   ) {
     className = styles['start-last-ingredient'];
   } else if (index === 4 || index === 9 || index === lastIndex) {
@@ -77,6 +77,8 @@ export default function CustomCocktailIngredientCard({
         <Image
           className={styles['ingredient-img']}
           src={ingredient.ingredient.image}
+          width={1000}
+          height={1000}
           alt="재료 이미지"
         />
         <div className={styles['ingredient-name']}>

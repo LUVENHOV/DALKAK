@@ -1,27 +1,17 @@
 import React from 'react';
 
-import { StaticImageData } from 'next/image';
-
 import styles from './page.module.scss';
 import CustomCocktailImage from '@/components/custom-cocktail/CustomCocktailImage';
 // import CustomCocktailInfo from '@/components/custom-cocktail/CustomCocktailInfo';
 import CustomCocktailIngredientCardWrapper from '@/components/custom-cocktail/CustomCocktailIngredientCardWrapper';
 import CustomCocktailRecipe from '@/components/custom-cocktail/CustomCocktailRecipe';
 import CustomCocktailToolCardWrapper from '@/components/custom-cocktail/CustomCocktailToolCardWrapper';
-import alcohol from '@/public/assets/imgs/alcohol.png';
-import apple from '@/public/assets/imgs/apple.png';
-import ice from '@/public/assets/imgs/ice.png';
-import jigger from '@/public/assets/imgs/jigger.png';
-import lemon from '@/public/assets/imgs/lemon.png';
-import muddler from '@/public/assets/imgs/muddler.png';
-import shaker from '@/public/assets/imgs/shaker.png';
-import vodka from '@/public/assets/imgs/vodka.png';
 
 interface CocktailIngredients {
   ingredient: {
     id: number;
     name: string;
-    image: string | StaticImageData;
+    image: string;
   };
   ingredient_amount: number;
   unit: {
@@ -33,7 +23,7 @@ interface CocktailIngredients {
 interface CocktailTools {
   id: number;
   name: string;
-  image: string | StaticImageData;
+  image: string;
 }
 
 interface CustomCocktails {
@@ -62,7 +52,7 @@ interface CocktailData {
 interface Ingredient {
   id: number;
   name: string;
-  image: string | StaticImageData;
+  image: string;
   category: {
     id: number;
     name: string;
@@ -78,7 +68,8 @@ const storeData: StoreData = {
     {
       id: 2,
       name: '레몬',
-      image: lemon,
+      image:
+        'https://kr.object.ncloudstorage.com/dalkak/basic/46e98c37-db68-442f-b533-0cebbc9224de.png',
       category: {
         id: 2,
         name: 'fruit',
@@ -87,7 +78,8 @@ const storeData: StoreData = {
     {
       id: 3,
       name: '얼음',
-      image: ice,
+      image:
+        'https://kr.object.ncloudstorage.com/dalkak/basic/22b57041-b96b-4a3e-a35f-da404a509551.png',
       category: {
         id: 3,
         name: 'beverage',
@@ -96,7 +88,8 @@ const storeData: StoreData = {
     {
       id: 7,
       name: '보드카',
-      image: vodka,
+      image:
+        'https://kr.object.ncloudstorage.com/dalkak/basic/2f1cb4d3-6fb7-4909-8b91-865b7d156c9a.png',
       category: {
         id: 1,
         name: 'alcohol',
@@ -105,7 +98,8 @@ const storeData: StoreData = {
     {
       id: 8,
       name: '어쩌고',
-      image: vodka,
+      image:
+        'https://kr.object.ncloudstorage.com/dalkak/basic/2f1cb4d3-6fb7-4909-8b91-865b7d156c9a.png',
       category: {
         id: 1,
         name: 'alcohol',
@@ -119,7 +113,8 @@ const cocktailData: CocktailData = {
   name: 'Apple Martini',
   korean_name: '애플 마티니',
 
-  image: 'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/apple-martini.png',
+  image:
+    'https://images.absolutdrinks.com/drink-images/Raw/Absolut/18b10bdd-141e-4f5d-b431-84c9807ab447.jpg?imwidth=375',
   heart_count: 245,
   alcohol_content: 3,
   sweetness: 5,
@@ -132,7 +127,8 @@ const cocktailData: CocktailData = {
       ingredient: {
         id: 1,
         name: '사과',
-        image: apple,
+        image:
+          'https://kr.object.ncloudstorage.com/dalkak/basic/cb86f720-74fc-4497-8d4b-a703de8088e3.png',
       },
       ingredient_amount: 50,
       unit: {
@@ -145,7 +141,8 @@ const cocktailData: CocktailData = {
       ingredient: {
         id: 3,
         name: '얼음',
-        image: ice,
+        image:
+          'https://kr.object.ncloudstorage.com/dalkak/basic/22b57041-b96b-4a3e-a35f-da404a509551.png',
       },
       ingredient_amount: 100,
       unit: {
@@ -157,7 +154,8 @@ const cocktailData: CocktailData = {
       ingredient: {
         id: 4,
         name: '레몬 리큐르',
-        image: alcohol,
+        image:
+          'https://kr.object.ncloudstorage.com/dalkak/basic/6786e8b2-814b-40ff-894a-50dd7e42a40a.png',
       },
       ingredient_amount: 5,
       unit: {
@@ -169,7 +167,8 @@ const cocktailData: CocktailData = {
       ingredient: {
         id: 5,
         name: '사과 리큐르',
-        image: alcohol,
+        image:
+          'https://kr.object.ncloudstorage.com/dalkak/basic/6786e8b2-814b-40ff-894a-50dd7e42a40a.png',
       },
       ingredient_amount: 15,
       unit: {
@@ -181,7 +180,8 @@ const cocktailData: CocktailData = {
       ingredient: {
         id: 6,
         name: '쿠앵트로',
-        image: alcohol,
+        image:
+          'https://kr.object.ncloudstorage.com/dalkak/basic/6786e8b2-814b-40ff-894a-50dd7e42a40a.png',
       },
       ingredient_amount: 15,
       unit: {
@@ -193,7 +193,8 @@ const cocktailData: CocktailData = {
       ingredient: {
         id: 7,
         name: '보드카',
-        image: vodka,
+        image:
+          'https://kr.object.ncloudstorage.com/dalkak/basic/2f1cb4d3-6fb7-4909-8b91-865b7d156c9a.png',
       },
       ingredient_amount: 40,
       unit: {
@@ -206,17 +207,20 @@ const cocktailData: CocktailData = {
     {
       id: 2,
       name: '지거',
-      image: jigger,
+      image:
+        'https://kr.object.ncloudstorage.com/dalkak/basic/c7b343e6-14db-47b2-9c36-e97ff0bb9ecd.png',
     },
     {
       id: 3,
       name: '셰이커',
-      image: shaker,
+      image:
+        'https://kr.object.ncloudstorage.com/dalkak/basic/b2c3624a-f2e1-4701-a6f4-492cd0280fe9.png',
     },
     {
       id: 11,
       name: '머들러',
-      image: muddler,
+      image:
+        'https://kr.object.ncloudstorage.com/dalkak/basic/92d2cc27-3d07-47a6-821a-6a8020c0d804.png',
     },
   ],
   custom_cocktails: [
@@ -224,7 +228,7 @@ const cocktailData: CocktailData = {
       custom_id: 1,
       custom_name: '날씨 좋은 주말을 위한 애플 마티니',
       custom_image:
-        'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/apple-martini.png',
+        'https://images.absolutdrinks.com/drink-images/415x570/be6d7268-ddc0-4a29-8160-8cd3fdcf8275.jpg?imwidth=375',
       summary: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
       user_id: 1,
       user_nickname: '끼리코',
@@ -233,7 +237,7 @@ const cocktailData: CocktailData = {
       custom_id: 2,
       custom_name: '날씨 좋은 주말에 마시기 좋아요',
       custom_image:
-        'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/apple-martini.png',
+        'https://images.absolutdrinks.com/drink-images/Raw/Absolut/0d00d972-2750-4414-ab48-abfc35c9dabf.jpg?imwidth=375',
       summary: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
       user_id: 2,
       user_nickname: '갈현동의칵테일마스터',
@@ -242,7 +246,7 @@ const cocktailData: CocktailData = {
       custom_id: 3,
       custom_name: '술찌들을 위한 커스텀 레시피',
       custom_image:
-        'https://www.liquor.com/thmb/sv91lrGrqOrH4iNMYDPC8eE5zdQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__liquor__2017__07__20084113__appletini-720x720-recipe-e40e3ceb5ca7493ab93d90019cbb56a7.jpg',
+        'https://images.absolutdrinks.com/drink-images/Raw/Absolut/260ca56f-8c05-41b7-bb92-c17a9087fc59.jpg?imwidth=375',
       summary: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
       user_id: 3,
       user_nickname: '사샤',
@@ -251,7 +255,7 @@ const cocktailData: CocktailData = {
       custom_id: 4,
       custom_name: '아쉬운대로 만든 애플 마티니',
       custom_image:
-        'https://mybartender.com/wp-content/uploads/2023/11/delicious-green-apple-cocktail-320x320.png',
+        'https://images.absolutdrinks.com/drink-images/Raw/Absolut/11741f8b-72fd-45eb-a233-3aedf8de7beb.jpg?imwidth=375',
       summary: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
       user_id: 4,
       user_nickname: '무무',
@@ -259,8 +263,8 @@ const cocktailData: CocktailData = {
   ],
 };
 
-export default function Page(/* { params }: { params: { cocktailId: string } } */) {
-  // const { cocktailId } = params;
+export default function Page({ params }: { params: { cocktailId: string } }) {
+  const { cocktailId } = params;
   // console.log(cocktailId);
 
   const cocktailIngredients: CocktailIngredients[] =
@@ -273,41 +277,45 @@ export default function Page(/* { params }: { params: { cocktailId: string } } *
   const storeList = storeData.ingredients;
 
   return (
-    // <div>{cocktailId}</div>
-    <div className={styles['flex-container']}>
-      <div className={styles.container}>
-        <div className={styles['title-container']}>
-          <div className={styles.name}>{cocktailData.name}</div>
-          <div className={styles.nickname}>
-            ❤&nbsp;{cocktailData.heart_count}
+    <>
+      <div>{cocktailId}</div>
+      <div className={styles['flex-container']}>
+        <div className={styles.container}>
+          <div className={styles['title-container']}>
+            <div className={styles.name}>{cocktailData.name}</div>
+            <div className={styles.nickname}>
+              ❤&nbsp;{cocktailData.heart_count}
+            </div>
+            <div className={styles.nickname}>
+              {cocktailData.alcohol_content}
+            </div>
+            <div className={styles.nickname}>{cocktailData.sweetness}</div>
+            <div />
+            <div className={styles.buttons}>
+              <div className={styles.button}>커스텀레시피 만들기</div>
+            </div>
           </div>
-          <div className={styles.nickname}>{cocktailData.alcohol_content}</div>
-          <div className={styles.nickname}>{cocktailData.sweetness}</div>
-          <div />
-          <div className={styles.buttons}>
-            <div className={styles.button}>커스텀레시피 만들기</div>
-          </div>
-        </div>
 
-        <hr className={styles.hr} />
-        <div className={styles['inner-container']}>
-          <div className={styles.space}>
-            <CustomCocktailImage customImage={cocktailData.image} />
+          <hr className={styles.hr} />
+          <div className={styles['inner-container']}>
+            <div className={styles.space}>
+              <CustomCocktailImage customImage={cocktailData.image} />
+            </div>
+            <div className={styles.space}>
+              <CustomCocktailIngredientCardWrapper
+                ingredients={cocktailIngredients}
+                storeData={storeList}
+              />
+              <CustomCocktailToolCardWrapper cocktailTools={cocktailTools} />
+              <CustomCocktailRecipe recipe={cocktailData.recipe} />
+            </div>
           </div>
-          <div className={styles.space}>
-            <CustomCocktailIngredientCardWrapper
-              ingredients={cocktailIngredients}
-              storeData={storeList}
-            />
-            <CustomCocktailToolCardWrapper cocktailTools={cocktailTools} />
-            <CustomCocktailRecipe recipe={cocktailData.recipe} />
-          </div>
-        </div>
 
-        <hr className={styles.hr2} />
-        <div>커스텀 칵테일 미리보기 영역</div>
+          <hr className={styles.hr2} />
+          <div>커스텀 칵테일 미리보기 영역</div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

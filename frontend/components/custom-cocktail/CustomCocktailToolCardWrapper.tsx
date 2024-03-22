@@ -1,5 +1,4 @@
 import React from 'react';
-import { StaticImageData } from 'next/image';
 import styles from './CustomCocktailIngredientCardWrapper.module.scss';
 
 import CustomCocktailToolCard from './CustomCocktailToolCard';
@@ -7,7 +6,7 @@ import CustomCocktailToolCard from './CustomCocktailToolCard';
 interface CocktailTools {
   id: number;
   name: string;
-  image: string | StaticImageData;
+  image: string;
 }
 
 interface Props {

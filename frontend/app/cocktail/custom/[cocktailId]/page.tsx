@@ -28,7 +28,7 @@ export default function Page() {
         comment: '사과를 더 썼어요!',
         author: '끼리코',
         imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/green-apple-martini.png',
+          'https://images.absolutdrinks.com/drink-images/Raw/Absolut/18b10bdd-141e-4f5d-b431-84c9807ab447.jpg?imwidth=375',
       },
       {
         id: 2,
@@ -36,7 +36,7 @@ export default function Page() {
         comment: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
         author: '갈현동의칵테일마스터',
         imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/apple-martini.png',
+          'https://images.absolutdrinks.com/drink-images/Raw/Absolut/37e3307e-21ee-4826-b44a-a2834f7af1cb.jpg?imwidth=375',
       },
       {
         id: 3,
@@ -44,7 +44,7 @@ export default function Page() {
         comment: '기존 레시피보다 순하게 만들었습니다',
         author: '사샤',
         imageLink:
-          'https://www.liquor.com/thmb/sv91lrGrqOrH4iNMYDPC8eE5zdQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__liquor__2017__07__20084113__appletini-720x720-recipe-e40e3ceb5ca7493ab93d90019cbb56a7.jpg',
+          'https://images.absolutdrinks.com/drink-images/415x570/be6d7268-ddc0-4a29-8160-8cd3fdcf8275.jpg?imwidth=375',
       },
       {
         id: 4,
@@ -52,7 +52,7 @@ export default function Page() {
         comment: '이것저것 집에 있는 재료 털어서 만들었어요',
         author: '무무',
         imageLink:
-          'https://mybartender.com/wp-content/uploads/2023/11/delicious-green-apple-cocktail-320x320.png',
+          'https://images.absolutdrinks.com/drink-images/Raw/Absolut/21785b5c-9d47-40bf-97af-373882e2e5b1.jpg?imwidth=375',
       },
       {
         id: 5,
@@ -60,7 +60,7 @@ export default function Page() {
         comment: '사과를 더 썼어요!',
         author: '끼리코',
         imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/green-apple-martini.png',
+          'https://images.absolutdrinks.com/drink-images/Raw/Absolut/18b10bdd-141e-4f5d-b431-84c9807ab447.jpg?imwidth=375',
       },
       {
         id: 6,
@@ -68,7 +68,7 @@ export default function Page() {
         comment: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
         author: '갈현동의칵테일마스터',
         imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/apple-martini.png',
+          'https://images.absolutdrinks.com/drink-images/Raw/Absolut/37e3307e-21ee-4826-b44a-a2834f7af1cb.jpg?imwidth=375',
       },
       {
         id: 7,
@@ -76,7 +76,7 @@ export default function Page() {
         comment: '기존 레시피보다 순하게 만들었습니다',
         author: '사샤',
         imageLink:
-          'https://www.liquor.com/thmb/sv91lrGrqOrH4iNMYDPC8eE5zdQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__liquor__2017__07__20084113__appletini-720x720-recipe-e40e3ceb5ca7493ab93d90019cbb56a7.jpg',
+          'https://images.absolutdrinks.com/drink-images/415x570/be6d7268-ddc0-4a29-8160-8cd3fdcf8275.jpg?imwidth=375',
       },
       {
         id: 8,
@@ -84,7 +84,7 @@ export default function Page() {
         comment: '이것저것 집에 있는 재료 털어서 만들었어요',
         author: '무무',
         imageLink:
-          'https://mybartender.com/wp-content/uploads/2023/11/delicious-green-apple-cocktail-320x320.png',
+          'https://images.absolutdrinks.com/drink-images/Raw/Absolut/21785b5c-9d47-40bf-97af-373882e2e5b1.jpg?imwidth=375',
       },
       {
         id: 9,
@@ -92,7 +92,7 @@ export default function Page() {
         comment: '사과를 더 썼어요!',
         author: '끼리코',
         imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/green-apple-martini.png',
+          'https://images.absolutdrinks.com/drink-images/Raw/Absolut/18b10bdd-141e-4f5d-b431-84c9807ab447.jpg?imwidth=375',
       },
       {
         id: 10,
@@ -100,7 +100,7 @@ export default function Page() {
         comment: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
         author: '갈현동의칵테일마스터',
         imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/apple-martini.png',
+          'https://images.absolutdrinks.com/drink-images/Raw/Absolut/37e3307e-21ee-4826-b44a-a2834f7af1cb.jpg?imwidth=375',
       },
       {
         id: 11,
@@ -108,7 +108,7 @@ export default function Page() {
         comment: '기존 레시피보다 순하게 만들었습니다',
         author: '사샤',
         imageLink:
-          'https://www.liquor.com/thmb/sv91lrGrqOrH4iNMYDPC8eE5zdQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__liquor__2017__07__20084113__appletini-720x720-recipe-e40e3ceb5ca7493ab93d90019cbb56a7.jpg',
+          'https://images.absolutdrinks.com/drink-images/415x570/be6d7268-ddc0-4a29-8160-8cd3fdcf8275.jpg?imwidth=375',
       },
       {
         id: 12,
@@ -116,7 +116,7 @@ export default function Page() {
         comment: '이것저것 집에 있는 재료 털어서 만들었어요',
         author: '무무',
         imageLink:
-          'https://mybartender.com/wp-content/uploads/2023/11/delicious-green-apple-cocktail-320x320.png',
+          'https://images.absolutdrinks.com/drink-images/Raw/Absolut/21785b5c-9d47-40bf-97af-373882e2e5b1.jpg?imwidth=375',
       },
       {
         id: 13,
@@ -124,7 +124,7 @@ export default function Page() {
         comment: '사과를 더 썼어요!',
         author: '끼리코',
         imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/green-apple-martini.png',
+          'https://images.absolutdrinks.com/drink-images/Raw/Absolut/18b10bdd-141e-4f5d-b431-84c9807ab447.jpg?imwidth=375',
       },
       {
         id: 14,
@@ -132,7 +132,7 @@ export default function Page() {
         comment: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
         author: '갈현동의칵테일마스터',
         imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/apple-martini.png',
+          'https://images.absolutdrinks.com/drink-images/Raw/Absolut/37e3307e-21ee-4826-b44a-a2834f7af1cb.jpg?imwidth=375',
       },
       {
         id: 15,
@@ -140,7 +140,7 @@ export default function Page() {
         comment: '기존 레시피보다 순하게 만들었습니다',
         author: '사샤',
         imageLink:
-          'https://www.liquor.com/thmb/sv91lrGrqOrH4iNMYDPC8eE5zdQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__liquor__2017__07__20084113__appletini-720x720-recipe-e40e3ceb5ca7493ab93d90019cbb56a7.jpg',
+          'https://images.absolutdrinks.com/drink-images/415x570/be6d7268-ddc0-4a29-8160-8cd3fdcf8275.jpg?imwidth=375',
       },
       {
         id: 16,
@@ -148,7 +148,7 @@ export default function Page() {
         comment: '이것저것 집에 있는 재료 털어서 만들었어요',
         author: '무무',
         imageLink:
-          'https://mybartender.com/wp-content/uploads/2023/11/delicious-green-apple-cocktail-320x320.png',
+          'https://images.absolutdrinks.com/drink-images/Raw/Absolut/21785b5c-9d47-40bf-97af-373882e2e5b1.jpg?imwidth=375',
       },
       {
         id: 17,
@@ -156,7 +156,7 @@ export default function Page() {
         comment: '사과를 더 썼어요!',
         author: '끼리코',
         imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/green-apple-martini.png',
+          'https://images.absolutdrinks.com/drink-images/Raw/Absolut/18b10bdd-141e-4f5d-b431-84c9807ab447.jpg?imwidth=375',
       },
       {
         id: 18,
@@ -164,7 +164,7 @@ export default function Page() {
         comment: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
         author: '갈현동의칵테일마스터',
         imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/apple-martini.png',
+          'https://images.absolutdrinks.com/drink-images/Raw/Absolut/37e3307e-21ee-4826-b44a-a2834f7af1cb.jpg?imwidth=375',
       },
       {
         id: 19,
@@ -172,7 +172,7 @@ export default function Page() {
         comment: '기존 레시피보다 순하게 만들었습니다',
         author: '사샤',
         imageLink:
-          'https://www.liquor.com/thmb/sv91lrGrqOrH4iNMYDPC8eE5zdQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__liquor__2017__07__20084113__appletini-720x720-recipe-e40e3ceb5ca7493ab93d90019cbb56a7.jpg',
+          'https://images.absolutdrinks.com/drink-images/415x570/be6d7268-ddc0-4a29-8160-8cd3fdcf8275.jpg?imwidth=375',
       },
       {
         id: 20,
@@ -180,7 +180,7 @@ export default function Page() {
         comment: '이것저것 집에 있는 재료 털어서 만들었어요',
         author: '무무',
         imageLink:
-          'https://mybartender.com/wp-content/uploads/2023/11/delicious-green-apple-cocktail-320x320.png',
+          'https://images.absolutdrinks.com/drink-images/Raw/Absolut/21785b5c-9d47-40bf-97af-373882e2e5b1.jpg?imwidth=375',
       },
       {
         id: 21,
@@ -188,7 +188,7 @@ export default function Page() {
         comment: '사과를 더 썼어요!',
         author: '끼리코',
         imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/green-apple-martini.png',
+          'https://images.absolutdrinks.com/drink-images/Raw/Absolut/18b10bdd-141e-4f5d-b431-84c9807ab447.jpg?imwidth=375',
       },
       {
         id: 22,
@@ -196,7 +196,7 @@ export default function Page() {
         comment: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
         author: '갈현동의칵테일마스터',
         imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/apple-martini.png',
+          'https://images.absolutdrinks.com/drink-images/Raw/Absolut/37e3307e-21ee-4826-b44a-a2834f7af1cb.jpg?imwidth=375',
       },
       {
         id: 23,
@@ -204,7 +204,7 @@ export default function Page() {
         comment: '기존 레시피보다 순하게 만들었습니다',
         author: '사샤',
         imageLink:
-          'https://www.liquor.com/thmb/sv91lrGrqOrH4iNMYDPC8eE5zdQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__liquor__2017__07__20084113__appletini-720x720-recipe-e40e3ceb5ca7493ab93d90019cbb56a7.jpg',
+          'https://images.absolutdrinks.com/drink-images/415x570/be6d7268-ddc0-4a29-8160-8cd3fdcf8275.jpg?imwidth=375',
       },
       {
         id: 24,
@@ -212,7 +212,7 @@ export default function Page() {
         comment: '이것저것 집에 있는 재료 털어서 만들었어요',
         author: '무무',
         imageLink:
-          'https://mybartender.com/wp-content/uploads/2023/11/delicious-green-apple-cocktail-320x320.png',
+          'https://images.absolutdrinks.com/drink-images/Raw/Absolut/21785b5c-9d47-40bf-97af-373882e2e5b1.jpg?imwidth=375',
       },
       {
         id: 25,
@@ -220,7 +220,7 @@ export default function Page() {
         comment: '사과를 더 썼어요!',
         author: '끼리코',
         imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/green-apple-martini.png',
+          'https://images.absolutdrinks.com/drink-images/Raw/Absolut/18b10bdd-141e-4f5d-b431-84c9807ab447.jpg?imwidth=375',
       },
       {
         id: 26,
@@ -228,7 +228,7 @@ export default function Page() {
         comment: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
         author: '갈현동의칵테일마스터',
         imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/apple-martini.png',
+          'https://images.absolutdrinks.com/drink-images/Raw/Absolut/37e3307e-21ee-4826-b44a-a2834f7af1cb.jpg?imwidth=375',
       },
       {
         id: 27,
@@ -236,7 +236,7 @@ export default function Page() {
         comment: '기존 레시피보다 순하게 만들었습니다',
         author: '사샤',
         imageLink:
-          'https://www.liquor.com/thmb/sv91lrGrqOrH4iNMYDPC8eE5zdQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__liquor__2017__07__20084113__appletini-720x720-recipe-e40e3ceb5ca7493ab93d90019cbb56a7.jpg',
+          'https://images.absolutdrinks.com/drink-images/415x570/be6d7268-ddc0-4a29-8160-8cd3fdcf8275.jpg?imwidth=375',
       },
       {
         id: 28,
@@ -244,7 +244,7 @@ export default function Page() {
         comment: '이것저것 집에 있는 재료 털어서 만들었어요',
         author: '무무',
         imageLink:
-          'https://mybartender.com/wp-content/uploads/2023/11/delicious-green-apple-cocktail-320x320.png',
+          'https://images.absolutdrinks.com/drink-images/Raw/Absolut/21785b5c-9d47-40bf-97af-373882e2e5b1.jpg?imwidth=375',
       },
       {
         id: 29,
@@ -252,7 +252,7 @@ export default function Page() {
         comment: '사과를 더 썼어요!',
         author: '끼리코',
         imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/green-apple-martini.png',
+          'https://images.absolutdrinks.com/drink-images/Raw/Absolut/18b10bdd-141e-4f5d-b431-84c9807ab447.jpg?imwidth=375',
       },
       {
         id: 30,
@@ -260,7 +260,7 @@ export default function Page() {
         comment: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
         author: '갈현동의칵테일마스터',
         imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/apple-martini.png',
+          'https://images.absolutdrinks.com/drink-images/Raw/Absolut/37e3307e-21ee-4826-b44a-a2834f7af1cb.jpg?imwidth=375',
       },
       {
         id: 31,
@@ -268,7 +268,7 @@ export default function Page() {
         comment: '기존 레시피보다 순하게 만들었습니다',
         author: '사샤',
         imageLink:
-          'https://www.liquor.com/thmb/sv91lrGrqOrH4iNMYDPC8eE5zdQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__liquor__2017__07__20084113__appletini-720x720-recipe-e40e3ceb5ca7493ab93d90019cbb56a7.jpg',
+          'https://images.absolutdrinks.com/drink-images/415x570/be6d7268-ddc0-4a29-8160-8cd3fdcf8275.jpg?imwidth=375',
       },
       {
         id: 32,
@@ -276,7 +276,7 @@ export default function Page() {
         comment: '이것저것 집에 있는 재료 털어서 만들었어요',
         author: '무무',
         imageLink:
-          'https://mybartender.com/wp-content/uploads/2023/11/delicious-green-apple-cocktail-320x320.png',
+          'https://images.absolutdrinks.com/drink-images/Raw/Absolut/21785b5c-9d47-40bf-97af-373882e2e5b1.jpg?imwidth=375',
       },
       {
         id: 32,
@@ -284,7 +284,7 @@ export default function Page() {
         comment: '이것저것 집에 있는 재료 털어서 만들었어요',
         author: '무무',
         imageLink:
-          'https://mybartender.com/wp-content/uploads/2023/11/delicious-green-apple-cocktail-320x320.png',
+          'https://images.absolutdrinks.com/drink-images/Raw/Absolut/21785b5c-9d47-40bf-97af-373882e2e5b1.jpg?imwidth=375',
       },
     ],
     total_count: 33,

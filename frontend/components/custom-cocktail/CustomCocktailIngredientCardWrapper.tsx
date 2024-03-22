@@ -1,5 +1,3 @@
-import { StaticImageData } from 'next/image';
-
 import CustomCocktailIngredientCard from './CustomCocktailIngredientCard';
 import styles from './CustomCocktailIngredientCardWrapper.module.scss';
 
@@ -7,7 +5,7 @@ interface Ingredients {
   ingredient: {
     id: number;
     name: string;
-    image: string | StaticImageData;
+    image: string;
   };
   ingredient_amount: number;
   unit: {
@@ -19,7 +17,7 @@ interface Ingredients {
 interface StoreData {
   id: number;
   name: string;
-  image: string | StaticImageData;
+  image: string;
   category: {
     id: number;
     name: string;
