@@ -2,14 +2,14 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
-interface MemberActions{
-    setId: (id: string) => void;
-    setNickname: (nickname: string) => void;
-    setBirthDate: (birthDate: string) => void;
-    setGender :(gender:string) => void;
-    setIsLoggedIn: (isLoggedIn: boolean) => void;
-    clearAll: () => void;
-    tmp: () => void;
+interface MemberActions {
+  setId: (id: string) => void;
+  setNickname: (nickname: string) => void;
+  setBirthDate: (birthDate: string) => void;
+  setGender: (gender: string) => void;
+  setIsLoggedIn: (isLoggedIn: boolean) => void;
+  clearAll: () => void;
+  tmp: () => void;
 }
 
 interface StoreState {
@@ -17,7 +17,7 @@ interface StoreState {
   id: string;
   nickname: string;
   birthDate: string;
-  gender: 'male' | 'female' | '';
+  gender: string;
   isLoggedIn: boolean;
 }
 
@@ -33,7 +33,7 @@ const memberStore = create(
         setId: (id: string) => set({ id }),
         setNickname: (nickname: string) => set({ nickname }),
         setBirthDate: (birthDate: string) => set({ birthDate }),
-        setGender: (gender: 'male' | 'female') => set({ gender }),
+        setGender: (gender: string) => set({ gender }),
         setIsLoggedIn: (isLoggedIn: boolean) => set({ isLoggedIn }),
         clearAll: () =>
           set({
@@ -62,3 +62,4 @@ const memberStore = create(
 );
 
 export default memberStore;
+
