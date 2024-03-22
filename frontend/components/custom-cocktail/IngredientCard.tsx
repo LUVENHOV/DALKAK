@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Image, { StaticImageData } from 'next/image';
-import styles from './CustomCocktailIngredientCard.module.scss';
+import styles from './IngredientCard.module.scss';
 
 interface Ingredient {
   ingredient: {
@@ -33,7 +33,7 @@ interface Props {
   storeData: StoreData[];
 }
 
-export default function CustomCocktailIngredientCard({
+export default function IngredientCard({
   ingredient,
   index,
   lastIndex,
@@ -46,15 +46,15 @@ export default function CustomCocktailIngredientCard({
   let isStored = '';
 
   if (
-    (index === 0 && index !== lastIndex)
-    || (index === 5 && index !== lastIndex)
-    || (index === 10 && index !== lastIndex)
+    (index === 0 && index !== lastIndex) ||
+    (index === 5 && index !== lastIndex) ||
+    (index === 10 && index !== lastIndex)
   ) {
     className = styles['start-ingredient'];
   } else if (
-    (index === 0 && index === lastIndex)
-    || (index === 5 && index === lastIndex)
-    || (index === 10 && index === lastIndex)
+    (index === 0 && index === lastIndex) ||
+    (index === 5 && index === lastIndex) ||
+    (index === 10 && index === lastIndex)
   ) {
     className = styles['start-last-ingredient'];
   } else if (index === 4 || index === 9 || index === lastIndex) {
@@ -67,7 +67,7 @@ export default function CustomCocktailIngredientCard({
   for (let i = 0; i < storeData.length; i++) {
     if (ingredient.ingredient.id === storeData[i].id) {
       isStored = styles['stored-ingredient'];
-      console.log(ingredient.ingredient.id);
+      // console.log(ingredient.ingredient.id);
     }
   }
 
