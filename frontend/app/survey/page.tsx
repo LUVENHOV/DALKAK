@@ -2,15 +2,15 @@
 
 import React from 'react';
 // eslint-disable-next-line import/extensions, import/no-unresolved
-import surveyStore from '@/store/surveyStore';
+import surveyStore from '../../store/surveyStore';
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import AlcoholSurvey from '@/components/survey/AlcoholSurvey.tsx';
-import CocktailSurvey from '../../components/survey/CocktailSurvey';
-import OccationSurvey from '../../components/survey/OccationSurvey';
-import BaseSurvey from '../../components/survey/BaseSurvey';
-import SweetnessSurvey from '../../components/survey/SweetnessSurvey';
-import IngredientSurvey from '../../components/survey/IngredientSurvey';
-import CompleteSurvey from '../../components/survey/CompleteSurvey';
+import BaseSurvey from '@/components/survey/BaseSurvey';
+import CocktailSurvey from '@/components/survey/CocktailSurvey';
+import CompleteSurvey from '@/components/survey/CompleteSurvey';
+import IngredientSurvey from '@/components/survey/IngredientSurvey';
+import OccationSurvey from '@/components/survey/OccationSurvey';
+import SweetnessSurvey from '@/components/survey/SweetnessSurvey';
 
 export default function Survey() {
   const progress = surveyStore((state) => state.progress);

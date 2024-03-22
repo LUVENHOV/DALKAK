@@ -62,4 +62,3 @@ const memberStore = create(
 );
 
 export default memberStore;
-

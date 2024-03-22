@@ -19,6 +19,7 @@ const useOauth = async (redirectUri: string) => {
       }),
     });
     console.log(res);
+    setData(res);
   } catch (error) {
     // console.error('Error:', error);
   }

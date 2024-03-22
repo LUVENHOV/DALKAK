@@ -1,6 +1,6 @@
 const nextConfig = {
-    distDir: 'build',
-    output: 'export',
-  };
+  distDir: 'build',
+  output: 'export',
+};
 
-  module.exports = nextConfig;
+module.exports = nextConfig;

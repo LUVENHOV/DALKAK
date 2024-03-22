@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.scss';
-
+import memberStore from '@/store/memberStore';
 import logo from '@/public/assets/imgs/logo.png';
 
 export default function Navbar() {
@@ -26,7 +26,7 @@ export default function Navbar() {
         </div>
       </Link>
       <Link href="/cocktail">
-        <div className={pathName.startsWith('/cocktail') ? styles.active : ''}>
+        <div className={pathName?.startsWith('/cocktail') ? styles.active : ''}>
           칵테일 목록
         </div>
       </Link>
