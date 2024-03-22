@@ -10,6 +10,7 @@ module.exports = {
   // },
 
   distDir: 'build',
+  output: 'export',
   images: {
     remotePatterns: [
       // 재료, 도구 이미지 경로
