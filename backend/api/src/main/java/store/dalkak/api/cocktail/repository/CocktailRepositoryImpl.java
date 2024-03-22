@@ -1,10 +1,10 @@
 package store.dalkak.api.cocktail.repository;
 
+import static store.dalkak.api.cocktail.domain.QCocktail.cocktail;
 import static store.dalkak.api.cocktail.domain.base.QBase.base;
 import static store.dalkak.api.cocktail.domain.base.QCocktailBase.cocktailBase;
 import static store.dalkak.api.cocktail.domain.ingredient.QCocktailIngredient.cocktailIngredient;
 import static store.dalkak.api.cocktail.domain.ingredient.QIngredient.ingredient;
-import static store.dalkak.api.cocktail.domain.QCocktail.cocktail;
 
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
@@ -134,6 +134,12 @@ public class CocktailRepositoryImpl implements CocktailRepositoryCustom {
 
         return new PageImpl<>(cocktailFindResDtoQueryResults, page, total);
 
+    }
+
+    @Override
+    public void modifyHeartCount(Long cocktailId, int count) {
+        queryFactory.update(cocktail).set(cocktail.heartCount, count)
+            .where(cocktail.id.eq(cocktailId)).execute();
     }
 
 }

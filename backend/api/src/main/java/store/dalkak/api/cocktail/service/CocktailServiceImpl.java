@@ -32,6 +32,11 @@ import store.dalkak.api.cocktail.repository.CocktailRepository;
 import store.dalkak.api.cocktail.repository.ingredient.CocktailIngredientRepository;
 import store.dalkak.api.cocktail.repository.tool.CocktailToolRepository;
 import store.dalkak.api.custom.repository.CustomRepository;
+import store.dalkak.api.user.domain.Heart;
+import store.dalkak.api.user.domain.Member;
+import store.dalkak.api.user.dto.MemberDto;
+import store.dalkak.api.user.repository.HeartRepository;
+import store.dalkak.api.user.repository.MemberRepository;
 
 @Slf4j
 @Transactional
@@ -44,6 +49,8 @@ public class CocktailServiceImpl implements CocktailService{
     private final CocktailIngredientRepository cocktailIngredientRepository;
     private final CocktailToolRepository cocktailToolRepository;
     private final CustomRepository customRepository;
+    private final MemberRepository memberRepository;
+    private final HeartRepository heartRepository;
     private final JPAQueryFactory queryFactory;
 
     public CocktailPageResDto getCocktailList(Pageable page, String cocktailName,
@@ -123,6 +130,24 @@ public class CocktailServiceImpl implements CocktailService{
         }
         return Expressions.numberTemplate(Double.class,
             "function('match', {0}, {1})", ingredient.name, keyword).gt(0);
+    }
+
+    @Override
+    public void createHeart(MemberDto memberDto, Long cocktailId) {
+        Member member = memberRepository.findMemberById(memberDto.getId());
+        Cocktail cocktail = cocktailRepository.findById(cocktailId).orElseThrow();
+        cocktailRepository.modifyHeartCount(cocktailId, cocktail.getHeartCount()+1);
+        cocktail = cocktailRepository.findById(cocktailId).orElseThrow();
+        heartRepository.save(Heart.builder().member(member).cocktail(cocktail).build());
+    }
+
+    @Override
+    public void deleteHeart(MemberDto memberDto, Long cocktailId) {
+        Cocktail cocktail = cocktailRepository.findById(cocktailId).orElseThrow();
+        Member member = memberRepository.findMemberById(memberDto.getId());
+        cocktailRepository.modifyHeartCount(cocktailId, cocktail.getHeartCount()-1);
+        cocktail = cocktailRepository.findById(cocktailId).orElseThrow();
+        heartRepository.deleteHeartByCocktailAndMember(cocktail, member);
     }
 
 }

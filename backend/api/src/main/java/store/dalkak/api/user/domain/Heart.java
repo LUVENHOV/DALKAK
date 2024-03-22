@@ -12,6 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -40,4 +41,10 @@ public class Heart {
     @Column(name="created_date")
     @CreationTimestamp
     private LocalDateTime createdDate;
+
+    @Builder
+    public Heart(Cocktail cocktail, Member member) {
+        this.cocktail = cocktail;
+        this.member = member;
+    }
 }
