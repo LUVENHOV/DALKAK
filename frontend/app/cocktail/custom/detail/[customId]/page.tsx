@@ -69,7 +69,7 @@ export default function Page() {
     id: 1,
     name: '날씨 좋은 주말을 위한 애플 마티니',
     image:
-      'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/apple-martini.png',
+      'https://images.absolutdrinks.com/drink-images/Raw/Absolut/21785b5c-9d47-40bf-97af-373882e2e5b1.jpg?imwidth=375',
     recipe:
       '1. 먼저 얼음으로 하이볼 글라스를 차갑게 만들어주세요.|2. 앱솔루트 망고 크란베리 주스와 오랜지 주스를 부어 넣어주세요.|3. 모든 재료를 조심스레 섞어주세요.|4. 망고 웨지로 가니쉬를 해주어 장식해 주세요.|5. 짜잔 이제 당신만의 망고 브리즈를 즐길 수 있게 되었습니다 망고 브리즈는 단순히 음료가 아니에요 햇볕이 피부를 따스히 감싸고 모래사장이 있는 푸른 바다 위에서 해먹에 누워있는 듯한 경험을 선사해 주죠.|6. 따라서 특별한 기념일을 축하하거나 아무때나 마시세요.',
     summary: '원래 안 들어가는 레몬과 리큐르를 넣었어요',

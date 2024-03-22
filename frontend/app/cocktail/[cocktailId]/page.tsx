@@ -79,7 +79,7 @@ const storeData: StoreData = {
       id: 3,
       name: '얼음',
       image:
-        'https://kr.object.ncloudstorage.com/dalkak/basic/22b57041-b96b-https://kr.object.ncloudstorage.com/dalkak/basic/46e98c37-db68-442f-b533-0cebbc9224de.png-a35f-da404a509551.png',
+        'https://kr.object.ncloudstorage.com/dalkak/basic/22b57041-b96b-4a3e-a35f-da404a509551.png',
       category: {
         id: 3,
         name: 'beverage',
@@ -113,7 +113,8 @@ const cocktailData: CocktailData = {
   name: 'Apple Martini',
   korean_name: '애플 마티니',
 
-  image: 'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/apple-martini.png',
+  image:
+    'https://images.absolutdrinks.com/drink-images/Raw/Absolut/18b10bdd-141e-4f5d-b431-84c9807ab447.jpg?imwidth=375',
   heart_count: 245,
   alcohol_content: 3,
   sweetness: 5,
@@ -227,7 +228,7 @@ const cocktailData: CocktailData = {
       custom_id: 1,
       custom_name: '날씨 좋은 주말을 위한 애플 마티니',
       custom_image:
-        'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/apple-martini.png',
+        'https://images.absolutdrinks.com/drink-images/415x570/be6d7268-ddc0-4a29-8160-8cd3fdcf8275.jpg?imwidth=375',
       summary: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
       user_id: 1,
       user_nickname: '끼리코',
@@ -236,7 +237,7 @@ const cocktailData: CocktailData = {
       custom_id: 2,
       custom_name: '날씨 좋은 주말에 마시기 좋아요',
       custom_image:
-        'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/apple-martini.png',
+        'https://images.absolutdrinks.com/drink-images/Raw/Absolut/0d00d972-2750-4414-ab48-abfc35c9dabf.jpg?imwidth=375',
       summary: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
       user_id: 2,
       user_nickname: '갈현동의칵테일마스터',
@@ -245,7 +246,7 @@ const cocktailData: CocktailData = {
       custom_id: 3,
       custom_name: '술찌들을 위한 커스텀 레시피',
       custom_image:
-        'https://www.liquor.com/thmb/sv91lrGrqOrH4iNMYDPC8eE5zdQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__liquor__2017__07__20084113__appletini-720x720-recipe-e40e3ceb5ca7493ab93d90019cbb56a7.jpg',
+        'https://images.absolutdrinks.com/drink-images/Raw/Absolut/260ca56f-8c05-41b7-bb92-c17a9087fc59.jpg?imwidth=375',
       summary: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
       user_id: 3,
       user_nickname: '사샤',
@@ -254,7 +255,7 @@ const cocktailData: CocktailData = {
       custom_id: 4,
       custom_name: '아쉬운대로 만든 애플 마티니',
       custom_image:
-        'https://mybartender.com/wp-content/uploads/2023/11/delicious-green-apple-cocktail-320x320.png',
+        'https://images.absolutdrinks.com/drink-images/Raw/Absolut/11741f8b-72fd-45eb-a233-3aedf8de7beb.jpg?imwidth=375',
       summary: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
       user_id: 4,
       user_nickname: '무무',
