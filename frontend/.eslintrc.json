@@ -19,13 +19,13 @@
   },
   "rules": {
     "operator-linebreak": "off",
-    "react/jsx-props-no-spreading": "warn",
+    "react/jsx-props-no-spreading": "off",
     "function-paren-newline": "off",
     "implicit-arrow-linebreak": "off",
     "object-curly-newline": "off",
     "react/react-in-jsx-scope": "off",
     "import/order": [
-      "warn",
+      "error",
       {
         "groups": ["builtin", "external", "internal"],
         "pathGroups": [
@@ -43,7 +43,7 @@
       }
     ],
     "import/extensions": [
-      "warn",
+      "error",
       {
         "scss": "true",
         "png": "true",
@@ -61,7 +61,7 @@
     //jsx 요소만 사용하지 않아도 된다고 설정해놓은건데...
     "react/jsx-one-expression-per-line": "off",
     // 아래는 CRLF와 LF 오류가 나서 추가한 코드
-    "linebreak-style": "off"
+    "linebreak-style": 0
     // "react/function-component-definition": [
     //   2,
     //   { "namedComponents": "arrow-function" }

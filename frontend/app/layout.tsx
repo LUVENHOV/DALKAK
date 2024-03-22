@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../components/common/navbar/Navbar.tsx';
+import Navbar from '../components/common/Navbar';
 import '../styles/globals.scss';
 
 export default function RootLayout({
@@ -11,7 +11,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Navbar />
-        {children}
+        <div>{children}</div>
       </body>
     </html>
   );
