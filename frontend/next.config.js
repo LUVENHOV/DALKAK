@@ -1,14 +1,4 @@
 const nextConfig = {
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: '/127.0.0.1/:path*',
-  //       destination: '/dalkak.store/:path*',
-  //       permanent: true,
-  //     },
-  //   ];
-  // },
-
   distDir: 'build',
   output: 'export',
   images: {
