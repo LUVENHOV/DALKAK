@@ -2,15 +2,12 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
-interface actionState {
-  setAccessToken: (accessToken: string) => void;
-  setRefreshToken: (refreshToken: string) => void;
-  clearTokens: () => void;
-}
 interface storeState {
   accessToken: string;
   refreshToken: string;
-  actions: actionState;
+  setAccessToken: (receivedAccessToken: string) => void;
+  setRefreshToken: (receivedRefreshToken: string) => void;
+  clearTokens: () => void;
 }
 
 const authStore = create(
@@ -18,15 +15,9 @@ const authStore = create(
     (set) => ({
       accessToken: '',
       refreshToken: '',
-      actions: {
-        setAccessToken: (accessToken: string) => set({ accessToken }),
-        setRefreshToken: (refreshToken: string) => set({ refreshToken }),
-        clearTokens: () =>
-          set({
-            accessToken: '',
-            refreshToken: '',
-          }),
-      },
+      setAccessToken: (receivedAccessToken: string) => set({ accessToken: `Bearer ${receivedAccessToken}` }),
+      setRefreshToken: (receivedRefreshToken: string) => set({ refreshToken: `Bearer ${receivedRefreshToken}` }),
+      clearTokens: () => set({ accessToken: '', refreshToken: '' }),
     }),
     {
       name: 'auth',

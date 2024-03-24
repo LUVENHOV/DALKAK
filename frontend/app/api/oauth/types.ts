@@ -12,3 +12,4 @@ type ResponseData = {
     refreshTokenExpiresIn :number
     survey_completion :boolean|null
 }
+export type { AuthResponse, ResponseData };
