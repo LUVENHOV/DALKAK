@@ -15,7 +15,7 @@ export default function Navbar() {
   // eslint-disable-next-line no-unused-expressions
   const isLoggedIn = memberStore((state) => state.isLoggedIn);
   const nickname = memberStore((state) => state.nickname);
-  // const clearAll = memberStore((state) => state.actions.clearAll);
+  const clearAll = memberStore((state) => state.clearAll);
   return (
     <div className={styles.navbar}>
       <Link href="/">
@@ -45,16 +45,23 @@ export default function Navbar() {
         </span>
       </div>
       <div />
-      <div className={styles.hi}>
-        안녕하세요
-        <span>&nbsp;&nbsp;</span>
-        <span className={styles.nickname}></span>
-        님!
-      </div>
-
-      <Link href="/member">
-        <HomeIcon />
-      </Link>
+      {isLoggedIn ? (
+        <>
+          <div
+            className={styles.logout}
+            onClick={() => {
+              clearAll();
+            }}
+          >
+            로그아웃
+          </div>
+          <Link href="/member">
+            <HomeIcon />
+          </Link>
+          </>
+      ) : (
+          <div className={styles.login}>로그인이 필요해요</div>  
+      )}
     </div>
   );
 }
