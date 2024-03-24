@@ -13,17 +13,29 @@ export default function OauthButton({
   icon,
   text,
 }: OauthButtonProps) {
+
+  const openPopupWindow = (url: string, width: number = 600, height: number = 700) => {
+    const y = window.top.outerHeight / 2 + window.top.screenY - (height / 2);
+    const x = window.top.outerWidth / 2 + window.top.screenX - (width / 2);
+
+    window.open(url, provider, `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, width=${width}, height=${height}, top=${y}, left=${x}`);
+  };
+
   return (
     <button
       className={`button-oauth ${bgcolor}`}
       type="button"
       onClick={() => {
+        let url = '';
         if (provider === 'GOOGLE') {
-          window.location.href = process.env.NEXT_PUBLIC_OAUTH_GOOGLE_URL as string;
+          url = process.env.NEXT_PUBLIC_OAUTH_GOOGLE_URL as string;
         } else if (provider === 'KAKAO') {
-          window.location.href = process.env.NEXT_PUBLIC_OAUTH_KAKAO_URL as string;
+          url = process.env.NEXT_PUBLIC_OAUTH_KAKAO_URL as string;
         } else if (provider === 'NAVER') {
-          window.location.href = process.env.NEXT_PUBLIC_OAUTH_NAVER_URL as string;
+          url = process.env.NEXT_PUBLIC_OAUTH_NAVER_URL as string;
+        }
+        if (url) {
+          openPopupWindow(url)
         }
       }}
     >
