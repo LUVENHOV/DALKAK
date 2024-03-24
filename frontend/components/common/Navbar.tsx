@@ -47,6 +47,7 @@ export default function Navbar() {
       <div />
       {isLoggedIn ? (
         <>
+        
           <div
             className={styles.logout}
             onClick={() => {

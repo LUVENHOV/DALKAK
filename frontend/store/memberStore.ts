@@ -3,7 +3,7 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 interface StoreState {
-  id: string;
+  id: 0;
   nickname: string;
   birthDate: string;
   gender: string;
@@ -16,13 +16,14 @@ interface StoreState {
   setIsLoggedIn: (isLoggedIn: boolean) => void;
   setSurveyCompletion: (surveyCompletion: boolean) => void;
   clearAll: () => void;
+  setMemberStateLogin: (id: number, nickname: string, survey_completion: boolean) => void;
 }
 
 const memberStore = create(
   persist<StoreState>(
     (set) => ({
       // todo : initial state
-      id: '',
+      id: 0,
       nickname: '',
       birthDate: '',
       gender: '',
@@ -38,13 +39,13 @@ const memberStore = create(
       },
       clearAll: () =>
         set({
-          id: '',
+          id: 0,
           nickname: '',
           birthDate: '',
           gender: '',
           isLoggedIn: false,
         }),
-      setMemberStateLogin: (id: string, nickname: string, survey_completion: boolean) =>{
+      setMemberStateLogin: (id: number, nickname: string, survey_completion: boolean) =>{
         set({
           id,
           nickname,
