@@ -19,11 +19,11 @@ export default function OauthButton({
       type="button"
       onClick={() => {
         if (provider === 'GOOGLE') {
-          window.location.href = process.env.NEXT_PUBLIC_OAUTH_GOOGLE as string;
+          window.location.href = process.env.NEXT_PUBLIC_OAUTH_GOOGLE_URL as string;
         } else if (provider === 'KAKAO') {
-          window.location.href = process.env.NEXT_PUBLIC_OAUTH_KAKAO as string;
+          window.location.href = process.env.NEXT_PUBLIC_OAUTH_KAKAO_URL as string;
         } else if (provider === 'NAVER') {
-          window.location.href = process.env.NEXT_PUBLIC_OAUTH_NAVER as string;
+          window.location.href = process.env.NEXT_PUBLIC_OAUTH_NAVER_URL as string;
         }
       }}
     >

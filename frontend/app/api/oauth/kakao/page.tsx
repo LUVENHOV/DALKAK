@@ -29,7 +29,7 @@ export default function Redirection() {
           },
           body: JSON.stringify({
             code: authCode,
-            provider: 'GOOGLE',
+            provider: 'KAKAO',
           }),
         },
       )

@@ -27,7 +27,12 @@ export default function Page() {
         provider: 'GOOGLE',
       })
       .then((response) => {
-        console.log(response.data);
+        const res = response.data;
+        console.log(res);
+        const accessToken = res.data.accessToken;
+        const refreshToken = res.data.refreshToken;
+        console.log(accessToken);
+        console.log(refreshToken);
       })
       .catch((error) => {
         console.log(error);
@@ -39,10 +44,6 @@ export default function Page() {
       <h1>인증 코드: {authCode}</h1>
       <button type="button" onClick={handleButtonClick}>
         API 요청 보내기
-      </button>
-
-      <button type="button" onClick={() => setAccessToken('ohoho')}>
-        TEST
       </button>
     </div>
   );

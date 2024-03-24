@@ -35,7 +35,7 @@ export default function Redirection() {
         },
       )
         .then((res) => {
-          console.log(res.access_token);
+          console.log(res.headers.get('access_token'));
         })
         .finally(() => {
           console.log('finally');
