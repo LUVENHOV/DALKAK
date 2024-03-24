@@ -24,7 +24,7 @@ interface Props {
 }
 
 export default function CustomCocktailList({ cocktailId }: Props) {
-  console.log(cocktailId);
+  // console.log(cocktailId);
 
   const totalData: TotalData = {
     custom_cocktails: [

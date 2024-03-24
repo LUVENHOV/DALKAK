@@ -15,7 +15,7 @@ const splitedRecipe = (recipe: string) => recipe.split('|').join('\n\n');
 
 export default function CustomCocktailAddRecipe({ recipe }: Props) {
   const pathname = usePathname();
-  console.log(pathname);
+  // console.log(pathname);
   const [inputValue, setInputValue] = useState(recipe);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

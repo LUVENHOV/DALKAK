@@ -34,7 +34,7 @@ export default function CustomCocktailAddIngredient({ origin }: Props) {
   );
 
   useEffect(() => {
-    console.log(tempList);
+    // console.log(tempList);
   }, [tempList]);
 
   const removeItem = (id: number) => {
@@ -52,7 +52,7 @@ export default function CustomCocktailAddIngredient({ origin }: Props) {
       return updatedValues;
     });
 
-    console.log(inputValues);
+    // console.log(inputValues);
   };
 
   const handleUnitInputChange = (
@@ -66,7 +66,7 @@ export default function CustomCocktailAddIngredient({ origin }: Props) {
       return updatedUnitValues;
     });
 
-    console.log(inputUnitValues);
+    // console.log(inputUnitValues);
   };
 
   return (

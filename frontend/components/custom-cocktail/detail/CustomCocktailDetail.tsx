@@ -70,7 +70,7 @@ interface Props {
 }
 
 export default function CustomCocktailDetail({ customId }: Props) {
-  console.log(customId);
+  // console.log(customId);
   const customDetailData: CustomDetailData = {
     user: {
       id: 1,
