@@ -28,7 +28,7 @@ export default function Page() {
         provider: 'KAKAO',
       })
       .then((response) => {
-        console.log(response.data)
+        console.log(response.data);
         const res = response.data as AuthResponse;
         const data = res.data as ResponseData;
         const accessToken = data.accessToken;
@@ -37,6 +37,13 @@ export default function Page() {
         setAccessToken(accessToken);
         setRefreshToken(refreshToken);
         console.log(authStore.getState().accessToken);
+        window.opener.postMessage(
+          {
+            type: 'LOGIN_SUCCESS',
+            data: {},
+          },
+          '*',
+        );
         window.close();
       })
       .catch((error) => {
