@@ -34,7 +34,7 @@ public class CustomController {
     // 로그인한 Member 추가
     @PostMapping
     public ResponseEntity<ApiResponse<String>> createCustomCocktail(
-        @RequestPart("image") MultipartFile image,
+        @RequestPart(value = "image") MultipartFile image,
         @RequestPart("CustomCreateReqDto") CustomCreateReqDto customCreateReqDto,
         @LoginUser MemberDto memberDto) {
         customService.createCustomCocktail(image, customCreateReqDto, memberDto);

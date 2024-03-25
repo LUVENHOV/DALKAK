@@ -12,4 +12,6 @@ public interface CocktailRepositoryCustom {
         Pageable page, String cocktailName, List<Long> ingredients, Long base,
         Integer minAlcoholContent, Integer maxAlcoholContent, Long color, Integer sweetness,
         Integer orderBy);
+
+    void modifyHeartCount(Long cocktailId, int count);
 }
