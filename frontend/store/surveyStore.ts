@@ -31,6 +31,8 @@ interface storeState {
   setBirthDate: (birthDate: string) => void;
   setGender: (gender: string) => void;
   setSurveyCocktails: (cocktails: number[]) => void;
+  addSurveyCocktails: (cocktail: number) => void;
+  deleteSurveyCocktails: (cocktail: number) => void;
   setBaseId: (baseId: number) => void;
   setOccationId: (occationId: number) => void;
   setAlcoholContent: (alcoholContent: number) => void;
@@ -74,6 +76,14 @@ const surveyStore = create(
       },
       setSurveyCocktails: (cocktails: number[]) =>
         set({ surveyCocktails: cocktails }),
+      addSurveyCocktails: (cocktail: number) =>
+        set({ surveyCocktails: [...get().surveyCocktails, cocktail] }),
+      deleteSurveyCocktails: (cocktail: number) =>
+        set({
+          surveyCocktails: get().surveyCocktails.filter(
+            (item) => item !== cocktail,
+          ),
+        }),
       setBaseId: (baseId: number) => set({ baseId }),
       setOccationId: (occationId: number) => set({ occationId }),
       setAlcoholContent: (alcoholContent: number) => set({ alcoholContent }),

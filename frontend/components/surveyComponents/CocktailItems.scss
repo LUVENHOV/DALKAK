@@ -1,0 +1,10 @@
+.cocktail-item {
+  border: 3px solid transparent;
+  box-sizing: border-box;
+  &:hover {
+    cursor: pointer;
+  }
+}
+.selected {
+  border: 3px solid var(--color-point);
+}

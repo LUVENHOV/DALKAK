@@ -1,6 +1,5 @@
 import React from 'react';
 
-function AlcoholSurvey() {
+export default function AlcoholSurvey() {
   return <div>AlcoholSurvey</div>;
 }
-export default AlcoholSurvey;
