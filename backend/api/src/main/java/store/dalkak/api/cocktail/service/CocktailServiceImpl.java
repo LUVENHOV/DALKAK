@@ -32,7 +32,12 @@ import store.dalkak.api.cocktail.repository.tool.CocktailToolRepository;
 import store.dalkak.api.custom.domain.Custom;
 import store.dalkak.api.custom.dto.CustomCocktailDto;
 import store.dalkak.api.custom.repository.CustomRepository;
+import store.dalkak.api.user.domain.Heart;
+import store.dalkak.api.user.domain.Member;
+import store.dalkak.api.user.dto.MemberDto;
 import store.dalkak.api.user.dto.UserDto;
+import store.dalkak.api.user.repository.HeartRepository;
+import store.dalkak.api.user.repository.MemberRepository;
 
 @Slf4j
 @Transactional
