@@ -42,12 +42,12 @@ public class ElasticScheduledTask {
 //        }
 //    }
 
-//    @Scheduled(cron = "0 * * * * *") // 매 1분마다 실행 (초, 분, 시, 일, 월, 요일)
-//    public void executeTask() {
-//        List<ElasticDto> viewLogList = elasticService.findAllElasticLog("view-log");
-//        List<ElasticDto> heartLogList = elasticService.findAllElasticLog("heart-log");
-//        log.info("viewLogList size: {}", viewLogList.size());
-//        log.info("heartLogList size: {}", heartLogList.size());
-//        cocktailService.modifyRank(viewLogList, heartLogList);
-//    }
+    @Scheduled(cron = "0 * * * * *") // 매 1분마다 실행 (초, 분, 시, 일, 월, 요일)
+    public void executeTask() {
+        List<ElasticDto> viewLogList = elasticService.findAllElasticLog("view-log");
+        List<ElasticDto> heartLogList = elasticService.findAllElasticLog("heart-log");
+        log.info("viewLogList size: {}", viewLogList.size());
+        log.info("heartLogList size: {}", heartLogList.size());
+        cocktailService.modifyRank(viewLogList, heartLogList);
+    }
 }
