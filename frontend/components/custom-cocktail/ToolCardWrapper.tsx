@@ -16,7 +16,7 @@ interface Props {
 export default function ToolCardWrapper({ cocktailTools }: Props) {
   const lastIndex = cocktailTools.length - 1;
 
-  console.log('하하핳' + cocktailTools);
+  // console.log('하하핳' + cocktailTools);
 
   return (
     <div>
@@ -36,7 +36,7 @@ export default function ToolCardWrapper({ cocktailTools }: Props) {
           ))
         ) : (
           <div>
-            <div>필요한 도구가 없습니다.</div>
+            <div>필요한 도구 없음</div>
             <br />
           </div>
         )}

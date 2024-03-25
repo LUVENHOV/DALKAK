@@ -2,7 +2,19 @@
 
 import React from 'react';
 import CustomCocktailCard from './CustomCocktailCard';
+
 import styles from './CustomCocktailCardWrapper.module.scss';
+
+interface Custom_Cocktails {
+  id: number;
+  image: string;
+  name: string;
+  summary: string;
+  user: {
+    id: number;
+    nickname: string;
+  };
+}
 
 interface Dummy {
   title: string;
@@ -11,20 +23,20 @@ interface Dummy {
   imageLink: string;
 }
 
-interface PreviewDummy {
-  custom_id: number;
-  custom_name: string;
-  custom_image: string;
-  summary: string;
-  user_id: number;
-  user_nickname: string;
-}
+// interface PreviewDummy {
+//   custom_id: number;
+//   custom_name: string;
+//   custom_image: string;
+//   summary: string;
+//   user_id: number;
+//   user_nickname: string;
+// }
 
 interface Props<T> {
   dummy: T[];
 }
 
-export default function CustomCocktailList<T extends Dummy | PreviewDummy>({
+export default function CustomCocktailList<T extends Dummy | Custom_Cocktails>({
   dummy,
 }: Props<T>) {
   return (

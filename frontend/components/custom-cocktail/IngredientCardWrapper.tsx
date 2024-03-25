@@ -1,26 +1,24 @@
-import { StaticImageData } from 'next/image';
-
 import IngredientCard from './IngredientCard';
 
 import styles from './IngredientCardWrapper.module.scss';
 
-interface Ingredients {
-  ingredient: {
-    id: number;
-    name: string;
-    image: string | StaticImageData;
-  };
-  ingredient_amount: number;
-  unit: {
-    id: number;
-    name: string;
-  };
+interface Unit {
+  id: number;
+  name: string;
+}
+
+interface Cocktail_Ingredients {
+  id: number;
+  name: string;
+  image: string;
+  category_id: number;
+  amount: number;
+  unit: Unit;
 }
 
 interface StoreData {
   id: number;
   name: string;
-  image: string | StaticImageData;
   category: {
     id: number;
     name: string;
@@ -28,7 +26,7 @@ interface StoreData {
 }
 
 interface Props {
-  ingredients: Ingredients[];
+  ingredients: Cocktail_Ingredients[];
   storeData: StoreData[];
 }
 

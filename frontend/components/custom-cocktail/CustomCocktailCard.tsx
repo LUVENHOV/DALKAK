@@ -13,22 +13,24 @@ interface Custom {
   imageLink: string;
 }
 
-interface PreviewCustom {
-  custom_id: number;
-  custom_name: string;
-  custom_image: string;
+interface Custom_Cocktails {
+  id: number;
+  image: string;
+  name: string;
   summary: string;
-  user_id: number;
-  user_nickname: string;
+  user: {
+    id: number;
+    nickname: string;
+  };
 }
 
 interface Props<T> {
   custom: T;
 }
 
-export default function CustomCocktailCard<T extends Custom | PreviewCustom>({
-  custom,
-}: Props<T>) {
+export default function CustomCocktailCard<
+  T extends Custom | Custom_Cocktails,
+>({ custom }: Props<T>) {
   const router = useRouter();
   const goToDetail = () => {
     router.push('/cocktail/custom/detail/1');
@@ -53,23 +55,21 @@ export default function CustomCocktailCard<T extends Custom | PreviewCustom>({
         <img
           className={previewImageName}
           src={
-            (custom as Custom).imageLink ||
-            (custom as PreviewCustom).custom_image
+            (custom as Custom).imageLink || (custom as Custom_Cocktails).image
           }
-          alt={
-            (custom as Custom).title || (custom as PreviewCustom).custom_name
-          }
+          alt={(custom as Custom).title || (custom as Custom_Cocktails).name}
         />
         <div className={styles.author}>
           by&nbsp;{' '}
-          {(custom as Custom).author || (custom as PreviewCustom).user_nickname}
+          {(custom as Custom).author ||
+            (custom as Custom_Cocktails).user.nickname}
         </div>
       </button>
       <div className={previewTitleName}>
-        {(custom as Custom).title || (custom as PreviewCustom).custom_name}
+        {(custom as Custom).title || (custom as Custom_Cocktails).user.id}
       </div>
       <div className={previewCommentName}>
-        {(custom as Custom).comment || (custom as PreviewCustom).summary}
+        {(custom as Custom).comment || (custom as Custom_Cocktails).summary}
       </div>
     </div>
   );
