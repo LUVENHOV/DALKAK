@@ -37,7 +37,7 @@ public class CocktailController {
     //칵테일 상세보기
     @GetMapping("/{cocktailId}")
     public ResponseEntity<ApiResponse<CocktailDetailResDto>> cocktailDetail(
-        @PathVariable("cocktailId") Long originCocktailId) {
+        @LoginUser MemberDto memberDto, @PathVariable("cocktailId") Long originCocktailId) {
         CocktailDetailResDto cocktail = cocktailService.findCocktail(originCocktailId);
         viewLogger.info("view-log {} {}", originCocktailId, System.currentTimeMillis());
         ApiResponse<CocktailDetailResDto> apiResponse = ApiResponse.of(200,
@@ -49,6 +49,7 @@ public class CocktailController {
     //칵테일 검색
     @GetMapping("/search")
     public ResponseEntity<ApiResponse<CocktailPageResDto>> searchCocktailByOption(
+        @LoginUser MemberDto memberDto,
         @PageableDefault(value = 20) Pageable page,
         @RequestParam(value = "cocktail-name", required = false) String cocktailName,
         @RequestParam(value = "ingredients", required = false) List<Long> ingredients,
@@ -71,6 +72,7 @@ public class CocktailController {
 
     @GetMapping("/ingredients")
     public ResponseEntity<ApiResponse<List<IngredientDto>>> searchIngredients(
+        @LoginUser MemberDto memberDto,
         @RequestParam(value = "ingredient-name", required = false) String ingredientName) {
 
         List<IngredientDto> ingredients = cocktailService.findIngredient(ingredientName);

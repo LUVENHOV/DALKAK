@@ -8,23 +8,29 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import store.dalkak.api.cocktail.domain.Cocktail;
+import store.dalkak.api.cocktail.domain.Occasion;
+import store.dalkak.api.cocktail.domain.base.Base;
+import store.dalkak.api.cocktail.domain.ingredient.Ingredient;
+import store.dalkak.api.cocktail.dto.CocktailDto;
 import store.dalkak.api.cocktail.repository.CocktailRepository;
 import store.dalkak.api.cocktail.repository.ingredient.IngredientRepository;
-import store.dalkak.api.cocktail.domain.base.Base;
-import store.dalkak.api.cocktail.domain.Cocktail;
-import store.dalkak.api.cocktail.domain.ingredient.Ingredient;
-import store.dalkak.api.cocktail.domain.Occasion;
 import store.dalkak.api.custom.domain.Custom;
+import store.dalkak.api.custom.dto.CustomCocktailDto;
 import store.dalkak.api.custom.repository.CustomRepository;
+import store.dalkak.api.global.jwt.Exception.JwtErrorCode;
+import store.dalkak.api.global.jwt.Exception.JwtException;
 import store.dalkak.api.global.jwt.JwtProvider;
+import store.dalkak.api.global.jwt.dto.TokenDto;
+import store.dalkak.api.global.oauth.dto.RefreshToken;
+import store.dalkak.api.global.oauth.dto.RefreshTokenRepository;
 import store.dalkak.api.user.domain.Heart;
 import store.dalkak.api.user.domain.Member;
 import store.dalkak.api.user.domain.Recommended;
 import store.dalkak.api.user.domain.Survey;
 import store.dalkak.api.user.domain.SurveyCocktail;
 import store.dalkak.api.user.domain.SurveyIngredient;
-import store.dalkak.api.user.dto.CocktailDto;
-import store.dalkak.api.user.dto.CustomCocktailDto;
+import store.dalkak.api.user.dto.MemberDto;
 import store.dalkak.api.user.dto.UserDto;
 import store.dalkak.api.user.dto.request.UserCreateSurveyResultReqDto;
 import store.dalkak.api.user.dto.request.UserHasNicknameReqDto;
@@ -34,7 +40,6 @@ import store.dalkak.api.user.dto.response.UserLoadHeartListResDto;
 import store.dalkak.api.user.dto.response.UserLoadProfileResDto;
 import store.dalkak.api.user.dto.response.UserLoadRecommendListResDto;
 import store.dalkak.api.user.dto.response.UserRefreshResDto;
-import store.dalkak.api.user.dto.MemberDto;
 import store.dalkak.api.user.exception.UserErrorCode;
 import store.dalkak.api.user.exception.UserException;
 import store.dalkak.api.user.repository.BaseRepository;
@@ -52,6 +57,7 @@ import store.dalkak.api.user.repository.SurveyRepository;
 public class UserServiceImpl implements UserService{
 
     private final JwtProvider jwtProvider;
+    private final RefreshTokenRepository refreshTokenRepository;
     private final MemberRepository memberRepository;
     private final HeartRepository heartRepository;
     private final CustomRepository customRepository;
@@ -65,13 +71,31 @@ public class UserServiceImpl implements UserService{
     private final IngredientRepository ingredientRepository;
 
     @Override
-    public UserRefreshResDto refresh(MemberDto memberDto) {
-        return null;
+    @Transactional
+    public UserRefreshResDto refresh(String accessToken, String refreshToken) {
+        String refreshTokenValue=refreshToken.split(" ")[1];
+
+        Long id= jwtProvider.getMemberPrimaryKeyId(refreshTokenValue);
+        RefreshToken redisRefreshToken=refreshTokenRepository.findById(id).orElseThrow();
+        if(refreshTokenValue.equals(redisRefreshToken.getValue())){
+            TokenDto newAccessToken=jwtProvider.createAccessToken(id);
+            return UserRefreshResDto.builder()
+                .accessToken(newAccessToken.getToken())
+                .accessTokenExpiresIn(newAccessToken.getExpired())
+                .build();
+        }
+        throw new JwtException(JwtErrorCode.INVALID_TOKEN);
     }
 
     @Override
+    @Transactional
     public void deleteMember(MemberDto memberDto) {
-
+//        memberRepository.deleteById(memberDto.getId());
+        //TODO: 남길 테이블 내용과 지울 것들, 탈퇴한 사용자 row 생성 후 거기로 옮기기
+        Member member=memberRepository.findById(memberDto.getId()).orElseThrow();
+        member.deleteMember();
+        memberRepository.save(member);
+        refreshTokenRepository.deleteById(memberDto.getId());
     }
 
     @Override
@@ -99,6 +123,8 @@ public class UserServiceImpl implements UserService{
             Ingredient ingredient=ingredientRepository.findById(id).orElseThrow();
             surveyIngredientRepository.save(SurveyIngredient.builder().ingredient(ingredient).survey(survey).build());
         }
+        member.updateSurveyComp();
+        memberRepository.save(member);
     }
 
     @Override

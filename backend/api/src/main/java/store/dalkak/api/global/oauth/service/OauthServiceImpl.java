@@ -12,6 +12,7 @@ import store.dalkak.api.global.oauth.dto.response.OauthLoginResDto;
 import store.dalkak.api.global.oauth.exception.OauthErrorCode;
 import store.dalkak.api.global.oauth.exception.OauthException;
 import store.dalkak.api.user.domain.Member;
+import store.dalkak.api.user.dto.MemberDto;
 import store.dalkak.api.user.repository.MemberRepository;
 
 @Service
@@ -28,7 +29,6 @@ public class OauthServiceImpl implements OauthService{
 
     @Override
     public OauthLoginResDto login(OauthLoginReqDto oauthLoginReqDto) {
-        System.out.println(oauthLoginReqDto.getProvider());
         String sub=sub(oauthLoginReqDto);
         // 없으면 회원가입
         if(!memberRepository.existsByOauthSubAndOauthProvider(sub,oauthLoginReqDto.getProvider())){
@@ -37,6 +37,11 @@ public class OauthServiceImpl implements OauthService{
 
         Member member=memberRepository.findByOauthSubAndOauthProvider(sub,oauthLoginReqDto.getProvider()).orElseThrow();
         return generateOauthLoginResDto(member.getId());
+    }
+
+    @Override
+    public void logout(MemberDto memberDto) {
+        refreshTokenRepository.deleteById(memberDto.getId());
     }
 
     @Override

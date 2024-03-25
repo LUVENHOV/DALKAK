@@ -2,7 +2,6 @@ package store.dalkak.api.user.service;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import store.dalkak.api.user.domain.Member;
 import store.dalkak.api.user.dto.request.UserCreateSurveyResultReqDto;
 import store.dalkak.api.user.dto.request.UserHasNicknameReqDto;
 import store.dalkak.api.user.dto.request.UserModifyProfileReqDto;
@@ -16,7 +15,7 @@ import store.dalkak.api.user.dto.MemberDto;
 @Service
 public interface UserService {
 
-    UserRefreshResDto refresh(MemberDto memberDto);
+    UserRefreshResDto refresh(String accessToken, String refreshToken);
     void deleteMember(MemberDto memberDto);
     void createSurveyResult(MemberDto memberDto, UserCreateSurveyResultReqDto userCreateSurveyResultReqDto);
     UserLoadProfileResDto loadProfile(MemberDto memberDto);

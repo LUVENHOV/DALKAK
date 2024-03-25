@@ -1,6 +1,7 @@
 package store.dalkak.api.global.jwt;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -83,9 +84,11 @@ public class JwtProvider {
     public boolean validateToken(String token){
         try{
             Jws<Claims> claims = Jwts.parser().setSigningKey(this.generateKey()).parseClaimsJws(token);
-            return new Date(System.currentTimeMillis()).getTime() <= claims.getBody()
-                .getExpiration().getTime();
-        } catch(Exception e){
+            return true;
+        }catch (ExpiredJwtException eje ){
+            throw new JwtException(JwtErrorCode.TOKEN_TIMEOUT);
+        }catch(Exception e){
+            log.info("검증실패");
             return false;
         }
     }
@@ -95,14 +98,14 @@ public class JwtProvider {
         Jws<Claims> claims = null;
         try{
             claims = Jwts.parser().setSigningKey(this.generateKey()).parseClaimsJws(token);
-        } catch(Exception e){
+        }catch (ExpiredJwtException eje ){
+            throw new JwtException(JwtErrorCode.TOKEN_TIMEOUT);
+        }catch(Exception e){
             throw new JwtException(JwtErrorCode.INVALID_TOKEN);
         }
 
         assert claims != null;
         Map<String, Object> value = claims.getBody();
-        log.info("value : {}", value);
-
 
         return ((Number)value.get("id")).longValue();
     }

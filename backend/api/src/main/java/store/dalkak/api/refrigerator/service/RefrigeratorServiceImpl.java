@@ -7,11 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import store.dalkak.api.cocktail.domain.ingredient.Ingredient;
 import store.dalkak.api.cocktail.dto.IngredientDto;
+import store.dalkak.api.cocktail.exception.CocktailErrorCode;
 import store.dalkak.api.cocktail.exception.CocktailException;
-import store.dalkak.api.cocktail.exception.IngredientSearchErrorCode;
 import store.dalkak.api.cocktail.repository.ingredient.IngredientRepository;
 import store.dalkak.api.refrigerator.domain.Refrigerator;
-import store.dalkak.api.refrigerator.exception.RefIngredientAddErrorCode;
 import store.dalkak.api.refrigerator.exception.RefrigeratorErrorCode;
 import store.dalkak.api.refrigerator.exception.RefrigeratorException;
 import store.dalkak.api.refrigerator.repository.RefrigeratorRepository;
@@ -38,7 +37,7 @@ public class RefrigeratorServiceImpl implements RefrigeratorService {
         Member member = memberRepository.findById(memberDto.getId()).orElseThrow();
         Ingredient ingredient = ingredientRepository.findById(ingredientId).orElseThrow();
         if (!isNotAlreadyAdded(member, ingredient)) {
-            throw new CocktailException(RefIngredientAddErrorCode.REF_ALREADY_ADDED_ERROR_CODE);
+            throw new CocktailException(RefrigeratorErrorCode.REF_ALREADY_ADDED_ERROR_CODE);
         }
         refrigeratorRepository.save(new Refrigerator(member, ingredient));
     }
@@ -54,7 +53,7 @@ public class RefrigeratorServiceImpl implements RefrigeratorService {
         Member member = memberRepository.findById(memberDto.getId()).orElseThrow(() -> new UserException(
             UserErrorCode.INVALID_USER));
         Ingredient ingredient = ingredientRepository.findById(ingredientId).orElseThrow(() -> new CocktailException(
-            IngredientSearchErrorCode.FAIL_TO_FIND_INGREDIENT));
+            CocktailErrorCode.FAIL_TO_FIND_INGREDIENT));
         Refrigerator refrigerator = refrigeratorRepository.findByMemberAndIngredient(member,
             ingredient).orElseThrow(() -> new RefrigeratorException(RefrigeratorErrorCode.REFRIGERATOR_ERROR_CODE));
         refrigeratorRepository.delete(refrigerator);
