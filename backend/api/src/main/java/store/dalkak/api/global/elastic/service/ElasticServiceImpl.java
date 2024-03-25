@@ -27,26 +27,24 @@ public class ElasticServiceImpl implements ElasticService {
     private final RestHighLevelClient client;
 
     @Override
-    public List<ElasticDto> findAllElasticLog() {
+    public List<ElasticDto> findAllElasticLog(String logType) {
         ObjectMapper objectMapper = new ObjectMapper();
-
         Long weekMili = 604_800_000L;
         Long nowMili = System.currentTimeMillis();
         Long oneWeekAgo = nowMili - weekMili;
-        List<ElasticDto> viewLogList = new ArrayList<>();
+        List<ElasticDto> logList = new ArrayList<>();
         try {
-            SearchRequest searchRequest = new SearchRequest("view-log");
+            SearchRequest searchRequest = new SearchRequest(logType);
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 
             searchSourceBuilder.query(
                 QueryBuilders.boolQuery()
-                    .must(QueryBuilders.matchQuery("log_name", "view-log"))
+                    .must(QueryBuilders.matchQuery("log_name", logType))
                     .filter(QueryBuilders.rangeQuery("message_content")
-                        .gt(oneWeekAgo).lt(nowMili))
+                        .gte(oneWeekAgo).lte(nowMili))
             );
             searchRequest.source(searchSourceBuilder);
             SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
-
             // 검색 결과 처리
             Arrays.stream(searchResponse.getHits().getHits())
                 .forEach(hit -> {
@@ -57,7 +55,7 @@ public class ElasticServiceImpl implements ElasticService {
                         String logName = jsonNode.path("log_name").asText();
                         Long cocktailId = Long.parseLong(jsonNode.path("cocktail_id").asText());
 
-                        viewLogList.add(new ElasticDto(cocktailId, logName));
+                        logList.add(new ElasticDto(cocktailId, logName));
                         // 추출한 값 로깅
                     } catch (Exception e) {
                         log.error("Error parsing hit source", e);
@@ -66,6 +64,6 @@ public class ElasticServiceImpl implements ElasticService {
         } catch (IOException e) {
             log.error("Error find hit source", e);
         }
-        return viewLogList;
+        return logList;
     }
 }

@@ -18,7 +18,7 @@ import store.dalkak.api.user.dto.UserDto;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CustomDetailResDto {
 
-    List<CustomIngredientDto> customIngredients;
+    List<CustomIngredientDetailDto> customIngredients;
     private UserDto user;
     private CocktailDto originCocktail;
     private Long id;
@@ -41,6 +41,7 @@ public class CustomDetailResDto {
             .summary(custom.getSummary())
             .comment(custom.getComment())
             .open(custom.getOpen())
+            .customIngredients(ingredients)
             .build();
     }
 }

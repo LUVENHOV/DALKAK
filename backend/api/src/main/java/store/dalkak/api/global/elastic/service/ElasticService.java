@@ -5,5 +5,5 @@ import store.dalkak.api.global.elastic.dto.ElasticDto;
 
 public interface ElasticService {
 
-    List<ElasticDto> findAllElasticLog();
+    List<ElasticDto> findAllElasticLog(String logType);
 }

@@ -189,7 +189,6 @@ public class CustomServiceImpl implements CustomService {
                 customIngredient.getAmount(),
                 customIngredient.getUnit()));
         }
-
         return CustomDetailResDto.of(targetCustom, user, cocktail, customIngredientDtoList);
     }
 
