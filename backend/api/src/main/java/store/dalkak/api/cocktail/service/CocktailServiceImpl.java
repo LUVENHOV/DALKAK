@@ -9,7 +9,12 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import io.micrometer.common.util.StringUtils;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
+import java.util.LinkedHashMap;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -32,6 +37,7 @@ import store.dalkak.api.cocktail.repository.CocktailRepository;
 import store.dalkak.api.cocktail.repository.ingredient.CocktailIngredientRepository;
 import store.dalkak.api.cocktail.repository.tool.CocktailToolRepository;
 import store.dalkak.api.custom.repository.CustomRepository;
+import store.dalkak.api.global.elastic.dto.ElasticDto;
 import store.dalkak.api.user.domain.Heart;
 import store.dalkak.api.user.domain.Member;
 import store.dalkak.api.user.dto.MemberDto;
@@ -42,8 +48,7 @@ import store.dalkak.api.user.repository.MemberRepository;
 @Transactional
 @RequiredArgsConstructor
 @Service
-public class CocktailServiceImpl implements CocktailService{
-
+public class CocktailServiceImpl implements CocktailService {
 
     private final CocktailRepository cocktailRepository;
     private final CocktailIngredientRepository cocktailIngredientRepository;
@@ -58,12 +63,14 @@ public class CocktailServiceImpl implements CocktailService{
         Long color,
         Integer sweetness, Integer orderBy) {
 
-        Page<CocktailFindResDto> cocktailFindResDtoList = cocktailRepository.findCocktailsByOption(page, cocktailName, ingredients, base,
+        Page<CocktailFindResDto> cocktailFindResDtoList = cocktailRepository.findCocktailsByOption(
+            page, cocktailName, ingredients, base,
             minAlcoholContent, maxAlcoholContent, color, sweetness, orderBy);
 
         CocktailPageResDto cocktailPageResDto = new CocktailPageResDto(
             cocktailFindResDtoList.getContent(), cocktailFindResDtoList.getTotalElements(),
-            cocktailFindResDtoList.getTotalPages(), cocktailFindResDtoList.getPageable().getPageNumber()+ 1);
+            cocktailFindResDtoList.getTotalPages(),
+            cocktailFindResDtoList.getPageable().getPageNumber() + 1);
 
         if (cocktailPageResDto.getTotalElements() == 0) {
             throw new CocktailException(CocktailSearchErrorCode.FAIL_TO_FIND_COCKTAIL);
@@ -114,12 +121,15 @@ public class CocktailServiceImpl implements CocktailService{
     public List<IngredientDto> findIngredient(String ingredientName) {
 
         List<IngredientDto> ingredientDtoList = queryFactory.select(
-                Projections.constructor(IngredientDto.class, ingredient.id, ingredient.name, ingredient.image, ingredient.category))
+                Projections.constructor(IngredientDto.class, ingredient.id, ingredient.name,
+                    ingredient.image, ingredient.category))
             .from(ingredient)
             .where(this.searchKeyword(ingredientName))
             .fetch();
 
-        if(ingredientDtoList.isEmpty()) throw new CocktailException(CocktailSearchErrorCode.FAIL_TO_FIND_COCKTAIL);
+        if (ingredientDtoList.isEmpty()) {
+            throw new CocktailException(CocktailSearchErrorCode.FAIL_TO_FIND_COCKTAIL);
+        }
 
         return ingredientDtoList;
     }
@@ -136,18 +146,46 @@ public class CocktailServiceImpl implements CocktailService{
     public void createHeart(MemberDto memberDto, Long cocktailId) {
         Member member = memberRepository.findMemberById(memberDto.getId());
         Cocktail cocktail = cocktailRepository.findById(cocktailId).orElseThrow();
-        cocktailRepository.modifyHeartCount(cocktailId, cocktail.getHeartCount()+1);
+        cocktailRepository.modifyHeartCount(cocktailId, cocktail.getHeartCount() + 1);
         cocktail = cocktailRepository.findById(cocktailId).orElseThrow();
         heartRepository.save(Heart.builder().member(member).cocktail(cocktail).build());
     }
 
     @Override
     public void deleteHeart(MemberDto memberDto, Long cocktailId) {
-        Cocktail cocktail = cocktailRepository.findById(cocktailId).orElseThrow();
         Member member = memberRepository.findMemberById(memberDto.getId());
-        cocktailRepository.modifyHeartCount(cocktailId, cocktail.getHeartCount()-1);
+        Cocktail cocktail = cocktailRepository.findById(cocktailId).orElseThrow();
+        cocktailRepository.modifyHeartCount(cocktailId, cocktail.getHeartCount() - 1);
         cocktail = cocktailRepository.findById(cocktailId).orElseThrow();
         heartRepository.deleteHeartByCocktailAndMember(cocktail, member);
+    }
+
+    @Override
+    public void modifyRank(List<ElasticDto> viewLogList, List<ElasticDto> heartLogList) {
+        // 가중치
+        double view_weight = 0.314;
+        double heart_weight = 0.807;
+        Map<Long, Double> resultMap = new ConcurrentHashMap<>();
+        for(ElasticDto elasticDto : viewLogList) {
+            resultMap.put(elasticDto.getCocktailId(), resultMap.getOrDefault(elasticDto.getCocktailId(), 0.0)+view_weight);
+        }
+        for(ElasticDto elasticDto : heartLogList) {
+            resultMap.put(elasticDto.getCocktailId(), resultMap.getOrDefault(elasticDto.getCocktailId(), 0.0)+heart_weight);
+        }
+
+        // map의 값을 기준으로 오름차순 정렬
+        Map<Long, Double> sortedMap = resultMap.entrySet().stream()
+            .sorted(Map.Entry.<Long, Double>comparingByValue().reversed()) // 값(Value)을 기준으로 오름차순 정렬
+            .collect(Collectors.toMap(
+                Map.Entry::getKey,
+                Map.Entry::getValue,
+                (oldValue, newValue) -> oldValue, // 중복 키가 있을 경우 어떻게 처리할지 정의 (이 경우는 생략 가능)
+                LinkedHashMap::new)); // 정렬된 순서를 유지하는 LinkedHashMap에 결과 수집
+
+        // 정렬된 Map 출력
+        sortedMap.forEach((key, value) -> log.info(key + ": " + value));
+
+
     }
 
 }

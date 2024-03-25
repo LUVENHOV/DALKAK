@@ -3,6 +3,8 @@ package store.dalkak.api.cocktail.controller;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,10 @@ import store.dalkak.api.user.dto.MemberDto;
 @RequestMapping("/cocktails")
 public class CocktailController {
 
+    private final Logger heartLogger = LoggerFactory.getLogger("heart-log");
+
+    private final Logger viewLogger = LoggerFactory.getLogger("view-log");
+
     private final CocktailService cocktailService;
 
     //칵테일 상세보기
@@ -33,7 +39,7 @@ public class CocktailController {
     public ResponseEntity<ApiResponse<CocktailDetailResDto>> cocktailDetail(
         @PathVariable("cocktailId") Long originCocktailId) {
         CocktailDetailResDto cocktail = cocktailService.findCocktail(originCocktailId);
-
+        viewLogger.info("view-log {} {}", originCocktailId, System.currentTimeMillis());
         ApiResponse<CocktailDetailResDto> apiResponse = ApiResponse.of(200,
             cocktail);
 
@@ -77,6 +83,7 @@ public class CocktailController {
     @GetMapping("/{cocktailId}/like")
     public ResponseEntity<ApiResponse<String>> createHeart(@LoginUser MemberDto memberDto, @PathVariable("cocktailId") Long cocktailId) {
         cocktailService.createHeart(memberDto, cocktailId);
+        heartLogger.info("heart-log {} {}", cocktailId, System.currentTimeMillis());
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, "좋아요가 완료되었습니다."));
     }
 
