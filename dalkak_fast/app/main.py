@@ -1,7 +1,7 @@
 from typing import Union
 
 from fastapi import FastAPI
-from .recommend import survey_recommend as sr
+from recommend import survey_recommend as sr
 
 app = FastAPI()
 
