@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 
 def survey_recommend():
-  df=pd.read_csv("./total.csv")
+  df=pd.read_csv(b"./total.csv")
 
 
   df=df.replace(["red","orange","yellow","green","blue","purple","pink","brown","white","clear","none"],["0","1","2","3","4","5","6","7","8","9","10"])
