@@ -14,6 +14,9 @@ interface Custom_Cocktails {
     id: number;
     nickname: string;
   };
+  current_page: number;
+  total_page: number;
+  total_elements: number;
 }
 
 interface Dummy {
