@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useEffect } from 'react';
 import surveyStore from '../../store/surveyStore';
 import './page.scss';
 
@@ -46,13 +47,13 @@ export default function Layout({
           </button>
         )}
 
-        {progress < 5 && (
+        {progress < 6 && (
           <button className="next" type="button" onClick={() => nextProgress()}>
             다음
           </button>
         )}
 
-        {progress === 5 && (
+        {progress === 6 && (
           <button
             className="next"
             type="button"
@@ -64,7 +65,7 @@ export default function Layout({
             제출
           </button>
         )}
-        {progress === 6 && (
+        {progress === 7 && (
           <button
             className="next"
             type="button"

@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 const Question = [
+  '당신이 궁금해요!',
   '좋아하는 칵테일을 최소 1개 입력해주세요',
   '언제 주로 술을 마시나요?',
   '어떤 베이스 술로 만들어진 칵테일을 원하시나요?',
@@ -14,6 +15,9 @@ const Question = [
 
 interface storeState {
   progress: number;
+  nickname: string;
+  birthDate: string;
+  gender: string;
   surveyCocktails: number[];
   baseId: number;
   occationId: number;
@@ -23,6 +27,9 @@ interface storeState {
   getQuestion: (process: number) => string;
   nextProgress: () => void;
   beforeProgress: () => void;
+  setNickname: (nickname: string) => void;
+  setBirthDate: (birthDate: string) => void;
+  setGender: (gender: string) => void;
   setSurveyCocktails: (cocktails: number[]) => void;
   setBaseId: (baseId: number) => void;
   setOccationId: (occationId: number) => void;
@@ -36,12 +43,16 @@ const surveyStore = create(
   persist<storeState>(
     (set, get) => ({
       progress: 0,
+      nickname: '',
+      birthDate: '',
+      gender: '',
       surveyCocktails: [],
       baseId: 0,
       occationId: 0,
       alcoholContent: 0,
       sweatness: 0,
       surveyIngredients: 0,
+
       getQuestion: (process: number) => Question[process],
       // 다음 페이지 이동
       nextProgress: () => {
@@ -55,8 +66,12 @@ const surveyStore = create(
           set({ progress: get().progress - 1 });
         }
       },
-
       // set survey states
+      setNickname: (nickname: string) => set({ nickname }),
+      setBirthDate: (birthDate: string) => set({ birthDate }),
+      setGender(gender: string) {
+        set({ gender });
+      },
       setSurveyCocktails: (cocktails: number[]) =>
         set({ surveyCocktails: cocktails }),
       setBaseId: (baseId: number) => set({ baseId }),

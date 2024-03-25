@@ -1,0 +1,43 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  //   background-color: red;
+  .input {
+    margin-top: 120px;
+    z-index: 300;
+    width: 500px;
+    height: auto;
+    font-size: 1.2rem;
+    input {
+      border: none;
+      z-index: 500;
+      width: 100%;
+      height: 50px;
+      outline: none;
+    }
+  }
+  .input-wrapper {
+    margin-top: 30px;
+    display: flex;
+  }
+  .nickname {
+    input {
+      width: 80%;
+    }
+    button {
+      font-size: 1.2rem;
+      background-color: var(--color-point);
+      color: white;
+      height: 80%;
+      min-height: 40px;
+      width: 20%;
+
+      &:hover {
+        cursor: pointer;
+        background-color: var(--color-point-active);
+      }
+    }
+  }
+}
