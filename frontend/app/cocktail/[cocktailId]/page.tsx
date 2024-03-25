@@ -1,9 +1,9 @@
 import CocktailDetail from '@/components/cocktail/CocktailDetail';
 import CocktailDetailApiTest from '@/components/cocktail/CocktailDetailApiTest';
 
-interface Props {
-  cocktailId: string;
-}
+// interface Props {
+//   cocktailId: string;
+// }
 
 export default function Page({ params }: { params: { cocktailId: string } }) {
   const { cocktailId } = params;
