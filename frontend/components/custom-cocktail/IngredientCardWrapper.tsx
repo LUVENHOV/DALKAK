@@ -16,6 +16,19 @@ interface Cocktail_Ingredients {
   unit: Unit;
 }
 
+interface Custom_Ingredients {
+  ingredient: {
+    id: number;
+    name: string;
+    image: string;
+  };
+  ingredient_amount: number;
+  unit: {
+    id: number;
+    name: string;
+  };
+}
+
 interface StoreData {
   id: number;
   name: string;
@@ -25,16 +38,19 @@ interface StoreData {
   };
 }
 
-interface Props {
-  ingredients: Cocktail_Ingredients[];
+type IngredientType = Cocktail_Ingredients | Custom_Ingredients;
+
+interface Props<T extends IngredientType> {
+  ingredients: T[];
   storeData: StoreData[];
 }
 
-export default function IngredientCardWrapper({
+export default function IngredientCardWrapper<T extends IngredientType>({
   ingredients,
   storeData,
-}: Props) {
-  const lastIndex = ingredients.length - 1;
+}: Props<T>) {
+  const lastIndex =
+    ingredients && ingredients.length > 0 ? ingredients.length - 1 : 0;
 
   return (
     <div>
@@ -45,16 +61,20 @@ export default function IngredientCardWrapper({
         </div>
       </div>
       <ul className={styles['grid-container']}>
-        {ingredients.map((ingredient, index) => (
-          <IngredientCard
-            // eslint-disable-next-line react/no-array-index-key
-            key={index}
-            ingredient={ingredient}
-            index={index}
-            lastIndex={lastIndex}
-            storeData={storeData}
-          />
-        ))}
+        {ingredients && ingredients.length > 0 ? (
+          ingredients.map((ingredient, index) => (
+            <IngredientCard
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
+              ingredient={ingredient}
+              index={index}
+              lastIndex={lastIndex}
+              storeData={storeData}
+            />
+          ))
+        ) : (
+          <div>재료없음</div>
+        )}
       </ul>
     </div>
   );

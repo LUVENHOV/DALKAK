@@ -1,10 +1,7 @@
 import CustomCocktailDetail from '@/components/custom-cocktail/detail/CustomCocktailDetail';
 
-interface Props {
-  customId: string;
-}
-
-export default function Page({ customId }: Props) {
+export default function Page({ params }: { params: { customId: string } }) {
+  const { customId } = params;
   return (
     <div>
       <CustomCocktailDetail customId={customId} />
