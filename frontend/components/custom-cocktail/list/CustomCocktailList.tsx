@@ -12,297 +12,78 @@ interface DummyList {
   author: string;
   imageLink: string;
 }
-interface TotalData {
-  custom_cocktails: DummyList[];
-  total_count: number;
-  total_pages: number;
-  current_page: number;
+
+
+interface Custom_Cocktails {
+  id: number;
+  image: string;
+  name: string;
+  summary: string;
+  user: {
+    id: number;
+    nickname: string; 
+  }
+
+}
+
+
+interface ApiResponse {
+  code: number;
+  messages: string[];
+  data: {
+    custom_cocktails: Custom_Cocktails[];
+    current_page: number;
+    total_page: number;
+    total_elements: number; 
+  }
 }
 
 interface Props {
   cocktailId: string;
 }
 
-export default function CustomCocktailList({ cocktailId }: Props) {
+const token = process.env.NEXT_PUBLIC_TOKEN;
+
+
+
+export async function getData({ cocktailId }: Props) {
   // console.log(cocktailId);
 
-  const totalData: TotalData = {
-    custom_cocktails: [
-      {
-        id: 1,
-        title: '더 상큼해진 애플 마티니',
-        comment: '사과를 더 썼어요!',
-        author: '끼리코',
-        imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/green-apple-martini.png',
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/customs/${cocktailId}/custom-list?page=1`,
+    {
+      headers: {
+        Authorization: token ? `${token}` : '',
       },
-      {
-        id: 2,
-        title: '날씨 좋은 주말에 마시기 좋아요',
-        comment: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
-        author: '갈현동의칵테일마스터',
-        imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/apple-martini.png',
-      },
-      {
-        id: 3,
-        title: '술찌들을 위한 커스텀 레시피',
-        comment: '기존 레시피보다 순하게 만들었습니다',
-        author: '사샤',
-        imageLink:
-          'https://www.liquor.com/thmb/sv91lrGrqOrH4iNMYDPC8eE5zdQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__liquor__2017__07__20084113__appletini-720x720-recipe-e40e3ceb5ca7493ab93d90019cbb56a7.jpg',
-      },
-      {
-        id: 4,
-        title: '아쉬운대로 만든 애플 마티니',
-        comment: '이것저것 집에 있는 재료 털어서 만들었어요',
-        author: '무무',
-        imageLink:
-          'https://mybartender.com/wp-content/uploads/2023/11/delicious-green-apple-cocktail-320x320.png',
-      },
-      {
-        id: 5,
-        title: '더 상큼해진 애플 마티니',
-        comment: '사과를 더 썼어요!',
-        author: '끼리코',
-        imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/green-apple-martini.png',
-      },
-      {
-        id: 6,
-        title: '날씨 좋은 주말에 마시기 좋아요',
-        comment: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
-        author: '갈현동의칵테일마스터',
-        imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/apple-martini.png',
-      },
-      {
-        id: 7,
-        title: '술찌들을 위한 커스텀 레시피',
-        comment: '기존 레시피보다 순하게 만들었습니다',
-        author: '사샤',
-        imageLink:
-          'https://www.liquor.com/thmb/sv91lrGrqOrH4iNMYDPC8eE5zdQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__liquor__2017__07__20084113__appletini-720x720-recipe-e40e3ceb5ca7493ab93d90019cbb56a7.jpg',
-      },
-      {
-        id: 8,
-        title: '아쉬운대로 만든 애플 마티니',
-        comment: '이것저것 집에 있는 재료 털어서 만들었어요',
-        author: '무무',
-        imageLink:
-          'https://mybartender.com/wp-content/uploads/2023/11/delicious-green-apple-cocktail-320x320.png',
-      },
-      {
-        id: 9,
-        title: '더 상큼해진 애플 마티니',
-        comment: '사과를 더 썼어요!',
-        author: '끼리코',
-        imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/green-apple-martini.png',
-      },
-      {
-        id: 10,
-        title: '날씨 좋은 주말에 마시기 좋아요',
-        comment: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
-        author: '갈현동의칵테일마스터',
-        imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/apple-martini.png',
-      },
-      {
-        id: 11,
-        title: '술찌들을 위한 커스텀 레시피',
-        comment: '기존 레시피보다 순하게 만들었습니다',
-        author: '사샤',
-        imageLink:
-          'https://www.liquor.com/thmb/sv91lrGrqOrH4iNMYDPC8eE5zdQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__liquor__2017__07__20084113__appletini-720x720-recipe-e40e3ceb5ca7493ab93d90019cbb56a7.jpg',
-      },
-      {
-        id: 12,
-        title: '아쉬운대로 만든 애플 마티니',
-        comment: '이것저것 집에 있는 재료 털어서 만들었어요',
-        author: '무무',
-        imageLink:
-          'https://mybartender.com/wp-content/uploads/2023/11/delicious-green-apple-cocktail-320x320.png',
-      },
-      {
-        id: 13,
-        title: '더 상큼해진 애플 마티니',
-        comment: '사과를 더 썼어요!',
-        author: '끼리코',
-        imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/green-apple-martini.png',
-      },
-      {
-        id: 14,
-        title: '날씨 좋은 주말에 마시기 좋아요',
-        comment: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
-        author: '갈현동의칵테일마스터',
-        imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/apple-martini.png',
-      },
-      {
-        id: 15,
-        title: '술찌들을 위한 커스텀 레시피',
-        comment: '기존 레시피보다 순하게 만들었습니다',
-        author: '사샤',
-        imageLink:
-          'https://www.liquor.com/thmb/sv91lrGrqOrH4iNMYDPC8eE5zdQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__liquor__2017__07__20084113__appletini-720x720-recipe-e40e3ceb5ca7493ab93d90019cbb56a7.jpg',
-      },
-      {
-        id: 16,
-        title: '아쉬운대로 만든 애플 마티니',
-        comment: '이것저것 집에 있는 재료 털어서 만들었어요',
-        author: '무무',
-        imageLink:
-          'https://mybartender.com/wp-content/uploads/2023/11/delicious-green-apple-cocktail-320x320.png',
-      },
-      {
-        id: 17,
-        title: '더 상큼해진 애플 마티니',
-        comment: '사과를 더 썼어요!',
-        author: '끼리코',
-        imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/green-apple-martini.png',
-      },
-      {
-        id: 18,
-        title: '날씨 좋은 주말에 마시기 좋아요',
-        comment: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
-        author: '갈현동의칵테일마스터',
-        imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/apple-martini.png',
-      },
-      {
-        id: 19,
-        title: '술찌들을 위한 커스텀 레시피',
-        comment: '기존 레시피보다 순하게 만들었습니다',
-        author: '사샤',
-        imageLink:
-          'https://www.liquor.com/thmb/sv91lrGrqOrH4iNMYDPC8eE5zdQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__liquor__2017__07__20084113__appletini-720x720-recipe-e40e3ceb5ca7493ab93d90019cbb56a7.jpg',
-      },
-      {
-        id: 20,
-        title: '아쉬운대로 만든 애플 마티니',
-        comment: '이것저것 집에 있는 재료 털어서 만들었어요',
-        author: '무무',
-        imageLink:
-          'https://mybartender.com/wp-content/uploads/2023/11/delicious-green-apple-cocktail-320x320.png',
-      },
-      {
-        id: 21,
-        title: '더 상큼해진 애플 마티니',
-        comment: '사과를 더 썼어요!',
-        author: '끼리코',
-        imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/green-apple-martini.png',
-      },
-      {
-        id: 22,
-        title: '날씨 좋은 주말에 마시기 좋아요',
-        comment: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
-        author: '갈현동의칵테일마스터',
-        imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/apple-martini.png',
-      },
-      {
-        id: 23,
-        title: '술찌들을 위한 커스텀 레시피',
-        comment: '기존 레시피보다 순하게 만들었습니다',
-        author: '사샤',
-        imageLink:
-          'https://www.liquor.com/thmb/sv91lrGrqOrH4iNMYDPC8eE5zdQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__liquor__2017__07__20084113__appletini-720x720-recipe-e40e3ceb5ca7493ab93d90019cbb56a7.jpg',
-      },
-      {
-        id: 24,
-        title: '아쉬운대로 만든 애플 마티니',
-        comment: '이것저것 집에 있는 재료 털어서 만들었어요',
-        author: '무무',
-        imageLink:
-          'https://mybartender.com/wp-content/uploads/2023/11/delicious-green-apple-cocktail-320x320.png',
-      },
-      {
-        id: 25,
-        title: '더 상큼해진 애플 마티니',
-        comment: '사과를 더 썼어요!',
-        author: '끼리코',
-        imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/green-apple-martini.png',
-      },
-      {
-        id: 26,
-        title: '날씨 좋은 주말에 마시기 좋아요',
-        comment: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
-        author: '갈현동의칵테일마스터',
-        imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/apple-martini.png',
-      },
-      {
-        id: 27,
-        title: '술찌들을 위한 커스텀 레시피',
-        comment: '기존 레시피보다 순하게 만들었습니다',
-        author: '사샤',
-        imageLink:
-          'https://www.liquor.com/thmb/sv91lrGrqOrH4iNMYDPC8eE5zdQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__liquor__2017__07__20084113__appletini-720x720-recipe-e40e3ceb5ca7493ab93d90019cbb56a7.jpg',
-      },
-      {
-        id: 28,
-        title: '아쉬운대로 만든 애플 마티니',
-        comment: '이것저것 집에 있는 재료 털어서 만들었어요',
-        author: '무무',
-        imageLink:
-          'https://mybartender.com/wp-content/uploads/2023/11/delicious-green-apple-cocktail-320x320.png',
-      },
-      {
-        id: 29,
-        title: '더 상큼해진 애플 마티니',
-        comment: '사과를 더 썼어요!',
-        author: '끼리코',
-        imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/green-apple-martini.png',
-      },
-      {
-        id: 30,
-        title: '날씨 좋은 주말에 마시기 좋아요',
-        comment: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
-        author: '갈현동의칵테일마스터',
-        imageLink:
-          'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/apple-martini.png',
-      },
-      {
-        id: 31,
-        title: '술찌들을 위한 커스텀 레시피',
-        comment: '기존 레시피보다 순하게 만들었습니다',
-        author: '사샤',
-        imageLink:
-          'https://www.liquor.com/thmb/sv91lrGrqOrH4iNMYDPC8eE5zdQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__liquor__2017__07__20084113__appletini-720x720-recipe-e40e3ceb5ca7493ab93d90019cbb56a7.jpg',
-      },
-      {
-        id: 32,
-        title: '아쉬운대로 만든 애플 마티니',
-        comment: '이것저것 집에 있는 재료 털어서 만들었어요',
-        author: '무무',
-        imageLink:
-          'https://mybartender.com/wp-content/uploads/2023/11/delicious-green-apple-cocktail-320x320.png',
-      },
-      {
-        id: 32,
-        title: '아쉬운대로 만든 애플 마티니',
-        comment: '이것저것 집에 있는 재료 털어서 만들었어요',
-        author: '무무',
-        imageLink:
-          'https://mybartender.com/wp-content/uploads/2023/11/delicious-green-apple-cocktail-320x320.png',
-      },
-    ],
-    total_count: 33,
-    total_pages: 12,
-    current_page: 1,
-  };
+    },
+  );
+
+  if (!response.ok) {
+    const error = new Error('Failed to fetch data');
+    throw error;
+  } else {
+    const data: ApiResponse = await response.json();
+    return data.data;
+  }
+}
+
+export default async function CustomCocktailList({cocktailId}:Props) {
+
+  const customCocktailListData = await getData({cocktailId});
+  const customCocktailList :  
+Custom_Cocktails[]
+  = customCocktailListData.custom_cocktails; 
+
+  const data: 
+
+
+  
 
   // const totalCount = totalData.total_count;
-  const totalPages = totalData.total_pages;
+  const totalPages = data.total_page;
   // const currentPage = totalData.current_page;
 
-  const dummyList: DummyList[] = totalData.custom_cocktails;
+  // const dummyList: DummyList[] = customCocktailList.custom_cocktails;
 
   return (
     <div>
@@ -311,14 +92,17 @@ export default function CustomCocktailList({ cocktailId }: Props) {
         frontText="끼리코"
         secondText="님이 좋아하시는 칵테일이에요!"
       />
-      <CustomCocktailCardWrapper dummy={dummyList} />
+      <CustomCocktailCardWrapper dummy={customCocktailListData} />
 
       <Pagination
-        articles={dummyList}
+        articles={customCocktailListData}
         // totalCount={totalCount}
         totalPages={totalPages}
         // currentPage={currentPage}
       />
     </div>
   );
+  }
+
+
 }
