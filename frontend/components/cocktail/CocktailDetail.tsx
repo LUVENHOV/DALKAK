@@ -16,14 +16,14 @@ import CustomCocktailRecipe from '@/components/custom-cocktail/CustomCocktailRec
 import IngredientCardWrapper from '@/components/custom-cocktail/IngredientCardWrapper';
 import ToolCardWrapper from '@/components/custom-cocktail/ToolCardWrapper';
 
-import alcohol from '@/public/assets/imgs/alcohol.png';
-import apple from '@/public/assets/imgs/apple.png';
-import ice from '@/public/assets/imgs/ice.png';
-import jigger from '@/public/assets/imgs/jigger.png';
-import lemon from '@/public/assets/imgs/lemon.png';
-import muddler from '@/public/assets/imgs/muddler.png';
-import shaker from '@/public/assets/imgs/shaker.png';
-import vodka from '@/public/assets/imgs/vodka.png';
+// import alcohol from '@/public/assets/imgs/alcohol.png';
+// import apple from '@/public/assets/imgs/apple.png';
+// import ice from '@/public/assets/imgs/ice.png';
+// import jigger from '@/public/assets/imgs/jigger.png';
+// import lemon from '@/public/assets/imgs/lemon.png';
+// import muddler from '@/public/assets/imgs/muddler.png';
+// import shaker from '@/public/assets/imgs/shaker.png';
+// import vodka from '@/public/assets/imgs/vodka.png';
 
 interface CocktailIngredients {
   ingredient: {

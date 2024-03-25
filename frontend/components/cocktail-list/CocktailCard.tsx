@@ -4,18 +4,16 @@ import { FavoriteBorder } from '@mui/icons-material';
 import Link from 'next/link';
 import styles from './CocktailCard.module.scss';
 
-interface propsType {
-  id: string;
+interface ICocktailType {
+  id: number;
   name: string;
   koreanName: string;
   image: string;
   heartCount: number;
 }
 
-export default function CocktailCard(props: propsType) {
-  const {
-    id: cocktailId, name, koreanName, image, heartCount,
-  } = props;
+export default function CocktailCard(props: ICocktailType) {
+  const { id: cocktailId, name, koreanName, image, heartCount } = props;
 
   return (
     <Link href={`/cocktail/${cocktailId}`}>

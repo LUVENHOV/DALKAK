@@ -15,6 +15,20 @@ import SearchColor from './SearchColor';
 import SortBy from './SortBy';
 import BtnWithIcon from '../common/BtnWithIcon';
 import SearchIngredients from '../common/SearchIngredients';
+import getCocktailList from '@/app/api/cocktail-search';
+
+interface ISearchType {
+  authorization: string;
+  page: number;
+  cocktailName?: string | null;
+  ingredients?: number[] | null;
+  base?: number | null;
+  minAlcohol?: number | null;
+  maxAlcohol?: number | null;
+  color?: number | null;
+  sweetness?: number | null;
+  orderBy?: number | null;
+}
 
 const baseList = [
   {
@@ -82,31 +96,31 @@ const sweetnessList = [
 ];
 
 export default function CocktailSearchForm() {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [keyword, setKeyword] = useState('');
+  const [cocktailName, setCocktailName] = useState('');
   // eslint-disable-next-line import/extensions, import/no-unresolved
   // const [ingredients, setIngredients] = useState([]);
-  const [base, setBase] = useState('');
+  const [base, setBase] = useState(null);
   const [alcoholContent, setAlcoholContent] = useState<readonly number[]>([
     15, 35,
   ]);
-  const [color, setColor] = useState('');
-  const [sweetness, setSweetness] = useState('');
-  const [orderBy, setOrderBy] = useState('');
+  const [color, setColor] = useState(null);
+  const [sweetness, setSweetness] = useState(null);
+  const [orderBy, setOrderBy] = useState(1);
 
-  const handleKeyword = (e: ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
+  const handleCocktailName = (e: ChangeEvent<HTMLInputElement>) => {
+    setCocktailName(e.target.value);
   };
 
   const handleReset = () => {
-    setKeyword('');
+    setCocktailName('');
     // setIngredients([]);
-    setBase('');
+    setBase(null);
     setAlcoholContent([15, 35]);
-    setColor('');
-    setSweetness('');
-    setOrderBy('');
+    setColor(null);
+    setSweetness(null);
+    setOrderBy(1);
   };
 
   const handleBase = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -129,24 +143,32 @@ export default function CocktailSearchForm() {
     setOrderBy(e.currentTarget.value);
   };
 
-  const handleDetailSearch = () => {
-    // console.log(keyword);
-    // console.log(ingredients);
-    // console.log(base);
-    // console.log(alcoholContent);
-    // console.log(color);
-    // console.log(sweetness);
-    // console.log(orderBy);
+  const handleDetailSearch = async () => {
+    const searchParams: ISearchType = {
+      authorization:
+        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTEzMjkwNDUsImV4cCI6MTcxMTc2MTA0NSwiaWQiOjN9.zcY6r5AdHWBddd-sUz8oFdGV14DZLLyXi_5-BG--C20',
+      page: 1,
+      cocktailName,
+      // ingredients,
+      base,
+      minAlcohol: 15,
+      maxAlcohol: 35,
+      color: null,
+      sweetness: null,
+      orderBy: 1,
+    };
+
+    await getCocktailList(searchParams);
   };
 
   return (
     <>
-      <div className={styles['keyword-search-container']}>
+      <div className={styles['cocktailName-search-container']}>
         <input
           type="text"
           placeholder="어떤 칵테일을 찾으시나요?"
-          name="keyword"
-          onChange={(e) => handleKeyword(e)}
+          name="cocktailName"
+          onChange={(e) => handleCocktailName(e)}
         />
         <button
           type="submit"
