@@ -1,20 +1,14 @@
 import CocktailDetail from '@/components/cocktail/CocktailDetail';
-import CocktailDetailApiTest from '@/components/cocktail/CocktailDetailApiTest';
-
-// interface Props {
-//   cocktailId: string;
-// }
 
 export default function Page({ params }: { params: { cocktailId: string } }) {
   const { cocktailId } = params;
   return (
     <div>
-      <div>
+      {/* <div>
         <CocktailDetail cocktailId={cocktailId} />
-      </div>
-      <div>
-        <CocktailDetailApiTest cocktailId={cocktailId} />
-      </div>
+      </div> */}
+
+      <CocktailDetail cocktailId={cocktailId} />
     </div>
   );
 }
