@@ -1,7 +1,7 @@
 from typing import Union
 
 from fastapi import FastAPI
-from .recommend import recommend
+from .recommend import survey_recommend as sr
 
 app = FastAPI()
 
@@ -17,4 +17,4 @@ def read_item(item_id: int, q: Union[str, None] = None):
 
 @app.get("/recommend")
 def survey_recommend():
-    return recommend.survey_recommend()
+    return sr()
