@@ -1,12 +1,12 @@
 import React from 'react';
-import { StaticImageData } from 'next/image';
+// import { StaticImageData } from 'next/image';
 import styles from './IngredientCardWrapper.module.scss';
 import ToolCard from './ToolCard';
 
 interface CocktailTools {
   id: number;
   name: string;
-  image: string | StaticImageData;
+  image: string;
 }
 
 interface Props {
