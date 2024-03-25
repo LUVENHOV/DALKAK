@@ -1,1 +1,1 @@
-from recommend import *
+from .recommend import survey_recommend
