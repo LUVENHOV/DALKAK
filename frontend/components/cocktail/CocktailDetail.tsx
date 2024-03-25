@@ -272,7 +272,7 @@ interface Props {
 }
 
 export default function CocktailDetail({ cocktailId }: Props) {
-  console.log(cocktailId);
+  // console.log(cocktailId);
 
   const cocktailIngredients: CocktailIngredients[] =
     cocktailData.cocktail_ingredients;
