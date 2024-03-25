@@ -9,7 +9,7 @@ import BtnWithIcon from '@/components/common/BtnWithIcon';
 
 import LikeCount from '@/components/common/LikeCount';
 
-import CustomCocktailCardWrapper from '@/components/custom-cocktail/CustomCocktailCardWrapper';
+// import CustomCocktailCardWrapper from '@/components/custom-cocktail/CustomCocktailCardWrapper';
 
 import CustomCocktailImage from '@/components/custom-cocktail/CustomCocktailImage';
 import CustomCocktailRecipe from '@/components/custom-cocktail/CustomCocktailRecipe';
@@ -127,7 +127,7 @@ interface Props {
 
 export async function getData({ cocktailId }: Props) {
   const response = await fetch(
-    process.env.NEXT_PUBLIC_API_KEY + `/cocktails/${cocktailId}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/${cocktailId}`,
   );
 
   if (!response.ok) {
