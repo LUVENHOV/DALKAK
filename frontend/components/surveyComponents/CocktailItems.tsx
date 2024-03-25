@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './CocktailItems.scss';
 import surveyStore from '@/store/surveyStore';
+
 interface ItemProps {
   id: number;
   name: string;
@@ -31,10 +32,10 @@ export default function CocktailItems({ id, name, image }: ItemProps) {
       className={`cocktail-item ${selected ? 'selected' : ''}`}
     >
       <div className="sample" />
-      {/* <div className="cocktial-image-wrapper">
-      <img src={cocktail.image} alt={cocktail.name} />
-    </div> */}
       <div className="name">{name}</div>
+      {/* <div className="cocktial-image-wrapper">
+        <img src={cocktail.image} alt={cocktail.name} />
+        </div> */}
     </div>
   );
 }

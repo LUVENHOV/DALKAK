@@ -1,14 +1,17 @@
-.cocktail-item {
-  width: 140px;
+.wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+}
+.occation-item {
   border: 3px solid transparent;
-  box-sizing: border-box;
+  padding: 10px;
+  width: 200px;
+  height: auto;
   &:hover {
     cursor: pointer;
   }
 }
+
 .selected {
   border: 3px solid var(--color-point);
 }
