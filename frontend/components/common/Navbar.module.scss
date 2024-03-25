@@ -1,0 +1,42 @@
+.navbar {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 4fr 5fr 4fr 4fr 1fr;
+  padding-right: 1vw;
+  padding-left: 1vw;
+  padding-top: 0.5vw;
+  padding-bottom: 0.5vw;
+  text-align: center;
+  align-items: center;
+  box-shadow: 0.1vw 0vw 0.4vw 0.03vw grey;
+
+  div {
+    padding-right: 0.7vw;
+    padding-left: 0.7vw;
+  }
+
+  img {
+    width: 1.5vw;
+    height: 1.5vw;
+    margin-top: 0.3vw;
+  }
+
+  .hi {
+    text-align: end;
+  }
+}
+
+.active {
+  color: var(--color-point);
+  font-weight: 700;
+}
+
+.dalkak {
+  font-size: 1vw;
+  font-weight: 950;
+  text-align: start;
+}
+
+.nickname {
+  color: var(--color-point);
+  font-weight: 700;
+}

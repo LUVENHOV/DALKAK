@@ -1,8 +1,9 @@
+@import '@yaireo/tagify/dist/tagify.css';
+
 @font-face {
   font-family: 'Pretendard-Regular';
   src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
     format('woff');
-  font-weight: 400;
   font-style: normal;
 }
 
@@ -14,14 +15,20 @@ body {
   user-select: none;
   -ms-overflow-style: none;
 
-  ::-webkit-scrollbar {
-    display: none;
-  }
-}
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 
-input,
-button {
-  font-size: 1.2vw;
+  ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 1vw;
+    border-radius: 1vw;
+    background-color: var(--color-base);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 1vh;
+    background-color: var(--color-placeholder);
+  }
 }
 
 :root {
@@ -66,4 +73,8 @@ button {
 
 input {
   font-family: 'Pretendard-Regular';
+}
+
+input::placeholder {
+  color: var(--color-placeholder);
 }
