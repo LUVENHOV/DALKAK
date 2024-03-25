@@ -1,10 +1,7 @@
 import CustomCocktailList from '@/components/custom-cocktail/list/CustomCocktailList';
 
-interface Props {
-  cocktailId: string;
-}
-
-export default function Page({ cocktailId }: Props) {
+export default function Page({ params }: { params: { cocktailId: string } }) {
+  const { cocktailId } = params;
   return (
     <div>
       <CustomCocktailList cocktailId={cocktailId} />
