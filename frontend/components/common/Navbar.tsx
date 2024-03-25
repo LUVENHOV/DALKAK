@@ -2,12 +2,14 @@
 
 import React from 'react';
 import HomeIcon from '@mui/icons-material/Home';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.scss';
-import memberStore from '@/store/memberStore';
 import logo from '@/public/assets/imgs/logo.png';
+import authStore from '@/store/authStore';
+import memberStore from '@/store/memberStore';
 
 export default function Navbar() {
   const pathName = usePathname();
@@ -16,6 +18,20 @@ export default function Navbar() {
   const isLoggedIn = memberStore((state) => state.isLoggedIn);
   const nickname = memberStore((state) => state.nickname);
   const clearAll = memberStore((state) => state.clearAll);
+  const clearTokens = authStore((state) => state.clearTokens);
+  const Logout = async () => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_BASE_URL as string}/auth/logout`)
+      .then((res: AxiosResponse) => {
+        if (res.status === 200) {
+          clearAll();
+          clearTokens();
+        }
+      })
+      .catch((error: AxiosError) => {
+        console.log(error);
+      });
+  };
   return (
     <div className={styles.navbar}>
       <Link href="/">
@@ -47,21 +63,15 @@ export default function Navbar() {
       <div />
       {isLoggedIn ? (
         <>
-        
-          <div
-            className={styles.logout}
-            onClick={() => {
-              clearAll();
-            }}
-          >
+          <button type="button" onClick={() => Logout()}>
             로그아웃
-          </div>
+          </button>
           <Link href="/member">
             <HomeIcon />
           </Link>
-          </>
+        </>
       ) : (
-          <div className={styles.login}>로그인이 필요해요</div>  
+        <div className={styles.login}>로그인이 필요해요</div>
       )}
     </div>
   );

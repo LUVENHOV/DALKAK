@@ -24,7 +24,7 @@ export default function Page() {
 
   const authorization = async (authCode: string) => {
     await axios
-      .post(`${process.env.NEXT_PUBLIC_BASE_URL as string}/api/oauth/login`, {
+      .post(`${process.env.NEXT_PUBLIC_BASE_URL as string}/oauth/login`, {
         code: authCode,
         provider: 'NAVER',
       })

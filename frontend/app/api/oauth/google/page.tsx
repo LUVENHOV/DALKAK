@@ -25,13 +25,13 @@ export default function Page() {
 
   const authorization = async (authCode: string) => {
     await axios
-      .post(`${process.env.NEXT_PUBLIC_BASE_URL as string}/api/oauth/login`, {
+      .post(`${process.env.NEXT_PUBLIC_BASE_URL as string}/oauth/login`, {
         code: authCode,
         provider: 'GOOGLE',
       })
       .then((response) => {
-        if(response.status === 200){
-          console.log(response.data)
+        if (response.status === 200) {
+          console.log(response.data);
           const res = response.data as AuthResponse;
           const data = res.data as ResponseData;
           const accessToken = data.accessToken;
@@ -46,10 +46,13 @@ export default function Page() {
             data.nickname,
             data.survey_completion ?? false,
           );
-          window.opener.postMessage({
-            type: "LOGIN_SUCCESS",
-            data: { }
-          }, "*"); 
+          window.opener.postMessage(
+            {
+              type: 'LOGIN_SUCCESS',
+              data: {},
+            },
+            '*',
+          );
           window.close();
         }
       })
