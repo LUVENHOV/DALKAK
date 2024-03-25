@@ -9,7 +9,7 @@ import lombok.Getter;
 import store.dalkak.api.cocktail.domain.Cocktail;
 import store.dalkak.api.cocktail.dto.CocktailIngredientDto;
 import store.dalkak.api.cocktail.dto.ToolDto;
-import store.dalkak.api.cocktail.dto.CocktailCustomDto;
+import store.dalkak.api.custom.dto.CustomCocktailDto;
 
 @Getter
 @Builder
@@ -28,11 +28,11 @@ public class CocktailDetailResDto {
     private String recipe;
     List<CocktailIngredientDto> cocktailIngredients;
     List<ToolDto> cocktailTools;
-    List<CocktailCustomDto> customCocktails;
+    List<CustomCocktailDto> customCocktails;
 
     public static CocktailDetailResDto of(Cocktail cocktail,
         List<CocktailIngredientDto> ingredients, List<ToolDto> tools,
-        List<CocktailCustomDto> customCocktails) {
+        List<CustomCocktailDto> customCocktails) {
 
         return CocktailDetailResDto.builder()
             .id(cocktail.getId())

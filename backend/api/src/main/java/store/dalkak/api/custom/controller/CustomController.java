@@ -2,9 +2,12 @@ package store.dalkak.api.custom.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import store.dalkak.api.custom.dto.request.CustomCreateReqDto;
+import store.dalkak.api.custom.dto.response.CustomDetailResDto;
+import store.dalkak.api.custom.dto.response.CustomListResDto;
 import store.dalkak.api.custom.service.CustomService;
 import store.dalkak.api.global.annotation.LoginUser;
 import store.dalkak.api.global.response.ApiResponse;
@@ -39,18 +44,42 @@ public class CustomController {
 
     @PatchMapping("/{customCocktailId}")
     public ResponseEntity<ApiResponse<String>> modifyCustomCocktail(
+        @LoginUser MemberDto memberDto,
         @PathVariable("customCocktailId") Long customCocktailId,
-        @RequestPart(value = "image") MultipartFile image,
+        @RequestPart("image") MultipartFile image,
         @RequestPart("CustomCreateReqDto") CustomCreateReqDto customCreateReqDto) {
-        customService.modifyCustomCocktail(customCocktailId, image, customCreateReqDto);
+        customService.modifyCustomCocktail(memberDto.getId(), customCocktailId, image, customCreateReqDto);
         return ResponseEntity.status(HttpStatus.OK)
             .body(ApiResponse.of(201, "커스텀 칵테일이 수정되었습니다."));
     }
 
     @DeleteMapping("/{customCocktailId}")
     public ResponseEntity<ApiResponse<String>> deleteCustomCocktail(
+        @LoginUser MemberDto memberDto,
         @PathVariable("customCocktailId") Long customCocktailId) {
-        customService.deleteCustomCocktail(customCocktailId);
+        customService.deleteCustomCocktail(memberDto.getId(), customCocktailId);
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, "커스텀 칵테일이 삭제되었습니다."));
+    }
+
+    @GetMapping("/{customCocktailId}")
+    public ResponseEntity<ApiResponse<CustomDetailResDto>> customDetail(@PathVariable("customCocktailId") Long customCocktailId) {
+        CustomDetailResDto custom = customService.findCustom(customCocktailId);
+
+        ApiResponse<CustomDetailResDto> apiResponse = ApiResponse.of(200,
+            custom);
+
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+
+    @GetMapping("/{cocktailId}/custom-list")
+    public ResponseEntity<ApiResponse<CustomListResDto>> customCocktailList(
+        @PathVariable("cocktailId") Long cocktailId,
+        @PageableDefault(value = 20) Pageable page
+    ) {
+        CustomListResDto customListResDto = customService.getCustomList(cocktailId, page);
+
+        ApiResponse<CustomListResDto> apiResponse = ApiResponse.of(200, customListResDto);
+
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 }

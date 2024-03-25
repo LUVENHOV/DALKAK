@@ -1,19 +1,22 @@
-package store.dalkak.api.cocktail.dto;
+package store.dalkak.api.custom.dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import store.dalkak.api.user.dto.UserDto;
 
 @Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class CocktailCustomDto {
-    private Long customId;
-    private String customName;
-    private String customSummary;
-    private Long userId;
-    private String userNickname;
+public class CustomCocktailDto {
+    private Long id;
+    private String image;
+    private String name;
+    private String summary;
+    private UserDto user;
 }
