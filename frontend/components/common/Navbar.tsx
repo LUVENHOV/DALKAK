@@ -19,9 +19,18 @@ export default function Navbar() {
   const nickname = memberStore((state) => state.nickname);
   const clearAll = memberStore((state) => state.clearAll);
   const clearTokens = authStore((state) => state.clearTokens);
+  const accessToken = authStore((state) => state.accessToken);
+  const headerConfig = {
+    headers: {
+      Authorization: accessToken,
+    },
+  };
   const Logout = async () => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_BASE_URL as string}/auth/logout`)
+      .get(
+        `${process.env.NEXT_PUBLIC_BASE_URL as string}/oauth/logout`,
+        headerConfig,
+      )
       .then((res: AxiosResponse) => {
         if (res.status === 200) {
           clearAll();

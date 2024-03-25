@@ -15,7 +15,7 @@ interface storeState {
     receivedAccessToken: string,
     receivedRefreshToken: string,
     receivedAccessTokenExpiresIn: number,
-    receivedRefreshTokenExpiresIn: number
+    receivedRefreshTokenExpiresIn: number,
   ) => void;
   clearTokens: () => void;
 }
@@ -27,8 +27,10 @@ const authStore = create(
       refreshToken: '',
       accessTokenExpiresIn: 0,
       refreshTokenExpiresIn: 0,
-      setAccessToken: (receivedAccessToken: string) => set({ accessToken: `Bearer ${receivedAccessToken}` }),
-      setRefreshToken: (receivedRefreshToken: string) => set({ refreshToken: `Bearer ${receivedRefreshToken}` }),
+      setAccessToken: (receivedAccessToken: string) =>
+        set({ accessToken: `Bearer ${receivedAccessToken}` }),
+      setRefreshToken: (receivedRefreshToken: string) =>
+        set({ refreshToken: `Bearer ${receivedRefreshToken}` }),
       setAccessTokenExpiresIn(receivedAccessTokenExpiresIn) {
         set({ accessTokenExpiresIn: receivedAccessTokenExpiresIn });
       },
@@ -39,7 +41,7 @@ const authStore = create(
         receivedAccessToken: string,
         receivedRefreshToken: string,
         receivedAccessTokenExpiresIn: number,
-        receivedRefreshTokenExpiresIn: number
+        receivedRefreshTokenExpiresIn: number,
       ) => {
         set({
           accessToken: `Bearer ${receivedAccessToken}`,
