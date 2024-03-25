@@ -1,11 +1,14 @@
-import CustomCocktailIngredientCard from './CustomCocktailIngredientCard';
-import styles from './CustomCocktailIngredientCardWrapper.module.scss';
+import { StaticImageData } from 'next/image';
+
+import IngredientCard from './IngredientCard';
+
+import styles from './IngredientCardWrapper.module.scss';
 
 interface Ingredients {
   ingredient: {
     id: number;
     name: string;
-    image: string;
+    image: string | StaticImageData;
   };
   ingredient_amount: number;
   unit: {
@@ -17,7 +20,7 @@ interface Ingredients {
 interface StoreData {
   id: number;
   name: string;
-  image: string;
+  image: string | StaticImageData;
   category: {
     id: number;
     name: string;
@@ -29,7 +32,7 @@ interface Props {
   storeData: StoreData[];
 }
 
-export default function CustomCocktailIngredientCardWrapper({
+export default function IngredientCardWrapper({
   ingredients,
   storeData,
 }: Props) {
@@ -45,7 +48,7 @@ export default function CustomCocktailIngredientCardWrapper({
       </div>
       <ul className={styles['grid-container']}>
         {ingredients.map((ingredient, index) => (
-          <CustomCocktailIngredientCard
+          <IngredientCard
             // eslint-disable-next-line react/no-array-index-key
             key={index}
             ingredient={ingredient}

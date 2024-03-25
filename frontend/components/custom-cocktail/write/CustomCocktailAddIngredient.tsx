@@ -34,7 +34,7 @@ export default function CustomCocktailAddIngredient({ origin }: Props) {
   );
 
   useEffect(() => {
-    console.log(tempList);
+    // console.log(tempList);
   }, [tempList]);
 
   const removeItem = (id: number) => {
@@ -52,7 +52,7 @@ export default function CustomCocktailAddIngredient({ origin }: Props) {
       return updatedValues;
     });
 
-    console.log(inputValues);
+    // console.log(inputValues);
   };
 
   const handleUnitInputChange = (
@@ -66,7 +66,7 @@ export default function CustomCocktailAddIngredient({ origin }: Props) {
       return updatedUnitValues;
     });
 
-    console.log(inputUnitValues);
+    // console.log(inputUnitValues);
   };
 
   return (
@@ -95,7 +95,10 @@ export default function CustomCocktailAddIngredient({ origin }: Props) {
                   <select
                     className={styles['unit-input']}
                     value={inputUnitValues[index]}
-                    onChange={(e) => handleUnitInputChange(e, data.ingredient.id)}
+                    onChange={
+                      (e) => handleUnitInputChange(e, data.ingredient.id)
+                      // eslint-disable-next-line react/jsx-curly-newline
+                    }
                   >
                     <option>개</option>
                     <option>웨지</option>
