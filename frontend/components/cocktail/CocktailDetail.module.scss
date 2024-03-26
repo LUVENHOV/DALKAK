@@ -11,7 +11,7 @@
 .title-container {
   width: 98%;
   display: grid;
-  grid-template-columns: 2fr 2fr 3.5fr 2fr;
+  grid-template-columns: 3fr 2fr 3.5fr 2fr;
   margin-bottom: 2vw;
   text-align: center;
 
@@ -40,6 +40,7 @@
 
 .inner-container {
   display: flex;
+  justify-content: center;
 
   margin-top: 3vw;
   margin-bottom: 5vw;

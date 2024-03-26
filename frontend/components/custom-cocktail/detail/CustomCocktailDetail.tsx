@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StaticImageData } from 'next/image';
+// import { StaticImageData } from 'next/image';
 
 import styles from './CustomCocktailDetail.module.scss';
 
@@ -11,19 +11,11 @@ import CustomCocktailInfo from '@/components/custom-cocktail/CustomCocktailInfo'
 import CustomCocktailModifyButton from '@/components/custom-cocktail/CustomCocktailModifyButton';
 import CustomCocktailRecipe from '@/components/custom-cocktail/CustomCocktailRecipe';
 
-import alcohol from '@/public/assets/imgs/alcohol.png';
-
-import apple from '@/public/assets/imgs/apple.png';
-
-import ice from '@/public/assets/imgs/ice.png';
-import lemon from '@/public/assets/imgs/lemon.png';
-import vodka from '@/public/assets/imgs/vodka.png';
-
-interface IngredientsList {
+interface Custom_Ingredients {
   ingredient: {
     id: number;
     name: string;
-    image: string | StaticImageData;
+    image: string;
   };
   ingredient_amount: number;
   unit: {
@@ -32,14 +24,18 @@ interface IngredientsList {
   };
 }
 
-interface CustomDetailData {
+interface Data {
+  custom_ingredients: Custom_Ingredients[];
   user: {
     id: number;
-    name: string;
+    nickname: string;
   };
-  cocktail: {
+  origin_cocktail: {
     id: number;
     name: string;
+    korean_name: string;
+    image: string;
+    heart_count: number;
   };
   id: number;
   name: string;
@@ -47,14 +43,19 @@ interface CustomDetailData {
   recipe: string;
   summary: string;
   comment: string;
-  custom_cocktail_ingredients: IngredientsList[];
   open: boolean;
+}
+
+interface ApiResponse {
+  code: number;
+  messages: string[];
+  data: Data;
 }
 
 interface Ingredient {
   id: number;
   name: string;
-  image: string | StaticImageData;
+
   category: {
     id: number;
     name: string;
@@ -64,172 +65,88 @@ interface Ingredient {
 interface StoreData {
   ingredients: Ingredient[];
 }
+const storeData: StoreData = {
+  ingredients: [
+    {
+      id: 2,
+      name: '레몬',
+
+      category: {
+        id: 2,
+        name: 'fruit',
+      },
+    },
+    {
+      id: 3,
+      name: '얼음',
+
+      category: {
+        id: 3,
+        name: 'beverage',
+      },
+    },
+    {
+      id: 7,
+      name: '보드카',
+
+      category: {
+        id: 1,
+        name: 'alcohol',
+      },
+    },
+    {
+      id: 8,
+      name: '어쩌고',
+
+      category: {
+        id: 1,
+        name: 'alcohol',
+      },
+    },
+  ],
+};
+
+const storeList = storeData.ingredients;
 
 interface Props {
   customId: string;
 }
 
-export default function CustomCocktailDetail({ customId }: Props) {
+const token = process.env.NEXT_PUBLIC_TOKEN;
+
+export async function getData({ customId }: Props) {
   // console.log(customId);
-  const customDetailData: CustomDetailData = {
-    user: {
-      id: 1,
-      name: '끼리코',
+
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/customs/${customId}`,
+    {
+      headers: {
+        Authorization: token ? `${token}` : '',
+      },
     },
-    cocktail: {
-      id: 1,
-      name: '애플 마티니',
-    },
-    id: 1,
-    name: '날씨 좋은 주말을 위한 애플 마티니',
-    image:
-      'https://ik.imagekit.io/bhug69xts/tr:h-1200,w-1200/apple-martini.png',
-    recipe:
-      '1. 먼저 얼음으로 하이볼 글라스를 차갑게 만들어주세요.|2. 앱솔루트 망고 크란베리 주스와 오랜지 주스를 부어 넣어주세요.|3. 모든 재료를 조심스레 섞어주세요.|4. 망고 웨지로 가니쉬를 해주어 장식해 주세요.|5. 짜잔 이제 당신만의 망고 브리즈를 즐길 수 있게 되었습니다 망고 브리즈는 단순히 음료가 아니에요 햇볕이 피부를 따스히 감싸고 모래사장이 있는 푸른 바다 위에서 해먹에 누워있는 듯한 경험을 선사해 주죠.|6. 따라서 특별한 기념일을 축하하거나 아무때나 마시세요.',
-    summary: '원래 안 들어가는 레몬과 리큐르를 넣었어요',
-    comment:
-      '집에 다른 칵테일 만들다 남은 레몬이랑 레몬 리큐르가 애매하게 남아서한 번 넣어봤는데 원래 먹던 것보다 상큼하고 사람들이 좀 더 대중적으로 좋아할 것 같은 맛이 된 것 같아요 ㅋㅋ 둘 중 하나만 넣어도 괜찮을 것 같고... 재레몬 넣으시는 거 추천 드립니다!',
-    custom_cocktail_ingredients: [
-      {
-        ingredient: {
-          id: 1,
-          name: '사과',
-          image: apple,
-        },
-        ingredient_amount: 50,
-        unit: {
-          id: 1,
-          name: '조각',
-        },
-      },
-      {
-        ingredient: {
-          id: 2,
-          name: '레몬',
-          image: lemon,
-        },
-        ingredient_amount: 3,
-        unit: {
-          id: 2,
-          name: '슬라이스',
-        },
-      },
-      {
-        ingredient: {
-          id: 3,
-          name: '얼음',
-          image: ice,
-        },
-        ingredient_amount: 100,
-        unit: {
-          id: 3,
-          name: '그램',
-        },
-      },
-      {
-        ingredient: {
-          id: 4,
-          name: '레몬 리큐르',
-          image: alcohol,
-        },
-        ingredient_amount: 5,
-        unit: {
-          id: 4,
-          name: 'ml',
-        },
-      },
-      {
-        ingredient: {
-          id: 5,
-          name: '사과 리큐르',
-          image: alcohol,
-        },
-        ingredient_amount: 15,
-        unit: {
-          id: 4,
-          name: 'ml',
-        },
-      },
-      {
-        ingredient: {
-          id: 6,
-          name: '쿠앵트로',
-          image: alcohol,
-        },
-        ingredient_amount: 15,
-        unit: {
-          id: 4,
-          name: 'ml',
-        },
-      },
-      {
-        ingredient: {
-          id: 7,
-          name: '보드카',
-          image: vodka,
-        },
-        ingredient_amount: 40,
-        unit: {
-          id: 4,
-          name: 'ml',
-        },
-      },
-    ],
-    open: true,
-  };
+  );
 
-  const storeData: StoreData = {
-    ingredients: [
-      {
-        id: 2,
-        name: '레몬',
-        image: lemon,
-        category: {
-          id: 2,
-          name: 'fruit',
-        },
-      },
-      {
-        id: 3,
-        name: '얼음',
-        image: ice,
-        category: {
-          id: 3,
-          name: 'beverage',
-        },
-      },
-      {
-        id: 7,
-        name: '보드카',
-        image: vodka,
-        category: {
-          id: 1,
-          name: 'alcohol',
-        },
-      },
-      {
-        id: 8,
-        name: '어쩌고',
-        image: vodka,
-        category: {
-          id: 1,
-          name: 'alcohol',
-        },
-      },
-    ],
-  };
+  if (!response.ok) {
+    const error = new Error('Failed to fetch data');
+    throw error;
+  } else {
+    const data: ApiResponse = await response.json();
+    return data.data;
+  }
+}
+export default async function CustomCocktailDetail({ customId }: Props) {
+  const customCocktailDetailData = await getData({ customId });
 
-  const ingredientsList = customDetailData.custom_cocktail_ingredients;
-
-  const storeList = storeData.ingredients;
+  const customIngredients: Custom_Ingredients[] =
+    customCocktailDetailData.custom_ingredients;
 
   return (
     <div className={styles['flex-container']}>
       <div className={styles.container}>
         <div className={styles['title-container']}>
-          <div className={styles.name}>{customDetailData.name}</div>
+          <div className={styles.name}>{customCocktailDetailData.name}</div>
           <div className={styles.nickname}>
-            by&nbsp;{customDetailData.user.name}
+            by&nbsp;{customCocktailDetailData.user.nickname}
           </div>
           <div />
 
@@ -247,36 +164,22 @@ export default function CustomCocktailDetail({ customId }: Props) {
         <hr className={styles.hr} />
         <div className={styles['inner-container']}>
           <div className={styles.space}>
-            <CustomCocktailImage customImage={customDetailData.image} />
+            <CustomCocktailImage customImage={customCocktailDetailData.image} />
             <div className={styles['info-container']}>
-              <CustomCocktailInfo cocktail={customDetailData.cocktail.name} />
-              <CustomCocktailInfo summary={customDetailData.summary} />
-              <CustomCocktailInfo comment={customDetailData.comment} />
+              <CustomCocktailInfo cocktail={customCocktailDetailData.name} />
+              <CustomCocktailInfo summary={customCocktailDetailData.summary} />
+              <CustomCocktailInfo comment={customCocktailDetailData.comment} />
             </div>
           </div>
           <div className={styles.space}>
             <IngredientCardWrapper
-              ingredients={ingredientsList}
+              ingredients={customIngredients}
               storeData={storeList}
             />
-            <CustomCocktailRecipe recipe={customDetailData.recipe} />
+            <CustomCocktailRecipe recipe={customCocktailDetailData.recipe} />
           </div>
         </div>
       </div>
     </div>
   );
-}
-
-export async function generateStaticParams() {
-  const dummyCocktailId = [
-    { id: '1' },
-    { id: '2' },
-    { id: '3' },
-    { id: '4' },
-    { id: '5' },
-  ];
-
-  return dummyCocktailId.map((cocktail) => ({
-    customId: cocktail.id.toString(),
-  }));
 }
