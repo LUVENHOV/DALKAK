@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FavoriteBorder } from '@mui/icons-material';
+import { Favorite } from '@mui/icons-material';
 import Link from 'next/link';
 import styles from './CocktailCard.module.scss';
 
@@ -27,7 +27,7 @@ export default function CocktailCard(props: ICocktailType) {
             <h3 className={styles.kor}>{koreanName}</h3>
           </div>
           <div className={styles.like}>
-            <FavoriteBorder />
+            <Favorite />
             {heartCount}
           </div>
         </div>
