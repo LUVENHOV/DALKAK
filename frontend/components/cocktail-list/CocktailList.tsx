@@ -20,6 +20,7 @@ const getCocktailList = async ({
   color,
   sweetness,
   orderBy,
+  setTotalPage,
 }: ISearchParamsType) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/search?page=${page}&cocktail-name=${cocktailName}&ingredients=${ingredients}&base=${base ? base : ''}&min-alcohol=${minAlcohol}&max-alcohol=${maxAlcohol}&color=${color ? color : ''}&sweetness=${sweetness ? sweetness : ''}&orderBy=${orderBy}`,
@@ -29,6 +30,8 @@ const getCocktailList = async ({
     },
   );
   const json = await res.json();
+  console.log(json);
+  setTotalPage((await json).data.total_page);
   return (await json).data.cocktails;
 };
 
@@ -44,6 +47,7 @@ export default function CocktailList() {
     sweetness,
     orderBy,
     activateSearch,
+    setTotalPage,
   } = useSearchStore();
 
   const [cocktailList, setCocktailList] = useState([]);
@@ -60,6 +64,7 @@ export default function CocktailList() {
         sweetness,
         orderBy,
         activateSearch,
+        setTotalPage,
       });
       setCocktailList(cocktailRes);
     };

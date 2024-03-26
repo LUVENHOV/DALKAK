@@ -113,6 +113,10 @@ export default function CocktailSearchForm() {
     setMaxAlcohol(arr[1]);
   };
 
+  const handleOnClick = () => {
+    setActivateSearch();
+  };
+
   return (
     <>
       <div className={styles['cocktailName-search-container']}>
@@ -126,7 +130,7 @@ export default function CocktailSearchForm() {
         <button
           type="submit"
           aria-label="Search Button"
-          onClick={setActivateSearch}
+          onClick={handleOnClick}
         >
           <Search />
         </button>
@@ -191,7 +195,7 @@ export default function CocktailSearchForm() {
               <BtnWithIcon
                 text="적용"
                 btnStyle="full-point"
-                handleOnClick={setActivateSearch}
+                handleOnClick={handleOnClick}
               />
             </div>
           </div>

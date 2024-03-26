@@ -12,7 +12,9 @@ export default function Page() {
       <CocktailSearchForm />
       <SortBy />
       <CocktailList />
-      <CocktailPagination />
+      <div className={styles['pagination-wrapper']}>
+        <CocktailPagination />
+      </div>
     </div>
   );
 }

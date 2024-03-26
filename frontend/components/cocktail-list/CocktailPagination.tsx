@@ -6,10 +6,11 @@ import styles from './CocktailPagination.module.scss';
 import useSearchStore from '@/store/searchStore';
 
 export default function CocktailPagination() {
-  const { page, setPage } = useSearchStore();
+  const { totalPage, setPage, setActivateSearch } = useSearchStore();
 
-  const handlePageClick = (newPage: number) => {
-    setPage(newPage);
+  const handlePageClick = (selectedItem: { selected: number }) => {
+    setPage(selectedItem.selected + 1);
+    setActivateSearch();
   };
 
   return (
@@ -20,7 +21,7 @@ export default function CocktailPagination() {
         nextLabel=">"
         pageRangeDisplayed={3}
         marginPagesDisplayed={1}
-        pageCount={20}
+        pageCount={totalPage}
         onPageChange={handlePageClick}
         containerClassName={styles.pagination}
         pageClassName={styles['pagination-page']}
