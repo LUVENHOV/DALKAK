@@ -5,26 +5,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './CocktailList.module.scss';
 import CocktailCard from '@/components/cocktail-list/CocktailCard';
 import useSearchStore from '@/store/searchStore';
-
-interface ICocktailType {
-  id: number;
-  name: string;
-  korean_name: string;
-  image: string;
-  heart_count: number;
-}
-
-interface ISearchType {
-  page: number;
-  cocktailName: string;
-  ingredients: number[];
-  base: number;
-  minAlcohol: number;
-  maxAlcohol: number;
-  color: number;
-  sweetness: number;
-  orderBy: number;
-}
+import { ICocktailType, ISearchParamsType } from '@/types/SearchTypes';
 
 const authorization =
   'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTEzMjkwNDUsImV4cCI6MTcxMTc2MTA0NSwiaWQiOjN9.zcY6r5AdHWBddd-sUz8oFdGV14DZLLyXi_5-BG--C20';
@@ -39,16 +20,15 @@ const getCocktailList = async ({
   color,
   sweetness,
   orderBy,
-}: ISearchType) => {
+}: ISearchParamsType) => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/search?page=${page}&cocktail-name=${cocktailName}&ingredients=${ingredients}&base=${base}&min-alcohol=${minAlcohol}&max-alcohol=${maxAlcohol}&color=${color}&sweetness=${sweetness}&orderBy=${orderBy}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/search?page=${page}&cocktail-name=${cocktailName}&ingredients=${ingredients}&base=${base ? base : ''}&min-alcohol=${minAlcohol}&max-alcohol=${maxAlcohol}&color=${color ? color : ''}&sweetness=${sweetness ? sweetness : ''}&orderBy=${orderBy}`,
     {
       headers: { authorization },
       next: { tags: ['cocktailList'] },
     },
   );
   const json = await res.json();
-  console.log(json.data.cocktails);
   return (await json).data.cocktails;
 };
 
@@ -63,6 +43,7 @@ export default function CocktailList() {
     color,
     sweetness,
     orderBy,
+    activateSearch,
   } = useSearchStore();
 
   const [cocktailList, setCocktailList] = useState([]);
@@ -78,21 +59,12 @@ export default function CocktailList() {
         color,
         sweetness,
         orderBy,
+        activateSearch,
       });
       setCocktailList(cocktailRes);
     };
     updateViews();
-  }, [
-    page,
-    cocktailName,
-    ingredients,
-    base,
-    minAlcohol,
-    maxAlcohol,
-    color,
-    sweetness,
-    orderBy,
-  ]);
+  }, [activateSearch]);
 
   return (
     <div className={styles['cocktail-list']}>

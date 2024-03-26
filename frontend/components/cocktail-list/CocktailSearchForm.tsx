@@ -99,6 +99,7 @@ export default function CocktailSearchForm() {
     setMaxAlcohol,
     setColor,
     setSweetness,
+    setActivateSearch,
     clearAll,
   } = useSearchStore();
 
@@ -110,20 +111,6 @@ export default function CocktailSearchForm() {
   const handleAlcoholContent = (arr: readonly number[]) => {
     setMinAlcohol(arr[0]);
     setMaxAlcohol(arr[1]);
-  };
-
-  const handleDetailSearch = () => {
-    console.log(
-      page,
-      cocktailName,
-      ingredients,
-      base,
-      minAlcohol,
-      maxAlcohol,
-      color,
-      sweetness,
-      orderBy,
-    );
   };
 
   return (
@@ -139,7 +126,7 @@ export default function CocktailSearchForm() {
         <button
           type="submit"
           aria-label="Search Button"
-          onClick={() => handleDetailSearch}
+          onClick={setActivateSearch}
         >
           <Search />
         </button>
@@ -204,7 +191,7 @@ export default function CocktailSearchForm() {
               <BtnWithIcon
                 text="적용"
                 btnStyle="full-point"
-                handleOnClick={handleDetailSearch}
+                handleOnClick={setActivateSearch}
               />
             </div>
           </div>
