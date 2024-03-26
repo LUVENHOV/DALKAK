@@ -103,7 +103,7 @@ const dummy = [
   },
 ];
 
-export const serverDelay = (func) => (duration) =>
+export const serverDelay = (func: () => void) => (duration: number) =>
   new Promise((resolve) => {
     setTimeout(() => {
       resolve(func());
