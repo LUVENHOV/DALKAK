@@ -9,6 +9,7 @@ interface IMemberInfo {
   birth: string;
   gender: string;
 }
+
 export default function InfoSurvey() {
   const accessToken = authStore((state) => state.accessToken);
   const setNickname = surveyStore((state) => state.setNickname);
@@ -102,12 +103,17 @@ export default function InfoSurvey() {
         </div>
         <hr />
         <div className="gender input-wrapper">
-          <input
+          <div>성별</div>
+          <div className="genderSelect">
+            <div>남</div>
+            <div>여</div>
+          </div>
+          {/* <input
             placeholder="성별"
             onChange={(e) => {
               setMemberInfoHandler(e, 'gender');
             }}
-          />
+          /> */}
         </div>
         <hr />
       </div>
