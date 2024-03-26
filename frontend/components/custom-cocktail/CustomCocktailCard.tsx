@@ -7,10 +7,14 @@ import { useRouter } from 'next/navigation';
 import styles from './CustomCocktailCard.module.scss';
 
 interface Custom {
-  title: string;
-  comment: string;
-  author: string;
-  imageLink: string;
+  id: number;
+  image: string;
+  name: string;
+  summary: string;
+  user: {
+    id: number;
+    nickname: string;
+  };
 }
 
 interface Custom_Cocktails {
@@ -32,8 +36,9 @@ export default function CustomCocktailCard<
   T extends Custom | Custom_Cocktails,
 >({ custom }: Props<T>) {
   const router = useRouter();
+
   const goToDetail = () => {
-    router.push('/cocktail/custom/detail/1');
+    router.push(`/cocktail/custom/detail/${custom.id}`);
   };
 
   const previewImageName =
@@ -54,22 +59,20 @@ export default function CustomCocktailCard<
       >
         <img
           className={previewImageName}
-          src={
-            (custom as Custom).imageLink || (custom as Custom_Cocktails).image
-          }
-          alt={(custom as Custom).title || (custom as Custom_Cocktails).name}
+          src={(custom as Custom).image || (custom as Custom_Cocktails).image}
+          alt={(custom as Custom).name || (custom as Custom_Cocktails).name}
         />
         <div className={styles.author}>
           by&nbsp;{' '}
-          {(custom as Custom).author ||
+          {(custom as Custom).user.nickname ||
             (custom as Custom_Cocktails).user.nickname}
         </div>
       </button>
       <div className={previewTitleName}>
-        {(custom as Custom).title || (custom as Custom_Cocktails).user.id}
+        {(custom as Custom).user.id || (custom as Custom_Cocktails).user.id}
       </div>
       <div className={previewCommentName}>
-        {(custom as Custom).comment || (custom as Custom_Cocktails).summary}
+        {(custom as Custom).summary || (custom as Custom_Cocktails).summary}
       </div>
     </div>
   );

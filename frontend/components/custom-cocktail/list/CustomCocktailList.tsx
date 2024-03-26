@@ -5,15 +5,6 @@ import UpperLineBanner from '@/components/common/UpperLineBanner';
 import CustomCocktailCardWrapper from '@/components/custom-cocktail/CustomCocktailCardWrapper';
 // import CustomCocktailWriteButton from '@/components/custom-cocktail/CustomCocktailWriteButton';
 
-interface DummyList {
-  id: number;
-  title: string;
-  comment: string;
-  author: string;
-  imageLink: string;
-}
-
-
 interface Custom_Cocktails {
   id: number;
   image: string;
@@ -21,11 +12,9 @@ interface Custom_Cocktails {
   summary: string;
   user: {
     id: number;
-    nickname: string; 
-  }
-
+    nickname: string;
+  };
 }
-
 
 interface ApiResponse {
   code: number;
@@ -34,8 +23,8 @@ interface ApiResponse {
     custom_cocktails: Custom_Cocktails[];
     current_page: number;
     total_page: number;
-    total_elements: number; 
-  }
+    total_elements: number;
+  };
 }
 
 interface Props {
@@ -43,8 +32,6 @@ interface Props {
 }
 
 const token = process.env.NEXT_PUBLIC_TOKEN;
-
-
 
 export async function getData({ cocktailId }: Props) {
   // console.log(cocktailId);
@@ -67,20 +54,13 @@ export async function getData({ cocktailId }: Props) {
   }
 }
 
-export default async function CustomCocktailList({cocktailId}:Props) {
-
-  const customCocktailListData = await getData({cocktailId});
-  const customCocktailList :  
-Custom_Cocktails[]
-  = customCocktailListData.custom_cocktails; 
-
-  const data: 
-
-
-  
+export default async function CustomCocktailList({ cocktailId }: Props) {
+  const customCocktailListData = await getData({ cocktailId });
+  const customCocktailList: Custom_Cocktails[] =
+    customCocktailListData.custom_cocktails;
 
   // const totalCount = totalData.total_count;
-  const totalPages = data.total_page;
+  const totalPages = customCocktailListData.total_page;
   // const currentPage = totalData.current_page;
 
   // const dummyList: DummyList[] = customCocktailList.custom_cocktails;
@@ -92,7 +72,7 @@ Custom_Cocktails[]
         frontText="끼리코"
         secondText="님이 좋아하시는 칵테일이에요!"
       />
-      <CustomCocktailCardWrapper dummy={customCocktailListData} />
+      <CustomCocktailCardWrapper dummy={customCocktailList} />
 
       <Pagination
         articles={customCocktailListData}
@@ -102,7 +82,4 @@ Custom_Cocktails[]
       />
     </div>
   );
-  }
-
-
 }

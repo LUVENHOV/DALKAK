@@ -14,16 +14,17 @@ interface Custom_Cocktails {
     id: number;
     nickname: string;
   };
-  current_page: number;
-  total_page: number;
-  total_elements: number;
 }
 
 interface Dummy {
-  title: string;
-  comment: string;
-  author: string;
-  imageLink: string;
+  id: number;
+  image: string;
+  name: string;
+  summary: string;
+  user: {
+    id: number;
+    nickname: string;
+  };
 }
 
 // interface PreviewDummy {
