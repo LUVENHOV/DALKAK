@@ -30,7 +30,6 @@ const getCocktailList = async ({
     },
   );
   const json = await res.json();
-  console.log(json);
   setTotalPage((await json).data.total_page);
   return (await json).data.cocktails;
 };
