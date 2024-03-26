@@ -1,23 +1,10 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
+import useSearchStore from '@/store/searchStore';
 
-interface ISearchType {
-  authorization: string;
-  page: number;
-  cocktailName?: string | null;
-  ingredients?: number[] | null;
-  base?: number | null;
-  minAlcohol?: number | null;
-  maxAlcohol?: number | null;
-  color?: number | null;
-  sweetness?: number | null;
-  orderBy?: number | null;
-}
-
-export default async function getCocktailList(props: ISearchType) {
+export default async function useCocktailList(authorization: string) {
   const {
-    authorization,
     page,
     cocktailName,
     ingredients,
@@ -27,7 +14,7 @@ export default async function getCocktailList(props: ISearchType) {
     color,
     sweetness,
     orderBy,
-  } = props;
+  } = useSearchStore();
 
   console.log(
     `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/search?page=${page}&cocktail-name=${cocktailName || ''}&ingredients=${ingredients || ''}&base=${base || ''}&min-alcohol=${minAlcohol}&max-alcohol=${maxAlcohol}&color=${color || ''}&sweetness=${sweetness || ''}&orderBy=${orderBy}`,
@@ -44,5 +31,7 @@ export default async function getCocktailList(props: ISearchType) {
     throw new Error('Failed to fetch data');
   }
 
-  revalidateTag('cocktailList');
+  return (await res.json()).data.cocktails;
+
+  // revalidateTag('cocktailList');
 }
