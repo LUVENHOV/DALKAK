@@ -1,3 +1,8 @@
+.banner-container {
+  margin-top: 13vw;
+  text-align: center;
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -54,4 +59,21 @@
     width: 9.8vw;
     height: 9.8vw;
   }
+}
+
+.first-text {
+  color: var(--color-point);
+  cursor: pointer;
+  font-size: 1.55vw;
+  font-weight: 600;
+}
+
+.second-text {
+  font-weight: 100;
+  font-size: 1.55vw;
+}
+
+.text {
+  position: relative;
+  top: 2vw;
 }

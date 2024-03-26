@@ -1,4 +1,4 @@
-.keyword-search-container {
+.cocktailName-search-container {
   width: 40vw;
   height: 5vw;
   text-align: center;
@@ -22,6 +22,7 @@
   }
 
   button {
+    cursor: pointer;
     svg {
       font-size: 2vw;
     }
