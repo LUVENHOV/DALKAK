@@ -14,7 +14,7 @@
 
 .empty-dark {
   color: var(--color-text);
-  border: 0.2vw solid var(--color-text);
+  border: 2px solid var(--color-text);
   background-color: white;
 
   svg {
@@ -24,7 +24,7 @@
 
 .empty-light {
   color: var(--color-placeholder);
-  border: 0.2vw solid var(--color-placeholder);
+  border: 2px solid var(--color-placeholder);
   background-color: white;
 
   svg {
