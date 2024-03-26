@@ -8,7 +8,7 @@
   margin: 10vh auto 0 auto;
   padding: 1vw;
   box-sizing: border-box;
-  border: 0.25vw solid var(--color-text);
+  border: 3px solid var(--color-text);
   border-radius: 1.5vw;
 
   input {
@@ -47,8 +47,8 @@
 
   .body {
     // background-color: skyblue;
-    border-top: 0.2vw solid var(--color-base);
-    border-bottom: 0.2vw solid var(--color-base);
+    border-top: 3px solid var(--color-base);
+    border-bottom: 3px solid var(--color-base);
     padding: 5vh 0;
 
     .reset {

@@ -20,6 +20,8 @@
   }
 
   .title {
+    width: 90%;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -30,17 +32,30 @@
 
       .eng {
         font-size: 1rem;
+        width: 12vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       .kor {
         font-size: 0.6rem;
+        width: 12vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
 
     .like {
       display: flex;
       align-items: center;
+      justify-content: flex-end;
       font-size: 0.8rem;
+      width: 4vw;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
 
       svg {
         font-size: 0.8rem;
