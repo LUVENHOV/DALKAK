@@ -101,21 +101,22 @@ public class CocktailServiceImpl implements CocktailService {
         }
         //커스텀 레시피 리스트
         List<Custom> customCocktails = customRepository.findAllByCocktailOrderByIdDesc(targetCocktail);
-        List<CustomCocktailDto> customCocktailDtoList = new ArrayList<>();
-        for(Custom custom : customCocktails) {
-            customCocktailDtoList
-                .add(CustomCocktailDto
-                    .builder()
-                    .id(custom.getId())
-                    .image(custom.getCocktail().getImage())
-                    .name(custom.getName())
-                    .summary(custom.getSummary())
-                    .user(UserDto.builder().id(custom.getMember().getId()).nickname(custom.getMember().getNickname()).build())
-                    .build());
-        }
+        List<CustomCocktailDto> customCocktailDtoList = customCocktails.stream()
+            .limit(4)
+            .map(custom -> CustomCocktailDto.builder()
+                .id(custom.getId())
+                .image(custom.getCocktail().getImage())
+                .name(custom.getName())
+                .summary(custom.getSummary())
+                .user(UserDto.builder()
+                    .id(custom.getMember().getId())
+                    .nickname(custom.getMember().getNickname())
+                    .build())
+                .build())
+            .toList();
 
-        return CocktailDetailResDto.of(targetCocktail, cocktailIngredientDtoList, toolDtoList,
-            customCocktailDtoList);
+        return CocktailDetailResDto.of(targetCocktail, cocktailIngredientDtoList, toolDtoList, customCocktailDtoList);
+
     }
 
     public List<IngredientDto> findIngredient(String ingredientName) {
