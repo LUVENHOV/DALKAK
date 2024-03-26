@@ -2,33 +2,29 @@
 
 import React from 'react';
 import styles from './SortBy.module.scss';
-
-interface propsType {
-  orderBy: string;
-  handleOrderBy: (e: React.MouseEvent<HTMLButtonElement>) => void;
-}
+import useSearchStore from '@/store/searchStore';
 
 const sortingList = [
   {
-    id: '3',
+    id: 3,
     text: '이름 오름차순',
   },
   {
-    id: '4',
+    id: 4,
     text: '이름 내림차순',
   },
   {
-    id: '2',
+    id: 2,
     text: '좋아요 오름차순',
   },
   {
-    id: '1',
+    id: 1,
     text: '좋아요 내림차순',
   },
 ];
 
-export default function SortBy(props: propsType) {
-  const { orderBy, handleOrderBy } = props;
+export default function SortBy() {
+  const { orderBy, setOrderBy } = useSearchStore();
 
   return (
     <div className={styles.container}>
@@ -38,7 +34,7 @@ export default function SortBy(props: propsType) {
             type="button"
             value={sort.id}
             className={sort.id === orderBy ? styles.selected : ''}
-            onClick={(e) => handleOrderBy(e)}
+            onClick={() => setOrderBy(sort.id)}
           >
             {sort.text}
           </button>

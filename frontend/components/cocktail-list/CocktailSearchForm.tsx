@@ -9,144 +9,132 @@ import {
 } from '@mui/icons-material';
 import styles from './CocktailSearchForm.module.scss';
 
-import SearchAlcoholContent from './SearchAlcoholContent';
 import SearchBlock from './SearchBlock';
 import SearchColor from './SearchColor';
-import SortBy from './SortBy';
+import SearchAlcoholContent from '../common/AlcoholContent';
 import BtnWithIcon from '../common/BtnWithIcon';
 import SearchIngredients from '../common/SearchIngredients';
+import useSearchStore from '@/store/searchStore';
 
 const baseList = [
   {
-    id: '1',
+    id: 1,
     name: '샴페인',
   },
   {
-    id: '2',
+    id: 2,
     name: '럼',
   },
   {
-    id: '3',
+    id: 3,
     name: '위스키',
   },
   {
-    id: '4',
+    id: 4,
     name: '보드카',
   },
   {
-    id: '5',
+    id: 5,
     name: '진',
   },
   {
-    id: '6',
+    id: 6,
     name: '테킬라',
   },
   {
-    id: '7',
+    id: 7,
     name: '브랜디',
   },
   {
-    id: '8',
+    id: 8,
     name: '리큐어',
   },
   {
-    id: '9',
+    id: 9,
     name: '와인',
   },
   {
-    id: '10',
+    id: 10,
     name: '비터즈',
   },
 ];
 const sweetnessList = [
   {
-    id: '1',
+    id: 1,
     name: '매우 낮음',
   },
   {
-    id: '2',
-    name: '씁쓸함',
+    id: 2,
+    name: '낮음',
   },
   {
-    id: '3',
+    id: 3,
     name: '보통',
   },
   {
-    id: '4',
-    name: '달콤함',
+    id: 4,
+    name: '높음',
   },
   {
-    id: '5',
-    name: '매우 달콤함',
+    id: 5,
+    name: '매우 높음',
   },
 ];
 
 export default function CocktailSearchForm() {
+  const {
+    page,
+    cocktailName,
+    ingredients,
+    base,
+    minAlcohol,
+    maxAlcohol,
+    color,
+    sweetness,
+    orderBy,
+    setCocktailName,
+    setIngredients,
+    setBase,
+    setMinAlcohol,
+    setMaxAlcohol,
+    setColor,
+    setSweetness,
+    clearAll,
+  } = useSearchStore();
+
   const [isVisible, setIsVisible] = useState(true);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [keyword, setKeyword] = useState('');
-  // eslint-disable-next-line import/extensions, import/no-unresolved
-  // const [ingredients, setIngredients] = useState([]);
-  const [base, setBase] = useState('');
-  const [alcoholContent, setAlcoholContent] = useState<readonly number[]>([
-    15, 35,
-  ]);
-  const [color, setColor] = useState('');
-  const [sweetness, setSweetness] = useState('');
-  const [orderBy, setOrderBy] = useState('');
-
-  const handleKeyword = (e: ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
-  };
-
-  const handleReset = () => {
-    setKeyword('');
-    // setIngredients([]);
-    setBase('');
-    setAlcoholContent([15, 35]);
-    setColor('');
-    setSweetness('');
-    setOrderBy('');
-  };
-
-  const handleBase = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setBase(e.currentTarget.value);
+  const handleCocktailName = (e: ChangeEvent<HTMLInputElement>) => {
+    setCocktailName(e.target.value);
   };
 
   const handleAlcoholContent = (arr: readonly number[]) => {
-    setAlcoholContent(arr);
-  };
-
-  const handleColor = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setColor(e.currentTarget.value);
-  };
-
-  const handleSweetness = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setSweetness(e.currentTarget.value);
-  };
-
-  const handleOrderBy = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setOrderBy(e.currentTarget.value);
+    setMinAlcohol(arr[0]);
+    setMaxAlcohol(arr[1]);
   };
 
   const handleDetailSearch = () => {
-    // console.log(keyword);
-    // console.log(ingredients);
-    // console.log(base);
-    // console.log(alcoholContent);
-    // console.log(color);
-    // console.log(sweetness);
-    // console.log(orderBy);
+    console.log(
+      page,
+      cocktailName,
+      ingredients,
+      base,
+      minAlcohol,
+      maxAlcohol,
+      color,
+      sweetness,
+      orderBy,
+    );
   };
 
   return (
     <>
-      <div className={styles['keyword-search-container']}>
+      <div className={styles['cocktailName-search-container']}>
         <input
           type="text"
           placeholder="어떤 칵테일을 찾으시나요?"
-          name="keyword"
-          onChange={(e) => handleKeyword(e)}
+          name="cocktailName"
+          value={cocktailName}
+          onChange={(e) => handleCocktailName(e)}
         />
         <button
           type="submit"
@@ -182,7 +170,7 @@ export default function CocktailSearchForm() {
                 icon={Replay}
                 text="초기화"
                 btnStyle="empty-light"
-                handleOnClick={handleReset}
+                handleOnClick={clearAll}
               />
             </div>
             <div className={`${styles.searchRow} ${styles.ingredients}`}>
@@ -191,29 +179,25 @@ export default function CocktailSearchForm() {
             </div>
             <div className={`${styles.searchRow} ${styles.base}`}>
               <div className={styles.title}>베이스</div>
-              <SearchBlock
-                list={baseList}
-                state={base}
-                handleState={handleBase}
-              />
+              <SearchBlock list={baseList} state={base} handleState={setBase} />
             </div>
             <div className={`${styles.searchRow} ${styles.alcoholContent}`}>
               <div className={styles.title}>도수</div>
               <SearchAlcoholContent
-                alcoholContent={alcoholContent}
+                alcoholContent={[minAlcohol, maxAlcohol]}
                 handleAlcoholContent={handleAlcoholContent}
               />
             </div>
             <div className={`${styles.searchRow} ${styles.color}`}>
               <div className={styles.title}>색상</div>
-              <SearchColor color={color} handleColor={handleColor} />
+              <SearchColor color={color} handleState={setColor} />
             </div>
             <div className={`${styles.searchRow} ${styles.sweetness}`}>
               <div className={styles.title}>당도</div>
               <SearchBlock
                 list={sweetnessList}
                 state={sweetness}
-                handleState={handleSweetness}
+                handleState={setSweetness}
               />
             </div>
             <div className={styles.searchBtn}>
@@ -225,7 +209,6 @@ export default function CocktailSearchForm() {
             </div>
           </div>
         ) : null}
-        <SortBy orderBy={orderBy} handleOrderBy={handleOrderBy} />
       </div>
     </>
   );
