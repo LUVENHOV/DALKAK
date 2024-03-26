@@ -3,7 +3,6 @@ package store.dalkak.api.custom.service;
 import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -33,12 +32,11 @@ import store.dalkak.api.custom.exception.CustomErrorCode;
 import store.dalkak.api.custom.exception.CustomException;
 import store.dalkak.api.custom.repository.CustomIngredientRepository;
 import store.dalkak.api.custom.repository.CustomRepository;
+import store.dalkak.api.global.annotation.UserPermission;
 import store.dalkak.api.global.config.ImageConfig;
 import store.dalkak.api.user.domain.Member;
 import store.dalkak.api.user.dto.MemberDto;
 import store.dalkak.api.user.dto.UserDto;
-import store.dalkak.api.user.exception.UserErrorCode;
-import store.dalkak.api.user.exception.UserException;
 import store.dalkak.api.user.repository.MemberRepository;
 
 @Service
@@ -85,12 +83,9 @@ public class CustomServiceImpl implements CustomService {
     }
 
     @Override
+    @UserPermission(userId = "userId", customCocktailId = "customCocktailId")
     public void deleteCustomCocktail(Long userId, Long customCocktailId) {
         Custom custom = customRepository.findCustomById(customCocktailId);
-
-        if(!Objects.equals(userId, custom.getMember().getId())) {
-            throw new UserException(UserErrorCode.FORBIDDEN);
-        }
 
         // 이미지 삭제
         imageConfig.deleteImage(custom.getImage());
@@ -105,15 +100,16 @@ public class CustomServiceImpl implements CustomService {
     }
 
     @Override
+    @UserPermission(userId = "userId", customCocktailId = "customCocktailId")
     public void modifyCustomCocktail(Long userId, Long customCocktailId, MultipartFile image,
 
         CustomCreateReqDto customCreateReqDto) {
 
         Custom custom = customRepository.findCustomById(customCocktailId);
 
-        if(!Objects.equals(userId, custom.getMember().getId())) {
-            throw new UserException(UserErrorCode.FORBIDDEN);
-        }
+//        if(!Objects.equals(userId, custom.getMember().getId())) {
+//            throw new UserException(UserErrorCode.FORBIDDEN);
+//        }
 
         // 현재 커스텀 칵테일이 저장하고 있는 커스텀 재료 아이디를 리스트에 저장
         List<Long> customIngredientIdList = new ArrayList<>();
