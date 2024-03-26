@@ -1,13 +1,11 @@
 package store.dalkak.api.recommend.service;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import store.dalkak.api.cocktail.domain.HeartRank;
-import store.dalkak.api.cocktail.repository.HeartRankRepository;
+import store.dalkak.api.cocktail.repository.heart.HeartRankRepository;
 import store.dalkak.api.recommend.dto.PreferRecommendResDto;
 import store.dalkak.api.recommend.dto.SurveyRecommendResDto;
 import store.dalkak.api.user.dto.MemberDto;

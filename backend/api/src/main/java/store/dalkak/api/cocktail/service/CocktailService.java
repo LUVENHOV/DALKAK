@@ -25,5 +25,7 @@ public interface CocktailService {
 
     void deleteHeart(MemberDto memberDto, Long cocktailId);
 
+    void migrateHeart();
+
     void modifyRank(List<ElasticDto> viewLogList, List<ElasticDto> heartLogList);
 }

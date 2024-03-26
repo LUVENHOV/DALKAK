@@ -4,7 +4,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import store.dalkak.api.cocktail.domain.HeartRank;
+import store.dalkak.api.cocktail.domain.heart.HeartRank;
 
 @Getter
 @AllArgsConstructor
