@@ -1,7 +1,7 @@
 package store.dalkak.api.cocktail.repository.heart;
 
-import java.util.Map;
+import java.util.List;
 
 public interface HeartRedisRepository {
-    Map<String, Map<Object, Object>> findAllCocktailHashes(String prefix);
+    List<String> findAllRedisList(String prefix);
 }

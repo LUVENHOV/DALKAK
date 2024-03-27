@@ -142,4 +142,10 @@ public class CocktailRepositoryImpl implements CocktailRepositoryCustom {
             .where(cocktail.id.eq(cocktailId)).execute();
     }
 
+    @Override
+    public void modifyViewCount(Long cocktailId, int count) {
+        queryFactory.update(cocktail).set(cocktail.viewCount, count)
+            .where(cocktail.id.eq(cocktailId)).execute();
+    }
+
 }

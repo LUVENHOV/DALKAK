@@ -8,9 +8,11 @@ import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import io.micrometer.common.util.StringUtils;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import store.dalkak.api.cocktail.domain.Cocktail;
 import store.dalkak.api.cocktail.domain.heart.HeartCount;
-import store.dalkak.api.cocktail.domain.heart.HeartMember;
+import store.dalkak.api.cocktail.domain.heart.HeartMatch;
 import store.dalkak.api.cocktail.domain.heart.HeartRank;
 import store.dalkak.api.cocktail.domain.ingredient.CocktailIngredient;
 import store.dalkak.api.cocktail.domain.tool.CocktailTool;
@@ -36,8 +38,9 @@ import store.dalkak.api.cocktail.exception.CocktailErrorCode;
 import store.dalkak.api.cocktail.exception.CocktailException;
 import store.dalkak.api.cocktail.repository.CocktailRepository;
 import store.dalkak.api.cocktail.repository.heart.HeartCountRepository;
-import store.dalkak.api.cocktail.repository.heart.HeartMemberRepository;
+import store.dalkak.api.cocktail.repository.heart.HeartMatchRepository;
 import store.dalkak.api.cocktail.repository.heart.HeartRankRepository;
+import store.dalkak.api.cocktail.repository.heart.HeartRedisRepository;
 import store.dalkak.api.cocktail.repository.ingredient.CocktailIngredientRepository;
 import store.dalkak.api.cocktail.repository.tool.CocktailToolRepository;
 import store.dalkak.api.custom.domain.Custom;
@@ -64,8 +67,9 @@ public class CocktailServiceImpl implements CocktailService {
     private final MemberRepository memberRepository;
     private final HeartRepository heartRepository;
     private final HeartRankRepository heartRankRepository;
-    private final HeartMemberRepository heartMemberRepository;
+    private final HeartMatchRepository heartMatchRepository;
     private final HeartCountRepository heartCountRepository;
+    private final HeartRedisRepository heartRedisRepository;
     private final JPAQueryFactory queryFactory;
     private final Double VIEW_WEIGHT = 0.314;
     private final Double HEART_WEIGHT = 0.807;
@@ -73,8 +77,8 @@ public class CocktailServiceImpl implements CocktailService {
     @Value("${spring.data.redis.count.prefix}")
     private String redisCountPrefix;
 
-    @Value("${spring.data.redis.member.prefix}")
-    private String redisMemberPrefix;
+    @Value("${spring.data.redis.match.prefix}")
+    private String redisMatchPrefix;
 
     public CocktailPageResDto getCocktailList(Pageable page, String cocktailName,
         List<Long> ingredients, Long base, Integer minAlcoholContent, Integer maxAlcoholContent,
@@ -169,7 +173,8 @@ public class CocktailServiceImpl implements CocktailService {
         // [Member]사용자 id : 칵테일 => Heart
         // [Cocktail]칵테일 id : 좋아요 수
         // 두 가지 형태가 저장되어야 함
-        String cocktailKey = redisCountPrefix + cocktailId;
+        String cocktailKey = "[" + redisCountPrefix + "]" + cocktailId;
+        String memberKey = "[" + redisMatchPrefix + "]" + memberDto.getId() + "_" + cocktailId;
         try {
             HeartCount cocktailHeartCount = heartCountRepository.findById(cocktailKey)
                 .orElseThrow();
@@ -177,12 +182,12 @@ public class CocktailServiceImpl implements CocktailService {
                 .count(cocktailHeartCount.getCount() + 1).build());
         } catch (Exception e) {
             Cocktail cocktail = cocktailRepository.findById(cocktailId).orElseThrow();
-            String memberKey = redisMemberPrefix + memberDto.getId() + "_" + cocktailId;
             heartRepository.save(Heart.builder().build());
             heartCountRepository.save(HeartCount.builder().id(cocktailKey).cocktailId(cocktailId)
                 .count(cocktail.getHeartCount() + 1).build());
-            heartMemberRepository.save(
-                HeartMember.builder().id(memberKey).cocktailId(cocktailId)
+        } finally {
+            heartMatchRepository.save(
+                HeartMatch.builder().id(memberKey).cocktailId(cocktailId)
                     .memberId(memberDto.getId()).build());
         }
     }
@@ -190,22 +195,24 @@ public class CocktailServiceImpl implements CocktailService {
     @Override
     public void deleteHeart(MemberDto memberDto, Long cocktailId) {
 
-        String memberKey = redisMemberPrefix + memberDto.getId() + "_" + cocktailId;
+        String memberKey = "[" + redisMatchPrefix + "]" + memberDto.getId() + "_" + cocktailId;
+        String cocktailKey = "[" + redisCountPrefix + "]" + cocktailId;
         try {
             // 만약 캐싱된 데이터가 있을 경우 => redis
-            HeartMember cocktailHeartMember = heartMemberRepository.findById(memberKey)
+            HeartMatch cocktailHeartMatch = heartMatchRepository.findById(memberKey)
                 .orElseThrow();
-            String cocktailKey = redisCountPrefix + cocktailId;
             HeartCount cocktailHeartCount = heartCountRepository.findById(cocktailKey)
                 .orElseThrow();
             heartCountRepository.save(HeartCount.builder().id(cocktailKey).cocktailId(cocktailId)
                 .count(cocktailHeartCount.getCount() - 1).build());
-            heartMemberRepository.delete(cocktailHeartMember);
+            heartMatchRepository.delete(cocktailHeartMatch);
         } catch (Exception e) {
             // 없을 경우 => database
             Cocktail cocktail = cocktailRepository.findById(cocktailId).orElseThrow();
             Member member = memberRepository.findMemberById(memberDto.getId());
             cocktailRepository.modifyHeartCount(cocktailId, cocktail.getHeartCount() - 1);
+            heartCountRepository.save(HeartCount.builder().id(cocktailKey).cocktailId(cocktailId)
+                .count(cocktail.getHeartCount() - 1).build());
             heartRepository.deleteHeartByCocktailAndMember(cocktail, member);
         }
     }
@@ -213,20 +220,34 @@ public class CocktailServiceImpl implements CocktailService {
     @Override
     // 50분마다 레디스에서 데이터베이스로 옮기는 작업
     public void migrateHeart() {
-//        List<HeartMember> heartMemberList = heartMemberRepository.findAll();
-//        Set<Long> cocktailSet = new HashSet<>();
-//        for(HeartMember heartMember : heartMemberList) {
-//            cocktailSet.add(heartMember.getCocktailId());
-//            Cocktail cocktail = cocktailRepository.findById(heartMember.getCocktailId()).orElseThrow();
-//            Member member = memberRepository.findMemberById(heartMember.getMemberId());
-//            heartRepository.save(Heart.builder().cocktail(cocktail).member(member).build());
-//            heartMemberRepository.delete(heartMember);
-//        }
-//        for(Long cocktailId : cocktailSet) {
-//            HeartCount heartCount = heartCountRepository.findByCocktailId(cocktailId);
-//            cocktailRepository.modifyHeartCount(cocktailId, heartCount.getCount());
-//            heartCountRepository.delete(heartCount);
-//        }
+        List<String> countKeyList = heartRedisRepository.findAllRedisList("*" + redisCountPrefix +"*");
+        for(String cocktailKey : countKeyList) {
+            HeartCount heartCount = heartCountRepository.findById(cocktailKey.substring(11)).orElseThrow();
+            cocktailRepository.modifyHeartCount(heartCount.getCocktailId(), heartCount.getCount());
+        }
+
+        List<String> matchKeyList = heartRedisRepository.findAllRedisList("*" + redisMatchPrefix +"*");
+        for(String matchKey : matchKeyList) {
+            HeartMatch heartMatch = heartMatchRepository.findById(matchKey.substring(11)).orElseThrow();
+            Cocktail cocktail = cocktailRepository.findCocktailById(heartMatch.getCocktailId());
+            Member member = memberRepository.findMemberById(heartMatch.getMemberId());
+            Heart heart = heartRepository.findHeartByCocktailAndMember(cocktail, member);
+            if(heart == null) {
+                heartRepository.save(Heart.builder().cocktail(cocktail).member(member).build());
+            }
+        }
+    }
+
+    @Override
+    public void migrateView(List<ElasticDto> viewLogList) {
+        Map<Long, Integer> cocktailMap = new ConcurrentHashMap<>();
+        for(ElasticDto elasticDto : viewLogList) {
+            cocktailMap.put(elasticDto.getCocktailId(), cocktailMap.getOrDefault(elasticDto.getCocktailId(), 0)+1);
+        }
+        for(Entry<Long, Integer> entry : cocktailMap.entrySet()) {
+            Cocktail cocktail = cocktailRepository.findCocktailById(entry.getKey());
+            cocktailRepository.modifyViewCount(entry.getKey(), cocktail.getHeartCount() + entry.getValue());
+        }
     }
 
     @Override

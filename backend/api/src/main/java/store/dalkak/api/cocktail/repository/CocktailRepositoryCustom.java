@@ -14,4 +14,6 @@ public interface CocktailRepositoryCustom {
         Integer orderBy);
 
     void modifyHeartCount(Long cocktailId, int count);
+
+    void modifyViewCount(Long cocktailId, int count);
 }

@@ -27,5 +27,7 @@ public interface CocktailService {
 
     void migrateHeart();
 
+    void migrateView(List<ElasticDto> viewLogList);
+
     void modifyRank(List<ElasticDto> viewLogList, List<ElasticDto> heartLogList);
 }

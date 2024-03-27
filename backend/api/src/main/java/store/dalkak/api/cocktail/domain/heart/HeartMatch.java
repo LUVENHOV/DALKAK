@@ -10,9 +10,9 @@ import org.springframework.data.redis.core.RedisHash;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@RedisHash(value="heartMember", timeToLive = 60*60*2) //2시간
+@RedisHash(value="heartMatch", timeToLive = 60*60*2) //2시간
 @ToString
-public class HeartMember {
+public class HeartMatch {
     @Id
     String id;
 
@@ -21,7 +21,7 @@ public class HeartMember {
     Long cocktailId;
 
     @Builder
-    public HeartMember(String id, Long memberId, Long cocktailId) {
+    public HeartMatch(String id, Long memberId, Long cocktailId) {
         this.id = id;
         this.memberId = memberId;
         this.cocktailId = cocktailId;
