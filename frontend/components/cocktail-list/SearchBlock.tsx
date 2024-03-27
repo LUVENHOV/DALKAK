@@ -7,7 +7,7 @@ interface listType {
 
 interface propsType {
   list: listType[];
-  state: number;
+  state: number | null;
   handleState: (base: number) => void;
 }
 

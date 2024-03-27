@@ -6,9 +6,9 @@
     height: 100%;
     background-color: white;
     padding: 0 1vw;
-    border-top: 0.2vw solid var(--color-placeholder);
-    border-left: 0.2vw solid var(--color-placeholder);
-    border-bottom: 0.2vw solid var(--color-placeholder);
+    border-top: 2px solid var(--color-placeholder);
+    border-left: 2px solid var(--color-placeholder);
+    border-bottom: 2px solid var(--color-placeholder);
     box-sizing: border-box;
     font-size: 1rem;
     cursor: pointer;
@@ -21,7 +21,7 @@
   .block:last-child {
     padding-right: 1.2vw;
     border-radius: 0 1vw 1vw 0;
-    border-right: 0.2vw solid var(--color-placeholder);
+    border-right: 2px solid var(--color-placeholder);
   }
 
   .selected {

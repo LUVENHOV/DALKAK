@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 
 import styles from './cocktail-list.module.scss';
@@ -14,7 +12,9 @@ export default function Page() {
       <CocktailSearchForm />
       <SortBy />
       <CocktailList />
-      <CocktailPagination />
+      <div className={styles['pagination-wrapper']}>
+        <CocktailPagination />
+      </div>
     </div>
   );
 }

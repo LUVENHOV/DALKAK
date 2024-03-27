@@ -54,7 +54,7 @@ const colorList = [
 ];
 
 interface propsType {
-  color: number;
+  color: number | null;
   handleState: (color: number) => void;
 }
 
