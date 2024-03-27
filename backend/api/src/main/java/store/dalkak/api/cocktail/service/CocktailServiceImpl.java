@@ -20,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import store.dalkak.api.cocktail.domain.Cocktail;
+import store.dalkak.api.cocktail.domain.HeartRank;
 import store.dalkak.api.cocktail.domain.ingredient.CocktailIngredient;
 import store.dalkak.api.cocktail.domain.tool.CocktailTool;
 import store.dalkak.api.cocktail.dto.CocktailDto;
@@ -31,6 +32,7 @@ import store.dalkak.api.cocktail.dto.response.CocktailPageResDto;
 import store.dalkak.api.cocktail.exception.CocktailErrorCode;
 import store.dalkak.api.cocktail.exception.CocktailException;
 import store.dalkak.api.cocktail.repository.CocktailRepository;
+import store.dalkak.api.cocktail.repository.HeartRankRepository;
 import store.dalkak.api.cocktail.repository.ingredient.CocktailIngredientRepository;
 import store.dalkak.api.cocktail.repository.tool.CocktailToolRepository;
 import store.dalkak.api.custom.domain.Custom;
@@ -56,6 +58,7 @@ public class CocktailServiceImpl implements CocktailService {
     private final CustomRepository customRepository;
     private final MemberRepository memberRepository;
     private final HeartRepository heartRepository;
+    private final HeartRankRepository heartRankRepository;
     private final JPAQueryFactory queryFactory;
 
     public CocktailPageResDto getCocktailList(Pageable page, String cocktailName,
@@ -181,10 +184,15 @@ public class CocktailServiceImpl implements CocktailService {
                 (oldValue, newValue) -> oldValue, // 중복 키가 있을 경우 어떻게 처리할지 정의 (이 경우는 생략 가능)
                 LinkedHashMap::new)); // 정렬된 순서를 유지하는 LinkedHashMap에 결과 수집
 
-        // 정렬된 Map 출력
-        sortedMap.forEach((key, value) -> log.info(key + ": " + value));
 
+        // 테이블 비우기
+        heartRankRepository.deleteAll();
 
+        int cocktailCount = 0;
+        for(Map.Entry<Long, Double> entry : sortedMap.entrySet()) {
+            if(cocktailCount++ == 10) break;
+            heartRankRepository.save(HeartRank.builder().cocktailId(entry.getKey()).build());
+        }
     }
 
 }

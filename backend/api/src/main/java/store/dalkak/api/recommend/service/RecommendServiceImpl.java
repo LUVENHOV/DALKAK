@@ -1,9 +1,14 @@
 package store.dalkak.api.recommend.service;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import store.dalkak.api.cocktail.domain.HeartRank;
+import store.dalkak.api.cocktail.repository.HeartRankRepository;
+import store.dalkak.api.recommend.dto.PreferRecommendResDto;
 import store.dalkak.api.recommend.dto.SurveyRecommendResDto;
 import store.dalkak.api.user.dto.MemberDto;
 
@@ -11,6 +16,8 @@ import store.dalkak.api.user.dto.MemberDto;
 @Service
 @RequiredArgsConstructor
 public class RecommendServiceImpl implements RecommendService{
+
+    private final HeartRankRepository heartRankRepository;
 
     @Override
     public SurveyRecommendResDto surveyRecommend(MemberDto memberDto) {
@@ -20,5 +27,10 @@ public class RecommendServiceImpl implements RecommendService{
         String res=webClient.get().retrieve().bodyToMono(String.class).block();
         log.info(res);
         return null;
+    }
+
+    @Override
+    public PreferRecommendResDto preferRecommend() {
+        return new PreferRecommendResDto(heartRankRepository.findAll(Sort.by("id")));
     }
 }
