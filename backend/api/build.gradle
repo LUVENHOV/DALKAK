@@ -64,6 +64,10 @@ dependencies {
 	implementation 'co.elastic.clients:elasticsearch-java:8.12.2'
 	implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
 	implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.10.1'
+
+	//SpringAOP
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
+
 }
 
 tasks.named('test') {
