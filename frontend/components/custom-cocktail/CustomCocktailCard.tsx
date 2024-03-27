@@ -13,15 +13,38 @@ interface Custom {
   imageLink: string;
 }
 
-interface Props {
-  custom: Custom;
+interface Custom_Cocktails {
+  id: number;
+  image: string;
+  name: string;
+  summary: string;
+  user: {
+    id: number;
+    nickname: string;
+  };
 }
 
-export default function CustomCocktailCard({ custom }: Props) {
+interface Props<T> {
+  custom: T;
+}
+
+export default function CustomCocktailCard<
+  T extends Custom | Custom_Cocktails,
+>({ custom }: Props<T>) {
   const router = useRouter();
   const goToDetail = () => {
     router.push('/cocktail/custom/detail/1');
   };
+
+  const previewImageName =
+    'imageLink' in custom ? styles['custom-img'] : styles['custom-img-preview'];
+
+  const previewTitleName =
+    'title' in custom ? styles.title : styles['title-preview'];
+
+  const previewCommentName =
+    'comment' in custom ? styles.comment : styles['comment-preview'];
+
   return (
     <div className={styles['grid-item']}>
       <button
@@ -30,17 +53,24 @@ export default function CustomCocktailCard({ custom }: Props) {
         className={styles['image-box']}
       >
         <img
-          className={styles['custom-img']}
-          src={custom.imageLink}
-          alt={custom.title}
+          className={previewImageName}
+          src={
+            (custom as Custom).imageLink || (custom as Custom_Cocktails).image
+          }
+          alt={(custom as Custom).title || (custom as Custom_Cocktails).name}
         />
         <div className={styles.author}>
-          by&nbsp;
-          {custom.author}
+          by&nbsp;{' '}
+          {(custom as Custom).author ||
+            (custom as Custom_Cocktails).user.nickname}
         </div>
       </button>
-      <div className={styles.title}>{custom.title}</div>
-      <div className={styles.comment}>{custom.comment}</div>
+      <div className={previewTitleName}>
+        {(custom as Custom).title || (custom as Custom_Cocktails).user.id}
+      </div>
+      <div className={previewCommentName}>
+        {(custom as Custom).comment || (custom as Custom_Cocktails).summary}
+      </div>
     </div>
   );
 }

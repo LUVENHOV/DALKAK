@@ -1,14 +1,14 @@
 import styles from './SearchBlock.module.scss';
 
 interface listType {
-  id: string;
+  id: number;
   name: string;
 }
 
 interface propsType {
   list: listType[];
-  state: string;
-  handleState: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  state: number | null;
+  handleState: (base: number) => void;
 }
 
 export default function SearchBlock(props: propsType) {
@@ -22,7 +22,7 @@ export default function SearchBlock(props: propsType) {
           key={now.id}
           value={now.id}
           className={`${styles.block} ${state === now.id ? styles.selected : ''}`}
-          onClick={handleState}
+          onClick={() => handleState(now.id)}
         >
           {now.name}
         </button>

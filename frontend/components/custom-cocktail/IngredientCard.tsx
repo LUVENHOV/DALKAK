@@ -1,9 +1,23 @@
 import React from 'react';
 
 import Image from 'next/image';
-import styles from './CustomCocktailIngredientCard.module.scss';
+import styles from './IngredientCard.module.scss';
 
-interface Ingredient {
+interface Unit {
+  id: number;
+  name: string;
+}
+
+interface Cocktail_Ingredients {
+  id: number;
+  name: string;
+  image: string;
+  category_id: number;
+  amount: number;
+  unit: Unit;
+}
+
+interface Custom_Ingredients {
   ingredient: {
     id: number;
     name: string;
@@ -19,26 +33,28 @@ interface Ingredient {
 interface StoreData {
   id: number;
   name: string;
-  image: string;
+  // image: string;
   category: {
     id: number;
     name: string;
   };
 }
 
-interface Props {
-  ingredient: Ingredient;
+type IngredientType = Cocktail_Ingredients | Custom_Ingredients;
+
+interface Props<T extends IngredientType> {
+  ingredient: T;
   index: number;
   lastIndex: number;
   storeData: StoreData[];
 }
 
-export default function CustomCocktailIngredientCard({
+export default function IngredientCard<T extends IngredientType>({
   ingredient,
   index,
   lastIndex,
   storeData,
-}: Props) {
+}: Props<T>) {
   // console.log(storeData);
 
   let className = '';
@@ -65,9 +81,12 @@ export default function CustomCocktailIngredientCard({
 
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < storeData.length; i++) {
-    if (ingredient.ingredient.id === storeData[i].id) {
+    if (
+      (ingredient as Cocktail_Ingredients)?.id ||
+      (ingredient as Custom_Ingredients)?.ingredient?.id === storeData[i].id
+    ) {
       isStored = styles['stored-ingredient'];
-      console.log(ingredient.ingredient.id);
+      // console.log(ingredient.ingredient.id);
     }
   }
 
@@ -76,17 +95,26 @@ export default function CustomCocktailIngredientCard({
       <div className={className}>
         <Image
           className={styles['ingredient-img']}
-          src={ingredient.ingredient.image}
-          width={1000}
-          height={1000}
+          src={
+            (ingredient as Cocktail_Ingredients)?.image ||
+            (ingredient as Custom_Ingredients)?.ingredient?.image
+          }
           alt="재료 이미지"
+          width={20}
+          height={20}
         />
         <div className={styles['ingredient-name']}>
-          <div className={isStored}>{ingredient.ingredient.name}</div>
+          <div className={isStored}>
+            {(ingredient as Cocktail_Ingredients)?.name ||
+              (ingredient as Custom_Ingredients)?.ingredient.name}
+          </div>
         </div>
       </div>
       <div className={styles.count}>
-        <div>{ingredient.ingredient_amount}</div>
+        <div>
+          {(ingredient as Cocktail_Ingredients)?.amount ||
+            (ingredient as Custom_Ingredients)?.ingredient_amount}
+        </div>
         <div>{ingredient.unit.name}</div>
       </div>
     </div>

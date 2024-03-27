@@ -1,21 +1,19 @@
 import React from 'react';
 
-import { FavoriteBorder } from '@mui/icons-material';
+import { Favorite } from '@mui/icons-material';
 import Link from 'next/link';
 import styles from './CocktailCard.module.scss';
 
-interface propsType {
-  id: string;
+interface ICocktailType {
+  id: number;
   name: string;
   koreanName: string;
   image: string;
   heartCount: number;
 }
 
-export default function CocktailCard(props: propsType) {
-  const {
-    id: cocktailId, name, koreanName, image, heartCount,
-  } = props;
+export default function CocktailCard(props: ICocktailType) {
+  const { id: cocktailId, name, koreanName, image, heartCount } = props;
 
   return (
     <Link href={`/cocktail/${cocktailId}`}>
@@ -29,7 +27,7 @@ export default function CocktailCard(props: propsType) {
             <h3 className={styles.kor}>{koreanName}</h3>
           </div>
           <div className={styles.like}>
-            <FavoriteBorder />
+            <Favorite />
             {heartCount}
           </div>
         </div>
