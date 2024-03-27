@@ -6,27 +6,28 @@ import useSearchStore from '@/store/searchStore';
 
 const sortingList = [
   {
-    id: 3,
-    text: '좋아요 오름차순',
-  },
-  {
     id: 4,
     text: '좋아요 내림차순',
   },
   {
-    id: 1,
-    text: '이름 오름차순',
+    id: 3,
+    text: '좋아요 오름차순',
   },
   {
     id: 2,
     text: '이름 내림차순',
   },
+  {
+    id: 1,
+    text: '이름 오름차순',
+  },
 ];
 
 export default function SortBy() {
-  const { orderBy, setOrderBy, setActivateSearch } = useSearchStore();
+  const { orderBy, setPage, setOrderBy, setActivateSearch } = useSearchStore();
   const handleOnClick = (id: number) => {
     setOrderBy(id);
+    setPage(1);
     setActivateSearch();
   };
 

@@ -6,7 +6,7 @@ import styles from './CocktailPagination.module.scss';
 import useSearchStore from '@/store/searchStore';
 
 export default function CocktailPagination() {
-  const { totalPage, setPage, setActivateSearch } = useSearchStore();
+  const { page, totalPage, setPage, setActivateSearch } = useSearchStore();
 
   const handlePageClick = (selectedItem: { selected: number }) => {
     setPage(selectedItem.selected + 1);
@@ -19,6 +19,7 @@ export default function CocktailPagination() {
         breakLabel="..."
         previousLabel="<"
         nextLabel=">"
+        forcePage={page - 1}
         pageRangeDisplayed={3}
         marginPagesDisplayed={1}
         pageCount={totalPage}
