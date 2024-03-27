@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { ISearchType } from '@/type/searchTypes';
+import { IIngredientType } from '@/type/refrigeratorTypes';
 
 const useSearchStore = create(
   persist<ISearchType>(
@@ -19,7 +20,6 @@ const useSearchStore = create(
       setPage: (page: number) => set({ page }),
       setTotalPage: (totalPage: number) => set({ totalPage }),
       setCocktailName: (cocktailName: string) => set({ cocktailName }),
-      setIngredients: (ingredients: number[]) => set({ ingredients }),
       setBase: (base: number) => set({ base }),
       setMinAlcohol: (minAlcohol: number) => set({ minAlcohol }),
       setMaxAlcohol: (maxAlcohol: number) => set({ maxAlcohol }),
@@ -28,6 +28,22 @@ const useSearchStore = create(
       setOrderBy: (orderBy: number) => set({ orderBy }),
       setActivateSearch: () => {
         set({ activateSearch: !get().activateSearch });
+      },
+      addIngredient: (ingredient: IIngredientType) => {
+        const updatedList = [...get().ingredients];
+        updatedList.push(ingredient);
+        set({ ingredients: updatedList });
+      },
+      removeIngredient: (ingredient: IIngredientType) => {
+        const updatedList = [...get().ingredients].filter(
+          (i) => i.id != ingredient.id,
+        );
+        set({ ingredients: updatedList });
+      },
+      getIngredients: () => {
+        const onlyId: number[] = [];
+        get().ingredients.map((i) => onlyId.push(i.id));
+        return onlyId;
       },
       clearAll: () =>
         set({

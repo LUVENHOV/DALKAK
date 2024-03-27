@@ -3,7 +3,7 @@
   width: 53vw;
 
   .block {
-    height: 100%;
+    height: 2vw;
     background-color: white;
     padding: 0 1vw;
     border-top: 2px solid var(--color-placeholder);
@@ -16,11 +16,11 @@
 
   .block:first-child {
     padding-left: 1.2vw;
-    border-radius: 1vw 0 0 1vw;
+    border-radius: 20px 0 0 20px;
   }
   .block:last-child {
     padding-right: 1.2vw;
-    border-radius: 0 1vw 1vw 0;
+    border-radius: 0 20px 20px 0;
     border-right: 2px solid var(--color-placeholder);
   }
 
