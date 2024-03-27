@@ -23,14 +23,13 @@ const getCocktailList = async ({
   setTotalPage,
 }: ISearchParamsType) => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/search?page=${page}&cocktail-name=${cocktailName}&ingredients=${ingredients}&base=${base ? base : ''}&min-alcohol=${minAlcohol}&max-alcohol=${maxAlcohol}&color=${color ? color : ''}&sweetness=${sweetness ? sweetness : ''}&orderBy=${orderBy}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/search?page=${page}&cocktail-name=${cocktailName}&ingredients=${ingredients}&base=${base || ''}&min-alcohol=${minAlcohol}&max-alcohol=${maxAlcohol}&color=${color || ''}&sweetness=${sweetness || ''}&orderBy=${orderBy}`,
     {
       headers: { authorization },
       next: { tags: ['cocktailList'] },
     },
   );
   const json = await res.json();
-  console.log(json);
   setTotalPage((await json).data.total_page);
   return (await json).data.cocktails;
 };
@@ -69,6 +68,7 @@ export default function CocktailList() {
       setCocktailList(cocktailRes);
     };
     updateViews();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activateSearch]);
 
   return (

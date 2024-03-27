@@ -83,22 +83,22 @@ const sweetnessList = [
 
 export default function CocktailSearchForm() {
   const {
-    page,
     cocktailName,
-    ingredients,
+    // ingredients,
     base,
     minAlcohol,
     maxAlcohol,
     color,
     sweetness,
-    orderBy,
+    setPage,
     setCocktailName,
-    setIngredients,
+    // setIngredients,
     setBase,
     setMinAlcohol,
     setMaxAlcohol,
     setColor,
     setSweetness,
+    setOrderBy,
     setActivateSearch,
     clearAll,
   } = useSearchStore();
@@ -114,6 +114,8 @@ export default function CocktailSearchForm() {
   };
 
   const handleOnClick = () => {
+    setOrderBy(4);
+    setPage(1);
     setActivateSearch();
   };
 
