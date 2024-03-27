@@ -1,3 +1,7 @@
+'use client';
+
+// zustand로 냉장고 데이터 가져올려면 CSR로 만들어야함
+
 import React from 'react';
 
 import Image from 'next/image';
@@ -82,12 +86,15 @@ export default function IngredientCard<T extends IngredientType>({
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < storeData.length; i++) {
     if (
-      (ingredient as Cocktail_Ingredients)?.id ||
+      (ingredient as Cocktail_Ingredients)?.id === storeData[i].id ||
       (ingredient as Custom_Ingredients)?.ingredient?.id === storeData[i].id
     ) {
       isStored = styles['stored-ingredient'];
-      // console.log(ingredient.ingredient.id);
     }
+
+    // console.log((ingredient as Cocktail_Ingredients)?.id);
+    // console.log('스토어데이터');
+    // console.log(storeData[i].id);
   }
 
   return (
