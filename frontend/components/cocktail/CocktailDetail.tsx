@@ -83,8 +83,8 @@ interface StoreData {
 const storeData: StoreData = {
   ingredients: [
     {
-      id: 2,
-      name: '레몬',
+      id: 270,
+      name: '라임',
 
       category: {
         id: 2,
@@ -92,27 +92,16 @@ const storeData: StoreData = {
       },
     },
     {
-      id: 3,
+      id: 435,
       name: '얼음',
-
       category: {
         id: 3,
         name: 'beverage',
       },
     },
     {
-      id: 7,
-      name: '보드카',
-
-      category: {
-        id: 1,
-        name: 'alcohol',
-      },
-    },
-    {
-      id: 8,
-      name: '어쩌고',
-
+      id: 187,
+      name: '앱솔루트 보드카',
       category: {
         id: 1,
         name: 'alcohol',
@@ -129,7 +118,6 @@ interface Props {
 const token = process.env.NEXT_PUBLIC_TOKEN;
 
 export async function getData({ cocktailId }: Props) {
-  console.log(cocktailId);
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/${cocktailId}`,
     {
@@ -206,6 +194,7 @@ export default async function CocktailDetail({ cocktailId }: Props) {
         <div>
           <CustomCocktailCardWrapper
             dummy={cocktailDetailData.custom_cocktails}
+            type="small"
           />
         </div>
       </div>
