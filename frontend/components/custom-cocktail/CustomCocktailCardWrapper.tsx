@@ -16,17 +16,6 @@ interface Custom_Cocktails {
   };
 }
 
-interface Dummy {
-  id: number;
-  image: string;
-  name: string;
-  summary: string;
-  user: {
-    id: number;
-    nickname: string;
-  };
-}
-
 // interface PreviewDummy {
 //   custom_id: number;
 //   custom_name: string;
@@ -36,20 +25,19 @@ interface Dummy {
 //   user_nickname: string;
 // }
 
-interface Props<T> {
-  dummy: T[];
+interface Props {
+  dummy: Custom_Cocktails[];
+  type: string;
 }
 
-export default function CustomCocktailList<T extends Dummy | Custom_Cocktails>({
-  dummy,
-}: Props<T>) {
+export default function CustomCocktailList({ dummy, type }: Props) {
   return (
     <div>
       <div className={styles.container}>
         <ul className={styles['grid-container']}>
           {dummy.map((item, index) => (
             // eslint-disable-next-line react/no-array-index-key
-            <CustomCocktailCard key={index} custom={item} />
+            <CustomCocktailCard key={index} custom={item} type={type} />
           ))}
         </ul>
       </div>
