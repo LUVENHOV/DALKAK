@@ -1,0 +1,10 @@
+.container {
+  background-color: silver;
+  display: flex;
+  flex-direction: column;
+
+  .text {
+    display: flex;
+    align-items: flex-end;
+  }
+}

@@ -1,0 +1,23 @@
+import styles from './IngredientsTitle.module.scss';
+
+import SearchIngredients from '../common/SearchIngredients';
+
+interface IPropsType {
+  title: string;
+  desc: string;
+  placeholder: string;
+}
+
+export default function IngredientsTitle(props: IPropsType) {
+  const { title, desc, placeholder } = props;
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.text}>
+        <h1>{title}</h1>
+        <p>{desc}</p>
+      </div>
+      <SearchIngredients />
+    </div>
+  );
+}

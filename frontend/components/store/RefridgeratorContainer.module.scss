@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+
+  .food-area {
+    background-color: skyblue;
+    flex: 2;
+  }
+
+  .alcohol-area {
+    background-color: gold;
+    flex: 1;
+  }
+}
