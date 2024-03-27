@@ -11,14 +11,6 @@ import store.dalkak.api.custom.dto.CustomModifyDto;
 public class CustomRepositoryImpl implements CustomRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
-//
-//    @Override
-//    public void modifyCustomIngredients(Custom custom,
-//        List<CustomIngredient> customIngredientList) {
-//        QCustom qCustom = QCustom.custom;
-//        queryFactory.update(qCustom).set(qCustom.customIngredients, customIngredientList)
-//            .where(qCustom.eq(custom)).execute();
-//    }
 
     @Override
     public void modifyCustomCocktail(Long customCocktailId, CustomModifyDto customModifyDto) {
