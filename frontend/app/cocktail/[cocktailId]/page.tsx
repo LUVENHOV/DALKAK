@@ -1,105 +1,96 @@
 import CocktailDetail from '@/components/cocktail/CocktailDetail';
 
-const token = process.env.NEXT_PUBLIC_TOKEN;
+// export const dynamic = 'force-static';
 
-interface Unit {
-  id: number;
-  name: string;
-}
+// export const dynamicParams = false;
+// const token = process.env.NEXT_PUBLIC_TOKEN;
 
-interface Cocktail_Ingredients {
-  id: number;
-  name: string;
-  image: string;
-  category_id: number;
-  amount: number;
-  unit: Unit;
-}
+// interface Unit {
+//   id: number;
+//   name: string;
+// }
 
-interface Cocktail_Tools {
-  id: number;
-  name: string;
-  image: string;
-}
+// interface Cocktail_Ingredients {
+//   id: number;
+//   name: string;
+//   image: string;
+//   category_id: number;
+//   amount: number;
+//   unit: Unit;
+// }
 
-interface Custom_Cocktails {
-  id: number;
-  image: string;
-  name: string;
-  summary: string;
-  user: {
-    id: number;
-    nickname: string;
-  };
-}
+// interface Cocktail_Tools {
+//   id: number;
+//   name: string;
+//   image: string;
+// }
 
-interface Data {
-  id: number;
-  name: string;
-  korean_name: string;
-  image: string;
-  heart_count: number;
-  view_count: number;
-  alcohol_content: number;
-  sweetness: number;
-  recipe: string;
-  cocktail_ingredients: Cocktail_Ingredients[];
-  cocktail_tools: Cocktail_Tools[];
-  custom_cocktails: Custom_Cocktails[];
-}
+// interface Custom_Cocktails {
+//   id: number;
+//   image: string;
+//   name: string;
+//   summary: string;
+//   user: {
+//     id: number;
+//     nickname: string;
+//   };
+// }
 
-interface ApiResponse {
-  code: number;
-  messages: string[];
-  data: Data;
-}
+// interface Data {
+//   id: number;
+//   name: string;
+//   korean_name: string;
+//   image: string;
+//   heart_count: number;
+//   view_count: number;
+//   alcohol_content: number;
+//   sweetness: number;
+//   recipe: string;
+//   cocktail_ingredients: Cocktail_Ingredients[];
+//   cocktail_tools: Cocktail_Tools[];
+//   custom_cocktails: Custom_Cocktails[];
+// }
 
-type Slug = string;
+// interface ApiResponse {
+//   code: number;
+//   messages: string[];
+//   data: Data;
+// }
 
 // eslint-disable-next-line consistent-return
-export async function generateStaticParams({
-  params,
-}: {
-  params: { cocktailId: string };
-}) {
+// export async function generateStaticParams({
+//   params,
+// }: {
+//   params: { id: string };
+// }) {
+//   const { id } = params;
+
+//   return {
+//     id: params.toString(),
+//   };
+// }
+
+export default function Page({ params }: { params: { cocktailId: string } }) {
   const { cocktailId } = params;
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/${cocktailId}`,
-    {
-      headers: {
-        Authorization: token ? `${token}` : '',
-      },
-    },
-  );
-  const data: ApiResponse = await response.json();
+  // const cocktailData = await generateStaticParams({ params });
 
-  return data;
-}
-
-export default async function Page({
-  params,
-}: {
-  params: { cocktailId: string };
-}) {
-  const cocktailData = await generateStaticParams({ params });
-  const { slug }: Slug = cocktailData.data.id.toString();
   return (
     <div>
-      <CocktailDetail cocktailId={slug} />
+      <CocktailDetail cocktailId={cocktailId} />
     </div>
   );
 }
 
-// export async function generateStaticParams() {
-//   const dummyCocktailId = [
-//     { id: '1' },
-//     { id: '2' },
-//     { id: '3' },
-//     { id: '4' },
-//     { id: '5' },
-//   ];
+export async function generateStaticParams() {
+  const dummyCocktailId = [
+    { id: '1' },
+    { id: '2' },
+    { id: '3' },
+    { id: '4' },
+    { id: '5' },
+  ];
 
-//   return dummyCocktailId.map((cocktail) => ({
-//     cocktailId: cocktail.id.toString(),
-//   }));
-// }
+  return dummyCocktailId.map((cocktail) => ({
+    cocktailId: cocktail.id.toString(),
+  }));
+}
