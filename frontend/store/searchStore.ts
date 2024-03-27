@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
-import { ISearchType } from '@/types/searchTypes';
+import { ISearchType } from '@/type/searchTypes';
 
 const useSearchStore = create(
   persist<ISearchType>(
