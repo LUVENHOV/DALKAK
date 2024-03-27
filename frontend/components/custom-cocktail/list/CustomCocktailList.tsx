@@ -1,19 +1,21 @@
 import React from 'react';
 
-import Pagination from '@/components/common/pagination/Pagination';
 import UpperLineBanner from '@/components/common/UpperLineBanner';
 import CustomCocktailCardWrapper from '@/components/custom-cocktail/CustomCocktailCardWrapper';
 // import CustomCocktailWriteButton from '@/components/custom-cocktail/CustomCocktailWriteButton';
+import CustomCocktailPagination from '@/components/custom-cocktail/list/CustomCocktailPagination';
+
+interface User {
+  id: number;
+  nickname: string;
+}
 
 interface Custom_Cocktails {
   id: number;
   image: string;
   name: string;
   summary: string;
-  user: {
-    id: number;
-    nickname: string;
-  };
+  user: User;
 }
 
 interface ApiResponse {
@@ -59,9 +61,9 @@ export default async function CustomCocktailList({ cocktailId }: Props) {
   const customCocktailList: Custom_Cocktails[] =
     customCocktailListData.custom_cocktails;
 
-  // const totalCount = totalData.total_count;
+  const totalCount = customCocktailListData.total_elements;
   const totalPages = customCocktailListData.total_page;
-  // const currentPage = totalData.current_page;
+  const currentPage = customCocktailListData.current_page;
 
   // const dummyList: DummyList[] = customCocktailList.custom_cocktails;
 
@@ -72,13 +74,14 @@ export default async function CustomCocktailList({ cocktailId }: Props) {
         frontText="끼리코"
         secondText="님이 좋아하시는 칵테일이에요!"
       />
-      <CustomCocktailCardWrapper dummy={customCocktailList} />
+      <CustomCocktailCardWrapper dummy={customCocktailList} type="big" />
 
-      <Pagination
-        articles={customCocktailListData}
-        // totalCount={totalCount}
+      <CustomCocktailPagination
+        articles={customCocktailList}
+        totalCount={totalCount}
         totalPages={totalPages}
-        // currentPage={currentPage}
+        currentPage={currentPage}
+        cocktailId={cocktailId}
       />
     </div>
   );
