@@ -1,5 +1,5 @@
 import CustomCocktailWrite from '@/components/custom-cocktail/write/CustomCocktailWrite';
-import { ICocktailType } from '@/types/searchTypes';
+import { ICocktailType } from '@/type/searchTypes';
 
 interface Props {
   cocktailId: string;

@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
-import { IRefrigeratorType, IIngredientType } from '@/types/refrigeratorTypes';
+import { IRefrigeratorType, IIngredientType } from '@/type/refrigeratorTypes';
 
 const useRefrigeratorStore = create(
   persist<IRefrigeratorType>(

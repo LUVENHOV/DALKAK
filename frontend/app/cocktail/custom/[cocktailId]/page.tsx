@@ -1,6 +1,6 @@
 import CustomCocktailList from '@/components/custom-cocktail/list/CustomCocktailList';
 
-import { ICocktailType } from '@/types/searchTypes';
+import { ICocktailType } from '@/type/searchTypes';
 
 export default function Page({ params }: { params: { cocktailId: string } }) {
   const { cocktailId } = params;
