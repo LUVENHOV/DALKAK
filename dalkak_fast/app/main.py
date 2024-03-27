@@ -1,20 +1,26 @@
 from typing import Union
 
 from fastapi import FastAPI
-from .recommend import survey_recommend as sr
+from recommend.recommend import recommend_by_prefer
+from recommend.recommend import recommend_by_refrigerator
+
+from database.database import engineconn
 
 app = FastAPI()
 
+engine = engineconn()
+session = engine.sessionmaker()
 
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
 
+@app.get("/prefer-recommend/{m_id}")
+async def prefer_recommend(m_id: int):
+    result= recommend_by_prefer(m_id,session)
+    return {"result": result}
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
-
-@app.get("/recommend")
-def survey_recommend():
-    return sr()
+@app.get("/refrigerator-recommend")
+async def refrigerator_recommend():
+    result=recommend_by_refrigerator()
+    return {"result": result}
