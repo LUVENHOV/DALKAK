@@ -6,6 +6,7 @@ const useSearchStore = create(
   persist<ISearchType>(
     (set, get) => ({
       page: 1,
+      totalPage: 10,
       cocktailName: '',
       ingredients: [],
       base: null,
@@ -16,6 +17,7 @@ const useSearchStore = create(
       orderBy: 3,
       activateSearch: false,
       setPage: (page: number) => set({ page }),
+      setTotalPage: (totalPage: number) => set({ totalPage }),
       setCocktailName: (cocktailName: string) => set({ cocktailName }),
       setIngredients: (ingredients: number[]) => set({ ingredients }),
       setBase: (base: number) => set({ base }),

@@ -1,5 +1,6 @@
 export interface ISearchType {
   page: number;
+  totalPage: number;
   cocktailName: string;
   ingredients: number[];
   base: number | null;
@@ -10,6 +11,7 @@ export interface ISearchType {
   orderBy: number;
   activateSearch: boolean;
   setPage: (page: number) => void;
+  setTotalPage: (page: number) => void;
   setCocktailName: (cocktailName: string) => void;
   setIngredients: (ingredients: number[]) => void;
   setBase: (base: number) => void;
@@ -33,6 +35,7 @@ export interface ISearchParamsType {
   sweetness: number | null;
   orderBy: number;
   activateSearch: boolean;
+  setTotalPage: (page: number) => void;
 }
 
 export interface ICocktailType {

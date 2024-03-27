@@ -83,22 +83,22 @@ const sweetnessList = [
 
 export default function CocktailSearchForm() {
   const {
-    page,
     cocktailName,
-    ingredients,
+    // ingredients,
     base,
     minAlcohol,
     maxAlcohol,
     color,
     sweetness,
-    orderBy,
+    setPage,
     setCocktailName,
-    setIngredients,
+    // setIngredients,
     setBase,
     setMinAlcohol,
     setMaxAlcohol,
     setColor,
     setSweetness,
+    setOrderBy,
     setActivateSearch,
     clearAll,
   } = useSearchStore();
@@ -111,6 +111,12 @@ export default function CocktailSearchForm() {
   const handleAlcoholContent = (arr: readonly number[]) => {
     setMinAlcohol(arr[0]);
     setMaxAlcohol(arr[1]);
+  };
+
+  const handleOnClick = () => {
+    setOrderBy(4);
+    setPage(1);
+    setActivateSearch();
   };
 
   return (
@@ -126,7 +132,7 @@ export default function CocktailSearchForm() {
         <button
           type="submit"
           aria-label="Search Button"
-          onClick={setActivateSearch}
+          onClick={handleOnClick}
         >
           <Search />
         </button>
@@ -191,7 +197,7 @@ export default function CocktailSearchForm() {
               <BtnWithIcon
                 text="적용"
                 btnStyle="full-point"
-                handleOnClick={setActivateSearch}
+                handleOnClick={handleOnClick}
               />
             </div>
           </div>
