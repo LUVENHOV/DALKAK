@@ -108,4 +108,10 @@ public class Cocktail {
     @Column(name = "view_count",nullable = false)
     private Integer viewCount;
 
+    public void updateCocktailHeart(Integer heartCount) {
+        this.heartCount = heartCount;
+    }
+    public void updateCocktailView(Integer viewCount) {
+        this.viewCount = viewCount;
+    }
 }

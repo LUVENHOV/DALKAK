@@ -1,7 +1,6 @@
 package store.dalkak.api.cocktail.repository.heart;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +11,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.stereotype.Repository;
 import store.dalkak.api.cocktail.domain.heart.HeartCount;
+import store.dalkak.api.cocktail.domain.heart.HeartMatch;
+import store.dalkak.api.cocktail.dto.HeartCountDto;
+import store.dalkak.api.cocktail.dto.HeartMatchDto;
 
 @Repository
 @Slf4j
@@ -41,6 +43,23 @@ public class HeartRedisRepositoryImpl implements HeartRedisRepository {
         });
 
         return keyList;
+    }
+
+    @Override
+    public HeartCountDto findHeartCountById(String id) {
+        Map<String, Object> entries = hashOperations.entries(id);
+        return new HeartCountDto(id, (String) entries.get("cocktailId"), (String) entries.get("count"));
+    }
+
+    @Override
+    public HeartMatchDto findHeartMatchById(String id) {
+        Map<String, Object> entries = hashOperations.entries(id);
+        return new HeartMatchDto(id, (String) entries.get("cocktailId"), (String) entries.get("memberId"));
+    }
+
+    @Override
+    public void deleteHeartMatchById(String id) {
+        redisTemplate.delete(id);
     }
 
 }
