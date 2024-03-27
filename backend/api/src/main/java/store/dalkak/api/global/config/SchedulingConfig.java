@@ -52,13 +52,13 @@ public class SchedulingConfig {
     }
 
     // 좋아요 Count, Match를 Database에 입력
-    @Scheduled(cron = "0 0 * * * *") // 정각마다
+    @Scheduled(cron = "0 5 * * * *") // 정각의 5분마다
     public void migrateHeartToDatabase() {
         cocktailService.migrateHeart();
     }
 
     // 조회수 Count를 Database에 입력
-    @Scheduled(cron = "0 0 * * * *") // 정각마다
+    @Scheduled(cron = "0 0 12 * * ?") // 하루마다, 정오에
     public void migrateViewToDatabase() {
         List<ElasticDto> viewLogList = elasticService.findAllElasticLog("day", "view-log");
         cocktailService.migrateView(viewLogList);
