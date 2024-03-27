@@ -16,8 +16,8 @@ export default function OauthButton({
 }: OauthButtonProps) {
   const openPopupWindow = (
     url: string,
-    width: number = 600,
-    height: number = 700,
+    width: number = 500,
+    height: number = 560,
   ) => {
     const y = window.top.outerHeight / 2 + window.top.screenY - height / 2;
     const x = window.top.outerWidth / 2 + window.top.screenX - width / 2;
