@@ -13,7 +13,7 @@ import SearchBlock from './SearchBlock';
 import SearchColor from './SearchColor';
 import SearchAlcoholContent from '../common/AlcoholContent';
 import BtnWithIcon from '../common/BtnWithIcon';
-import SearchIngredients from '../common/SearchIngredients';
+// import SearchIngredients from '../common/SearchIngredients';
 import useSearchStore from '@/store/searchStore';
 
 const baseList = [
@@ -168,7 +168,7 @@ export default function CocktailSearchForm() {
             </div>
             <div className={`${styles.searchRow} ${styles.ingredients}`}>
               <div className={styles.title}>재료</div>
-              <SearchIngredients />
+              {/* <SearchIngredients /> */}
             </div>
             <div className={`${styles.searchRow} ${styles.base}`}>
               <div className={styles.title}>베이스</div>

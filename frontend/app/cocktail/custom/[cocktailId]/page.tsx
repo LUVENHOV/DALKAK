@@ -4,7 +4,8 @@ interface Props {
   cocktailId: string;
 }
 
-export default function Page({ cocktailId }: Props) {
+export default function Page({ params }: { params: Props }) {
+  const { cocktailId } = params;
   return (
     <div>
       <CustomCocktailList cocktailId={cocktailId} />
