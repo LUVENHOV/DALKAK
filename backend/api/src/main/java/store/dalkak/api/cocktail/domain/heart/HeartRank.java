@@ -1,4 +1,4 @@
-package store.dalkak.api.cocktail.domain;
+package store.dalkak.api.cocktail.domain.heart;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

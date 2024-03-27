@@ -32,9 +32,9 @@ public class ElasticServiceImpl implements ElasticService {
     private final RestHighLevelClient client;
 
     @Override
-    public List<ElasticDto> findAllElasticLog(String logType) {
+    public List<ElasticDto> findAllElasticLog(String type, String logType) {
 
-        Long weekMili = 604_800_000L;
+        Long weekMili = type.equals("week") ? 604_800_000L : 86_400_000L;
         Long nowMili = System.currentTimeMillis();
         Long oneWeekAgo = nowMili - weekMili;
         List<ElasticDto> logList = new ArrayList<>();

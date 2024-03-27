@@ -12,4 +12,5 @@ public interface HeartRepository extends JpaRepository<Heart,Long> {
     Page<Heart> findAllByMember_Id(Long id, Pageable pageable);
     List<Heart> findTop5ByMember_IdOrderByIdDesc(Long member_id);
     void deleteHeartByCocktailAndMember(Cocktail cocktail, Member member);
+    Heart findHeartByCocktailAndMember(Cocktail cocktail, Member member);
 }
