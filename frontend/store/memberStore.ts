@@ -3,12 +3,12 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 interface StoreState {
-  id: 0;
+  id: string;
   nickname: string;
   birthDate: string;
   gender: string;
   isLoggedIn: boolean;
-  survey_completion: boolean;
+  surveyCompletion: boolean;
   setId: (id: string) => void;
   setNickname: (nickname: string) => void;
   setBirthDate: (birthDate: string) => void;
@@ -16,26 +16,30 @@ interface StoreState {
   setIsLoggedIn: (isLoggedIn: boolean) => void;
   setSurveyCompletion: (surveyCompletion: boolean) => void;
   clearAll: () => void;
-  setMemberStateLogin: (id: number, nickname: string, survey_completion: boolean) => void;
+  setMemberStateLogin: (
+    id: number,
+    nickname: string,
+    surveyCompletion: boolean,
+  ) => void;
 }
 
 const memberStore = create(
   persist<StoreState>(
     (set) => ({
       // todo : initial state
-      id: 0,
+      id: '',
       nickname: '',
       birthDate: '',
       gender: '',
       isLoggedIn: true,
-      survey_completion: false,
+      surveyCompletion: false,
       setId: (id: string) => set({ id }),
       setNickname: (nickname: string) => set({ nickname }),
       setBirthDate: (birthDate: string) => set({ birthDate }),
       setGender: (gender: string) => set({ gender }),
       setIsLoggedIn: (isLoggedIn: boolean) => set({ isLoggedIn }),
-      setSurveyCompletion(survey_completion) {
-        set({ survey_completion });
+      setSurveyCompletion(surveyCompletion) {
+        set({ surveyCompletion });
       },
       clearAll: () =>
         set({
@@ -45,14 +49,18 @@ const memberStore = create(
           gender: '',
           isLoggedIn: false,
         }),
-      setMemberStateLogin: (id: number, nickname: string, survey_completion: boolean) =>{
+      setMemberStateLogin: (
+        id: number,
+        nickname: string,
+        surveyCompletion: boolean,
+      ) => {
         set({
           id,
           nickname,
-          survey_completion,
+          surveyCompletion,
           isLoggedIn: true,
         });
-      }
+      },
     }),
     {
       name: 'member',

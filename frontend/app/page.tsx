@@ -1,14 +1,14 @@
 'use client';
 
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
+
 import './main.scss';
 import OauthButton from '@/components/common/main/OauthButton';
 
 export default function Home() {
   useEffect(() => {
     function handleLoginMessage(event: MessageEvent) {
-      if (event.data.type === "LOGIN_SUCCESS") {
+      if (event.data.type === 'LOGIN_SUCCESS') {
         window.location.reload();
       }
     }

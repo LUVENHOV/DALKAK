@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
+
 import surveyStore from '../../store/surveyStore';
 import './page.scss';
 

@@ -16,7 +16,7 @@ export default function Navbar() {
   // const tmp = memberStore((state) => state.actions.tmp);
   // eslint-disable-next-line no-unused-expressions
   const isLoggedIn = memberStore((state) => state.isLoggedIn);
-  const nickname = memberStore((state) => state.nickname);
+  // const nickname = memberStore((state) => state.nickname);
   const clearAll = memberStore((state) => state.clearAll);
   const clearTokens = authStore((state) => state.clearTokens);
   const accessToken = authStore((state) => state.accessToken);

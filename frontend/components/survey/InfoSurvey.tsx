@@ -22,6 +22,7 @@ export default function InfoSurvey() {
     },
   };
   const [isNicknameChecked, setIsNicknameChecked] = useState<boolean>(false);
+  console.log(isNicknameChecked);
   const [memberInfo, setMemberInfo] = useState<IMemberInfo>({
     nickname: '',
     birth: '',

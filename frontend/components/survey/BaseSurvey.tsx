@@ -1,5 +1,6 @@
 import React from 'react';
 import CocktailItems from '../surveyComponents/CocktailItems';
+import './BaseSurvey.scss';
 
 const baseList = [
   {

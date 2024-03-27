@@ -22,9 +22,11 @@ export default function CocktailItems({ id, name, image }: ItemProps) {
       setSelected(true);
       addSurveyCocktails(id);
     }
+    console.log(image);
     console.log(surveyStore.getState().surveyCocktails);
   };
   return (
+    // eslint-disable-next-line max-len
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div
       onClick={() => ToggleSelected()}

@@ -1,5 +1,5 @@
 import React from 'react';
-import OccationItems from '../surveyComponents/OccationItems';
+import OccationItems from '../surveyComponents/DegreeItem';
 import './OccationSurvey.scss';
 
 const OccationSampleList = [
