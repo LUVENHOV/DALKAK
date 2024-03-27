@@ -13,7 +13,6 @@ import SearchBlock from './SearchBlock';
 import SearchColor from './SearchColor';
 import SearchAlcoholContent from '../common/AlcoholContent';
 import BtnWithIcon from '../common/BtnWithIcon';
-import SearchIngredients from '../common/SearchIngredients';
 import useSearchStore from '@/store/searchStore';
 
 const baseList = [
@@ -84,7 +83,7 @@ const sweetnessList = [
 export default function CocktailSearchForm() {
   const {
     cocktailName,
-    // ingredients,
+    ingredients,
     base,
     minAlcohol,
     maxAlcohol,
@@ -92,7 +91,7 @@ export default function CocktailSearchForm() {
     sweetness,
     setPage,
     setCocktailName,
-    // setIngredients,
+    setIngredients,
     setBase,
     setMinAlcohol,
     setMaxAlcohol,
@@ -166,26 +165,25 @@ export default function CocktailSearchForm() {
                 handleOnClick={clearAll}
               />
             </div>
-            <div className={`${styles.searchRow} ${styles.ingredients}`}>
+            <div className={`${styles.searchRow} ${ingredients}`}>
               <div className={styles.title}>재료</div>
-              <SearchIngredients />
             </div>
-            <div className={`${styles.searchRow} ${styles.base}`}>
+            <div className={`${styles.searchRow} ${base}`}>
               <div className={styles.title}>베이스</div>
               <SearchBlock list={baseList} state={base} handleState={setBase} />
             </div>
-            <div className={`${styles.searchRow} ${styles.alcoholContent}`}>
+            <div className={`${styles.searchRow} ${alcoholContent}`}>
               <div className={styles.title}>도수</div>
               <SearchAlcoholContent
                 alcoholContent={[minAlcohol, maxAlcohol]}
                 handleAlcoholContent={handleAlcoholContent}
               />
             </div>
-            <div className={`${styles.searchRow} ${styles.color}`}>
+            <div className={`${styles.searchRow} ${color}`}>
               <div className={styles.title}>색상</div>
               <SearchColor color={color} handleState={setColor} />
             </div>
-            <div className={`${styles.searchRow} ${styles.sweetness}`}>
+            <div className={`${styles.searchRow} ${sweetness}`}>
               <div className={styles.title}>당도</div>
               <SearchBlock
                 list={sweetnessList}

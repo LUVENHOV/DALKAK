@@ -1,5 +1,5 @@
 import React from 'react';
-import OccationItems from '../surveyComponents/DegreeItem';
+import OccasionItem from '../surveyComponents/OccasionItem';
 import './OccationSurvey.scss';
 
 const OccationSampleList = [
@@ -12,7 +12,7 @@ export default function OccationSurvey() {
   return (
     <div className="occation-wrapper">
       {OccationSampleList.map((occation) => (
-        <OccationItems
+        <OccasionItem
           key={occation.id}
           id={occation.id}
           name={occation.name}
