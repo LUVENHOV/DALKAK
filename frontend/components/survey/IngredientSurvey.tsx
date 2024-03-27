@@ -1,6 +1,6 @@
 import React from 'react';
 
 function IngredientSurvey() {
-  return <div>IngredientSurvey</div>;
+  return <div> </div>;
 }
 export default IngredientSurvey;

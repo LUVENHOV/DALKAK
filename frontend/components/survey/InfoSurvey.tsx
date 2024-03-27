@@ -106,8 +106,12 @@ export default function InfoSurvey() {
         <div className="gender input-wrapper">
           <div>성별</div>
           <div className="genderSelect">
-            <div>남</div>
-            <div>여</div>
+            <button type="button" onClick={() => setGender('MALE')}>
+              남
+            </button>
+            <button type="button" onClick={() => setGender('FEMALE')}>
+              여
+            </button>
           </div>
           {/* <input
             placeholder="성별"

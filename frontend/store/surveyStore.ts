@@ -23,7 +23,7 @@ interface storeState {
   occationId: number;
   alcoholContent: number;
   sweatness: number;
-  surveyIngredients: number;
+  surveyIngredients: number[];
   getQuestion: (process: number) => string;
   nextProgress: () => void;
   beforeProgress: () => void;
@@ -37,7 +37,8 @@ interface storeState {
   setOccationId: (occationId: number) => void;
   setAlcoholContent: (alcoholContent: number) => void;
   setSweatness: (sweatness: number) => void;
-  setSurveyIngredients: (surveyIngredients: number) => void;
+  addSurveyIngredients: (ingredient: number) => void;
+  deleteSurveyIngredients: (ingredient: number) => void;
   clearSurvey: () => void;
 }
 
@@ -53,7 +54,7 @@ const surveyStore = create(
       occationId: 0,
       alcoholContent: 0,
       sweatness: 0,
-      surveyIngredients: 0,
+      surveyIngredients: [1, 2, 3],
 
       getQuestion: (process: number) => Question[process],
       // 다음 페이지 이동
@@ -88,8 +89,14 @@ const surveyStore = create(
       setOccationId: (occationId: number) => set({ occationId }),
       setAlcoholContent: (alcoholContent: number) => set({ alcoholContent }),
       setSweatness: (sweatness: number) => set({ sweatness }),
-      setSurveyIngredients: (surveyIngredients: number) =>
-        set({ surveyIngredients }),
+      addSurveyIngredients: (ingredient: number) =>
+        set({ surveyIngredients: [...get().surveyIngredients, ingredient] }),
+      deleteSurveyIngredients: (ingredient: number) =>
+        set({
+          surveyIngredients: get().surveyIngredients.filter(
+            (item) => item !== ingredient,
+          ),
+        }),
       clearSurvey: () =>
         set({
           progress: 0,
@@ -98,7 +105,7 @@ const surveyStore = create(
           occationId: 0,
           alcoholContent: 0,
           sweatness: 0,
-          surveyIngredients: 0,
+          surveyIngredients: [],
         }),
     }),
     {
