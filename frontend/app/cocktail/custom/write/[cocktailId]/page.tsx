@@ -1,4 +1,5 @@
 import CustomCocktailWrite from '@/components/custom-cocktail/write/CustomCocktailWrite';
+import CustomCocktailWriteTest from '@/components/custom-cocktail/write/CustomCocktailWriteTest';
 import { ICocktailType } from '@/type/searchTypes';
 
 export default function Page({ params }: { params: { cocktailId: string } }) {
@@ -6,7 +7,12 @@ export default function Page({ params }: { params: { cocktailId: string } }) {
   const cocktailIdInt = parseInt(cocktailId, 10);
   return (
     <div>
-      <CustomCocktailWrite cocktailId={cocktailIdInt} />
+      {/* <div>
+        <CustomCocktailWrite cocktailId={cocktailIdInt} />
+      </div> */}
+      <div>
+        <CustomCocktailWriteTest cocktailId={cocktailIdInt} />
+      </div>
     </div>
   );
 }
