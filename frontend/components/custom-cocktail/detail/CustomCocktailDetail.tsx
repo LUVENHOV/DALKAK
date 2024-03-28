@@ -1,7 +1,5 @@
 import React from 'react';
 
-// import { StaticImageData } from 'next/image';
-
 import styles from './CustomCocktailDetail.module.scss';
 
 import IngredientCardWrapper from '../IngredientCardWrapper';
