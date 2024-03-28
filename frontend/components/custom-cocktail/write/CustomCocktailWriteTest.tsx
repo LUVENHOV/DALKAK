@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 
 import LockOutlined from '@mui/icons-material/LockOutlined';
 import PublicOutlined from '@mui/icons-material/PublicOutlined';
@@ -65,6 +65,22 @@ interface Props {
 
 const token = process.env.NEXT_PUBLIC_TOKEN;
 
+interface CustomIngredientList {
+  id: number;
+  amount: number;
+  unit_id: number;
+}
+
+interface CustomCreateReqDto {
+  cocktailId: number;
+  customName: string;
+  customSummary: string;
+  customComment: string;
+  customRecipe: string;
+  open: boolean;
+  customIngredientList: CustomIngredientList[];
+}
+
 export default function CustomCocktailWrite(cocktailId: Props) {
   const [isPublic, setIsPublic] = useState(false);
   // const [cocktailAllData, setCocktailAllData] = useState<Data>();
@@ -77,11 +93,32 @@ export default function CustomCocktailWrite(cocktailId: Props) {
 
   const [baseRecipe, setBaseRecipe] = useState('');
 
-  // const [customName, setCustomName] = useState('');
+  // 여기선 유저가 보낼 데이터
+
+  const [customName, setCustomName] = useState('');
+  const [customSummary, setCustomSummary] = useState('');
+  const [customComment, setCustomComment] = useState('');
+  const [customRecipe, setCustomRecipe] = useState('');
+  const [splitedRecipe, setSplitedRecipe] = useState('');
+  const [open, setOpen] = useState(false);
+  const [customIngredientList, setCustomIngredientList] = useState<
+    CustomIngredientList[]
+  >([]);
+
+  const [userSendData, setUserSendData] = useState<CustomCreateReqDto>();
+
+  const confirmData = () => {
+    console.log(customName);
+    console.log(customSummary);
+    console.log(customComment);
+    console.log(customRecipe);
+    console.log(open);
+    console.log(customIngredientList);
+  };
 
   const router = useRouter();
   // console.log(cocktailId);
-  const [inputValue, setInputValue] = useState('');
+  // const [inputValue, setInputValue] = useState('');
 
   const infoPlaceholder =
     '추가 설명이나 후기를 알려주세요.\n\n 이런 내용이 들어가면 좋아요!| 이 재료는 다른 걸로 대체할 수 있어요 | - 기존 레시피와 비교해서 맛이 이렇게 달라요 | - 이럴 때 마시는 걸 추천해요';
@@ -115,10 +152,14 @@ export default function CustomCocktailWrite(cocktailId: Props) {
 
       // setCocktailAllData(await response.data);
 
+      const splitedRecipe = (recipe: string) => recipe.split('|').join('\n\n');
+
       setKoreanName(await response.korean_name);
       setEnglishName(await response.name);
       setIngredientData(await response.cocktail_ingredients);
       setBaseRecipe(await response.recipe);
+      setCustomRecipe(await response.recipe);
+      splitedRecipe(await response.recipe);
     };
     getBaseCocktailData();
   }, []);
@@ -127,8 +168,30 @@ export default function CustomCocktailWrite(cocktailId: Props) {
   const splitedInfoPlaceholder = (infoPlaceholder: string) =>
     infoPlaceholder.split('|').join('\n');
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInputValue(e.target.value);
+  const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setCustomComment(e.target.value);
+  };
+
+  const handleRecipeAreaChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
+    setSplitedRecipe(e.target.value);
+  };
+
+  const handleInputChange1 = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value.length > 15) {
+      e.target.value = e.target.value.slice(0, 15);
+    }
+
+    setCustomName(e.target.value); // 입력된 값을 상태로 업데이트합니다.
+  };
+
+  const handleInputChange2 = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value.length > 20) {
+      e.target.value = e.target.value.slice(0, 20);
+    }
+
+    setCustomSummary(e.target.value); // 입력된 값을 상태로 업데이트합니다.
   };
 
   const handleIsPublic = () => {
@@ -139,10 +202,31 @@ export default function CustomCocktailWrite(cocktailId: Props) {
     }
   };
 
-  const handleNavigation = () => {
-    alert('커스텀 칵테일 레시피가 등록되었습니다.');
-    router.push('/cocktail/custom/detail/1');
+  const postCustomCocktail = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/customs`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: token ? `${token}` : '',
+          },
+          body: JSON.stringify({
+            image: userImage,
+            CustomCreateReqDto: userSendData,
+          }),
+        },
+      );
+      if (response.ok) {
+        alert('커스텀 레시피가 등록되었습니다.');
+      } else {
+        console.error('커스텀 레시피 등록 실패');
+      }
+    } catch (error) {
+      console.log('서버와 통신 중 오류 발생');
+    }
   };
+
   return (
     <div className={styles['flex-container']}>
       <div className={styles.container}>
@@ -170,12 +254,12 @@ export default function CustomCocktailWrite(cocktailId: Props) {
               <BtnWithIcon
                 text="커스텀 칵테일 등록"
                 btnStyle="full-point"
-                handleOnClick={handleNavigation}
+                handleOnClick={postCustomCocktail}
               />
             </div>
           </div>
         </div>
-
+        <button onClick={confirmData}>저장된 데이터 확인</button>
         <div className={styles['inner-container']}>
           <div className={styles.space}>
             <CustomCocktailImageUpload />
@@ -184,27 +268,35 @@ export default function CustomCocktailWrite(cocktailId: Props) {
                 <CustomCocktailInput
                   max={15}
                   placeText="커스텀 칵테일 이름을 입력해주세요"
+                  inputValue={customName}
+                  handleInputChange={handleInputChange1}
                 />
               </div>
               <div className={styles.inputs}>
                 <CustomCocktailInput
                   max={20}
                   placeText="기존 칵테일과 어떻게 다른가요?"
+                  inputValue={customSummary}
+                  handleInputChange={handleInputChange2}
                 />
               </div>
               <div className={styles.inputs}>
                 <textarea
                   className={styles['info-input']}
-                  value={inputValue}
+                  value={customComment}
                   placeholder={splitedInfoPlaceholder(infoPlaceholder)}
-                  onChange={(e) => handleInputChange(e)}
+                  onChange={(e) => handleTextAreaChange(e)}
                 />
               </div>
             </div>
           </div>
           <div className={styles.space}>
             <CustomCocktailAddIngredient origin={ingredientData} />
-            <CustomCocktailAddRecipe recipe={baseRecipe} />
+            <CustomCocktailAddRecipe
+              handeInputChange={handleRecipeAreaChange}
+              inputValue={customRecipe}
+              recipe={baseRecipe}
+            />
           </div>
         </div>
       </div>
