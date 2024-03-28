@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
-// import { usePathname } from 'next/navigation';
+import React, { useState, useEffect } from 'react';
 
 import styles from './CustomCocktailAddRecipe.module.scss';
 
@@ -11,12 +10,12 @@ interface Props {
 
 const splitedRecipe = (recipe: string) => recipe.split('|').join('\n\n');
 
-// console.log(splitedRecipe);
-
 export default function CustomCocktailAddRecipe({ recipe }: Props) {
-  // const pathname = usePathname();
-  // console.log(pathname);
-  const [inputValue, setInputValue] = useState(recipe);
+  const [inputValue, setInputValue] = useState(' ');
+
+  useEffect(() => {
+    setInputValue(recipe);
+  }, [recipe]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
@@ -25,7 +24,7 @@ export default function CustomCocktailAddRecipe({ recipe }: Props) {
     <div>
       <div className={styles.title}>레시피</div>
       <textarea
-        value={splitedRecipe(inputValue)}
+        value={inputValue && splitedRecipe(inputValue)}
         className={styles['input-style']}
         onChange={handleInputChange}
       />
