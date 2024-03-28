@@ -11,6 +11,7 @@ const $Fetch = async (
   token?: string,
   headers?: Record<string, string>,
   body?: object,
+  params?: Record<string, string>,
 ) => {
   // 1. Need token?
   if (token) {
@@ -30,7 +31,15 @@ const $Fetch = async (
     config.body = JSON.stringify(body);
   }
 
-  const response = await fetch(url, config);
+  let URL = url;
+
+  // 5. Need params?
+  if (params) {
+    const urlParams = new URLSearchParams(params);
+    URL += `?${urlParams.toString()}`;
+  }
+
+  const response = await fetch(URL, config);
   return response;
 };
 export default $Fetch;
