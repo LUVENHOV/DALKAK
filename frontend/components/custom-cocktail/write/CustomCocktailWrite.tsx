@@ -13,8 +13,6 @@ import CustomCocktailAddRecipe from '@/components/custom-cocktail/write/CustomCo
 import CustomCocktailImageUpload from '@/components/custom-cocktail/write/CustomCocktailImageUpload';
 import CustomCocktailInput from '@/components/custom-cocktail/write/CustomCocktailInput';
 
-// import { StaticImageData } from 'next/image';
-
 interface IngredientsList {
   ingredient: {
     id: number;
