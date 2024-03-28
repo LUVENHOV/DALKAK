@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from recommend.recommend import recommend_by_prefer
-from recommend.recommend import recommend_by_refrigerator
+from .recommend.recommend import recommend_by_prefer
+from .recommend.recommend import recommend_by_refrigerator
 
 from database.database import engineconn
 

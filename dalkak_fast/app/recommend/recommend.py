@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from database.dataloader import DataLoader
+from ..database.dataloader import DataLoader
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 
