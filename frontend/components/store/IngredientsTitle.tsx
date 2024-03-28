@@ -1,6 +1,6 @@
 import styles from './IngredientsTitle.module.scss';
 
-import SearchIngredients from '../common/SearchIngredients';
+import IngredientSearchForm from '../common/IngredientSearchForm';
 
 interface IPropsType {
   title: string;
@@ -17,7 +17,14 @@ export default function IngredientsTitle(props: IPropsType) {
         <h1>{title}</h1>
         <p>{desc}</p>
       </div>
-      <SearchIngredients />
+      <IngredientSearchForm
+        placeholder={placeholder}
+        handleOnClick={async () => {
+          'use server';
+
+          console.log('asdf');
+        }}
+      />
     </div>
   );
 }
