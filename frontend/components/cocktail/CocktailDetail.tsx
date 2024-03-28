@@ -115,7 +115,8 @@ interface Props {
   cocktailId: number;
 }
 
-const token = process.env.NEXT_PUBLIC_TOKEN;
+const token =
+  'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTEzMjkwNDUsImV4cCI6MTcxMTc2MTA0NSwiaWQiOjN9.zcY6r5AdHWBddd-sUz8oFdGV14DZLLyXi_5-BG--C20';
 
 export async function getData({ cocktailId }: Props) {
   const response = await fetch(

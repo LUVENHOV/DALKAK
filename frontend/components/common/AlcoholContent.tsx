@@ -4,7 +4,7 @@ import { useRef } from 'react';
 
 import { useRanger, Ranger } from '@tanstack/react-ranger';
 
-import styles from './SearchAlcoholContent.module.scss';
+import styles from './AlcoholContent.module.scss';
 
 interface propsType {
   alcoholContent: readonly number[];

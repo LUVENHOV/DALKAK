@@ -10,13 +10,12 @@ interface btnProps {
   icon?: SvgIconComponent;
   text: string;
   btnStyle: string;
+  // eslint-disable-next-line react/require-default-props
   handleOnClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export default function BtnWithIcon(props: btnProps) {
-  const {
-    icon: Icon, text, btnStyle, handleOnClick,
-  } = props;
+  const { icon: Icon, text, btnStyle, handleOnClick } = props;
 
   return (
     <button
@@ -29,8 +28,3 @@ export default function BtnWithIcon(props: btnProps) {
     </button>
   );
 }
-
-BtnWithIcon.defaultProps = {
-  icon: null,
-  handleOnClick: () => {},
-};
