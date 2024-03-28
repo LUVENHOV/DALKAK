@@ -8,11 +8,17 @@ import store.dalkak.api.cocktail.domain.Cocktail;
 import store.dalkak.api.custom.domain.Custom;
 
 public interface CustomRepository extends JpaRepository<Custom, Long>, CustomRepositoryCustom {
+
     Custom findCustomById(Long customCocktailId);
+
     void deleteCustomById(Long customCocktailId);
+
     Page<Custom> findAllByMember_Id(Long id, Pageable pageable);
+
     List<Custom> findTop5ByMember_IdOrderByIdDesc(Long member_id);
+
     List<Custom> findAllByCocktailOrderByIdDesc(Cocktail cocktail);
+
     Page<Custom> findAllByCocktailOrderByIdDesc(Cocktail cocktail, Pageable pageable);
 
 }

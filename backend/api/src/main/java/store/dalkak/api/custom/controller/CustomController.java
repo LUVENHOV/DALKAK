@@ -48,7 +48,8 @@ public class CustomController {
         @PathVariable("customCocktailId") Long customCocktailId,
         @RequestPart("image") MultipartFile image,
         @RequestPart("CustomCreateReqDto") CustomCreateReqDto customCreateReqDto) {
-        customService.modifyCustomCocktail(memberDto.getId(), customCocktailId, image, customCreateReqDto);
+        customService.modifyCustomCocktail(memberDto.getId(), customCocktailId, image,
+            customCreateReqDto);
         return ResponseEntity.status(HttpStatus.OK)
             .body(ApiResponse.of(201, "커스텀 칵테일이 수정되었습니다."));
     }
@@ -62,7 +63,8 @@ public class CustomController {
     }
 
     @GetMapping("/{customCocktailId}")
-    public ResponseEntity<ApiResponse<CustomDetailResDto>> customDetail(@PathVariable("customCocktailId") Long customCocktailId) {
+    public ResponseEntity<ApiResponse<CustomDetailResDto>> customDetail(
+        @PathVariable("customCocktailId") Long customCocktailId) {
         CustomDetailResDto custom = customService.findCustom(customCocktailId);
 
         ApiResponse<CustomDetailResDto> apiResponse = ApiResponse.of(200,

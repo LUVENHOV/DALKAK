@@ -18,7 +18,7 @@ import store.dalkak.api.user.repository.MemberRepository;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class OauthServiceImpl implements OauthService{
+public class OauthServiceImpl implements OauthService {
 
     private final GoogleService googleService;
     private final NaverService naverService;
@@ -29,13 +29,17 @@ public class OauthServiceImpl implements OauthService{
 
     @Override
     public OauthLoginResDto login(OauthLoginReqDto oauthLoginReqDto) {
-        String sub=sub(oauthLoginReqDto);
+        String sub = sub(oauthLoginReqDto);
         // 없으면 회원가입
-        if(!memberRepository.existsByOauthSubAndOauthProvider(sub,oauthLoginReqDto.getProvider())){
-            memberRepository.save(Member.builder().oauthSub(sub).oauthProvider(oauthLoginReqDto.getProvider()).build());
+        if (!memberRepository.existsByOauthSubAndOauthProvider(sub,
+            oauthLoginReqDto.getProvider())) {
+            memberRepository.save(
+                Member.builder().oauthSub(sub).oauthProvider(oauthLoginReqDto.getProvider())
+                    .build());
         }
 
-        Member member=memberRepository.findByOauthSubAndOauthProvider(sub,oauthLoginReqDto.getProvider()).orElseThrow();
+        Member member = memberRepository.findByOauthSubAndOauthProvider(sub,
+            oauthLoginReqDto.getProvider()).orElseThrow();
         return generateOauthLoginResDto(member.getId());
     }
 
@@ -46,22 +50,22 @@ public class OauthServiceImpl implements OauthService{
 
     @Override
     public String sub(OauthLoginReqDto oauthLoginReqDto) {
-        String sub=null;
-        switch(oauthLoginReqDto.getProvider()){
+        String sub = null;
+        switch (oauthLoginReqDto.getProvider()) {
             case KAKAO -> {
-                String accessToken=kakaoService.userAuth(oauthLoginReqDto.getCode());
-                sub=kakaoService.userInfo(accessToken);
+                String accessToken = kakaoService.userAuth(oauthLoginReqDto.getCode());
+                sub = kakaoService.userInfo(accessToken);
             }
             case NAVER -> {
-                String accessToken=naverService.userAuth(oauthLoginReqDto.getCode());
-                sub=naverService.userInfo(accessToken);
+                String accessToken = naverService.userAuth(oauthLoginReqDto.getCode());
+                sub = naverService.userInfo(accessToken);
             }
             case GOOGLE -> {
-                String accessToken=googleService.userAuth(oauthLoginReqDto.getCode());
-                sub=googleService.userInfo(accessToken);
+                String accessToken = googleService.userAuth(oauthLoginReqDto.getCode());
+                sub = googleService.userInfo(accessToken);
             }
         }
-        if(sub==null) {
+        if (sub == null) {
             throw new OauthException(OauthErrorCode.FAIL_TO_GET_INFO);
         }
         return sub;
@@ -69,7 +73,7 @@ public class OauthServiceImpl implements OauthService{
 
     //AccessToken, RefreshToken을 생성
     //AccessToken, RefreshToken, AccessTokenExpireTime 정보 전달
-    private OauthLoginResDto generateOauthLoginResDto(long id){
+    private OauthLoginResDto generateOauthLoginResDto(long id) {
         Member member = memberRepository.findById(id).orElseThrow();
         String nickname = member.getNickname();
 
@@ -81,7 +85,8 @@ public class OauthServiceImpl implements OauthService{
             .id(id)
             .value(refreshToken.getToken())
             .build());
-        log.info("------------------refresh token {}",refreshTokenRepository.findById(id).toString());
+        log.info("------------------refresh token {}",
+            refreshTokenRepository.findById(id).toString());
         return OauthLoginResDto.builder()
             .accessToken(accessToken.getToken())
             .accessTokenExpiresIn(accessToken.getExpired())

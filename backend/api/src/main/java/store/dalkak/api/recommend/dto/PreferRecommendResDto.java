@@ -10,5 +10,6 @@ import store.dalkak.api.cocktail.domain.heart.HeartRank;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PreferRecommendResDto {
+
     List<HeartRank> heartRankList;
 }

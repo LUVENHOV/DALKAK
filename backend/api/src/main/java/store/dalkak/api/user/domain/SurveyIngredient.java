@@ -17,10 +17,11 @@ import lombok.NoArgsConstructor;
 import store.dalkak.api.cocktail.domain.ingredient.Ingredient;
 
 @Entity
-@Table(name="SURVEY_INGREDIENT")
+@Table(name = "SURVEY_INGREDIENT")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SurveyIngredient {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

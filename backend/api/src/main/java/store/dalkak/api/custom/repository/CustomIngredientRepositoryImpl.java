@@ -18,6 +18,7 @@ public class CustomIngredientRepositoryImpl implements CustomIngredientCustom {
         queryFactory.update(qCustomIngredient)
             .set(qCustomIngredient.amount, customIngredientModifyDto.getAmount())
             .set(qCustomIngredient.unit, customIngredientModifyDto.getUnit())
-            .where(qCustomIngredient.custom.id.eq(customIngredientModifyDto.getCustomCocktailId())).execute();
+            .where(qCustomIngredient.custom.id.eq(customIngredientModifyDto.getCustomCocktailId()))
+            .execute();
     }
 }

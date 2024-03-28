@@ -11,6 +11,7 @@ import store.dalkak.api.user.domain.embed.Provider;
 @Builder
 @AllArgsConstructor
 public class MemberDto {
+
     private Long id;
     private String nickname;
     private LocalDate birthdate;

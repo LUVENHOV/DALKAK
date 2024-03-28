@@ -18,6 +18,7 @@ import store.dalkak.api.cocktail.dto.IngredientDto;
 public class RefrigeratorRepositoryImpl implements RefrigeratorRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
+
     @Override
     public List<IngredientDto> findRefIngredients(Long memberId) {
         return queryFactory

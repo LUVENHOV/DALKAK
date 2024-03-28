@@ -10,7 +10,8 @@ import store.dalkak.api.user.domain.Member;
 
 @Repository
 @Transactional(readOnly = true)
-public interface RefrigeratorRepository extends JpaRepository<Refrigerator, Long>, RefrigeratorRepositoryCustom{
+public interface RefrigeratorRepository extends JpaRepository<Refrigerator, Long>,
+    RefrigeratorRepositoryCustom {
 
     Optional<Refrigerator> findByMemberAndIngredient(Member member, Ingredient ingredient);
 

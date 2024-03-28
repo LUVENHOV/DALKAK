@@ -11,6 +11,7 @@ import store.dalkak.api.custom.dto.CustomIngredientDto;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomCreateReqDto {
+
     Long cocktailId;
     String customName;
     String customSummary;

@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import store.dalkak.api.user.domain.SurveyCocktail;
 
 @Repository
-public interface SurveyCocktailRepository extends JpaRepository<SurveyCocktail,Long> {
+public interface SurveyCocktailRepository extends JpaRepository<SurveyCocktail, Long> {
 
 }

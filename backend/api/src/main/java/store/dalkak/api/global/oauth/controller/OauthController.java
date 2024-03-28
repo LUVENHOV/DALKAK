@@ -21,16 +21,20 @@ import store.dalkak.api.user.dto.MemberDto;
 @RequestMapping("/oauth")
 @RequiredArgsConstructor
 public class OauthController {
+
     private final OauthService oauthService;
+
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<OauthLoginResDto>> login(@RequestBody OauthLoginReqDto oauthLoginReqDto){
-        ApiResponse<OauthLoginResDto> apiResponse=ApiResponse.of(200,oauthService.login(oauthLoginReqDto));
+    public ResponseEntity<ApiResponse<OauthLoginResDto>> login(
+        @RequestBody OauthLoginReqDto oauthLoginReqDto) {
+        ApiResponse<OauthLoginResDto> apiResponse = ApiResponse.of(200,
+            oauthService.login(oauthLoginReqDto));
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
     @GetMapping("/logout")
-    public ResponseEntity<ApiResponse<OauthLoginResDto>> logout(@LoginUser MemberDto memberDto){
+    public ResponseEntity<ApiResponse<OauthLoginResDto>> logout(@LoginUser MemberDto memberDto) {
         oauthService.logout(memberDto);
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200,null));
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, null));
     }
 }

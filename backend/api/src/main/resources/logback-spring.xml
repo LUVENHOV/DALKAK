@@ -3,10 +3,11 @@
   <property resource="application.properties"/>
 
   <!-- Logback의 내부 상태를 콘솔에 출력하기 위한 StatusListener 설정 -->
-  <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" />
+  <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener"/>
 
   <!-- 로그 패턴 색상 적용 %clr(pattern){color} -->
-  <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+  <conversionRule conversionWord="clr"
+    converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
 
   <!--  <appender> KafkaAppender 클래스를 사용하여 Kafka(ek-log)에 로그 메시지를 전송  -->
   <appender name="LOG-VIEW" class="com.github.danielwegener.logback.kafka.KafkaAppender">
@@ -22,10 +23,12 @@
     <!-- <keyingStrategy> 키 생성 전략을 Round Robin으로 설정 (모든 파티션에 균등하게 분산되도록 메시지들이 순환적으로 파티션에 할당)  -->
     <keyingStrategy class="com.github.danielwegener.logback.kafka.keying.RoundRobinKeyingStrategy"/>
     <!-- <deliveryStrategy> 비동기적 방식으로 로그 메시지 전송  -->
-    <deliveryStrategy class="com.github.danielwegener.logback.kafka.delivery.AsynchronousDeliveryStrategy"/>
+    <deliveryStrategy
+      class="com.github.danielwegener.logback.kafka.delivery.AsynchronousDeliveryStrategy"/>
     <!-- <producerConfig> Kafka producer의 설정값 (순서대로, 재전송 횟수, 전송 서버 주소, 압축 타입, 데이터 전송 최대 대기 시간  -->
     <producerConfig>retries=3</producerConfig>
-    <producerConfig>bootstrap.servers=${spring.data.kafka.host}:${spring.data.kafka.port}</producerConfig>
+    <producerConfig>bootstrap.servers=${spring.data.kafka.host}:${spring.data.kafka.port}
+    </producerConfig>
     <producerConfig>compression.type=snappy</producerConfig>
     <producerConfig>max.block.ms=1000</producerConfig>
   </appender>
@@ -44,10 +47,12 @@
     <!-- <keyingStrategy> 키 생성 전략을 Round Robin으로 설정 (모든 파티션에 균등하게 분산되도록 메시지들이 순환적으로 파티션에 할당)  -->
     <keyingStrategy class="com.github.danielwegener.logback.kafka.keying.RoundRobinKeyingStrategy"/>
     <!-- <deliveryStrategy> 비동기적 방식으로 로그 메시지 전송  -->
-    <deliveryStrategy class="com.github.danielwegener.logback.kafka.delivery.AsynchronousDeliveryStrategy"/>
+    <deliveryStrategy
+      class="com.github.danielwegener.logback.kafka.delivery.AsynchronousDeliveryStrategy"/>
     <!-- <producerConfig> Kafka producer의 설정값 (순서대로, 재전송 횟수, 전송 서버 주소, 압축 타입, 데이터 전송 최대 대기 시간  -->
     <producerConfig>retries=3</producerConfig>
-    <producerConfig>bootstrap.servers=${spring.data.kafka.host}:${spring.data.kafka.port}</producerConfig>
+    <producerConfig>bootstrap.servers=${spring.data.kafka.host}:${spring.data.kafka.port}
+    </producerConfig>
     <producerConfig>compression.type=snappy</producerConfig>
     <producerConfig>max.block.ms=1000</producerConfig>
   </appender>
@@ -55,7 +60,9 @@
   <!-- <appender> 콘솔에 로그를 출력하기 위한 appender  -->
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <pattern>[%blue(%d{yyyy-MM-dd HH:mm:ss.SSS})] [%clr(%-4p)] %boldMagenta(%-25logger{5}) [%cyan(%F)]:%boldYellow(%L) - %m%n</pattern>
+      <pattern>[%blue(%d{yyyy-MM-dd HH:mm:ss.SSS})] [%clr(%-4p)] %boldMagenta(%-25logger{5})
+        [%cyan(%F)]:%boldYellow(%L) - %m%n
+      </pattern>
     </encoder>
   </appender>
 

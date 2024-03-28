@@ -10,6 +10,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class HeartMatchDto {
+
     String id;
     String cocktailId;
     String memberId;

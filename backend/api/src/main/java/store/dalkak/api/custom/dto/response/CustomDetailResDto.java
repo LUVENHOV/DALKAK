@@ -9,7 +9,6 @@ import lombok.Getter;
 import store.dalkak.api.cocktail.dto.CocktailDto;
 import store.dalkak.api.custom.domain.Custom;
 import store.dalkak.api.custom.dto.CustomIngredientDetailDto;
-import store.dalkak.api.custom.dto.CustomIngredientDto;
 import store.dalkak.api.user.dto.UserDto;
 
 @Getter
@@ -29,7 +28,8 @@ public class CustomDetailResDto {
     private String comment;
     private Boolean open;
 
-    public static CustomDetailResDto of(Custom custom, UserDto userDto, CocktailDto cocktail, List<CustomIngredientDetailDto> ingredients) {
+    public static CustomDetailResDto of(Custom custom, UserDto userDto, CocktailDto cocktail,
+        List<CustomIngredientDetailDto> ingredients) {
 
         return CustomDetailResDto.builder()
             .user(userDto)

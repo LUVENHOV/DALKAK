@@ -14,13 +14,15 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import store.dalkak.api.cocktail.domain.base.Base;
 import store.dalkak.api.cocktail.domain.Occasion;
+import store.dalkak.api.cocktail.domain.base.Base;
+
 @Entity
-@Table(name="SURVEY")
+@Table(name = "SURVEY")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Survey {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -39,10 +41,10 @@ public class Survey {
     @JoinColumn(name = "base_id")
     private Base base;
 
-    @Column(name="alcohol_content")
+    @Column(name = "alcohol_content")
     private Integer alcoholContent;
 
-    @Column(name="sweetness")
+    @Column(name = "sweetness")
     private Integer sweetness;
 
     @Builder

@@ -50,22 +50,23 @@ public class RefrigeratorServiceImpl implements RefrigeratorService {
     //삭제
     @Override
     public void deleteRefrigerator(MemberDto memberDto, Long ingredientId) {
-        Member member = memberRepository.findById(memberDto.getId()).orElseThrow(() -> new UserException(
-            UserErrorCode.INVALID_USER));
-        Ingredient ingredient = ingredientRepository.findById(ingredientId).orElseThrow(() -> new CocktailException(
-            CocktailErrorCode.FAIL_TO_FIND_INGREDIENT));
+        Member member = memberRepository.findById(memberDto.getId())
+            .orElseThrow(() -> new UserException(
+                UserErrorCode.INVALID_USER));
+        Ingredient ingredient = ingredientRepository.findById(ingredientId)
+            .orElseThrow(() -> new CocktailException(
+                CocktailErrorCode.FAIL_TO_FIND_INGREDIENT));
         Refrigerator refrigerator = refrigeratorRepository.findByMemberAndIngredient(member,
-            ingredient).orElseThrow(() -> new RefrigeratorException(RefrigeratorErrorCode.REFRIGERATOR_ERROR_CODE));
+            ingredient).orElseThrow(
+            () -> new RefrigeratorException(RefrigeratorErrorCode.REFRIGERATOR_ERROR_CODE));
         refrigeratorRepository.delete(refrigerator);
     }
 
     @Override
     public List<IngredientDto> findRefrigerator(MemberDto memberDto) {
 
-        List<IngredientDto> refrigeratorList = refrigeratorRepository.findRefIngredients(memberDto.getId());
-
-
-
+        List<IngredientDto> refrigeratorList = refrigeratorRepository.findRefIngredients(
+            memberDto.getId());
 
         return refrigeratorList;
     }

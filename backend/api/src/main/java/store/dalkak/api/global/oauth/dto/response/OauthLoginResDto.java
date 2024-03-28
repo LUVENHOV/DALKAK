@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OauthLoginResDto {
+
     private String accessToken;
     private String refreshToken;
     private Long accessTokenExpiresIn;
@@ -18,14 +19,15 @@ public class OauthLoginResDto {
 
 
     @Builder
-    public OauthLoginResDto(String accessToken, String refreshToken, Long accessTokenExpiresIn, Long refreshTokenExpiresIn, String nickname, Long id, Boolean survey_completion) {
+    public OauthLoginResDto(String accessToken, String refreshToken, Long accessTokenExpiresIn,
+        Long refreshTokenExpiresIn, String nickname, Long id, Boolean survey_completion) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
         this.accessTokenExpiresIn = accessTokenExpiresIn;
         this.refreshTokenExpiresIn = refreshTokenExpiresIn;
         this.nickname = nickname;
         this.id = id;
-        this.survey_completion=survey_completion;
+        this.survey_completion = survey_completion;
     }
 
 }

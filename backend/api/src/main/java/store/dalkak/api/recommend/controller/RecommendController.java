@@ -19,10 +19,12 @@ import store.dalkak.api.user.dto.MemberDto;
 @RequiredArgsConstructor
 @RequestMapping("/recommends")
 public class RecommendController {
+
     private final RecommendService recommendService;
 
     @GetMapping("/survey")
-    public ResponseEntity<ApiResponse<SurveyRecommendResDto>> surveyRecommend(@LoginUser MemberDto memberDto){
+    public ResponseEntity<ApiResponse<SurveyRecommendResDto>> surveyRecommend(
+        @LoginUser MemberDto memberDto) {
         recommendService.surveyRecommend(memberDto);
         return null;
     }
@@ -30,7 +32,8 @@ public class RecommendController {
     @GetMapping("/prefer")
     public ResponseEntity<ApiResponse<PreferRecommendResDto>> preferRecommend() {
         PreferRecommendResDto preferRecommendResDto = recommendService.preferRecommend();
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, preferRecommendResDto));
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(ApiResponse.of(200, preferRecommendResDto));
     }
 
 }

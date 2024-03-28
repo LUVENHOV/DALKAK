@@ -13,16 +13,16 @@ import store.dalkak.api.user.dto.MemberDto;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class RecommendServiceImpl implements RecommendService{
+public class RecommendServiceImpl implements RecommendService {
 
     private final HeartRankRepository heartRankRepository;
 
     @Override
     public SurveyRecommendResDto surveyRecommend(MemberDto memberDto) {
-        WebClient webClient=WebClient.builder()
+        WebClient webClient = WebClient.builder()
             .baseUrl("http://dalkak.store:3001/items/1?q=12")
             .build();
-        String res=webClient.get().retrieve().bodyToMono(String.class).block();
+        String res = webClient.get().retrieve().bodyToMono(String.class).block();
         log.info(res);
         return null;
     }

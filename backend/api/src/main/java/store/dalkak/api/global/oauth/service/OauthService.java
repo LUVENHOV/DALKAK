@@ -7,6 +7,7 @@ import store.dalkak.api.user.dto.MemberDto;
 public interface OauthService {
 
     OauthLoginResDto login(OauthLoginReqDto oauthLoginReqDto);
+
     String sub(OauthLoginReqDto oauthLoginReqDto);
 
     void logout(MemberDto memberDto);

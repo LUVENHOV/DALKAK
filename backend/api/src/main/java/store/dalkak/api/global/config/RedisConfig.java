@@ -31,7 +31,8 @@ public class RedisConfig {
         return new LettuceConnectionFactory(config);
     }
 
-    private static RedisStandaloneConfiguration standaloneConfiguration(String host, int port, String password) {
+    private static RedisStandaloneConfiguration standaloneConfiguration(String host, int port,
+        String password) {
         RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();
         config.setHostName(host);
         config.setPort(port);

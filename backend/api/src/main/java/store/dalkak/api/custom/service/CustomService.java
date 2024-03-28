@@ -9,11 +9,13 @@ import store.dalkak.api.user.dto.MemberDto;
 
 public interface CustomService {
 
-    void createCustomCocktail(MultipartFile image, CustomCreateReqDto customCreateReqDto, MemberDto memberDto);
+    void createCustomCocktail(MultipartFile image, CustomCreateReqDto customCreateReqDto,
+        MemberDto memberDto);
 
     void deleteCustomCocktail(Long userId, Long customCocktailId);
 
-    void modifyCustomCocktail(Long userId, Long customCocktailId, MultipartFile image, CustomCreateReqDto customCreateReqDto);
+    void modifyCustomCocktail(Long userId, Long customCocktailId, MultipartFile image,
+        CustomCreateReqDto customCreateReqDto);
 
     CustomListResDto getCustomList(Long cocktailId, Pageable page);
 

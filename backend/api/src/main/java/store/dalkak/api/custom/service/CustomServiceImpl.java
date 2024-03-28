@@ -87,6 +87,10 @@ public class CustomServiceImpl implements CustomService {
     public void deleteCustomCocktail(Long userId, Long customCocktailId) {
         Custom custom = customRepository.findCustomById(customCocktailId);
 
+        if (!Objects.equals(userId, custom.getMember().getId())) {
+            throw new UserException(UserErrorCode.FORBIDDEN);
+        }
+
         // 이미지 삭제
         imageConfig.deleteImage(custom.getImage());
 
@@ -135,7 +139,7 @@ public class CustomServiceImpl implements CustomService {
 
         String imageUrl;
         // 만약 이미지를 변경했다면
-        if(!image.isEmpty()) {
+        if (!image.isEmpty()) {
             imageConfig.deleteImage(custom.getImage());
             imageUrl = imageConfig.uploadImage(image);
         } else {

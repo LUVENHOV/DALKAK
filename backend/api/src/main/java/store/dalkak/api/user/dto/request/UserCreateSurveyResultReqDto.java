@@ -6,10 +6,8 @@ import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Builder
 @Getter
@@ -17,6 +15,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class UserCreateSurveyResultReqDto {
+
     List<Long> surveyCocktails;
     Long occasionId;
     Long baseId;

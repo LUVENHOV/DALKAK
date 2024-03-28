@@ -11,7 +11,7 @@ public class CustomMySQLFunctionContributor implements FunctionContributor {
     private static final String FUNCTION_PATTERN = "match (?1) against (?2 in boolean mode)";
 
     @Override
-    public void contributeFunctions(final FunctionContributions functionContributions){
+    public void contributeFunctions(final FunctionContributions functionContributions) {
         BasicType<Double> resultType = functionContributions
             .getTypeConfiguration()
             .getBasicTypeRegistry()
