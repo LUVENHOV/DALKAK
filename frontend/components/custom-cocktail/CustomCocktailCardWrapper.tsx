@@ -35,7 +35,7 @@ export default function CustomCocktailList({ dummy, type }: Props) {
     <div>
       <div className={styles.container}>
         <ul className={styles['grid-container']}>
-          {dummy.map((item, index) => (
+          {dummy?.map((item, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <CustomCocktailCard key={index} custom={item} type={type} />
           ))}

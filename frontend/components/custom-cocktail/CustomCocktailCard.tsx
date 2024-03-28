@@ -25,8 +25,6 @@ interface Props {
 export default function CustomCocktailCard({ custom, type }: Props) {
   const router = useRouter();
 
-  console.log(custom);
-
   const goToDetail = () => {
     router.push(`/cocktail/custom/detail/${custom.id}`);
   };
