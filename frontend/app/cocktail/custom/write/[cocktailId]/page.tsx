@@ -1,13 +1,11 @@
 import CustomCocktailWrite from '@/components/custom-cocktail/write/CustomCocktailWrite';
 
-interface Props {
-  cocktailId: string;
-}
-
-export default function Page({ cocktailId }: Props) {
+export default function Page({ params }: { params: { cocktailId: string } }) {
+  const { cocktailId } = params;
+  const cocktailIdInt = parseInt(cocktailId, 10);
   return (
     <div>
-      <CustomCocktailWrite cocktailId={cocktailId} />
+      <CustomCocktailWrite cocktailId={cocktailIdInt} />
     </div>
   );
 }

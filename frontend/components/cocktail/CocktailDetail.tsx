@@ -112,7 +112,7 @@ const storeData: StoreData = {
 const storeList = storeData.ingredients;
 
 interface Props {
-  cocktailId: string;
+  cocktailId: number;
 }
 
 const token = process.env.NEXT_PUBLIC_TOKEN;
@@ -185,17 +185,26 @@ export default async function CocktailDetail({ cocktailId }: Props) {
         <hr className={styles.hr2} />
         <div className={styles.flex}>
           <div className={styles.title}>커스텀 칵테일</div>
+
           <div className={styles.all}>
-            <Link href={`/cocktail/custom/${cocktailId}`}>
-              <BtnWithIcon text="전체보기" btnStyle="full-point" />
-            </Link>
+            {cocktailDetailData.custom_cocktails?.length > 0 ? (
+              <Link href={`/cocktail/custom/${cocktailId}`}>
+                <BtnWithIcon text="전체보기" btnStyle="full-point" />
+              </Link>
+            ) : null}
           </div>
         </div>
         <div>
-          <CustomCocktailCardWrapper
-            dummy={cocktailDetailData.custom_cocktails}
-            type="small"
-          />
+          {cocktailDetailData.custom_cocktails?.length > 0 ? (
+            <CustomCocktailCardWrapper
+              dummy={cocktailDetailData.custom_cocktails}
+              type="small"
+            />
+          ) : (
+            <div className={styles['no-custom']}>
+              등록된 커스텀 칵테일이 없습니다.
+            </div>
+          )}
         </div>
       </div>
     </div>

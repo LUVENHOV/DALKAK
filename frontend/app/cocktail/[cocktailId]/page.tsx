@@ -72,11 +72,12 @@ import CocktailDetail from '@/components/cocktail/CocktailDetail';
 
 export default function Page({ params }: { params: { cocktailId: string } }) {
   const { cocktailId } = params;
+  const cocktailIdInt = parseInt(cocktailId, 10);
   // const cocktailData = await generateStaticParams({ params });
 
   return (
     <div>
-      <CocktailDetail cocktailId={cocktailId} />
+      <CocktailDetail cocktailId={cocktailIdInt} />
     </div>
   );
 }
