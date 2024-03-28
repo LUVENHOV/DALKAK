@@ -7,10 +7,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.scss';
+import { Logout } from '@/apis/Auth';
 import logo from '@/public/assets/imgs/logo.png';
 import authStore from '@/store/authStore';
 import memberStore from '@/store/memberStore';
-import { Logout } from '@/apis/Member';
 
 export default function Navbar() {
   const pathName = usePathname();
