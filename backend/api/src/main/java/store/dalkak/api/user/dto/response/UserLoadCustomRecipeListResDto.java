@@ -15,6 +15,7 @@ import store.dalkak.api.custom.dto.CustomCocktailDto;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class UserLoadCustomRecipeListResDto {
+
     List<CustomCocktailDto> customCocktails;
     Long totalCount;
     Integer totalPage;

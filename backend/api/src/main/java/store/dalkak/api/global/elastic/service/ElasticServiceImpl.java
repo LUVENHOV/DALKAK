@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -87,6 +86,7 @@ public class ElasticServiceImpl implements ElasticService {
         }
         return logList;
     }
+
     private void processSearchHits(SearchHit[] searchHits, List<ElasticDto> logList) {
         ObjectMapper objectMapper = new ObjectMapper();
         for (SearchHit hit : searchHits) {

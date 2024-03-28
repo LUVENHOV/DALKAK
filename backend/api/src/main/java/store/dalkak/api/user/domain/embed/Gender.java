@@ -13,14 +13,15 @@ public enum Gender {
     }
 
     @JsonCreator
-    public static Gender from(String value){
-        for(Gender gender:Gender.values()){
-            if(gender.getValue().equals(value)){
+    public static Gender from(String value) {
+        for (Gender gender : Gender.values()) {
+            if (gender.getValue().equals(value)) {
                 return gender;
             }
         }
         return null;
     }
+
     @JsonValue
     public String getValue() {
         return value;

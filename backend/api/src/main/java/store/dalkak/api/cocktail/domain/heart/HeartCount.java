@@ -10,9 +10,10 @@ import org.springframework.data.redis.core.RedisHash;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@RedisHash(value="heartCount", timeToLive = 60*60*2) //2시간
+@RedisHash(value = "heartCount", timeToLive = 60 * 60 * 2) //2시간
 @ToString
 public class HeartCount {
+
     @Id
     String id;
 

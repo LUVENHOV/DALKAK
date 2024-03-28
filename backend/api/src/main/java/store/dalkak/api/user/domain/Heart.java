@@ -19,10 +19,11 @@ import org.hibernate.annotations.CreationTimestamp;
 import store.dalkak.api.cocktail.domain.Cocktail;
 
 @Entity
-@Table(name="HEART")
+@Table(name = "HEART")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Heart {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -38,7 +39,7 @@ public class Heart {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @Column(name="created_date")
+    @Column(name = "created_date")
     @CreationTimestamp
     private LocalDateTime createdDate;
 

@@ -7,6 +7,7 @@ import store.dalkak.api.user.dto.MemberDto;
 
 @Service
 public interface RecommendService {
+
     SurveyRecommendResDto surveyRecommend(MemberDto memberDto);
 
     PreferRecommendResDto preferRecommend();

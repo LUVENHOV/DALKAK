@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 import store.dalkak.api.cocktail.domain.Cocktail;
 
 @Repository
-public interface CocktailRepository extends JpaRepository<Cocktail, Long>, CocktailRepositoryCustom {
+public interface CocktailRepository extends JpaRepository<Cocktail, Long>,
+    CocktailRepositoryCustom {
+
     Cocktail findCocktailById(Long cocktailId);
 }

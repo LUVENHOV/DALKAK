@@ -6,6 +6,7 @@ import store.dalkak.api.user.dto.MemberDto;
 
 
 public interface RefrigeratorService {
+
     void addRefrigerator(MemberDto memberDto, Long ingredientId);
 
     void deleteRefrigerator(MemberDto memberDto, Long ingredientId);

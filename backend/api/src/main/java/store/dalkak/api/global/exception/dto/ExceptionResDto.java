@@ -1,7 +1,6 @@
 package store.dalkak.api.global.exception.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 
 @Getter

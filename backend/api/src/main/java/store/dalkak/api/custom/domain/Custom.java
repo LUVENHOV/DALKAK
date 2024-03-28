@@ -74,7 +74,8 @@ public class Custom {
     private Boolean open;
 
     @Builder
-    public Custom(Cocktail cocktail, Member member, List<CustomIngredient> customIngredients, String name,
+    public Custom(Cocktail cocktail, Member member, List<CustomIngredient> customIngredients,
+        String name,
         String image, String summary, String comment, String recipe, Boolean open) {
         this.cocktail = cocktail;
         this.member = member;

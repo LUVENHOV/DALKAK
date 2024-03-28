@@ -97,7 +97,8 @@ public class CocktailServiceImpl implements CocktailService {
             HeartCountDto heartCountDto = heartRedisRepository.findHeartCountById(cocktailKey);
             if (heartCountDto.getCockatailId() != null) {
                 heartUpdateList.add(new CocktailDto(cocktailDto.getId(), cocktailDto.getName(),
-                    cocktailDto.getKoreanName(), cocktailDto.getImage(), Integer.parseInt(heartCountDto.getCount())));
+                    cocktailDto.getKoreanName(), cocktailDto.getImage(),
+                    Integer.parseInt(heartCountDto.getCount())));
             } else {
                 heartUpdateList.add(cocktailDto);
             }
@@ -146,7 +147,8 @@ public class CocktailServiceImpl implements CocktailService {
             ));
         }
         //커스텀 레시피 리스트
-        List<Custom> customCocktails = customRepository.findAllByCocktailOrderByIdDesc(targetCocktail);
+        List<Custom> customCocktails = customRepository.findAllByCocktailOrderByIdDesc(
+            targetCocktail);
         List<CustomCocktailDto> customCocktailDtoList = customCocktails.stream()
             .limit(4)
             .map(custom -> CustomCocktailDto.builder()
@@ -161,7 +163,8 @@ public class CocktailServiceImpl implements CocktailService {
                 .build())
             .toList();
 
-        return CocktailDetailResDto.of(targetCocktail, cocktailIngredientDtoList, toolDtoList, customCocktailDtoList);
+        return CocktailDetailResDto.of(targetCocktail, cocktailIngredientDtoList, toolDtoList,
+            customCocktailDtoList);
 
     }
 
@@ -262,8 +265,10 @@ public class CocktailServiceImpl implements CocktailService {
             "*" + redisMatchPrefix + "*");
         for (String matchKey : matchKeyList) {
             HeartMatchDto heartMatchDto = heartRedisRepository.findHeartMatchById(matchKey);
-            Cocktail cocktail = cocktailRepository.findCocktailById(Long.parseLong(heartMatchDto.getCocktailId()));
-            Member member = memberRepository.findMemberById(Long.parseLong(heartMatchDto.getMemberId()));
+            Cocktail cocktail = cocktailRepository.findCocktailById(
+                Long.parseLong(heartMatchDto.getCocktailId()));
+            Member member = memberRepository.findMemberById(
+                Long.parseLong(heartMatchDto.getMemberId()));
             Heart heart = heartRepository.findHeartByCocktailAndMember(cocktail, member);
             if (heart == null) {
                 heartRepository.save(Heart.builder().cocktail(cocktail).member(member).build());

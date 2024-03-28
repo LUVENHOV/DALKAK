@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ElasticDto {
+
     private Long cocktailId;
     private String logName;
 }

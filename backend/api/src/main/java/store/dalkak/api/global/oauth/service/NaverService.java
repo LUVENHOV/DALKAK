@@ -14,6 +14,7 @@ import store.dalkak.api.global.oauth.dto.NaverUserInfoDto;
 @Slf4j
 @RequiredArgsConstructor
 public class NaverService implements ProviderService {
+
     @Value("${naver.client_id}")
     private String clientId;
     @Value("${naver.redirect_uri}")
@@ -26,32 +27,34 @@ public class NaverService implements ProviderService {
     private String authBaseUrl;
     @Value("${naver.info_base_url}")
     private String infoBaseUrl;
+
     @Override
     public String userInfo(String token) {
-        WebClient webClient=WebClient.builder()
+        WebClient webClient = WebClient.builder()
             .baseUrl(infoBaseUrl)
-            .defaultHeader("Authorization","Bearer "+token)
+            .defaultHeader("Authorization", "Bearer " + token)
             .build();
-        NaverUserInfoDto naverUserInfoDto =webClient.get().retrieve().bodyToMono(NaverUserInfoDto.class).block();
+        NaverUserInfoDto naverUserInfoDto = webClient.get().retrieve()
+            .bodyToMono(NaverUserInfoDto.class).block();
         return naverUserInfoDto.getResponse().getId();
 
     }
 
     @Override
     public String userAuth(String code) {
-        WebClient webClient=WebClient.builder()
+        WebClient webClient = WebClient.builder()
             .baseUrl(authBaseUrl)
             .build();
 
-        MultiValueMap<String, String> formData=new LinkedMultiValueMap<>();
-        formData.add("grant_type","authorization_code");
-        formData.add("client_id",clientId);
-        formData.add("redirect_uri",redirectUri);
-        formData.add("client_secret",clientSecret);
-        formData.add("state",state);
+        MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
+        formData.add("grant_type", "authorization_code");
+        formData.add("client_id", clientId);
+        formData.add("redirect_uri", redirectUri);
+        formData.add("client_secret", clientSecret);
+        formData.add("state", state);
         formData.add("code", code);
         //에러코드일 경우 처리추가
-        NaverUserAuthDto naverUserAuthDto= webClient
+        NaverUserAuthDto naverUserAuthDto = webClient
             .post()
             .bodyValue(formData)
             .retrieve()

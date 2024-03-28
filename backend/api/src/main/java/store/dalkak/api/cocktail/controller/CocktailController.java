@@ -83,14 +83,16 @@ public class CocktailController {
     }
 
     @GetMapping("/{cocktailId}/like")
-    public ResponseEntity<ApiResponse<String>> createHeart(@LoginUser MemberDto memberDto, @PathVariable("cocktailId") Long cocktailId) {
+    public ResponseEntity<ApiResponse<String>> createHeart(@LoginUser MemberDto memberDto,
+        @PathVariable("cocktailId") Long cocktailId) {
         cocktailService.createHeart(memberDto, cocktailId);
         heartLogger.info("heart-log {} {}", cocktailId, System.currentTimeMillis());
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, "좋아요가 완료되었습니다."));
     }
 
     @GetMapping("/{cocktailId}/dislike")
-    public ResponseEntity<ApiResponse<String>> deleteHeart(@LoginUser MemberDto memberDto, @PathVariable("cocktailId") Long cocktailId) {
+    public ResponseEntity<ApiResponse<String>> deleteHeart(@LoginUser MemberDto memberDto,
+        @PathVariable("cocktailId") Long cocktailId) {
         cocktailService.deleteHeart(memberDto, cocktailId);
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, "좋아요가 취소되었습니다."));
     }

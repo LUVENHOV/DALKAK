@@ -17,6 +17,7 @@ import store.dalkak.api.user.domain.embed.Gender;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class UserLoadProfileResDto {
+
     Long id;
     String nickname;
     LocalDate birthDate;

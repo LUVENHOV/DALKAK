@@ -6,6 +6,7 @@ import store.dalkak.api.user.dto.MemberDto;
 
 
 public interface BasketService {
+
     void addBasket(MemberDto memberDto, Long ingredientId);
 
     void deleteBasket(MemberDto memberDto, Long ingredientId);

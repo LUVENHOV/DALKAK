@@ -18,7 +18,7 @@ import store.dalkak.api.cocktail.domain.Cocktail;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "COCKTAIL_TOOL")
-public class CocktailTool{
+public class CocktailTool {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

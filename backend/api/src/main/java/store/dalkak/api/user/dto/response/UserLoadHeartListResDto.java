@@ -20,7 +20,8 @@ public class UserLoadHeartListResDto {
     Integer currentPage;
 
     @Builder
-    public UserLoadHeartListResDto(List<CocktailDto> cocktails, Long totalCount, Integer totalPage,Integer currentPage) {
+    public UserLoadHeartListResDto(List<CocktailDto> cocktails, Long totalCount, Integer totalPage,
+        Integer currentPage) {
         this.cocktails = cocktails;
         this.totalCount = totalCount;
         this.totalPage = totalPage;

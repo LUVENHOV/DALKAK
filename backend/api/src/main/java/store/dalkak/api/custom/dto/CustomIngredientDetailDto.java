@@ -12,6 +12,7 @@ import store.dalkak.api.cocktail.domain.ingredient.Unit;
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CustomIngredientDetailDto {
+
     private Long id;
     private String name;
     private String image;

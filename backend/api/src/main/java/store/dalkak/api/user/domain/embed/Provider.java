@@ -13,14 +13,15 @@ public enum Provider {
     }
 
     @JsonCreator
-    public static Provider from(String value){
-        for(Provider provider:Provider.values()){
-            if(provider.getValue().equals(value)){
+    public static Provider from(String value) {
+        for (Provider provider : Provider.values()) {
+            if (provider.getValue().equals(value)) {
                 return provider;
             }
         }
         return null;
     }
+
     @JsonValue
     public String getValue() {
         return value;

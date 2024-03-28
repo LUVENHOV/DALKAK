@@ -16,15 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import store.dalkak.api.global.annotation.LoginUser;
 import store.dalkak.api.global.response.ApiResponse;
+import store.dalkak.api.user.dto.MemberDto;
 import store.dalkak.api.user.dto.request.UserCreateSurveyResultReqDto;
 import store.dalkak.api.user.dto.request.UserHasNicknameReqDto;
 import store.dalkak.api.user.dto.request.UserModifyProfileReqDto;
-import store.dalkak.api.user.dto.response.UserLoadProfileResDto;
-import store.dalkak.api.user.dto.response.UserRefreshResDto;
-import store.dalkak.api.user.dto.MemberDto;
 import store.dalkak.api.user.dto.response.UserLoadCustomRecipeListResDto;
 import store.dalkak.api.user.dto.response.UserLoadHeartListResDto;
+import store.dalkak.api.user.dto.response.UserLoadProfileResDto;
 import store.dalkak.api.user.dto.response.UserLoadRecommendListResDto;
+import store.dalkak.api.user.dto.response.UserRefreshResDto;
 import store.dalkak.api.user.service.UserService;
 
 @Slf4j
@@ -34,63 +34,80 @@ import store.dalkak.api.user.service.UserService;
 public class UserController {
 
     private final UserService userService;
+
     @GetMapping("/refresh")
-    public ResponseEntity<ApiResponse<UserRefreshResDto>> refresh(@RequestHeader("Authorization") String accessToken,@RequestHeader("X-Auth-Refresh-Token") String refreshToken){
-        ApiResponse<UserRefreshResDto> apiResponse=ApiResponse.of(200,userService.refresh(accessToken,refreshToken));
+    public ResponseEntity<ApiResponse<UserRefreshResDto>> refresh(
+        @RequestHeader("Authorization") String accessToken,
+        @RequestHeader("X-Auth-Refresh-Token") String refreshToken) {
+        ApiResponse<UserRefreshResDto> apiResponse = ApiResponse.of(200,
+            userService.refresh(accessToken, refreshToken));
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
     @DeleteMapping()
-    public ResponseEntity<?> deleteMember(@LoginUser MemberDto memberDto ){
+    public ResponseEntity<?> deleteMember(@LoginUser MemberDto memberDto) {
         log.info(String.valueOf(memberDto.getId()));
         userService.deleteMember(memberDto);
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200,null));
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, null));
     }
 
     @PostMapping("/survey")
-    public ResponseEntity<?> createSurveyResult(@LoginUser MemberDto memberDto,@RequestBody UserCreateSurveyResultReqDto userCreateSurveyResultReqDto){
+    public ResponseEntity<?> createSurveyResult(@LoginUser MemberDto memberDto,
+        @RequestBody UserCreateSurveyResultReqDto userCreateSurveyResultReqDto) {
         userService.createSurveyResult(memberDto, userCreateSurveyResultReqDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.of(201,null));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.of(201, null));
     }
 
     @GetMapping("/profile")
-    public ResponseEntity<ApiResponse<UserLoadProfileResDto>> loadProfile(@LoginUser MemberDto memberDto){
-        ApiResponse<UserLoadProfileResDto> apiResponse=ApiResponse.of(200,userService.loadProfile(memberDto));
+    public ResponseEntity<ApiResponse<UserLoadProfileResDto>> loadProfile(
+        @LoginUser MemberDto memberDto) {
+        ApiResponse<UserLoadProfileResDto> apiResponse = ApiResponse.of(200,
+            userService.loadProfile(memberDto));
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
     @PatchMapping("/profile")
-    public ResponseEntity<?> modifyProfile(@LoginUser MemberDto memberDto, @RequestBody UserModifyProfileReqDto userModifyProfileReqDto){
+    public ResponseEntity<?> modifyProfile(@LoginUser MemberDto memberDto,
+        @RequestBody UserModifyProfileReqDto userModifyProfileReqDto) {
         userService.modifyProfile(memberDto, userModifyProfileReqDto);
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200,null));
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, null));
     }
 
     @PostMapping("/profile/dupcheck")
-    public ResponseEntity<ApiResponse<?>> hasNickname(@LoginUser MemberDto memberDto,@RequestBody
-        UserHasNicknameReqDto userHasNicknameReqDto){
-        userService.hasNickname(memberDto,userHasNicknameReqDto);
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200,null));
+    public ResponseEntity<ApiResponse<?>> hasNickname(@LoginUser MemberDto memberDto, @RequestBody
+    UserHasNicknameReqDto userHasNicknameReqDto) {
+        userService.hasNickname(memberDto, userHasNicknameReqDto);
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, null));
 
     }
 
     @GetMapping("/profile/heart-list")
-    public ResponseEntity<ApiResponse<UserLoadHeartListResDto>> loadHeartList(@LoginUser MemberDto memberDto,@PageableDefault Pageable pageable){
-        UserLoadHeartListResDto userLoadHeartListResDto=userService.loadHeartList(memberDto,pageable);
-        ApiResponse<UserLoadHeartListResDto> apiResponse=ApiResponse.of(200,userLoadHeartListResDto);
+    public ResponseEntity<ApiResponse<UserLoadHeartListResDto>> loadHeartList(
+        @LoginUser MemberDto memberDto, @PageableDefault Pageable pageable) {
+        UserLoadHeartListResDto userLoadHeartListResDto = userService.loadHeartList(memberDto,
+            pageable);
+        ApiResponse<UserLoadHeartListResDto> apiResponse = ApiResponse.of(200,
+            userLoadHeartListResDto);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
     @GetMapping("/profile/custom-recipe-list")
-    public ResponseEntity<ApiResponse<UserLoadCustomRecipeListResDto>> loadCustomRecipeList(@LoginUser MemberDto memberDto,@PageableDefault Pageable pageable){
-        UserLoadCustomRecipeListResDto userLoadCustomRecipeListResDto=userService.loadCustomRecipeList(memberDto,pageable);
-        ApiResponse<UserLoadCustomRecipeListResDto> apiResponse=ApiResponse.of(200,userLoadCustomRecipeListResDto);
+    public ResponseEntity<ApiResponse<UserLoadCustomRecipeListResDto>> loadCustomRecipeList(
+        @LoginUser MemberDto memberDto, @PageableDefault Pageable pageable) {
+        UserLoadCustomRecipeListResDto userLoadCustomRecipeListResDto = userService.loadCustomRecipeList(
+            memberDto, pageable);
+        ApiResponse<UserLoadCustomRecipeListResDto> apiResponse = ApiResponse.of(200,
+            userLoadCustomRecipeListResDto);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
     @GetMapping("/profile/recommend-list")
-    public ResponseEntity<ApiResponse<UserLoadRecommendListResDto>> loadRecommendList(@LoginUser MemberDto memberDto,Pageable pageable){
-        UserLoadRecommendListResDto userLoadRecommendListResDto=userService.loadRecommendList(memberDto,pageable);
-        ApiResponse<UserLoadRecommendListResDto> apiResponse=ApiResponse.of(200,userLoadRecommendListResDto);
+    public ResponseEntity<ApiResponse<UserLoadRecommendListResDto>> loadRecommendList(
+        @LoginUser MemberDto memberDto, Pageable pageable) {
+        UserLoadRecommendListResDto userLoadRecommendListResDto = userService.loadRecommendList(
+            memberDto, pageable);
+        ApiResponse<UserLoadRecommendListResDto> apiResponse = ApiResponse.of(200,
+            userLoadRecommendListResDto);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 

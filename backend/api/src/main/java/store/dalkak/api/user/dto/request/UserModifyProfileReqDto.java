@@ -18,6 +18,7 @@ import store.dalkak.api.user.domain.embed.Gender;
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class UserModifyProfileReqDto {
+
     String nickname;
     LocalDate birthDate;
     Gender gender;

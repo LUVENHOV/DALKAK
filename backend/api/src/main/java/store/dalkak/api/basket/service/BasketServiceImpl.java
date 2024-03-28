@@ -38,7 +38,8 @@ public class BasketServiceImpl implements BasketService {
         Member member = memberRepository.findById(memberDto.getId()).orElseThrow();
         Ingredient ingredient = ingredientRepository.findById(ingredientId).orElseThrow();
         if (!isNotAlreadyAdded(member, ingredient)) {
-            throw new CocktailException(BasketIngredientAddErrorCode.ALREADY_BASKET_ADDED_ERROR_CODE);
+            throw new CocktailException(
+                BasketIngredientAddErrorCode.ALREADY_BASKET_ADDED_ERROR_CODE);
         }
         basketRepository.save(new Basket(member, ingredient));
     }

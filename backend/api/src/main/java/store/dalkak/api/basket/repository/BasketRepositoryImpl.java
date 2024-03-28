@@ -18,6 +18,7 @@ import store.dalkak.api.cocktail.dto.IngredientDto;
 public class BasketRepositoryImpl implements BasketRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
+
     @Override
     public List<IngredientDto> findBasketIngredients(Long memberId) {
         return queryFactory
