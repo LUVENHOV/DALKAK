@@ -13,7 +13,8 @@ import SearchBlock from './SearchBlock';
 import SearchColor from './SearchColor';
 import SearchAlcoholContent from '../common/AlcoholContent';
 import BtnWithIcon from '../common/BtnWithIcon';
-import SearchIngredients from '../common/SearchIngredients';
+import IngredientBlock from '../common/IngredientBlock';
+import IngredientSearchForm from '../common/IngredientSearchForm';
 import useSearchStore from '@/store/searchStore';
 
 const baseList = [
@@ -84,7 +85,7 @@ const sweetnessList = [
 export default function CocktailSearchForm() {
   const {
     cocktailName,
-    // ingredients,
+    ingredients,
     base,
     minAlcohol,
     maxAlcohol,
@@ -92,7 +93,6 @@ export default function CocktailSearchForm() {
     sweetness,
     setPage,
     setCocktailName,
-    // setIngredients,
     setBase,
     setMinAlcohol,
     setMaxAlcohol,
@@ -100,6 +100,8 @@ export default function CocktailSearchForm() {
     setSweetness,
     setOrderBy,
     setActivateSearch,
+    addIngredient,
+    removeIngredient,
     clearAll,
   } = useSearchStore();
 
@@ -168,7 +170,23 @@ export default function CocktailSearchForm() {
             </div>
             <div className={`${styles.searchRow} ${styles.ingredients}`}>
               <div className={styles.title}>재료</div>
-              <SearchIngredients />
+              <div className={styles['ingredients-container']}>
+                <div className={styles['selected-container']}>
+                  {ingredients.size > 0
+                    ? Array.from(ingredients).map((ingredient) => (
+                        <IngredientBlock
+                          key={ingredient.id}
+                          ingredient={ingredient}
+                          handleOnClick={removeIngredient}
+                        />
+                      ))
+                    : null}
+                </div>
+                <IngredientSearchForm
+                  placeholder="칵테일에 사용되는 재료를 검색해보세요!"
+                  handleOnClick={addIngredient}
+                />
+              </div>
             </div>
             <div className={`${styles.searchRow} ${styles.base}`}>
               <div className={styles.title}>베이스</div>

@@ -33,8 +33,6 @@ export default function ToolCard({ cocktailTool, index, lastIndex }: Props) {
       <div className={className}>
         <Image
           className={styles['ingredient-img']}
-          width={1000}
-          height={1000}
           src={cocktailTool.image}
           alt="도구 이미지"
           width={20}

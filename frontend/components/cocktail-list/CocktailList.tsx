@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './CocktailList.module.scss';
 import CocktailCard from '@/components/cocktail-list/CocktailCard';
 import useSearchStore from '@/store/searchStore';
-import { ICocktailType, ISearchParamsType } from '@/types/SearchTypes';
+import { ICocktailType, ISearchParamsType } from '@/type/searchTypes';
 
 const authorization =
   'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTEzMjkwNDUsImV4cCI6MTcxMTc2MTA0NSwiaWQiOjN9.zcY6r5AdHWBddd-sUz8oFdGV14DZLLyXi_5-BG--C20';
@@ -13,7 +13,6 @@ const authorization =
 const getCocktailList = async ({
   page,
   cocktailName,
-  ingredients,
   base,
   minAlcohol,
   maxAlcohol,
@@ -21,7 +20,9 @@ const getCocktailList = async ({
   sweetness,
   orderBy,
   setTotalPage,
+  getIngredientsId,
 }: ISearchParamsType) => {
+  const ingredients = getIngredientsId();
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/search?page=${page}&cocktail-name=${cocktailName}&ingredients=${ingredients}&base=${base || ''}&min-alcohol=${minAlcohol}&max-alcohol=${maxAlcohol}&color=${color || ''}&sweetness=${sweetness || ''}&orderBy=${orderBy}`,
     {
@@ -38,7 +39,6 @@ export default function CocktailList() {
   const {
     page,
     cocktailName,
-    ingredients,
     base,
     minAlcohol,
     maxAlcohol,
@@ -47,6 +47,7 @@ export default function CocktailList() {
     orderBy,
     activateSearch,
     setTotalPage,
+    getIngredientsId,
   } = useSearchStore();
 
   const [cocktailList, setCocktailList] = useState([]);
@@ -55,7 +56,6 @@ export default function CocktailList() {
       const cocktailRes = await getCocktailList({
         page,
         cocktailName,
-        ingredients,
         base,
         minAlcohol,
         maxAlcohol,
@@ -64,6 +64,7 @@ export default function CocktailList() {
         orderBy,
         activateSearch,
         setTotalPage,
+        getIngredientsId,
       });
       setCocktailList(cocktailRes);
     };
