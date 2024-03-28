@@ -4,65 +4,91 @@ import { ChangeEvent, useState, useEffect } from 'react';
 
 import styles from './CustomCocktailAddIngredient.module.scss';
 
+interface Unit {
+  id: number;
+  name: string;
+}
+
 interface Origin {
-  ingredient: {
-    id: number;
-    name: string;
-  };
-  ingredient_amount: number;
-  unit: {
-    id: number;
-    name: string;
-  };
+  id: number;
+  name: string;
+  image: string;
+  category_id: number;
+  amount: number;
+  unit: Unit;
 }
 
 interface Props {
   origin: Origin[];
 }
 
-// const unitList = ['조각', '슬라이스', '그램', 'ml', '개'];
-
 export default function CustomCocktailAddIngredient({ origin }: Props) {
-  const [tempList, setTempList] = useState(origin);
+  console.log(origin);
+  const [tempList, setTempList] = useState<Origin[]>([]);
   // const [amount, setAmount] = useState(origin.ingredient_amount)
-  const [inputValues, setInputValues] = useState<string[]>(
-    origin.map((item) => String(item.ingredient_amount)),
-  );
-
-  const [inputUnitValues, setInputUnitValues] = useState<string[]>(
-    origin.map((item) => String(item.unit.name)),
-  );
+  const [inputValues, setInputValues] = useState<string[]>([]);
+  // const [tempValues, setTempValues] = useState<string[]>([]);
+  const [inputUnitValues, setInputUnitValues] = useState<string[]>([]);
 
   useEffect(() => {
-    // console.log(tempList);
-  }, [tempList]);
+    setTempList(origin);
+    setInputValues(origin.map((item) => String(item.amount)));
+    // setTempValues(inputValues);
+    setInputUnitValues(origin.map((item) => String(item.unit.name)));
+  }, [origin]);
+
+  // const removeItem = (id: number) => {
+  //   setTempList((prevList) => {
+  //     const updatedList = prevList.filter((data) => data.id !== id);
+  //     return updatedList;
+  //   });
+  // };
 
   const removeItem = (id: number) => {
-    setTempList((prevList) => {
-      const updatedList = prevList.filter((data) => data.ingredient.id !== id);
-      return updatedList;
-    });
+    setTempList((prevList) => prevList.filter((data) => data.id !== id));
   };
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>, id: number) => {
-    const { value } = e.target;
-    setInputValues((prevValues) => {
-      const updatedValues = [...prevValues];
-      updatedValues[id - 1] = value;
-      return updatedValues;
-    });
+  // const handleInputChange = (e: ChangeEvent<HTMLInputElement>, id: number) => {
+  //   const { value } = e.target;
+  //   setInputValues((prevValues) => {
+  //     const updatedValues = [...prevValues];
+  //     updatedValues[id] = value;
+  //     return updatedValues;
+  //   });
 
-    // console.log(inputValues);
+  // };
+
+  const handleInputChangeTest = (
+    e: ChangeEvent<HTMLInputElement>,
+    id: number,
+    index: number[],
+  ) => {
+    const tempNum = e.target.value;
+    // console.log('아이디');
+    // console.log(id);
+    // console.log('인덱스');
+    // console.log(index);
+    // console.log('밸류');
+    // console.log({ value });
+    const indexToUpdate = index[0];
+
+    setInputValues((prevInputValues) => {
+      const newInputValues = [...prevInputValues];
+      newInputValues[indexToUpdate] = tempNum;
+      return newInputValues;
+    });
   };
 
   const handleUnitInputChange = (
     e: ChangeEvent<HTMLSelectElement>,
     id: number,
+    index: number[],
   ) => {
-    const { value } = e.target;
+    const indexToUpdate = index[0];
+    const unitValue = e.target.value;
     setInputUnitValues((prevUnitValues) => {
       const updatedUnitValues = [...prevUnitValues];
-      updatedUnitValues[id - 1] = value;
+      updatedUnitValues[indexToUpdate] = unitValue;
       return updatedUnitValues;
     });
 
@@ -79,7 +105,7 @@ export default function CustomCocktailAddIngredient({ origin }: Props) {
             // eslint-disable-next-line react/no-array-index-key
             <div key={index}>
               <div className={styles['grid-container']}>
-                <div>{data.ingredient.name}</div>
+                <div>{data.name}</div>
                 <div />
                 <div>
                   <input
@@ -87,8 +113,10 @@ export default function CustomCocktailAddIngredient({ origin }: Props) {
                     pattern="[0-9]+"
                     className={styles['amount-input']}
                     value={inputValues[index]}
-                    onChange={(e) => handleInputChange(e, data.ingredient.id)}
+                    // value={tempValues[index]}
+                    // onChange={(e) => handleInputChange(e, data.id)}
                     maxLength={4}
+                    onChange={(e) => handleInputChangeTest(e, data.id, [index])}
                   />
                 </div>
                 <div>
@@ -96,7 +124,7 @@ export default function CustomCocktailAddIngredient({ origin }: Props) {
                     className={styles['unit-input']}
                     value={inputUnitValues[index]}
                     onChange={
-                      (e) => handleUnitInputChange(e, data.ingredient.id)
+                      (e) => handleUnitInputChange(e, data.id, [index])
                       // eslint-disable-next-line react/jsx-curly-newline
                     }
                   >
@@ -118,7 +146,7 @@ export default function CustomCocktailAddIngredient({ origin }: Props) {
                   <button
                     type="button"
                     className={styles['delete-button']}
-                    onClick={() => removeItem(data.ingredient.id)}
+                    onClick={() => removeItem(data.id)}
                   >
                     ✕
                   </button>
