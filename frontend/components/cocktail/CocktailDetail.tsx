@@ -83,8 +83,8 @@ interface StoreData {
 const storeData: StoreData = {
   ingredients: [
     {
-      id: 2,
-      name: '레몬',
+      id: 270,
+      name: '라임',
 
       category: {
         id: 2,
@@ -92,27 +92,16 @@ const storeData: StoreData = {
       },
     },
     {
-      id: 3,
+      id: 435,
       name: '얼음',
-
       category: {
         id: 3,
         name: 'beverage',
       },
     },
     {
-      id: 7,
-      name: '보드카',
-
-      category: {
-        id: 1,
-        name: 'alcohol',
-      },
-    },
-    {
-      id: 8,
-      name: '어쩌고',
-
+      id: 187,
+      name: '앱솔루트 보드카',
       category: {
         id: 1,
         name: 'alcohol',
@@ -123,14 +112,13 @@ const storeData: StoreData = {
 const storeList = storeData.ingredients;
 
 interface Props {
-  cocktailId: string;
+  cocktailId: number;
 }
 
 const token =
   'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTEzMjkwNDUsImV4cCI6MTcxMTc2MTA0NSwiaWQiOjN9.zcY6r5AdHWBddd-sUz8oFdGV14DZLLyXi_5-BG--C20';
 
 export async function getData({ cocktailId }: Props) {
-  console.log(cocktailId);
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/${cocktailId}`,
     {
@@ -198,16 +186,26 @@ export default async function CocktailDetail({ cocktailId }: Props) {
         <hr className={styles.hr2} />
         <div className={styles.flex}>
           <div className={styles.title}>커스텀 칵테일</div>
+
           <div className={styles.all}>
-            <Link href={`/cocktail/custom/${cocktailId}`}>
-              <BtnWithIcon text="전체보기" btnStyle="full-point" />
-            </Link>
+            {cocktailDetailData.custom_cocktails?.length > 0 ? (
+              <Link href={`/cocktail/custom/${cocktailId}`}>
+                <BtnWithIcon text="전체보기" btnStyle="full-point" />
+              </Link>
+            ) : null}
           </div>
         </div>
         <div>
-          <CustomCocktailCardWrapper
-            dummy={cocktailDetailData.custom_cocktails}
-          />
+          {cocktailDetailData.custom_cocktails?.length > 0 ? (
+            <CustomCocktailCardWrapper
+              dummy={cocktailDetailData.custom_cocktails}
+              type="small"
+            />
+          ) : (
+            <div className={styles['no-custom']}>
+              등록된 커스텀 칵테일이 없습니다.
+            </div>
+          )}
         </div>
       </div>
     </div>

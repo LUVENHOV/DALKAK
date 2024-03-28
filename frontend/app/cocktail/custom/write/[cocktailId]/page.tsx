@@ -1,15 +1,12 @@
 import CustomCocktailWrite from '@/components/custom-cocktail/write/CustomCocktailWrite';
 import { ICocktailType } from '@/type/searchTypes';
 
-interface Props {
-  cocktailId: string;
-}
-
-export default function Page({ params }: { params: Props }) {
+export default function Page({ params }: { params: { cocktailId: string } }) {
   const { cocktailId } = params;
+  const cocktailIdInt = parseInt(cocktailId, 10);
   return (
     <div>
-      <CustomCocktailWrite cocktailId={cocktailId} />
+      <CustomCocktailWrite cocktailId={cocktailIdInt} />
     </div>
   );
 }

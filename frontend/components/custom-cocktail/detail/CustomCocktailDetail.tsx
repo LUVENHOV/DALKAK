@@ -68,8 +68,8 @@ interface StoreData {
 const storeData: StoreData = {
   ingredients: [
     {
-      id: 2,
-      name: '레몬',
+      id: 270,
+      name: '라임',
 
       category: {
         id: 2,
@@ -77,27 +77,16 @@ const storeData: StoreData = {
       },
     },
     {
-      id: 3,
+      id: 435,
       name: '얼음',
-
       category: {
         id: 3,
         name: 'beverage',
       },
     },
     {
-      id: 7,
-      name: '보드카',
-
-      category: {
-        id: 1,
-        name: 'alcohol',
-      },
-    },
-    {
-      id: 8,
-      name: '어쩌고',
-
+      id: 187,
+      name: '앱솔루트 보드카',
       category: {
         id: 1,
         name: 'alcohol',
@@ -109,7 +98,7 @@ const storeData: StoreData = {
 const storeList = storeData.ingredients;
 
 interface Props {
-  customId: string;
+  customId: number;
 }
 
 const token = process.env.NEXT_PUBLIC_TOKEN;

@@ -147,7 +147,7 @@ const { recipe } = originIngredientList;
 const origin: IngredientsList[] = originIngredientList.ingredientList;
 
 interface Props {
-  cocktailId: string;
+  cocktailId: number;
 }
 
 export default function CustomCocktailWrite({ cocktailId }: Props) {

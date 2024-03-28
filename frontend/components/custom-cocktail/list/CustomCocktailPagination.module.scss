@@ -1,0 +1,26 @@
+.pagination {
+  margin-bottom: 5vw;
+  display: flex;
+  justify-content: center;
+  gap: 1vw;
+
+  li {
+    display: flex;
+    width: 2.3vw;
+    height: 2.3vw;
+    padding: 0.5vw;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4vw;
+    font-weight: 600;
+  }
+
+  > * {
+    cursor: pointer;
+  }
+}
+
+.pagination-link-active {
+  background-color: var(--color-base);
+  border-radius: 50%;
+}
