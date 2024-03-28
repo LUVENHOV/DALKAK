@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { ResponseData, AuthResponse } from '../../types';
+// import { ResponseData, AuthResponse } from '../../types';
 import { Login } from '@/apis/Member';
 import authStore from '@/store/authStore';
 import memberStore from '@/store/memberStore';
