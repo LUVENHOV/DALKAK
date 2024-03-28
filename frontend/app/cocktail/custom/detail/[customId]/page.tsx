@@ -2,9 +2,11 @@ import CustomCocktailDetail from '@/components/custom-cocktail/detail/CustomCock
 
 export default function Page({ params }: { params: { customId: string } }) {
   const { customId } = params;
+  const customIdInt = parseInt(customId, 10);
+
   return (
     <div>
-      <CustomCocktailDetail customId={customId} />
+      <CustomCocktailDetail customId={customIdInt} />
     </div>
   );
 }

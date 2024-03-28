@@ -98,7 +98,7 @@ const storeData: StoreData = {
 const storeList = storeData.ingredients;
 
 interface Props {
-  customId: string;
+  customId: number;
 }
 
 const token = process.env.NEXT_PUBLIC_TOKEN;
