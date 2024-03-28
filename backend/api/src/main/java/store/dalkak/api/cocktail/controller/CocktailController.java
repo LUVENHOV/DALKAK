@@ -49,7 +49,6 @@ public class CocktailController {
     //칵테일 검색
     @GetMapping("/search")
     public ResponseEntity<ApiResponse<CocktailPageResDto>> searchCocktailByOption(
-        @LoginUser MemberDto memberDto,
         @PageableDefault(value = 20) Pageable page,
         @RequestParam(value = "cocktail-name", required = false) String cocktailName,
         @RequestParam(value = "ingredients", required = false) List<Long> ingredients,
