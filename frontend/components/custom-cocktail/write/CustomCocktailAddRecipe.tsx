@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { usePathname } from 'next/navigation';
+// import { usePathname } from 'next/navigation';
 
 import styles from './CustomCocktailAddRecipe.module.scss';
 
@@ -14,7 +14,7 @@ const splitedRecipe = (recipe: string) => recipe.split('|').join('\n\n');
 // console.log(splitedRecipe);
 
 export default function CustomCocktailAddRecipe({ recipe }: Props) {
-  const pathname = usePathname();
+  // const pathname = usePathname();
   // console.log(pathname);
   const [inputValue, setInputValue] = useState(recipe);
 
