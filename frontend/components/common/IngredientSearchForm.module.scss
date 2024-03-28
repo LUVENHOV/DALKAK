@@ -10,7 +10,8 @@
   }
 
   .results-container {
-    // background-color: gray;
+    width: 95%;
+    margin: 0 auto;
     max-height: 20vw;
     overflow-x: auto;
     margin-top: 2vw;
@@ -18,5 +19,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: 1vw;
+    z-index: 1;
   }
 }
