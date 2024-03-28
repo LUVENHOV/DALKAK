@@ -4,7 +4,7 @@ from .recommend.recommend import recommend_by_refrigerator
 
 from .database.database import engineconn
 
-app = FastAPI()
+app = FastAPI(docs_url="/fast/docs")
 
 engine = engineconn()
 session = engine.sessionmaker()
