@@ -10,6 +10,7 @@ import styles from './Navbar.module.scss';
 import logo from '@/public/assets/imgs/logo.png';
 import authStore from '@/store/authStore';
 import memberStore from '@/store/memberStore';
+import { Logout } from '@/apis/Member';
 
 export default function Navbar() {
   const pathName = usePathname();
@@ -25,21 +26,16 @@ export default function Navbar() {
       Authorization: accessToken,
     },
   };
-  const Logout = async () => {
-    axios
-      .get(
-        `${process.env.NEXT_PUBLIC_BASE_URL as string}/oauth/logout`,
-        headerConfig,
-      )
-      .then((res: AxiosResponse) => {
-        if (res.status === 200) {
-          clearAll();
-          clearTokens();
-        }
-      })
-      .catch((error: AxiosError) => {
-        console.log(error);
-      });
+  const LogoutFunction = async () => {
+    try {
+      const response = await Logout();
+      if (response.status === 200) {
+        clearAll();
+        clearTokens();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className={styles.navbar}>
@@ -72,7 +68,7 @@ export default function Navbar() {
       <div />
       {isLoggedIn ? (
         <>
-          <button type="button" onClick={() => Logout()}>
+          <button type="button" onClick={() => LogoutFunction()}>
             로그아웃
           </button>
           <Link href="/member">
