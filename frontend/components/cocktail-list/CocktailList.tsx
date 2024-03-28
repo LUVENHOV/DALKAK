@@ -20,9 +20,9 @@ const getCocktailList = async ({
   sweetness,
   orderBy,
   setTotalPage,
-  getIngredients,
+  getIngredientsId,
 }: ISearchParamsType) => {
-  const ingredients = getIngredients();
+  const ingredients = getIngredientsId();
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/search?page=${page}&cocktail-name=${cocktailName}&ingredients=${ingredients}&base=${base || ''}&min-alcohol=${minAlcohol}&max-alcohol=${maxAlcohol}&color=${color || ''}&sweetness=${sweetness || ''}&orderBy=${orderBy}`,
     {
@@ -47,7 +47,7 @@ export default function CocktailList() {
     orderBy,
     activateSearch,
     setTotalPage,
-    getIngredients,
+    getIngredientsId,
   } = useSearchStore();
 
   const [cocktailList, setCocktailList] = useState([]);
@@ -64,7 +64,7 @@ export default function CocktailList() {
         orderBy,
         activateSearch,
         setTotalPage,
-        getIngredients,
+        getIngredientsId,
       });
       setCocktailList(cocktailRes);
     };

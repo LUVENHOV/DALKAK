@@ -172,13 +172,15 @@ export default function CocktailSearchForm() {
               <div className={styles.title}>재료</div>
               <div className={styles['ingredients-container']}>
                 <div className={styles['selected-container']}>
-                  {ingredients?.map((ingredient) => (
-                    <IngredientBlock
-                      key={ingredient.id}
-                      ingredient={ingredient}
-                      handleOnClick={removeIngredient}
-                    />
-                  ))}
+                  {ingredients.size > 0
+                    ? Array.from(ingredients).map((ingredient) => (
+                        <IngredientBlock
+                          key={ingredient.id}
+                          ingredient={ingredient}
+                          handleOnClick={removeIngredient}
+                        />
+                      ))
+                    : null}
                 </div>
                 <IngredientSearchForm
                   placeholder="칵테일에 사용되는 재료를 검색해보세요!"

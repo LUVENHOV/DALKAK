@@ -1,11 +1,10 @@
-import { MouseEventHandler } from 'react';
 import { IIngredientType } from './refrigeratorTypes';
 
 export interface ISearchType {
   page: number;
   totalPage: number;
   cocktailName: string;
-  ingredients: IIngredientType[];
+  ingredients: Set<IIngredientType>;
   base: number | null;
   minAlcohol: number;
   maxAlcohol: number;
@@ -25,7 +24,7 @@ export interface ISearchType {
   setActivateSearch: () => void;
   addIngredient: (ingredient: IIngredientType) => void;
   removeIngredient: (ingredient: IIngredientType) => void;
-  getIngredients: () => number[];
+  getIngredientsId: () => number[];
   clearAll: () => void;
 }
 
@@ -40,7 +39,7 @@ export interface ISearchParamsType {
   orderBy: number;
   activateSearch: boolean;
   setTotalPage: (page: number) => void;
-  getIngredients: () => number[];
+  getIngredientsId: () => number[];
 }
 
 export interface ICocktailType {
