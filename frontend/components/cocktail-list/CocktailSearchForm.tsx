@@ -13,6 +13,8 @@ import SearchBlock from './SearchBlock';
 import SearchColor from './SearchColor';
 import SearchAlcoholContent from '../common/AlcoholContent';
 import BtnWithIcon from '../common/BtnWithIcon';
+import IngredientBlock from '../common/IngredientBlock';
+import IngredientSearchForm from '../common/IngredientSearchForm';
 import useSearchStore from '@/store/searchStore';
 
 const baseList = [
@@ -91,7 +93,10 @@ export default function CocktailSearchForm() {
     sweetness,
     setPage,
     setCocktailName,
+<<<<<<< HEAD
     setIngredients,
+=======
+>>>>>>> 63e61083686595329cb2cebaa5324d97fb6745a7
     setBase,
     setMinAlcohol,
     setMaxAlcohol,
@@ -99,6 +104,8 @@ export default function CocktailSearchForm() {
     setSweetness,
     setOrderBy,
     setActivateSearch,
+    addIngredient,
+    removeIngredient,
     clearAll,
   } = useSearchStore();
 
@@ -167,6 +174,26 @@ export default function CocktailSearchForm() {
             </div>
             <div className={`${styles.searchRow} ${ingredients}`}>
               <div className={styles.title}>재료</div>
+<<<<<<< HEAD
+=======
+              <div className={styles['ingredients-container']}>
+                <div className={styles['selected-container']}>
+                  {ingredients.size > 0
+                    ? Array.from(ingredients).map((ingredient) => (
+                        <IngredientBlock
+                          key={ingredient.id}
+                          ingredient={ingredient}
+                          handleOnClick={removeIngredient}
+                        />
+                      ))
+                    : null}
+                </div>
+                <IngredientSearchForm
+                  placeholder="칵테일에 사용되는 재료를 검색해보세요!"
+                  handleOnClick={addIngredient}
+                />
+              </div>
+>>>>>>> 63e61083686595329cb2cebaa5324d97fb6745a7
             </div>
             <div className={`${styles.searchRow} ${base}`}>
               <div className={styles.title}>베이스</div>

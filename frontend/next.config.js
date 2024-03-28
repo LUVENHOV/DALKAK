@@ -4,6 +4,7 @@ const nextConfig = {
   StrictMode: false,
   distDir: 'build',
   output: 'export',
+  trailingSlash: true,
   images: {
     loader: 'custom',
     loaderFile: './image-loader.ts',

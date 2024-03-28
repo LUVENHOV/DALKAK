@@ -1,0 +1,34 @@
+.container {
+  height: 8vw;
+  width: 7vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1vw;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.title-wrapper {
+  width: 6vw;
+  height: 2vw;
+  line-height: 1.5vw;
+  font-size: 1rem;
+  text-align: center;
+  overflow: hidden;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.image-wrapper {
+  width: 5vw;
+  height: 4vw;
+  text-align: center;
+
+  img {
+    width: 80%;
+    height: auto;
+  }
+}
