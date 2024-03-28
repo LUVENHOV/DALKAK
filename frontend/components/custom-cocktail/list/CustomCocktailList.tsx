@@ -22,7 +22,7 @@ interface Custom_Cocktails {
 interface ApiResponse {
   custom_cocktails: Custom_Cocktails[];
   current_page: number;
-  total_page: number;
+  total_page: number | undefined;
   total_elements: number;
 }
 
@@ -86,7 +86,7 @@ export default function CustomCocktailList(props: Props) {
       <CustomCocktailCardWrapper dummy={customList} type="big" />
 
       <CustomCocktailPagination
-        totalPages={customAllData?.total_page ?? 0}
+        totalPages={customAllData?.total_page}
         handlePageClick={handlePageClick}
       />
     </div>
