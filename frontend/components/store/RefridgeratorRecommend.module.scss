@@ -1,7 +1,9 @@
 .container {
-  height: 12vw;
+  // background-color: rebeccapurple;
+  height: 8vw;
   display: flex;
   align-items: flex-end;
+  cursor: pointer;
 
   .image-wrapper {
     height: 100%;
@@ -9,13 +11,14 @@
 
     img {
       width: auto;
-      height: 12vw;
+      height: 8vw;
     }
   }
 
   .text-container {
     h3 {
       font-size: 1rem;
+      transition: 0.3s;
     }
 
     .color-block {
@@ -24,5 +27,12 @@
       height: 0.5vw;
       margin: 1vw 0 2vw 0;
     }
+  }
+}
+
+.container:hover {
+  h3 {
+    color: var(--color-point);
+    transition: 0.3s;
   }
 }
