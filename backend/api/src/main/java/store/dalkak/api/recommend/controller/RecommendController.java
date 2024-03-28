@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import store.dalkak.api.global.annotation.LoginUser;
 import store.dalkak.api.global.response.ApiResponse;
-import store.dalkak.api.recommend.dto.PreferRecommendResDto;
-import store.dalkak.api.recommend.dto.SurveyRecommendResDto;
+import store.dalkak.api.recommend.dto.response.HeartRankRecommendResDto;
+import store.dalkak.api.recommend.dto.response.RefrigeratorRecommendResDto;
+import store.dalkak.api.recommend.dto.response.PreferRecommendResDto;
 import store.dalkak.api.recommend.service.RecommendService;
 import store.dalkak.api.user.dto.MemberDto;
 
@@ -23,17 +24,24 @@ public class RecommendController {
     private final RecommendService recommendService;
 
     @GetMapping("/survey")
-    public ResponseEntity<ApiResponse<SurveyRecommendResDto>> surveyRecommend(
+    public ResponseEntity<ApiResponse<PreferRecommendResDto>> preferRecommend(
         @LoginUser MemberDto memberDto) {
-        recommendService.surveyRecommend(memberDto);
+        recommendService.preferRecommend(memberDto);
         return null;
     }
 
-    @GetMapping("/prefer")
-    public ResponseEntity<ApiResponse<PreferRecommendResDto>> preferRecommend() {
-        PreferRecommendResDto preferRecommendResDto = recommendService.preferRecommend();
+    @GetMapping("/refrigerator")
+    public ResponseEntity<ApiResponse<RefrigeratorRecommendResDto>> refrigeratorRecommend(
+        @LoginUser MemberDto memberDto) {
+        recommendService.refrigeratorRecommend(memberDto);
+        return null;
+    }
+
+    @GetMapping("/heart-rank")
+    public ResponseEntity<ApiResponse<HeartRankRecommendResDto>> heartRankRecommend() {
+        HeartRankRecommendResDto heartRankRecommendResDto = recommendService.heartRankRecommend();
         return ResponseEntity.status(HttpStatus.OK)
-            .body(ApiResponse.of(200, preferRecommendResDto));
+            .body(ApiResponse.of(200, heartRankRecommendResDto));
     }
 
 }

@@ -41,8 +41,8 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
             HttpServletRequest.class);
         if (httpServletRequest != null) {
             String token = httpServletRequest.getHeader("Authorization");
-
-            if (token != null) {
+            log.info("들어온 토큰: {}",token);
+            if (token.isEmpty()) {
                 token = token.split(" ")[1]; //Bearer token
                 if (jwtProvider.validateToken(token)) {
                     long memberId = jwtProvider.getMemberPrimaryKeyId(token);
