@@ -1,18 +1,21 @@
 import $Fetch from './common';
 import authStore from '@/store/authStore';
 
-interface OauthProps {
-  code: string;
-  provider: string;
+interface SubmitSurveryProps {
+  survey_cocktails: number[];
+  occasion_id: number;
+  base_id: number;
+  alcohol_content: number;
+  sweetness: number;
+  survey_ingredients: number[];
 }
-
-const OauthURL = `${process.env.NEXT_PUBLIC_BASE_URL as string}/oauth`;
+const URL = process.env.NEXT_PUBLIC_BASE_URL as string;
 const getAccessToken = () => authStore.getState().accessToken;
 
-// Login
-const Login = ({ code, provider }: OauthProps) =>
-  $Fetch('POST', `${OauthURL}/login`, '', { code, provider });
+// Byebye
+const withdrawal = () => $Fetch('DELETE', `${URL}/users`, getAccessToken());
 
-// Logout
-const Logout = () => $Fetch('GET', `${OauthURL}/logout`, getAccessToken());
-export { Login, Logout };
+const submitSurvey = (survey: SubmitSurveryProps) =>
+  $Fetch('POST', `${URL}/users/survey`, getAccessToken(), {}, survey);
+
+export { withdrawal, submitSurvey };

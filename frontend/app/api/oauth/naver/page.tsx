@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 // import { ResponseData, AuthResponse } from '../../types';
-import { Login } from '@/apis/Member';
+import { Login } from '@/apis/Auth';
 import authStore from '@/store/authStore';
 import memberStore from '@/store/memberStore';
 
@@ -15,7 +15,7 @@ export default function Page() {
 
   const authorization = async (authCode: string) => {
     try {
-      const response = await Login({ code: authCode, provider: 'GOOGLE' });
+      const response = await Login({ code: authCode, provider: 'NAVER' });
       if (response.status === 200) {
         const responseData = await response.json();
         const { accessToken, refreshToken } = responseData.data;

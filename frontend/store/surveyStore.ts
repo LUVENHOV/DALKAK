@@ -20,9 +20,9 @@ interface storeState {
   gender: string;
   surveyCocktails: number[];
   baseId: number;
-  occationId: number;
+  occassionId: number;
   alcoholContent: number;
-  sweatness: number;
+  sweetness: number;
   surveyIngredients: number[];
   getQuestion: (process: number) => string;
   nextProgress: () => void;
@@ -36,7 +36,7 @@ interface storeState {
   setBaseId: (baseId: number) => void;
   setOccationId: (occationId: number) => void;
   setAlcoholContent: (alcoholContent: number) => void;
-  setSweatness: (sweatness: number) => void;
+  setSweetness: (sweetness: number) => void;
   addSurveyIngredients: (ingredient: number) => void;
   deleteSurveyIngredients: (ingredient: number) => void;
   clearSurvey: () => void;
@@ -51,10 +51,10 @@ const surveyStore = create(
       gender: '',
       surveyCocktails: [],
       baseId: 0,
-      occationId: 0,
+      occassionId: 0,
       alcoholContent: 0,
-      sweatness: 0,
-      surveyIngredients: [1, 2, 3],
+      sweetness: 0,
+      surveyIngredients: [21, 3],
 
       getQuestion: (process: number) => Question[process],
       // 다음 페이지 이동
@@ -86,9 +86,9 @@ const surveyStore = create(
           ),
         }),
       setBaseId: (baseId: number) => set({ baseId }),
-      setOccationId: (occationId: number) => set({ occationId }),
+      setOccationId: (occassionId: number) => set({ occassionId }),
       setAlcoholContent: (alcoholContent: number) => set({ alcoholContent }),
-      setSweatness: (sweatness: number) => set({ sweatness }),
+      setSweetness: (sweetness: number) => set({ sweetness }),
       addSurveyIngredients: (ingredient: number) =>
         set({ surveyIngredients: [...get().surveyIngredients, ingredient] }),
       deleteSurveyIngredients: (ingredient: number) =>
@@ -102,10 +102,10 @@ const surveyStore = create(
           progress: 0,
           surveyCocktails: [],
           baseId: 0,
-          occationId: 0,
+          occassionId: 0,
           alcoholContent: 0,
-          sweatness: 0,
-          surveyIngredients: [],
+          sweetness: 0,
+          surveyIngredients: [1, 2, 3],
         }),
     }),
     {

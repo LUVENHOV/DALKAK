@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 
 import surveyStore from '../../store/surveyStore';
 import authStore from '@/store/authStore';
+import { submitSurvey } from '@/apis/Member';
 
 import './page.scss';
 
@@ -17,11 +18,17 @@ export default function Layout({
   const nextProgress = surveyStore((state) => state.nextProgress);
   const beforeProgress = surveyStore((state) => state.beforeProgress);
   const [fadeOut, setFadeOut] = React.useState(false);
+  const clearSurvey = () => {
+    surveyStore.getState().clearSurvey();
+  };
   useEffect(() => {
     if (progress === 6) {
       setTimeout(() => {
         setFadeOut(true);
       }, 1000);
+    }
+    if (progress === 0) {
+      clearSurvey();
     }
   }, [progress]);
 
@@ -54,42 +61,31 @@ export default function Layout({
       });
   };
 
-  const submitSurvey = () => {
-    const token = authStore.getState().accessToken;
+  const submit = async () => {
     const {
       surveyCocktails,
-      occationId,
+      occassionId,
       baseId,
       alcoholContent,
-      sweatness,
+      sweetness,
       surveyIngredients,
     } = surveyStore.getState();
-
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users/survey`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: token,
-      },
-      body: JSON.stringify({
+    try {
+      const response = await submitSurvey({
         survey_cocktails: surveyCocktails,
-        occation_id: occationId,
-        base_id: baseId,
+        occasion_id: 4,
+        base_id: 3,
         alcohol_content: alcoholContent,
-        sweatness,
+        sweetness,
         survey_ingredients: surveyIngredients,
-      }),
-    })
-      .then((res) => {
-        if (res.status === 200) {
-          nextProgress();
-        }
-      })
-      .catch((err) => {
-        console.log(err);
       });
+      if (response.status === 200) {
+        nextProgress();
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
-
   return (
     <>
       <div className="topWrapper">
@@ -129,7 +125,7 @@ export default function Layout({
               console.log('hh');
               nextProgress();
               // submitMemeberInfo();
-              submitSurvey();
+              submit();
               // submit API
             }}
           >
