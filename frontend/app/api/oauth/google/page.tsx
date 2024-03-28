@@ -15,33 +15,32 @@ export default function Page() {
   const setMemberStateLogin = memberStore((state) => state.setMemberStateLogin);
 
   const authorization = async (authCode: string) => {
-    await Login({ code: authCode, provider: 'GOOGLE' })
-      .then(async (response) => {
-        if (response.status === 200) {
-          const responseData = await response.json();
-          const { accessToken, refreshToken } = responseData.data;
+    try {
+      const response = await Login({ code: authCode, provider: 'GOOGLE' });
+      if (response.status === 200) {
+        const responseData = await response.json();
+        const { accessToken, refreshToken } = responseData.data;
 
-          setAccessToken(accessToken);
-          setRefreshToken(refreshToken);
+        setAccessToken(accessToken);
+        setRefreshToken(refreshToken);
 
-          setMemberStateLogin(
-            responseData.data.id,
-            responseData.data.nickname,
-            responseData.data.survey_completion ?? false,
-          );
-          window.opener.postMessage(
-            {
-              type: 'LOGIN_SUCCESS',
-              data: {},
-            },
-            '*',
-          );
-          window.close();
-        }
-      })
-      .catch((error) => {
-        console.timeLog(error);
-      });
+        setMemberStateLogin(
+          responseData.data.id,
+          responseData.data.nickname,
+          responseData.data.survey_completion ?? false,
+        );
+        window.opener.postMessage(
+          {
+            type: 'LOGIN_SUCCESS',
+            data: {},
+          },
+          '*',
+        );
+        window.close();
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
