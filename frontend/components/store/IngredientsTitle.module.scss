@@ -1,0 +1,33 @@
+.container {
+  // background-color: silver;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin: auto 3vw 0 3vw;
+
+  .text {
+    // background-color: aqua;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 1vw;
+
+    h1 {
+      font-size: 1.5rem;
+      margin: 0 0.5vw 0 0;
+      line-height: 1.7vw;
+    }
+    p {
+      font-size: 0.8rem;
+    }
+  }
+
+  .search {
+    width: 25vw;
+
+    input {
+      width: 100%;
+      height: 3vw;
+      border-radius: 10px;
+    }
+  }
+}

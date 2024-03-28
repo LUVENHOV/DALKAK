@@ -11,7 +11,7 @@ interface IPropsType {
   handleOnClick: (ingredient: IIngredientType) => void;
 }
 
-export default function SearchIngredient(props: IPropsType) {
+export default function IngredientSearchForm(props: IPropsType) {
   const { placeholder, handleOnClick } = props;
   const [keyword, setKeyword] = useState('');
   const [resultList, setResultList] = useState([]);

@@ -1,0 +1,51 @@
+.container {
+  // background-color: orange;
+  display: flex;
+  height: 100%;
+}
+
+.container-outer {
+  flex: 97;
+  background-color: var(--color-base);
+  display: flex;
+  align-items: flex-end;
+  border-radius: 0 10px 0 0;
+
+  .container-inner {
+    background-color: white;
+    width: 95%;
+    height: 95%;
+    border-radius: 0 10px 0 0;
+    overflow: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2vw;
+
+    .inside {
+      width: calc(100% - 4vw);
+      height: fit-content;
+      overflow: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3.3vw;
+      justify-content: flex-start;
+      margin: 2vw auto 0 auto;
+    }
+  }
+  .container-inner::-webkit-scrollbar {
+    width: 0;
+  }
+}
+
+.hinges {
+  // background-color: pink;
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  .hinge {
+    background-color: var(--color-placeholder);
+    height: 2vw;
+  }
+}

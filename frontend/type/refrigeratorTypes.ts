@@ -9,13 +9,11 @@ export interface IIngredientType {
 }
 
 export interface IRefrigeratorType {
-  refrigerator: IIngredientType[];
-  memo: IIngredientType[];
+  refgList: IIngredientType[];
+  memoList: IIngredientType[];
 
-  getFoodList: () => IIngredientType[];
-  getAlcoholList: () => IIngredientType[];
   addRefrList: (ingredient: IIngredientType) => void;
-  removeRefrList: (id: number) => void;
+  removeRefrList: (ingredient: IIngredientType) => void;
   addMemoList: (ingredient: IIngredientType) => void;
-  removeMemoList: (id: number) => void;
+  removeMemoList: (ingredient: IIngredientType) => void;
 }

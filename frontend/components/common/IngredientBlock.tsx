@@ -7,7 +7,7 @@ interface ITagType {
   handleOnClick: (ingredient: IIngredientType) => void;
 }
 
-export default function IngredientTag(props: ITagType) {
+export default function IngredientBlock(props: ITagType) {
   const { ingredient, handleOnClick } = props;
 
   return (
