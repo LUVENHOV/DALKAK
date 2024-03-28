@@ -1,13 +1,10 @@
-import sys
-import numpy as np
-import pandas as pd
 from .crud import get_member_dislike
 from .crud import get_heart_cocktails
 from .crud import get_survey_cocktails
 from .crud import get_survey_res
+from .crud import get_refrigerator_ingredients
 
 from sqlalchemy.orm import Session
-from sqlalchemy.orm.decl_api import DeclarativeMeta
 
 class DataLoader:
     def __init__(self, db: Session):
@@ -30,5 +27,10 @@ class DataLoader:
     
     def load_survey_res(self, m_id:int):
         db_items=get_survey_res(self.db,m_id)
+        print(db_items)
+        return db_items
+    
+    def load_refrigerator_ingredients(self, m_id:int):
+        db_items=get_refrigerator_ingredients(self.db,m_id)
         print(db_items)
         return db_items

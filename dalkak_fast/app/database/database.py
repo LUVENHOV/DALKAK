@@ -3,15 +3,14 @@ from sqlalchemy.orm import sessionmaker
 
 from starlette.config import Config
 
-# config = Config('.env')
+config = Config('/code/app/.env')
 
-# HOST=config("HOST")
-# DBNAME=config("DBNAME")
-# PASSSWORD=config("PASSSWORD")
-# USERNAME=config("USERNAME")
-# PORT=config("PORT")
-
-DB_URL = 'mysql+pymysql://{HOST}:{}:{}/{}'
+HOST=config("HOST")
+DB_NAME=config("DB_NAME")
+PASSWORD=config("PASSSWORD")
+DB_USER=config("DB_USER")
+PORT=config("PORT")
+DB_URL = f"mysql+pymysql://{DB_USER}:{PASSWORD}@{HOST}:{PORT}/{DB_NAME}"
 
 class engineconn:
     def __init__(self):

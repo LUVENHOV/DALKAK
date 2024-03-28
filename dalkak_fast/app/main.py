@@ -1,5 +1,3 @@
-from typing import Union
-
 from fastapi import FastAPI
 from recommend.recommend import recommend_by_prefer
 from recommend.recommend import recommend_by_refrigerator
@@ -20,7 +18,7 @@ async def prefer_recommend(m_id: int):
     result= recommend_by_prefer(m_id,session)
     return {"result": result}
 
-@app.get("/refrigerator-recommend")
-async def refrigerator_recommend():
-    result=recommend_by_refrigerator()
+@app.get("/refrigerator-recommend/{m_id}")
+async def refrigerator_recommend(m_id:int):
+    result=recommend_by_refrigerator(m_id,session)
     return {"result": result}
