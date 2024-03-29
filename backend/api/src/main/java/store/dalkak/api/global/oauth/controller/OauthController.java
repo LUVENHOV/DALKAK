@@ -1,10 +1,9 @@
 package store.dalkak.api.global.oauth.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,21 +27,17 @@ public class OauthController {
     private final OauthService oauthService;
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<OauthLoginResDto>> login(
+    public ResponseEntity<ApiResponse<OauthLoginResDto>> login(HttpServletResponse httpServletResponse,
         @RequestBody OauthLoginReqDto oauthLoginReqDto) {
         OauthLoginResDto oauthLoginResDto = oauthService.login(oauthLoginReqDto);
-        ApiResponse<OauthLoginResDto> apiResponse = ApiResponse.of(200, oauthLoginResDto);
-        return ResponseEntity.status(HttpStatus.OK)
-            .header(HttpHeaders.SET_COOKIE, CookieUtil.makeCookie("Authorization",
-                oauthLoginResDto.getAccessToken(), 1).toString())
-            .header(HttpHeaders.SET_COOKIE, CookieUtil.makeCookie("X-Auth-Refresh-Token",
-                oauthLoginResDto.getRefreshToken(), 1).toString())
-            .body(apiResponse);
+        CookieUtil.createCookie(httpServletResponse,oauthLoginResDto.getAccessToken(),oauthLoginResDto.getRefreshToken());
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, oauthLoginResDto));
     }
 
     @GetMapping("/logout")
-    public ResponseEntity<ApiResponse<OauthLoginResDto>> logout(@LoginUser MemberDto memberDto) {
+    public ResponseEntity<ApiResponse<OauthLoginResDto>> logout(HttpServletResponse httpServletResponse,@LoginUser MemberDto memberDto) {
         oauthService.logout(memberDto);
+        CookieUtil.deleteCookie(httpServletResponse);
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, null));
     }
 }

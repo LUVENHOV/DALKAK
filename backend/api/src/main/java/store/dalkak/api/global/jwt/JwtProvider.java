@@ -90,10 +90,8 @@ public class JwtProvider {
                 .parseClaimsJws(token);
             return 1;
         } catch (ExpiredJwtException eje) {
-//            throw new JwtException(JwtErrorCode.TOKEN_TIMEOUT);
             return 0;
         } catch (Exception e) {
-            log.info("검증실패");
             return -1;
         }
     }

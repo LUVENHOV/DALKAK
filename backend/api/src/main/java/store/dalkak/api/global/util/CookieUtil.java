@@ -1,19 +1,40 @@
 package store.dalkak.api.global.util;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.util.HashMap;
 import java.util.Map;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
+import org.springframework.stereotype.Component;
 
+@Slf4j
+@Component //유틸이지만 @Value를 주입받기 위해 사용
 public class CookieUtil {
+    private static long staticAccessTokenExpireTime;
+    private static long staticRefreshTokenExpireTime;
+    private static String staticDomain;
+
+
     @Value("${jwt.access-token.expiretime}")
-    private static long accessTokenExpireTime;
+    private long accessTokenExpireTime;
     @Value("${jwt.refresh-token.expiretime}")
-    private static long refreshTokenExpireTime;
+    private long refreshTokenExpireTime;
+    @Value("${spring.api.url}")
+    private String domain;
+
+    @PostConstruct
+    private void init() {
+        CookieUtil.staticAccessTokenExpireTime = accessTokenExpireTime;
+        CookieUtil.staticRefreshTokenExpireTime = refreshTokenExpireTime;
+        CookieUtil.staticDomain = domain;
+    }
 
     public static Map<String, String> getToken(HttpServletRequest httpServletRequest) {
         Cookie[] cookies = httpServletRequest.getCookies();
@@ -32,25 +53,23 @@ public class CookieUtil {
         return tokens;
     }
 
-    public static ResponseCookie makeCookie(String name, String value,int status) {
-        long maxAge=0L;
-        if(status==1){
-            maxAge=name.equals("Authorization")?accessTokenExpireTime:refreshTokenExpireTime;
-        }
-        return ResponseCookie.from(name, value).httpOnly(true).secure(true).path("/")
-            .domain("127.0.0.1").maxAge(maxAge).build();
+    private static void makeCookie(HttpServletResponse httpServletResponse, String name, String value, long maxAge) {
+        httpServletResponse.addHeader(HttpHeaders.SET_COOKIE, ResponseCookie.from(name, value).httpOnly(true).secure(true).path("/")
+                .domain(staticDomain).maxAge(maxAge).build().toString());
+    }
+
+    public static void createCookie(HttpServletResponse httpServletResponse, String accessToken, String refreshToken) {
+        makeCookie(httpServletResponse,"Authorization",accessToken,staticAccessTokenExpireTime);
+        makeCookie(httpServletResponse,"X-Auth-Refresh-Token",refreshToken,staticRefreshTokenExpireTime);
     }
 
     public static void modifyCookie(HttpServletResponse httpServletResponse, String value) {
-        httpServletResponse.setHeader(HttpHeaders.SET_COOKIE,
-            makeCookie("Authorization", value,1).toString());
+        makeCookie(httpServletResponse,"Authorization",value,staticAccessTokenExpireTime);
     }
 
     public static void deleteCookie(HttpServletResponse httpServletResponse) {
-        httpServletResponse.setHeader(HttpHeaders.SET_COOKIE,
-            makeCookie("Authorization", null, 0).toString());
-        httpServletResponse.addHeader(HttpHeaders.SET_COOKIE,
-            makeCookie("X-Auth-Refresh-Token", null, 0).toString());
+        makeCookie(httpServletResponse,"Authorization",null,0);
+        makeCookie(httpServletResponse,"X-Auth-Refresh-Token",null,0);
 
     }
 }

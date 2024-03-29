@@ -1,9 +1,10 @@
 package store.dalkak.api.global.config;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.util.Map;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
@@ -43,12 +44,12 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-        NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+                                  NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         log.info("----token ");
         HttpServletRequest httpServletRequest = webRequest.getNativeRequest(
-            HttpServletRequest.class);
+                HttpServletRequest.class);
         HttpServletResponse httpServletResponse = webRequest.getNativeResponse(
-            HttpServletResponse.class);
+                HttpServletResponse.class);
         if (httpServletRequest != null) {
 //            String token = httpServletRequest.getHeader("Authorization");
             Map<String, String> tokens = CookieUtil.getToken(httpServletRequest);
@@ -61,29 +62,38 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
                 if (status == 1) {
                     Long memberId = jwtProvider.getMemberPrimaryKeyId(accessToken);
                     Member member = memberRepository.findById(memberId).orElseThrow(
-                        () -> new JwtException(JwtErrorCode.INVALID_TOKEN)
+                            () -> new JwtException(JwtErrorCode.INVALID_TOKEN)
                     );
                     return MemberDto.builder()
-                        .id(member.getId())
-                        .nickname(member.getNickname())
-                        .birthdate(member.getBirthdate())
-                        .gender(member.getGender())
-                        .build();
+                            .id(member.getId())
+                            .nickname(member.getNickname())
+                            .birthdate(member.getBirthdate())
+                            .gender(member.getGender())
+                            .build();
                 } else if (status == 0) { // access token의 시간이 끝남
                     //refresh token의 시간이 남아있다면
                     if (jwtProvider.validateToken(refreshToken) == 1) { //refresh token의 시간이 남아있음
                         Long memberId = jwtProvider.getMemberPrimaryKeyId(refreshToken);
                         RefreshToken redisRefreshToken = refreshTokenRepository.findById(memberId)
-                            .orElseThrow(() -> new JwtException(JwtErrorCode.INVALID_TOKEN));
+                                .orElseThrow(() -> new JwtException(JwtErrorCode.INVALID_TOKEN));
                         if (refreshToken.equals(redisRefreshToken.getValue())) {
                             TokenDto newAccessToken = jwtProvider.createAccessToken(memberId);
-                            //TODO: 쿠키에 새로운 newAccessToken 값 넣기
-                            CookieUtil.modifyCookie(httpServletResponse,newAccessToken.getToken());
+                            CookieUtil.modifyCookie(httpServletResponse, newAccessToken.getToken());
                         }
-                        throw new JwtException(JwtErrorCode.INVALID_TOKEN);
+                        Member member = memberRepository.findById(memberId).orElseThrow(
+                                () -> new JwtException(JwtErrorCode.INVALID_TOKEN)
+                        );
+                        return MemberDto.builder()
+                                .id(member.getId())
+                                .nickname(member.getNickname())
+                                .birthdate(member.getBirthdate())
+                                .gender(member.getGender())
+                                .build();
+
                     } else {
-                        //TODO: 쿠키에 있는 refresh, access token 값 지우기
                         CookieUtil.deleteCookie(httpServletResponse);
+                        log.info("logout----");
+                        throw new JwtException(JwtErrorCode.LOGOUT);
                     }
                 }
             }
