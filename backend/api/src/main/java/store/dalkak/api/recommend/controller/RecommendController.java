@@ -23,7 +23,7 @@ public class RecommendController {
 
     private final RecommendService recommendService;
 
-    @GetMapping("/survey")
+    @GetMapping("/prefer")
     public ResponseEntity<ApiResponse<PreferRecommendResDto>> preferRecommend(
         @LoginUser MemberDto memberDto) {
         return ResponseEntity.status(HttpStatus.OK)
