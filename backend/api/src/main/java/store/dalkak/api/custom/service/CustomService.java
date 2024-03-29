@@ -4,6 +4,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 import store.dalkak.api.custom.dto.request.CustomCreateReqDto;
 import store.dalkak.api.custom.dto.response.CustomDetailResDto;
+import store.dalkak.api.custom.dto.response.CustomIdListResDto;
 import store.dalkak.api.custom.dto.response.CustomListResDto;
 import store.dalkak.api.user.dto.MemberDto;
 
@@ -20,4 +21,6 @@ public interface CustomService {
     CustomListResDto getCustomList(Long cocktailId, Pageable page);
 
     CustomDetailResDto findCustom(Long customCocktailId);
+
+    CustomIdListResDto findAllCustomIdList();
 }
