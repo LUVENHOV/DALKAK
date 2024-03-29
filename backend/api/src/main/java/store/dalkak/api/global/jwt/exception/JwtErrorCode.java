@@ -1,4 +1,4 @@
-package store.dalkak.api.global.jwt.Exception;
+package store.dalkak.api.global.jwt.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
