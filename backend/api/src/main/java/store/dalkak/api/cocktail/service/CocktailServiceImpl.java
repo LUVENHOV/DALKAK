@@ -153,7 +153,7 @@ public class CocktailServiceImpl implements CocktailService {
             .limit(4)
             .map(custom -> CustomCocktailDto.builder()
                 .id(custom.getId())
-                .image(custom.getCocktail().getImage())
+                .image(custom.getImage())
                 .name(custom.getName())
                 .summary(custom.getSummary())
                 .user(UserDto.builder()
