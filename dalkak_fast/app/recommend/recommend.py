@@ -78,7 +78,7 @@ def recommend_by_refrigerator(m_id: int, db: Session):
   df1 = df1.drop(['jaccard_sim', 'diff', 'diff_len', 'ingredient'], axis=1)
   zero= _sort_by_survey(survey_res_df,df1,8)
   df2=df[df['diff_len']!=0]
-  df2 = df1.drop(['jaccard_sim', 'diff', 'diff_len', 'ingredient'], axis=1)
+  df2 = df2.drop(['jaccard_sim', 'diff', 'diff_len', 'ingredient'], axis=1)
   nonzero= _sort_by_survey(survey_res_df,df2,8)
   return zero,nonzero
   
@@ -89,8 +89,9 @@ def _sort_by_survey(survey_res_df,df,max_l):
   one_hot_encoded=df['base_spirit'].str.get_dummies(sep='|')
   df = pd.concat([df, one_hot_encoded], axis=1)
   del df['base_spirit']
-  
-  cosine_sim = cosine_similarity(df.loc[0].values.reshape(1, -1), df.values)
+  print(df.iloc[0].values)
+  cosine_sim = cosine_similarity(df.iloc[0].values.reshape(1, -1), df.values)
   df['cosine_sim']=cosine_sim[0]
+  
   df=df.sort_values(by='cosine_sim' ,ascending=False)
   return df[1:max_l+1].index.tolist()
