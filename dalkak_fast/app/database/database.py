@@ -19,8 +19,16 @@ class engineconn:
     def sessionmaker(self):
         Session = sessionmaker(bind=self.engine)
         session = Session()
+        try:
+            session.commit()
+        except:
+            session.rollback()
+            raise
+        finally:
+            session.close()
         return session
 
     def connection(self):
         conn = self.engine.connect()
         return conn
+    
