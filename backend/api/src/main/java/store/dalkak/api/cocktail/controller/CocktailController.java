@@ -39,11 +39,17 @@ public class CocktailController {
     public ResponseEntity<ApiResponse<CocktailDetailResDto>> cocktailDetail(
         @LoginUser MemberDto memberDto, @PathVariable("cocktailId") Long originCocktailId) {
         CocktailDetailResDto cocktail = cocktailService.findCocktail(originCocktailId);
-        viewLogger.info("view-log {} {}", originCocktailId, System.currentTimeMillis());
         ApiResponse<CocktailDetailResDto> apiResponse = ApiResponse.of(200,
             cocktail);
 
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+
+    // 칵테일 조회 로그 생성
+    @GetMapping("/{cocktailId}/log")
+    public ResponseEntity<ApiResponse<String>> createLog(@PathVariable("cocktailId") Long originCocktailId) {
+        viewLogger.info("view-log {} {}", originCocktailId, System.currentTimeMillis());
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, "로그 생성이 완료되었습니다."));
     }
 
     //칵테일 검색
