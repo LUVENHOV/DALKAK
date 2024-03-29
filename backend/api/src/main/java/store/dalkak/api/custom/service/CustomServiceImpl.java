@@ -194,13 +194,13 @@ public class CustomServiceImpl implements CustomService {
 
 
     private List<CustomCocktailDto> toCustomCocktailDtoList(List<Custom> customs) {
-        List<CustomCocktailDto> customCocktailDtoList = new ArrayList<>();
+        ArrayList<CustomCocktailDto> customCocktailDtoList = new ArrayList<>();
         for (Custom custom : customs) {
             customCocktailDtoList
                 .add(CustomCocktailDto
                     .builder()
                     .id(custom.getId())
-                    .image(custom.getCocktail().getImage())
+                    .image(custom.getImage())
                     .name(custom.getName())
                     .summary(custom.getSummary())
                     .user(UserDto.builder().id(custom.getMember().getId())
