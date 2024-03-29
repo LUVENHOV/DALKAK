@@ -3,6 +3,7 @@ package store.dalkak.api.custom.service;
 import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -37,6 +38,8 @@ import store.dalkak.api.global.config.ImageConfig;
 import store.dalkak.api.user.domain.Member;
 import store.dalkak.api.user.dto.MemberDto;
 import store.dalkak.api.user.dto.UserDto;
+import store.dalkak.api.user.exception.UserErrorCode;
+import store.dalkak.api.user.exception.UserException;
 import store.dalkak.api.user.repository.MemberRepository;
 
 @Service
@@ -194,13 +197,13 @@ public class CustomServiceImpl implements CustomService {
 
 
     private List<CustomCocktailDto> toCustomCocktailDtoList(List<Custom> customs) {
-        List<CustomCocktailDto> customCocktailDtoList = new ArrayList<>();
+        ArrayList<CustomCocktailDto> customCocktailDtoList = new ArrayList<>();
         for (Custom custom : customs) {
             customCocktailDtoList
                 .add(CustomCocktailDto
                     .builder()
                     .id(custom.getId())
-                    .image(custom.getCocktail().getImage())
+                    .image(custom.getImage())
                     .name(custom.getName())
                     .summary(custom.getSummary())
                     .user(UserDto.builder().id(custom.getMember().getId())
