@@ -26,15 +26,15 @@ public class RecommendController {
     @GetMapping("/survey")
     public ResponseEntity<ApiResponse<PreferRecommendResDto>> preferRecommend(
         @LoginUser MemberDto memberDto) {
-        recommendService.preferRecommend(memberDto);
-        return null;
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(ApiResponse.of(200, recommendService.preferRecommend(memberDto)));
     }
 
     @GetMapping("/refrigerator")
     public ResponseEntity<ApiResponse<RefrigeratorRecommendResDto>> refrigeratorRecommend(
         @LoginUser MemberDto memberDto) {
-        recommendService.refrigeratorRecommend(memberDto);
-        return null;
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(ApiResponse.of(200, recommendService.refrigeratorRecommend(memberDto)));
     }
 
     @GetMapping("/heart-rank")
