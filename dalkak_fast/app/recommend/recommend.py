@@ -34,12 +34,7 @@ def recommend_by_prefer( m_id: int, db: Session):
   # print(survey_res[0]._data[1])
   survey_res_df=pd.DataFrame({'base_spirit':[survey_res[0]._data[0]],'degree':[survey_res[0]._data[1]],'sugar':[survey_res[0]._data[2]],'occasion_id':[survey_res[0]._data[3]]})
   
-  df=pd.concat([survey_res_df,df],axis=0)
-
-  one_hot_encoded=df['base_spirit'].str.get_dummies(sep='|')
-  df = pd.concat([df, one_hot_encoded], axis=1)
-  del df['base_spirit']
-  return _sort_by_survey(df)
+  return _sort_by_survey(survey_res_df,df,20)
 
 # 사용자 그룹별로 랭킹
 # def recommend_by_ppl(m_id: int):
@@ -66,24 +61,38 @@ def recommend_by_refrigerator(m_id: int, db: Session):
   set1=set()
   for r in refrigerator_ingredients:
     set1.add(r._data[0])
-  # return _sort_by_survey(df)
 
   df=pd.read_csv('/code/app/for_ingredient.csv',index_col=0)
   df['jaccard_sim']=df['ingredient'].apply(jaccard_sim)
   df['diff']=df['ingredient'].apply(diff)
   df['diff_len']=df['ingredient'].apply(diff_len)
-  # set1.difference(set2)
+
   df=df.sort_values(by='diff_len' ,ascending=True)
   del df['jaccard_sim']
   del df['diff']
   del df['diff_len']
   del df['ingredient']
   print(df)
-  return _sort_by_survey(df)
+  # 설문조사 결과
+  survey_res=loader.load_survey_res(m_id)
+  # print(survey_res[0]._data[1])
+  survey_res_df=pd.DataFrame({'base_spirit':[survey_res[0]._data[0]],'degree':[survey_res[0]._data[1]],'sugar':[survey_res[0]._data[2]],'occasion_id':[survey_res[0]._data[3]]})
+  
+  df1=df[df['diff_len']==0]
+  zero= _sort_by_survey(survey_res_df,df1,8)
+  df2=df[df['diff_len']!=0]
+  nonzero= _sort_by_survey(survey_res_df,df2,8)
+  return zero,nonzero
+  
 
 # 결과 이용해서 코사인 유사도 정렬
-def _sort_by_survey(df):
+def _sort_by_survey(survey_res_df,df,max_l):
+  df=pd.concat([survey_res_df,df],axis=0)
+  one_hot_encoded=df['base_spirit'].str.get_dummies(sep='|')
+  df = pd.concat([df, one_hot_encoded], axis=1)
+  del df['base_spirit']
+  
   cosine_sim = cosine_similarity(df.loc[0].values.reshape(1, -1), df.values)
   df['cosine_sim']=cosine_sim[0]
   df=df.sort_values(by='cosine_sim' ,ascending=False)
-  return df[1:21].index.tolist()
+  return df[1:max_l+1].index.tolist()
