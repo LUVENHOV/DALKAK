@@ -28,6 +28,7 @@ import store.dalkak.api.custom.dto.CustomIngredientModifyDto;
 import store.dalkak.api.custom.dto.CustomModifyDto;
 import store.dalkak.api.custom.dto.request.CustomCreateReqDto;
 import store.dalkak.api.custom.dto.response.CustomDetailResDto;
+import store.dalkak.api.custom.dto.response.CustomIdListResDto;
 import store.dalkak.api.custom.dto.response.CustomListResDto;
 import store.dalkak.api.custom.exception.CustomErrorCode;
 import store.dalkak.api.custom.exception.CustomException;
@@ -193,6 +194,11 @@ public class CustomServiceImpl implements CustomService {
                 customIngredient.getUnit()));
         }
         return CustomDetailResDto.of(targetCustom, user, cocktail, customIngredientDtoList);
+    }
+
+    @Override
+    public CustomIdListResDto findAllCustomIdList() {
+        return new CustomIdListResDto(customRepository.findAll().stream().map(Custom::getId).toList());
     }
 
 

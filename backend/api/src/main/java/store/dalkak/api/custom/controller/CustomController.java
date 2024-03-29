@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import store.dalkak.api.custom.dto.request.CustomCreateReqDto;
 import store.dalkak.api.custom.dto.response.CustomDetailResDto;
+import store.dalkak.api.custom.dto.response.CustomIdListResDto;
 import store.dalkak.api.custom.dto.response.CustomListResDto;
 import store.dalkak.api.custom.service.CustomService;
 import store.dalkak.api.global.annotation.LoginUser;
@@ -83,5 +84,9 @@ public class CustomController {
         ApiResponse<CustomListResDto> apiResponse = ApiResponse.of(200, customListResDto);
 
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+    @GetMapping("/custom-list")
+    public ResponseEntity<ApiResponse<CustomIdListResDto>> customCocktailIdList() {
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, customService.findAllCustomIdList()));
     }
 }
