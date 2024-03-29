@@ -1,8 +1,10 @@
+import { IIngredientType } from './refrigeratorTypes';
+
 export interface ISearchType {
   page: number;
   totalPage: number;
   cocktailName: string;
-  ingredients: number[];
+  ingredients: IIngredientType[];
   base: number | null;
   minAlcohol: number;
   maxAlcohol: number;
@@ -13,7 +15,6 @@ export interface ISearchType {
   setPage: (page: number) => void;
   setTotalPage: (page: number) => void;
   setCocktailName: (cocktailName: string) => void;
-  setIngredients: (ingredients: number[]) => void;
   setBase: (base: number) => void;
   setMinAlcohol: (minAlcohol: number) => void;
   setMaxAlcohol: (maxAlcohol: number) => void;
@@ -21,13 +22,15 @@ export interface ISearchType {
   setSweetness: (sweetness: number) => void;
   setOrderBy: (orderBy: number) => void;
   setActivateSearch: () => void;
+  addIngredient: (ingredient: IIngredientType) => void;
+  removeIngredient: (ingredient: IIngredientType) => void;
+  getIngredientsId: () => number[];
   clearAll: () => void;
 }
 
 export interface ISearchParamsType {
   page: number;
   cocktailName: string;
-  ingredients: number[];
   base: number | null;
   minAlcohol: number;
   maxAlcohol: number;
@@ -36,6 +39,7 @@ export interface ISearchParamsType {
   orderBy: number;
   activateSearch: boolean;
   setTotalPage: (page: number) => void;
+  getIngredientsId: () => number[];
 }
 
 export interface ICocktailType {
