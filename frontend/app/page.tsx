@@ -1,23 +1,9 @@
-'use client';
-
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import './main.scss';
 import OauthButton from '@/components/common/main/OauthButton';
 
-export default function Home() {
-  useEffect(() => {
-    function handleLoginMessage(event: MessageEvent) {
-      if (event.data.type === 'LOGIN_SUCCESS') {
-        window.location.reload();
-      }
-    }
-    window.addEventListener('message', handleLoginMessage);
-    return () => {
-      window.removeEventListener('message', handleLoginMessage);
-    };
-  }, []);
-
+export default function page() {
   return (
     <div className="mainWrapper">
       <div className="title-main">당신의 칵테일 취향을 DALKAK 열어드릴게요</div>

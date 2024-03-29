@@ -1,3 +1,5 @@
+import Oauth from '@/components/oauth/Oauth';
+
 export default function Page({
   params,
   searchParams,
@@ -7,13 +9,7 @@ export default function Page({
 }) {
   const { code } = searchParams;
   const { provider } = params;
-  return (
-    <div>
-      <h2>Hello world</h2>
-      <h2>{provider}</h2>
-      <h2>{code}</h2>
-    </div>
-  );
+  return Oauth({ code, provider });
 }
 export async function generateStaticParams() {
   return [{ provider: 'google' }, { provider: 'kakao' }, { provider: 'naver' }];
