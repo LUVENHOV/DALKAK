@@ -23,7 +23,7 @@ interface Props {
 }
 
 export default function CustomCocktailAddIngredient({ origin }: Props) {
-  console.log(origin);
+  // console.log(origin);
   const [tempList, setTempList] = useState<Origin[]>([]);
   // const [amount, setAmount] = useState(origin.ingredient_amount)
   const [inputValues, setInputValues] = useState<string[]>([]);
@@ -37,26 +37,9 @@ export default function CustomCocktailAddIngredient({ origin }: Props) {
     setInputUnitValues(origin.map((item) => String(item.unit.name)));
   }, [origin]);
 
-  // const removeItem = (id: number) => {
-  //   setTempList((prevList) => {
-  //     const updatedList = prevList.filter((data) => data.id !== id);
-  //     return updatedList;
-  //   });
-  // };
-
   const removeItem = (id: number) => {
     setTempList((prevList) => prevList.filter((data) => data.id !== id));
   };
-
-  // const handleInputChange = (e: ChangeEvent<HTMLInputElement>, id: number) => {
-  //   const { value } = e.target;
-  //   setInputValues((prevValues) => {
-  //     const updatedValues = [...prevValues];
-  //     updatedValues[id] = value;
-  //     return updatedValues;
-  //   });
-
-  // };
 
   const handleInputChangeTest = (
     e: ChangeEvent<HTMLInputElement>,
@@ -64,12 +47,6 @@ export default function CustomCocktailAddIngredient({ origin }: Props) {
     index: number[],
   ) => {
     const tempNum = e.target.value;
-    // console.log('아이디');
-    // console.log(id);
-    // console.log('인덱스');
-    // console.log(index);
-    // console.log('밸류');
-    // console.log({ value });
     const indexToUpdate = index[0];
 
     setInputValues((prevInputValues) => {
@@ -91,8 +68,6 @@ export default function CustomCocktailAddIngredient({ origin }: Props) {
       updatedUnitValues[indexToUpdate] = unitValue;
       return updatedUnitValues;
     });
-
-    // console.log(inputUnitValues);
   };
 
   return (

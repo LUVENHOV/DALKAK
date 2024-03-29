@@ -8,16 +8,14 @@ interface Props {
   recipe: string;
   inputValue: string;
   handleInputChange: ChangeEvent;
-  splitedRecipe: string;
+  // splitedRecipe: string;
 }
 
-// const splitedRecipe = (recipe: string) => recipe.split('|').join('\n\n');
-
 export default function CustomCocktailAddRecipe({
-  handleInputChange,
   recipe,
   inputValue,
-  splitedRecipe,
+  // splitedRecipe,
+  handleInputChange,
 }: Props) {
   // const [inputValue, setInputValue] = useState(' ');
 
@@ -28,11 +26,14 @@ export default function CustomCocktailAddRecipe({
   // const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
   //   setInputValue(e.target.value);
   // };
+
+  const splitedRecipe = (inputValue) => inputValue.split('|').join('\n\n');
+
   return (
     <div>
       <div className={styles.title}>레시피</div>
       <textarea
-        value={splitedRecipe}
+        value={splitedRecipe(inputValue)}
         className={styles['input-style']}
         onChange={handleInputChange}
       />

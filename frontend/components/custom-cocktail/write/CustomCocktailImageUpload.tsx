@@ -5,7 +5,8 @@ import React, { useState, useRef, ChangeEvent } from 'react';
 import styles from './CustomCocktailImageUpload.module.scss';
 import BtnWithIcon from '@/components/common/BtnWithIcon';
 
-export default function CustomCocktailImageUpload() {
+export default function CustomCocktailImageUpload(props) {
+  const { handleImageProps } = props;
   const [image, setImage] = useState<string | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
 
@@ -15,8 +16,11 @@ export default function CustomCocktailImageUpload() {
     }
   };
 
-  const handleImage = async (e: ChangeEvent<HTMLInputElement>) => {
+  const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
+    console.log('이거다 이거');
+    console.log(file);
+    handleImageProps(file);
 
     if (!file) return;
 
@@ -35,7 +39,7 @@ export default function CustomCocktailImageUpload() {
       <button type="button" onClick={handleUploadImage}>
         <div className={styles['uploaded-image']}>
           {image ? (
-            <img src={image} alt="Uploaded" />
+            <img src={image} alt="Uploaded" onChange={handleImage} />
           ) : (
             <div className={styles['uploaded-image']} />
           )}
