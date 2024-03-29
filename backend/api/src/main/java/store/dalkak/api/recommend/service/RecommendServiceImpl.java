@@ -12,7 +12,8 @@ import store.dalkak.api.cocktail.domain.Cocktail;
 import store.dalkak.api.cocktail.dto.CocktailDto;
 import store.dalkak.api.cocktail.repository.CocktailRepository;
 import store.dalkak.api.cocktail.repository.heart.HeartRankRepository;
-import store.dalkak.api.recommend.dto.FastDto;
+import store.dalkak.api.recommend.dto.FastPreferDto;
+import store.dalkak.api.recommend.dto.FastRefrigeratorDto;
 import store.dalkak.api.recommend.dto.response.HeartRankRecommendResDto;
 import store.dalkak.api.recommend.dto.response.PreferRecommendResDto;
 import store.dalkak.api.recommend.dto.response.RefrigeratorRecommendResDto;
@@ -31,25 +32,33 @@ public class RecommendServiceImpl implements RecommendService {
 
     @Override
     public PreferRecommendResDto preferRecommend(MemberDto memberDto) {
-        return new PreferRecommendResDto(
-            fastRecommend(memberDto.getId(), "prefer-recommend"));
+        WebClient webClient = WebClient.builder()
+            .baseUrl(FastUrl)
+            .build();
+        FastPreferDto fastPreferDto = webClient.get()
+            .uri("/prefer-recommend/{m_id}", memberDto.getId()).retrieve()
+            .bodyToMono(FastPreferDto.class).block();
+        return PreferRecommendResDto.builder().cocktails(toCocktailList(fastPreferDto.getResult()))
+            .build();
     }
 
     @Override
     public RefrigeratorRecommendResDto refrigeratorRecommend(MemberDto memberDto) {
-        return new RefrigeratorRecommendResDto(
-            fastRecommend(memberDto.getId(), "refrigerator-recommend"));
-    }
-
-    private List<CocktailDto> fastRecommend(Long memberId, String recommend) {
         WebClient webClient = WebClient.builder()
             .baseUrl(FastUrl)
             .build();
-        FastDto fastDto = webClient.get()
-            .uri("/{recommend}/{m_id}", recommend, memberId).retrieve()
-            .bodyToMono(FastDto.class).block();
+        FastRefrigeratorDto fastRefrigeratorDto = webClient.get()
+            .uri("/refrigerator-recommend/{m_id}", memberDto.getId()).retrieve()
+            .bodyToMono(FastRefrigeratorDto.class).block();
+
+        return RefrigeratorRecommendResDto.builder()
+            .zero(toCocktailList(fastRefrigeratorDto.getResult().get(0)))
+            .nonZero(toCocktailList(fastRefrigeratorDto.getResult().get(1))).build();
+    }
+
+    private List<CocktailDto> toCocktailList(List<Long> ids) {
         List<CocktailDto> recommendCocktails = new ArrayList<>();
-        for (Long id : fastDto.getResult()) {
+        for (Long id : ids) {
             Cocktail cocktail = cocktailRepository.findCocktailById(id);
             recommendCocktails.add(
                 CocktailDto.builder().id(cocktail.getId()).name(cocktail.getName())

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FastDto {
+public class FastRefrigeratorDto {
 
-    List<Long> result;
+    List<List<Long>> result;
 }
