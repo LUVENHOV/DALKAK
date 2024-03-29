@@ -1,5 +1,6 @@
 package store.dalkak.api.user.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import store.dalkak.api.global.annotation.LoginUser;
 import store.dalkak.api.global.response.ApiResponse;
+import store.dalkak.api.global.util.CookieUtil;
 import store.dalkak.api.user.dto.MemberDto;
 import store.dalkak.api.user.dto.request.UserCreateSurveyResultReqDto;
 import store.dalkak.api.user.dto.request.UserHasNicknameReqDto;
@@ -35,6 +37,7 @@ public class UserController {
 
     private final UserService userService;
 
+    //TODO: cookie 완료되면 삭제하기
     @GetMapping("/refresh")
     public ResponseEntity<ApiResponse<UserRefreshResDto>> refresh(
         @RequestHeader("Authorization") String accessToken,
@@ -45,9 +48,9 @@ public class UserController {
     }
 
     @DeleteMapping()
-    public ResponseEntity<?> deleteMember(@LoginUser MemberDto memberDto) {
-        log.info(String.valueOf(memberDto.getId()));
+    public ResponseEntity<?> deleteMember(HttpServletResponse httpServletResponse, @LoginUser MemberDto memberDto) {
         userService.deleteMember(memberDto);
+        CookieUtil.deleteCookie(httpServletResponse);
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, null));
     }
 
