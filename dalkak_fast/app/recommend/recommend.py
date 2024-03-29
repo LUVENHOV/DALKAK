@@ -68,10 +68,6 @@ def recommend_by_refrigerator(m_id: int, db: Session):
   df['diff_len']=df['ingredient'].apply(diff_len)
 
   df=df.sort_values(by='diff_len' ,ascending=True)
-  del df['jaccard_sim']
-  del df['diff']
-  del df['diff_len']
-  del df['ingredient']
   print(df)
   # 설문조사 결과
   survey_res=loader.load_survey_res(m_id)
@@ -79,8 +75,10 @@ def recommend_by_refrigerator(m_id: int, db: Session):
   survey_res_df=pd.DataFrame({'base_spirit':[survey_res[0]._data[0]],'degree':[survey_res[0]._data[1]],'sugar':[survey_res[0]._data[2]],'occasion_id':[survey_res[0]._data[3]]})
   
   df1=df[df['diff_len']==0]
+  del df1[['jaccard_sim','diff','diff_len','ingredient']]
   zero= _sort_by_survey(survey_res_df,df1,8)
   df2=df[df['diff_len']!=0]
+  del df2[['jaccard_sim','diff','diff_len','ingredient']]
   nonzero= _sort_by_survey(survey_res_df,df2,8)
   return zero,nonzero
   
