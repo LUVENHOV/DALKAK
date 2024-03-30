@@ -152,7 +152,7 @@ export default async function CocktailDetail({ cocktailId }: Props) {
           <div className={styles.nickname}>
             <LikeCount count={245} />
             <div className={styles.info}>
-              도수{cocktailDetailData.alcohol_content}
+              {cocktailDetailData.alcohol_content}도
             </div>
             <div className={styles.info}>
               당도{cocktailDetailData.sweetness}
