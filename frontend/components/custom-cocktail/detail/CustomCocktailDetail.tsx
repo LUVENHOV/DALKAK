@@ -139,9 +139,11 @@ export default async function CustomCocktailDetail({ customId }: Props) {
     <div className={styles['flex-container']}>
       <div className={styles.container}>
         <div className={styles['title-container']}>
-          <div className={styles.name}>{customCocktailDetailData.name}</div>
-          <div className={styles.nickname}>
-            by&nbsp;{customCocktailDetailData.user.nickname}
+          <div className={styles.names}>
+            <div className={styles.name}>{customCocktailDetailData.name}</div>
+            <div className={styles.nickname}>
+              by&nbsp;{customCocktailDetailData.user.nickname}
+            </div>
           </div>
           <div />
 
