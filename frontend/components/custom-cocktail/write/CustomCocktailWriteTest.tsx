@@ -96,21 +96,11 @@ export default function CustomCocktailWrite(props: Props) {
     unit_id: unitId,
   }));
 
-  // const [realTempList, setRealTempList] = useState<CustomIngredientList[]>([]);
-
-  // const [originInputValues, setOriginInputValues] = useState<number[]>([]);
-
-  // const [originInputUnitValues, setOriginInputUnitValues] = useState<string[]>(
-  //   [],
-  // );
-
   const [inputValues, setInputValues] = useState<number[]>([]);
 
   const [inputUnitValues, setInputUnitValues] = useState<string[]>([]);
 
   const [inputUnitValuesId, setInputUnitValuesId] = useState<number[]>([]);
-
-  // const [userSendData, setUserSendData] = useState<CustomCreateReqDto>();
 
   const confirmData = () => {
     console.log('여기부터');
@@ -140,11 +130,15 @@ export default function CustomCocktailWrite(props: Props) {
   //   eslint-disable-next-line no-shadow
 
   const getBaseData = useCallback(async () => {
+    const authorization =
+      'Bear eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTE3ODg3MzksImV4cCI6MTcxMTc5MjMzOSwiaWQiOjZ9.gf_oCP1VhIvGGq7yQCM7HbRxk1S91v8C6p6mDawoVoE';
+
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/${cocktailId}`,
       {
         headers: {
-          Authorization: token ? `${token}` : '',
+          // Authorization: token ? `${token}` : '',
+          Authorization: `${authorization}`,
         },
       },
     );
@@ -157,15 +151,7 @@ export default function CustomCocktailWrite(props: Props) {
 
       const data = await result.data;
 
-      // setOriginInputValues(
-      //   data.cocktail_ingredients.map((item) => item.amount),
-      // );
-
       setInputValues(data.cocktail_ingredients.map((item) => item.amount));
-
-      // setOriginInputUnitValues(
-      //   data.cocktail_ingredients.map((item) => item.unit.name),
-      // );
 
       setInputUnitValues(
         data.cocktail_ingredients.map((item) => item.unit.name),
@@ -187,18 +173,12 @@ export default function CustomCocktailWrite(props: Props) {
       setEnglishName(await response.name);
       setIngredientData(await response.cocktail_ingredients);
       setCustomIngredientList(await response.cocktail_ingredients);
-      // console.log('>>', await customIngredientList);
+
       setBaseRecipe(await response.recipe);
       setCustomRecipe(await response.recipe);
       setTempList(await response.cocktail_ingredients);
-      // setInputValues(originInputValues);
-      // setInputUnitValues(originInputUnitValues);
-      // setRealTempList(tempList);
     };
     getBaseCocktailData();
-
-    // console.log('>>>>>>>', tempList);
-    // console.log('>>', customIngredientList);
   }, []);
 
   useEffect(() => {
@@ -234,58 +214,9 @@ export default function CustomCocktailWrite(props: Props) {
     e: ChangeEvent<HTMLSelectElement>,
     id: number,
     index: number[],
-    // unitId: number,
   ) => {
     const indexToUpdate = index[0];
     const unitValue = id;
-
-    // let unitValueId: string;
-
-    // switch (unitValue) {
-    //   case '개':
-    //     unitValueId = '1';
-    //     break;
-    //   case '웨지':
-    //     unitValueId = '2';
-    //     break;
-    //   case '슬라이스':
-    //     unitValueId = '3';
-    //     break;
-    //   case '꼬집':
-    //     unitValueId = '4';
-    //     break;
-    //   case '조각':
-    //     unitValueId = '5';
-    //     break;
-    //   case 'ml':
-    //     unitValueId = '6';
-    //     break;
-    //   case '스쿱':
-    //     unitValueId = '7';
-    //     break;
-    //   case '방울':
-    //     unitValueId = '8';
-    //     break;
-    //   case '그램':
-    //     unitValueId = '9';
-    //     break;
-    //   case '잎':
-    //     unitValueId = '10';
-    //     break;
-    //   case 'none':
-    //     unitValueId = '11';
-    //     break;
-
-    //   default:
-    //     unitValueId = unitId.toString();
-    //     break;
-    // }
-
-    // setInputUnitValues((prevUnitValues) => {
-    //   const updatedUnitValues = [...prevUnitValues];
-    //   updatedUnitValues[indexToUpdate] = unitValue;
-    //   return updatedUnitValues;
-    // });
 
     setInputUnitValuesId((prevUnitValuesId) => {
       const updatedUnitValuesId = [...prevUnitValuesId];
