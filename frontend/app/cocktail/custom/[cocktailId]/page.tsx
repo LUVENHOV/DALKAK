@@ -12,7 +12,7 @@ export default function Page({ params }: { params: { cocktailId: string } }) {
 
 export async function generateStaticParams() {
   const authorization =
-    'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTEzMjkwNDUsImV4cCI6MTcxMTc2MTA0NSwiaWQiOjN9.zcY6r5AdHWBddd-sUz8oFdGV14DZLLyXi_5-BG--C20';
+    'Bear eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTE3ODg3MzksImV4cCI6MTcxMTc5MjMzOSwiaWQiOjZ9.gf_oCP1VhIvGGq7yQCM7HbRxk1S91v8C6p6mDawoVoE';
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/search?page=${1}&orderBy=${3}`,
