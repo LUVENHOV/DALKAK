@@ -22,19 +22,21 @@ interface Custom_Ingredients {
   };
 }
 
+interface Origin_Cocktail {
+  id: number;
+  name: string;
+  korean_name: string;
+  image: string;
+  heart_count: number;
+}
+
 interface Data {
   custom_ingredients: Custom_Ingredients[];
   user: {
     id: number;
     nickname: string;
   };
-  origin_cocktail: {
-    id: number;
-    name: string;
-    korean_name: string;
-    image: string;
-    heart_count: number;
-  };
+  origin_cocktail: Origin_Cocktail;
   id: number;
   name: string;
   image: string;
@@ -127,6 +129,12 @@ export default async function CustomCocktailDetail({ customId }: Props) {
   const customIngredients: Custom_Ingredients[] =
     customCocktailDetailData.custom_ingredients;
 
+  const originCocktail: Origin_Cocktail =
+    customCocktailDetailData.origin_cocktail;
+
+  const originCocktailNames: string =
+    originCocktail.name + `, ` + originCocktail.korean_name;
+
   return (
     <div className={styles['flex-container']}>
       <div className={styles.container}>
@@ -153,7 +161,7 @@ export default async function CustomCocktailDetail({ customId }: Props) {
           <div className={styles.space}>
             <CustomCocktailImage customImage={customCocktailDetailData.image} />
             <div className={styles['info-container']}>
-              <CustomCocktailInfo cocktail={customCocktailDetailData.name} />
+              <CustomCocktailInfo cocktail={originCocktailNames} />
               <CustomCocktailInfo summary={customCocktailDetailData.summary} />
               <CustomCocktailInfo comment={customCocktailDetailData.comment} />
             </div>
