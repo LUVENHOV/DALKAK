@@ -153,7 +153,10 @@ export default async function CustomCocktailDetail({ customId }: Props) {
             </div>
             <div className={styles['divide-line']}>|</div>
             <div className={styles.button}>
-              <CustomCocktailDeleteButton />
+              <CustomCocktailDeleteButton
+                customId={customId}
+                cocktailId={originCocktail.id}
+              />
             </div>
           </div>
         </div>
