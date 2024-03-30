@@ -48,7 +48,8 @@ public class UserController {
     }
 
     @DeleteMapping()
-    public ResponseEntity<?> deleteMember(HttpServletResponse httpServletResponse, @LoginUser MemberDto memberDto) {
+    public ResponseEntity<?> deleteMember(HttpServletResponse httpServletResponse,
+        @LoginUser MemberDto memberDto) {
         userService.deleteMember(memberDto);
         CookieUtil.deleteCookie(httpServletResponse);
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, null));

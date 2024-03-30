@@ -27,15 +27,18 @@ public class OauthController {
     private final OauthService oauthService;
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<OauthLoginResDto>> login(HttpServletResponse httpServletResponse,
+    public ResponseEntity<ApiResponse<OauthLoginResDto>> login(
+        HttpServletResponse httpServletResponse,
         @RequestBody OauthLoginReqDto oauthLoginReqDto) {
         OauthLoginResDto oauthLoginResDto = oauthService.login(oauthLoginReqDto);
-        CookieUtil.createCookie(httpServletResponse,oauthLoginResDto.getAccessToken(),oauthLoginResDto.getRefreshToken());
+        CookieUtil.createCookie(httpServletResponse, oauthLoginResDto.getAccessToken(),
+            oauthLoginResDto.getRefreshToken());
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, oauthLoginResDto));
     }
 
     @GetMapping("/logout")
-    public ResponseEntity<ApiResponse<OauthLoginResDto>> logout(HttpServletResponse httpServletResponse,@LoginUser MemberDto memberDto) {
+    public ResponseEntity<ApiResponse<OauthLoginResDto>> logout(
+        HttpServletResponse httpServletResponse, @LoginUser MemberDto memberDto) {
         oauthService.logout(memberDto);
         CookieUtil.deleteCookie(httpServletResponse);
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, null));
