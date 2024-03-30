@@ -136,9 +136,11 @@ export default function CustomCocktailWrite(props: Props) {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/${cocktailId}`,
       {
+        // 분명 같은 토큰인데 왜 어쩔때는 위에 코드가 안되고
+        // 어쩔때는 아래 코드가 안 되는 건지 모르겠음...
         headers: {
-          // Authorization: token ? `${token}` : '',
-          Authorization: `${authorization}`,
+          Authorization: token ? `${token}` : '',
+          // Authorization: `${authorization}`,
         },
       },
     );
@@ -268,45 +270,69 @@ export default function CustomCocktailWrite(props: Props) {
 
   const postCustomCocktail = async () => {
     try {
-      const postInput = {
-        cocktailId,
-        customName,
-        customSummary,
-        customComment,
-        customRecipe,
-        open: open ? 'True' : 'False',
-        customIngredientList: filteredList,
-      };
+      if (
+        customImage &&
+        cocktailId &&
+        customName &&
+        customSummary &&
+        customComment &&
+        customRecipe &&
+        customRecipe.trim() !== '' &&
+        filteredList.length > 0
+      ) {
+        const postInput = {
+          cocktailId,
+          customName,
+          customSummary,
+          customComment,
+          customRecipe,
+          open: open ? 'True' : 'False',
+          customIngredientList: filteredList,
+        };
 
-      const formData = new FormData();
-      formData.append('image', customImage);
-      formData.append(
-        'CustomCreateReqDto',
-        new Blob([JSON.stringify(postInput)], { type: 'application/json' }),
-      );
+        const formData = new FormData();
+        formData.append('image', customImage);
+        formData.append(
+          'CustomCreateReqDto',
+          new Blob([JSON.stringify(postInput)], { type: 'application/json' }),
+        );
 
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/customs`,
-        {
-          method: 'POST',
-          headers: {
-            Authorization: token ? `${token}` : '',
-            // 'Content-Type': 'application/json',
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/customs`,
+          {
+            method: 'POST',
+            headers: {
+              Authorization: token ? `${token}` : '',
+              // 'Content-Type': 'application/json',
+            },
+            body: formData,
           },
-          body: formData,
-        },
-      );
-      if (response.ok) {
-        alert('커스텀 레시피가 등록되었습니다.');
+        );
+        if (response.ok) {
+          alert('커스텀 레시피가 등록되었습니다.');
+        } else {
+          console.error('커스텀 레시피 등록 실패');
+        }
       } else {
-        console.error('커스텀 레시피 등록 실패');
+        if (!customImage) {
+          alert('커스텀 칵테일 이미지를 업로드해주세요.');
+        } else if (!customName) {
+          alert('커스텀 칵테일 이름을 작성해주세요.');
+        } else if (!customSummary) {
+          alert('커스텀 칵테일 한 줄 요약(summary)을 작성해주세요.');
+        } else if (!customComment) {
+          alert('커스텀 칵테일 간단한 설명(comment)를 작성해주세요.');
+        } else if (!customRecipe || customRecipe.trim() === '') {
+          alert('커스텀 칵테일 레시피를 작성해주세요.');
+        } else if (filteredList.length < 1) {
+          alert('커스텀 칵테일 재료를 추가해주세요.');
+        }
       }
     } catch (error) {
       console.log('서버와 통신 중 오류 발생');
       console.log(error);
     }
   };
-
   return (
     <div className={styles['flex-container']}>
       <div className={styles.container}>
