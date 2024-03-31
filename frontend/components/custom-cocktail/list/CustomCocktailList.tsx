@@ -81,7 +81,7 @@ export default function CustomCocktailList(props: Props) {
     <div>
       <UpperLineBanner
         frontText="끼리코"
-        secondText="님이 좋아하시는 칵테일이에요!"
+        secondText="를 활용한 다른 회원들의 색다른 레시피를 확인해보세요!"
       />
       <CustomCocktailCardWrapper dummy={customList} type="big" />
 
