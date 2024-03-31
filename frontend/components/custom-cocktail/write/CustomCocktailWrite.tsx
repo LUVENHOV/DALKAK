@@ -151,7 +151,7 @@ interface Props {
 export default function CustomCocktailWrite({ cocktailId }: Props) {
   const [isPublic, setIsPublic] = useState(false);
   const router = useRouter();
-  console.log(cocktailId);
+  // console.log(cocktailId);
   const [inputValue, setInputValue] = useState('');
 
   const infoPlaceholder =
