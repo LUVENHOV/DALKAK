@@ -3,7 +3,7 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 interface StoreState {
-  id: string;
+  id: number;
   nickname: string;
   birthDate: string;
   gender: string;
@@ -27,7 +27,7 @@ const memberStore = create(
   persist<StoreState>(
     (set) => ({
       // todo : initial state
-      id: '',
+      id: 0,
       nickname: '',
       birthDate: '',
       gender: '',

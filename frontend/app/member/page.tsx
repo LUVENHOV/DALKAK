@@ -14,8 +14,8 @@ interface IData {
   custom_cocktails: number[];
 }
 
-const convertBirthdateToString = (birth: number[]) =>
-  `${birth[0]}${birth[1].toString().padStart(2, '0')}${birth[2].toString().padStart(2, '0')}`;
+// const convertBirthdateToString = (birth: number[]) =>
+//   `${birth[0]}${birth[1].toString().padStart(2, '0')}${birth[2].toString().padStart(2, '0')}`;
 export default function Page() {
   const [profile, setProfile] = useState({} as IData);
   const [loading, setLoading] = useState(true);
@@ -28,8 +28,8 @@ export default function Page() {
         const responseData = await response.json();
         const { data } = responseData;
         setProfile(data);
+        console.log(data);
       }
-    } catch (error) {
       console.error('프로필을 불러오는 데 실패했습니다.', error);
     } finally {
       setLoading(false);
@@ -49,7 +49,7 @@ export default function Page() {
       {profile ? (
         <ProfileCard
           nickname={profile.nickname}
-          birth_date={convertBirthdateToString(profile.birth_date)}
+          birth_date={profile.birth_date}
           gender={profile.gender}
         />
       ) : (
