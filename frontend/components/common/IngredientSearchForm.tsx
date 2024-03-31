@@ -8,16 +8,17 @@ import { IIngredientType } from '@/type/refrigeratorTypes';
 
 interface IPropsType {
   placeholder: string;
-  handleOnClick: (ingredient: IIngredientType) => void;
+  type: string;
+  handleOnClick: (ingredient: IIngredientType | number) => void;
 }
 
 export default function IngredientSearchForm(props: IPropsType) {
-  const { placeholder, handleOnClick } = props;
+  const { placeholder, type, handleOnClick } = props;
   const [keyword, setKeyword] = useState('');
   const [resultList, setResultList] = useState([]);
 
   const authorization =
-    'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTEzMjkwNDUsImV4cCI6MTcxMTc2MTA0NSwiaWQiOjN9.zcY6r5AdHWBddd-sUz8oFdGV14DZLLyXi_5-BG--C20';
+    'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTE3ODk1MDgsImV4cCI6MTcxMjE0OTUwOCwiaWQiOjN9.rxVLMICLt23rj4vV_btj7QtObPgxszooG-rzQG_et3A';
 
   const getIngredientList = async (k: string) => {
     const res = await fetch(
@@ -58,6 +59,7 @@ export default function IngredientSearchForm(props: IPropsType) {
             <IngredientTag
               key={ingredient.id}
               ingredient={ingredient}
+              type={type}
               handleOnClick={handleOnClick}
             />
           ))}

@@ -2,7 +2,7 @@
   // background-color: pink;
   display: flex;
   width: 100%;
-  line-height: 3.5vw;
+  line-height: 5vh;
   margin: 0 auto;
   cursor: pointer;
 
@@ -12,12 +12,15 @@
     padding-left: 2vw;
     box-sizing: border-box;
     border-bottom: 0.2vw solid #e9e5cc;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .line {
     background-color: #c8a390;
     width: 0.3vw;
-    height: 3.5vw;
+    line-height: 5vh;
     border-bottom: 0.2vw solid #c8a390;
   }
 

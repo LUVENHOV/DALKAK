@@ -177,6 +177,7 @@ export default function CocktailSearchForm() {
                     <IngredientBlock
                       key={ingredient.id}
                       ingredient={ingredient}
+                      searchType="search"
                       handleOnClick={removeIngredient}
                     />
                     // eslint-disable-next-line indent
@@ -184,6 +185,7 @@ export default function CocktailSearchForm() {
                 </div>
                 <IngredientSearchForm
                   placeholder="칵테일에 사용되는 재료를 검색해보세요!"
+                  type="search"
                   handleOnClick={addIngredient}
                 />
               </div>
