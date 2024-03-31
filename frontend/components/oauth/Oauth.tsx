@@ -55,6 +55,11 @@ export default async function Oauth({
         accessTokenExpiresIn: data.accessTokenExpiresIn,
         refreshTokenExpiresIn: data.refreshTokenExpiresIn,
       };
+
+      if (data.survey_comletion === null) {
+        alert('정보 입력이 되지 않아 정보 입력 페이지로 이동합니다.')
+        redirect('/survey');
+      }
       console.log(tokens);
       redirect('/');
     }
