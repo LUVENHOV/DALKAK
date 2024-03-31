@@ -103,25 +103,16 @@ export default function CustomCocktailWrite(props: Props) {
   const [inputUnitValuesId, setInputUnitValuesId] = useState<number[]>([]);
 
   const confirmData = () => {
-    console.log('여기부터');
+    // console.log('여기부터');
     // console.log('image');
-    console.log(customImage);
-    console.log(cocktailId);
-    console.log(customName);
-    console.log(customSummary);
-    console.log(customComment);
-    console.log(customRecipe);
-    console.log(open);
-    // console.log(customIngredientList);
-    // console.log(realTempList);
-    // console.log('temp');
-    // console.log(tempList);
-    // console.log(inputValues);
-    // console.log(inputUnitValues);
-    // console.log('filter');
-    console.log(filteredList);
-    // console.log('ㅎㅎ');
-    // console.log(inputUnitValuesId);
+    // console.log(customImage);
+    // console.log(cocktailId);
+    // console.log(customName);
+    // console.log(customSummary);
+    // console.log(customComment);
+    // console.log(customRecipe);
+    // console.log(open);
+    // console.log(filteredList);
   };
 
   const infoPlaceholder =
@@ -131,7 +122,7 @@ export default function CustomCocktailWrite(props: Props) {
 
   const getBaseData = useCallback(async () => {
     const authorization =
-      'Bear eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTE3ODg3MzksImV4cCI6MTcxMTc5MjMzOSwiaWQiOjZ9.gf_oCP1VhIvGGq7yQCM7HbRxk1S91v8C6p6mDawoVoE';
+      'Beare eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTE3ODg3MzksImV4cCI6MTcxMTc5MjMzOSwiaWQiOjZ9.gf_oCP1VhIvGGq7yQCM7HbRxk1S91v8C6p6mDawoVoE';
 
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/${cocktailId}`,
@@ -170,7 +161,6 @@ export default function CustomCocktailWrite(props: Props) {
   useEffect(() => {
     const getBaseCocktailData = async () => {
       const response = await getBaseData();
-      console.log('>>', await response);
       setKoreanName(response.korean_name);
       setEnglishName(await response.name);
       setIngredientData(await response.cocktail_ingredients);
@@ -184,18 +174,22 @@ export default function CustomCocktailWrite(props: Props) {
   }, []);
 
   useEffect(() => {
-    setTempList((prevTempList) => {
-      const newTempList = prevTempList.map((item, index) => ({
-        ...item,
-        amount: inputValues[index],
-        unit: {
-          ...item.unit,
-          name: inputUnitValues[index],
-          id: inputUnitValuesId[index],
-        },
-      }));
-      return newTempList;
-    });
+    if (inputValues.length === 12) {
+      alert('재료는 12개 이하로만 추가할 수 있습니다.');
+    } else {
+      setTempList((prevTempList) => {
+        const newTempList = prevTempList.map((item, index) => ({
+          ...item,
+          amount: inputValues[index],
+          unit: {
+            ...item.unit,
+            name: inputUnitValues[index],
+            id: inputUnitValuesId[index],
+          },
+        }));
+        return newTempList;
+      });
+    }
   }, [inputValues, inputUnitValues, inputUnitValuesId]);
 
   const removeItem = (id: number) => {
