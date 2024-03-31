@@ -57,9 +57,9 @@ export default function CustomCocktailAddIngredientTest({
   inputUnitValues,
   inputUnitValuesId,
 }: Props) {
-  console.log(inputValues);
-  console.log('>>>>', inputUnitValuesId);
-  console.log(tempList);
+  // console.log(inputValues);
+  // console.log('>>>>', inputUnitValuesId);
+  // console.log(tempList);
   return (
     <div>
       <div className={styles.title}>재료</div>
