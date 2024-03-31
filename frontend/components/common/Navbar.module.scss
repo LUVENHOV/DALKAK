@@ -40,3 +40,9 @@
   color: var(--color-point);
   font-weight: 700;
 }
+
+.btn{
+  &:hover {
+    cursor: pointer;
+  }
+}

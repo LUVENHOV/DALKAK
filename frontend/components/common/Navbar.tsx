@@ -32,6 +32,7 @@ export default function Navbar() {
       if (response.status === 200) {
         clearAll();
         clearTokens();
+        window.location.replace('/');
       }
     } catch (error) {
       console.log(error);
@@ -68,7 +69,7 @@ export default function Navbar() {
       <div />
       {isLoggedIn ? (
         <>
-          <button type="button" onClick={() => LogoutFunction()}>
+          <button className={styles.btn} type="button" onClick={() => LogoutFunction()}>
             로그아웃
           </button>
           <Link href="/member">
