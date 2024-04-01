@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-key */
+
 'use client';
 
 import React, { useEffect, useState } from 'react';
@@ -73,7 +75,8 @@ export default function Page() {
         {profile && (
           <ProfileCard
             nickname={profile.nickname}
-            birth_date={profile.birth_date}
+            // birth_date={profile.birth_date}
+            birth_date="1999-01-01"
             gender={profile.gender}
           />
         )}
@@ -89,7 +92,14 @@ export default function Page() {
         <div className="container">
           <h3>좋아요 누른 칵테일</h3>
           {myCocktails?.map((cocktail) => (
-            <CocktailCard key={cocktail.id} props={cocktail} />
+            <CocktailCard
+              key={cocktail.id}
+              id={cocktail.id}
+              name={cocktail.name}
+              koreanName={cocktail.koreanName}
+              image={cocktail.image}
+              heartCount={cocktail.heartCount}
+            />
           ))}
           {myCocktails.length === 0 && (
             <div className="no-content-like">

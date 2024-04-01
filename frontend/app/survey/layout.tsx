@@ -137,7 +137,7 @@ export default function Layout({
             className="next"
             type="button"
             onClick={() => {
-              submitSurvey();
+              // submitSurvey();
             }}
           >
             홈으로

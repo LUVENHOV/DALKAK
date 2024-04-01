@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 'use client';
 
 import React from 'react';
@@ -15,19 +17,18 @@ interface ICocktailType {
 }
 
 export default function CocktailCard(props: ICocktailType) {
-  const { id: cocktailId, name, koreanName, image, heartCount } = props;
+  const { id, name, koreanName, image, heartCount } = props;
 
   const authorization =
     'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTEzMjkwNDUsImV4cCI6MTcxMTc2MTA0NSwiaWQiOjN9.zcY6r5AdHWBddd-sUz8oFdGV14DZLLyXi_5-BG--C20';
-
   const createLog = () => {
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/${cocktailId}/log`, {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/${id}/log`, {
       headers: { authorization },
     });
   };
 
   return (
-    <Link href={`/cocktail/${cocktailId}`}>
+    <Link href={`/cocktail/${id}`}>
       <button type="button" className={styles.container} onClick={createLog}>
         <div className={styles.image}>
           <img src={image} alt={name} />

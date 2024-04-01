@@ -21,7 +21,7 @@ export default function SweetItem({ id, name, val, description }: ItemProps) {
 
     return () => deselect();
   }, [name, val]);
-  const setSweetness = surveyStore((state) => state.setSweatness);
+  const setSweetness = surveyStore((state) => state.setSweetness);
 
   return (
     // eslint-disable-next-line max-len
