@@ -56,7 +56,7 @@ public class CookieUtil {
         String value, long maxAge) {
         httpServletResponse.addHeader(HttpHeaders.SET_COOKIE,
             ResponseCookie.from(name, value).httpOnly(true).secure(false).path("/")
-                .domain(staticDomain).maxAge(maxAge).build().toString());
+                .domain("dalkak.store").maxAge(maxAge).build().toString());
     }
 
     public static void createCookie(HttpServletResponse httpServletResponse, String accessToken,
@@ -73,6 +73,5 @@ public class CookieUtil {
     public static void deleteCookie(HttpServletResponse httpServletResponse) {
         makeCookie(httpServletResponse, "Authorization", null, 0);
         makeCookie(httpServletResponse, "X-Auth-Refresh-Token", null, 0);
-
     }
 }
