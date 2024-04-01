@@ -130,9 +130,9 @@ export async function getData({ cocktailId }: Props) {
   );
 
   if (!response.ok) {
-    // const error = new Error('Failed to fetch data');
+    const error = new Error('Failed to fetch data');
     // console.log(response);
-    // throw error;
+    throw error;
   } else {
     const data: ApiResponse = await response.json();
     return data.data;

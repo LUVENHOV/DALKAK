@@ -4,7 +4,10 @@ import { IIngredientType } from '@/type/refrigeratorTypes';
 interface ITagType {
   ingredient: IIngredientType;
   handleOnClick: (ingredient: IIngredientType) => void;
-  addItem: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  addItem?: (
+    id: number,
+    name: string,
+  ) => (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export default function IngredientTag(props: ITagType) {

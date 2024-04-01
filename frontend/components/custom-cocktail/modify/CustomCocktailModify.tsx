@@ -75,13 +75,13 @@ export default function CustomCocktailModify(props: Props) {
 
   const [customName, setCustomName] = useState('');
   const [customSummary, setCustomSummary] = useState('');
-  const [customImage, setCustomImage] = useState(null);
+  const [customImage, setCustomImage] = useState<File | null>(null);
   const [customComment, setCustomComment] = useState('');
   const [customRecipe, setCustomRecipe] = useState('');
   const [open, setOpen] = useState(false);
 
   /** 이미지 변경 관련 */
-  const handleImageProps = (targetImage) => {
+  const handleImageProps = (targetImage: File | null) => {
     setCustomImage(targetImage);
   };
 
@@ -117,7 +117,9 @@ export default function CustomCocktailModify(props: Props) {
     console.log(customComment);
     console.log(customRecipe);
     console.log(open);
+    console.log(tempList);
     console.log(filteredList);
+
     // console.log(uploadedImage);
   };
 
@@ -151,12 +153,22 @@ export default function CustomCocktailModify(props: Props) {
       const data = await result.data;
 
       setInputValues(
-        data.custom_ingredients.map((item) => item.ingredient_amount),
+        data.custom_ingredients.map(
+          (item: { ingredient_amount: number }) => item.ingredient_amount,
+        ),
       );
 
-      setInputUnitValues(data.custom_ingredients.map((item) => item.unit.name));
+      setInputUnitValues(
+        data.custom_ingredients.map(
+          (item: { unit: { name: string } }) => item.unit.name,
+        ),
+      );
 
-      setInputUnitValuesId(data.custom_ingredients.map((item) => item.unit.id));
+      setInputUnitValuesId(
+        data.custom_ingredients.map(
+          (item: { unit: { id: number } }) => item.unit.id,
+        ),
+      );
 
       return data;
     }
@@ -264,6 +276,34 @@ export default function CustomCocktailModify(props: Props) {
     }
   };
 
+  const addItem = (id: number, name: string) => {
+    if (tempList.length < 12) {
+      const newItem = {
+        id,
+        name,
+        ingredient_amount: 0,
+        // amount: 0,
+        image: '',
+        category_id: 0,
+        unit: {
+          id: 1,
+          name: null,
+        },
+      };
+      // 중복 여부 확인
+      const isDuplicate = tempList.some((item) => item.id === id);
+      // 중복이 없을 경우에만 새로운 아이템 추가
+      if (!isDuplicate) {
+        setTempList((prevList) => [...prevList, newItem]);
+      } else {
+        // 중복된 아이템이 있다면 여기에 대한 처리를 추가할 수 있습니다.
+        alert('이미 추가된 재료입니다');
+      }
+    } else {
+      alert('재료는 최대 12개까지 추가할 수 있습니다.');
+    }
+  };
+
   const modifyCustomCocktail = async () => {
     try {
       if (
@@ -285,26 +325,16 @@ export default function CustomCocktailModify(props: Props) {
 
         const formData = new FormData();
 
-        // if (customImage) {
-        //   formData.append('image', customImage);
-        // }
-        // formData.append(
-        //   'CustomModifyReqDto',
-        //   new Blob([JSON.stringify(postInput)], { type: 'application/json' }),
-        // );
-
-        formData.append('image', customImage);
+        if (customImage !== null) {
+          formData.append('image', customImage);
+        } else {
+          formData.append('image', '');
+        }
 
         formData.append(
           'CustomModifyReqDto',
           new Blob([JSON.stringify(postInput)], { type: 'application/json' }),
         );
-
-        // if (customImage !== null) {
-        //   formData.append('image', customImage);
-        // } else {
-        //   formData.append('image', '');
-        // }
 
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_BASE_URL}/customs/${customId}`,
@@ -312,7 +342,6 @@ export default function CustomCocktailModify(props: Props) {
             method: 'PATCH',
             headers: {
               Authorization: token ? `${token}` : '',
-              // 'Content-Type': 'application/json',
             },
             body: formData,
           },
@@ -320,7 +349,7 @@ export default function CustomCocktailModify(props: Props) {
         if (response.ok) {
           alert('커스텀 레시피가 수정되었습니다.');
           console.log(formData);
-          // router.push(`/cocktail/custom/detail/${customId}`);
+          router.push(`/cocktail/custom/detail/${customId}`);
         } else {
           console.error('커스텀 레시피 수정 실패');
           console.log(formData);
@@ -330,11 +359,9 @@ export default function CustomCocktailModify(props: Props) {
         //   alert('커스텀 칵테일 이미지를 업로드해주세요.');
         // } else
 
-        // if (!customName) {
-        //   alert('커스텀 칵테일 이름을 작성해주세요.');
-        // } else
-
-        if (!customSummary) {
+        if (!customName) {
+          alert('커스텀 칵테일 이름을 작성해주세요.');
+        } else if (!customSummary) {
           alert('커스텀 칵테일 한 줄 요약(summary)을 작성해주세요.');
         } else if (!customComment) {
           alert('커스텀 칵테일 간단한 설명(comment)를 작성해주세요.');
@@ -427,6 +454,7 @@ export default function CustomCocktailModify(props: Props) {
               inputValues={inputValues}
               inputUnitValues={inputUnitValues}
               inputUnitValuesId={inputUnitValuesId}
+              addItem={addItem}
             />
             <CustomCocktailAddRecipe
               handleInputChange={handleRecipeAreaChange}

@@ -112,6 +112,8 @@ export default function CustomCocktailWrite(props: Props) {
     // console.log(customComment);
     // console.log(customRecipe);
     // console.log(open);
+    console.log('>>', inputValues);
+    console.log('>>>', inputUnitValues);
     console.log(tempList);
     console.log(filteredList);
   };
@@ -198,25 +200,29 @@ export default function CustomCocktailWrite(props: Props) {
   };
 
   const addItem = (id: number, name: string) => {
-    const newItem = {
-      id,
-      name,
-      amount: 0,
-      image: '',
-      category_id: 0,
-      unit: {
-        id: 1,
-        name: null,
-      },
-    };
-    // 중복 여부 확인
-    const isDuplicate = tempList.some((item) => item.id === id);
-    // 중복이 없을 경우에만 새로운 아이템 추가
-    if (!isDuplicate) {
-      setTempList((prevList) => [...prevList, newItem]);
+    if (tempList.length < 12) {
+      const newItem = {
+        id,
+        name,
+        amount: 0,
+        image: '',
+        category_id: 0,
+        unit: {
+          id: 1,
+          name: null,
+        },
+      };
+      // 중복 여부 확인
+      const isDuplicate = tempList.some((item) => item.id === id);
+      // 중복이 없을 경우에만 새로운 아이템 추가
+      if (!isDuplicate) {
+        setTempList((prevList) => [...prevList, newItem]);
+      } else {
+        // 중복된 아이템이 있다면 여기에 대한 처리를 추가할 수 있습니다.
+        alert('이미 추가된 재료입니다');
+      }
     } else {
-      // 중복된 아이템이 있다면 여기에 대한 처리를 추가할 수 있습니다.
-      alert('이미 추가된 재료입니다');
+      alert('재료는 최대 12개까지 추가할 수 있습니다.');
     }
   };
 

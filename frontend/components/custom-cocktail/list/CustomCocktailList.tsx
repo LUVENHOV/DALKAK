@@ -23,7 +23,7 @@ interface ApiResponse {
   cocktail_name: string;
   custom_cocktails: Custom_Cocktails[];
   current_page: number;
-  total_page: number | undefined;
+  total_page: number;
   total_elements: number;
 }
 
@@ -81,15 +81,17 @@ export default function CustomCocktailList(props: Props) {
   return (
     <div>
       <UpperLineBanner
-        frontText={customAllData?.cocktail_name}
+        frontText={customAllData && customAllData.cocktail_name}
         secondText="를 활용한 다른 회원들의 색다른 레시피를 확인해보세요!"
       />
       <CustomCocktailCardWrapper dummy={customList} type="big" />
 
-      <CustomCocktailPagination
-        totalPages={customAllData?.total_page}
-        handlePageClick={handlePageClick}
-      />
+      {customAllData && (
+        <CustomCocktailPagination
+          totalPages={customAllData.total_page}
+          handlePageClick={handlePageClick}
+        />
+      )}
     </div>
   );
 }

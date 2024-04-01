@@ -25,6 +25,7 @@ interface CustomIngredientList {
   image: string;
   category_id: number;
   amount: number;
+  ingredient_amount?: number;
   unit: Unit;
 }
 
@@ -40,7 +41,10 @@ interface CustomIngredientList {
 interface Props {
   // origin: CustomIngredientList[];
   removeItem: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  addItem: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  addItem: (
+    id: number,
+    name: string,
+  ) => (event: React.MouseEvent<HTMLButtonElement>) => void;
   handleInputChangeTest: (value: number, index: number[]) => void;
   handleUnitInputChange: (
     event: ChangeEvent<HTMLSelectElement>,
@@ -69,10 +73,6 @@ export default function CustomCocktailAddIngredientTest({
 
   const { ingredients, addIngredient, removeIngredient } = useSearchStore();
 
-  const testThis = () => {
-    alert('test');
-  };
-
   return (
     <div>
       <div className={styles.title}>재료</div>
@@ -90,7 +90,9 @@ export default function CustomCocktailAddIngredientTest({
                     type="number"
                     pattern="[0-9]+"
                     className={styles['amount-input']}
+                    // defaultValue={inputValues[index]}
                     defaultValue={inputValues[index]}
+                    // defaultValue={data.ingredient_amount}
                     // value={tempValues[index]}
                     // onChange={(e) => handleInputChange(e, data.id)}
                     maxLength={4}
@@ -146,7 +148,7 @@ export default function CustomCocktailAddIngredientTest({
         placeholder="추가할 재료를 검색해보세요!"
       /> */}
       <div className={`${styles.searchRow} ${styles.ingredients}`}>
-        <div className={styles.title}>재료</div>
+        <div className={styles.title}></div>
         <div className={styles['ingredients-container']}>
           <div className={styles['selected-container']}>
             {ingredients.size > 0
@@ -161,8 +163,8 @@ export default function CustomCocktailAddIngredientTest({
           </div>
           <IngredientSearchForm
             placeholder="칵테일에 사용되는 재료를 검색해보세요!"
-            // handleOnClick={addIngredient}
-            handleOnClick={testThis}
+            handleOnClick={addIngredient}
+            // handleOnClick={testThis}
             addItem={addItem}
           />
         </div>

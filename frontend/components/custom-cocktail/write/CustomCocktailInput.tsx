@@ -8,7 +8,7 @@ interface Props {
   max: number;
   placeText: string;
   inputValue: string;
-  handleInputChange: ChangeEvent;
+  handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 // interface StringNumberPair {

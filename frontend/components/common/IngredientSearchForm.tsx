@@ -10,7 +10,10 @@ interface IPropsType {
   placeholder: string;
   handleOnClick: (ingredient: IIngredientType) => void;
   // eslint-disable-next-line react/no-unused-prop-types
-  addItem: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  addItem?: (
+    id: number,
+    name: string,
+  ) => (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export default function SearchIngredient(props: IPropsType) {
