@@ -22,10 +22,10 @@ import store.dalkak.api.cocktail.repository.ingredient.IngredientRepository;
 import store.dalkak.api.custom.domain.Custom;
 import store.dalkak.api.custom.dto.CustomCocktailDto;
 import store.dalkak.api.custom.repository.CustomRepository;
+import store.dalkak.api.global.jwt.Exception.JwtErrorCode;
+import store.dalkak.api.global.jwt.Exception.JwtException;
 import store.dalkak.api.global.jwt.JwtProvider;
 import store.dalkak.api.global.jwt.dto.TokenDto;
-import store.dalkak.api.global.jwt.exception.JwtErrorCode;
-import store.dalkak.api.global.jwt.exception.JwtException;
 import store.dalkak.api.global.oauth.dto.RefreshToken;
 import store.dalkak.api.global.oauth.dto.RefreshTokenRepository;
 import store.dalkak.api.user.domain.Heart;
@@ -84,8 +84,7 @@ public class UserServiceImpl implements UserService {
         String refreshTokenValue = refreshToken.split(" ")[1];
 
         Long id = jwtProvider.getMemberPrimaryKeyId(refreshTokenValue);
-        RefreshToken redisRefreshToken = refreshTokenRepository.findById(id)
-            .orElseThrow(() -> new UserException(UserErrorCode.INVALID_USER));
+        RefreshToken redisRefreshToken = refreshTokenRepository.findById(id).orElseThrow();
         if (refreshTokenValue.equals(redisRefreshToken.getValue())) {
             TokenDto newAccessToken = jwtProvider.createAccessToken(id);
             return UserRefreshResDto.builder()
@@ -101,8 +100,7 @@ public class UserServiceImpl implements UserService {
     public void deleteMember(MemberDto memberDto) {
 //        memberRepository.deleteById(memberDto.getId());
         //TODO: 남길 테이블 내용과 지울 것들, 탈퇴한 사용자 row 생성 후 거기로 옮기기
-        Member member = memberRepository.findById(memberDto.getId())
-            .orElseThrow(() -> new UserException(UserErrorCode.INVALID_USER));
+        Member member = memberRepository.findById(memberDto.getId()).orElseThrow();
         member.deleteMember();
         memberRepository.save(member);
         refreshTokenRepository.deleteById(memberDto.getId());
@@ -112,8 +110,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void createSurveyResult(MemberDto memberDto,
         UserCreateSurveyResultReqDto userCreateSurveyResultReqDto) {
-        Member member = memberRepository.findById(memberDto.getId())
-            .orElseThrow(() -> new UserException(UserErrorCode.INVALID_USER));
+        Member member = memberRepository.findById(memberDto.getId()).orElseThrow();
         Occasion occasion = occasionRepository.findById(
             userCreateSurveyResultReqDto.getOccasionId()).orElseThrow();
         Base base = baseRepository.findById(userCreateSurveyResultReqDto.getBaseId()).orElseThrow();
@@ -144,8 +141,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserLoadProfileResDto loadProfile(MemberDto memberDto) {
-        Member member = memberRepository.findById(memberDto.getId())
-            .orElseThrow(() -> new UserException(UserErrorCode.INVALID_USER));
+        Member member = memberRepository.findById(memberDto.getId()).orElseThrow();
 
         // 만약 캐싱된 HeartMatch가 있다면
         String memberKey = "*" + redisMatchPrefix + "]" + memberDto.getId() + "_*";
@@ -182,8 +178,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void modifyProfile(MemberDto memberDto,
         UserModifyProfileReqDto userModifyProfileReqDto) {
-        Member member = memberRepository.findById(memberDto.getId())
-            .orElseThrow(() -> new UserException(UserErrorCode.INVALID_USER));
+        Member member = memberRepository.findById(memberDto.getId()).orElseThrow();
         member.updateMember(userModifyProfileReqDto.getNickname(),
             userModifyProfileReqDto.getBirthDate(), userModifyProfileReqDto.getGender());
         log.info("{}", member);
