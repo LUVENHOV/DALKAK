@@ -1,38 +1,39 @@
 import React from 'react';
 
-interface ICustomType {
-  id: number;
-  image: string;
-  name: string;
-  summary: string;
-  user: {
-    id: number;
-    nickname: string;
-  };
-}
+// interface ICustomType {
+//   id: number;
+//   image: string;
+//   name: string;
+//   summary: string;
+//   user: {
+//     id: number;
+//     nickname: string;
+//   };
+// }
 
-export default function Page() {
+export default function Page({ params }: { params: { customId: string } }) {
+  const { customId } = params;
   return (
     <div>
-      <h1>커스텀 칵테일 수정 페이지</h1>
+      <h1>{customId} 커스텀 칵테일 수정 페이지</h1>
     </div>
   );
 }
 
 export async function generateStaticParams() {
-  const token =
+  const authorization =
     'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTEzMjkwNDUsImV4cCI6MTcxMTc2MTA0NSwiaWQiOjN9.zcY6r5AdHWBddd-sUz8oFdGV14DZLLyXi_5-BG--C20';
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/customs/${1}/custom-list?page=${1}`,
+  const json = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/customs/custom-list`,
     {
-      headers: { token },
-      next: { tags: ['cocktailList'] },
+      headers: { authorization },
     },
-  );
-  const json = await res.json();
-  const initialPage = (await json).data.custom_cocktails;
-  return initialPage.map((custom: ICustomType) => ({
-    customId: custom.id.toString(),
+  ).then((res) => res.json());
+
+  const initialPage = (await json).data.customIdList;
+
+  return initialPage.map((custom: number) => ({
+    customId: custom.toString(),
   }));
 }

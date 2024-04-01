@@ -172,6 +172,7 @@ export default function CocktailSearchForm() {
               <div className={styles.title}>재료</div>
               <div className={styles['ingredients-container']}>
                 <div className={styles['selected-container']}>
+<<<<<<< HEAD
                   {ingredients.size > 0
                     ? Array.from(ingredients).map((ingredient) => (
                       <IngredientBlock
@@ -181,6 +182,17 @@ export default function CocktailSearchForm() {
                       />
                     ))
                     : null}
+=======
+                  {ingredients?.map((ingredient) => (
+                    // eslint-disable-next-line react/jsx-indent
+                    <IngredientBlock
+                      key={ingredient.id}
+                      ingredient={ingredient}
+                      handleOnClick={removeIngredient}
+                    />
+                    // eslint-disable-next-line indent
+                  ))}
+>>>>>>> f6feb30b160aabffdd694dcabaa19b2128604a78
                 </div>
                 <IngredientSearchForm
                   placeholder="칵테일에 사용되는 재료를 검색해보세요!"

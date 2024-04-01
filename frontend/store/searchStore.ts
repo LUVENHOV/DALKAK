@@ -6,7 +6,7 @@ const useSearchStore = create<ISearchType>((set, get) => ({
   page: 1,
   totalPage: 10,
   cocktailName: '',
-  ingredients: new Set(),
+  ingredients: [],
   base: null,
   minAlcohol: 15,
   maxAlcohol: 35,
@@ -26,23 +26,25 @@ const useSearchStore = create<ISearchType>((set, get) => ({
   setActivateSearch: () => {
     set({ activateSearch: !get().activateSearch });
   },
-  addIngredient: (ingredient: IIngredientType) =>
-    set({
-      ingredients: new Set(get().ingredients.add(ingredient)),
-    }),
+  addIngredient: (ingredient: IIngredientType) => {
+    if (get().ingredients.includes(ingredient)) {
+      return;
+    }
+    const updatedList = [...get().ingredients, ingredient];
+    set({ ingredients: updatedList });
+  },
   removeIngredient: (ingredient: IIngredientType) => {
-    const updatedSet = new Set(get().ingredients);
-    updatedSet.delete(ingredient);
-    set({ ingredients: new Set(updatedSet) });
+    const updatedList = get().ingredients.filter((i) => i !== ingredient);
+    set({ ingredients: updatedList });
   },
   getIngredientsId: () => {
     const onlyId: number[] = [];
-    Array.from(get().ingredients).map((i) => onlyId.push(i.id));
+    get().ingredients.map((i) => onlyId.push(i.id));
     return onlyId;
   },
   clearAll: () =>
     set({
-      ingredients: new Set(),
+      ingredients: [],
       base: null,
       minAlcohol: 15,
       maxAlcohol: 35,

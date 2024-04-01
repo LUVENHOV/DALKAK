@@ -4,7 +4,7 @@ export interface ISearchType {
   page: number;
   totalPage: number;
   cocktailName: string;
-  ingredients: Set<IIngredientType>;
+  ingredients: IIngredientType[];
   base: number | null;
   minAlcohol: number;
   maxAlcohol: number;

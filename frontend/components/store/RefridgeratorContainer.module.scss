@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  height: calc(100vh - 17vw);
+
+  .food-area {
+    // background-color: skyblue;
+    flex: 2;
+  }
+
+  .alcohol-area {
+    // background-color: gold;
+    flex: 1;
+  }
+}
