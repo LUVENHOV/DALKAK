@@ -14,9 +14,7 @@ export default function MemoContainer() {
           isRefr={false}
         />
       </div>
-      <div className={styles['memo-wrapper']}>
-        <MemoPad />
-      </div>
+      <MemoPad />
     </div>
   );
 }

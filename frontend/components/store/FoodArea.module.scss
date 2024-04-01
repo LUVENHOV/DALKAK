@@ -27,12 +27,13 @@
       overflow: auto;
       display: flex;
       flex-wrap: wrap;
-      gap: 3.3vw;
+      gap: 10px;
       justify-content: flex-start;
       margin: 2vw auto 0 auto;
 
-      button {
+      div {
         cursor: grab;
+        // background-color: pink;
       }
     }
   }

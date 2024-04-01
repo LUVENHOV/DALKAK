@@ -1,11 +1,10 @@
 .container {
-  // background-color: lightblue;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   height: 95vh;
+
   .search-wrapper {
-    // background-color: orange;
     display: flex;
   }
 }
