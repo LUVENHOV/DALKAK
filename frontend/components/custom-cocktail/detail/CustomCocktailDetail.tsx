@@ -116,8 +116,9 @@ export async function getData({ customId }: Props) {
   );
 
   if (!response.ok) {
-    const error = new Error('Failed to fetch data');
-    throw error;
+    if (response.status === 403) {
+      console.log('403에러, 다음에 처리');
+    }
   } else {
     const data: ApiResponse = await response.json();
     return data.data;
@@ -132,8 +133,7 @@ export default async function CustomCocktailDetail({ customId }: Props) {
   const originCocktail: Origin_Cocktail =
     customCocktailDetailData.origin_cocktail;
 
-  const originCocktailNames: string =
-    originCocktail.name + `, ` + originCocktail.korean_name;
+  const originCocktailNames: string = `${originCocktail.name}, ${originCocktail.korean_name}`;
 
   return (
     <div className={styles['flex-container']}>

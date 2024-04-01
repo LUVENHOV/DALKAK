@@ -52,6 +52,7 @@ interface Data {
   korean_name: string;
   image: string;
   heart_count: number;
+  heart: boolean;
   view_count: number;
   alcohol_content: number;
   sweetness: number;
@@ -129,9 +130,10 @@ export async function getData({ cocktailId }: Props) {
   );
 
   if (!response.ok) {
-    const error = new Error('Failed to fetch data');
+    // const error = new Error('Failed to fetch data');
+    console.log(response);
 
-    throw error;
+    // throw error;
   } else {
     const data: ApiResponse = await response.json();
     return data.data;
@@ -153,6 +155,7 @@ export default async function CocktailDetail({ cocktailId }: Props) {
             <LikeCount
               count={cocktailDetailData.heart_count}
               cocktailId={cocktailId}
+              isLiked={cocktailDetailData.heart}
             />
             <div className={styles.info}>
               {cocktailDetailData.alcohol_content}도

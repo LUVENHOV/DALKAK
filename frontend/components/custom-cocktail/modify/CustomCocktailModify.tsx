@@ -111,13 +111,13 @@ export default function CustomCocktailModify(props: Props) {
 
   const confirmData = () => {
     // console.log('여기부터');
-    // console.log(customImage);
-    // console.log(customName);
-    // console.log(customSummary);
-    // console.log(customComment);
-    // console.log(customRecipe);
-    // console.log(open);
-    // console.log(filteredList)
+    console.log(customImage);
+    console.log(customName);
+    console.log(customSummary);
+    console.log(customComment);
+    console.log(customRecipe);
+    console.log(open);
+    console.log(filteredList);
     // console.log(uploadedImage);
   };
 
@@ -284,20 +284,27 @@ export default function CustomCocktailModify(props: Props) {
         };
 
         const formData = new FormData();
+
+        // if (customImage) {
+        //   formData.append('image', customImage);
+        // }
+        // formData.append(
+        //   'CustomModifyReqDto',
+        //   new Blob([JSON.stringify(postInput)], { type: 'application/json' }),
+        // );
+
         formData.append('image', customImage);
+
+        formData.append(
+          'CustomModifyReqDto',
+          new Blob([JSON.stringify(postInput)], { type: 'application/json' }),
+        );
 
         // if (customImage !== null) {
         //   formData.append('image', customImage);
-        //   console.log('form', formData);
         // } else {
         //   formData.append('image', '');
-        //   console.log(formData);
         // }
-
-        formData.append(
-          'CustomCreateReqDto',
-          new Blob([JSON.stringify(postInput)], { type: 'application/json' }),
-        );
 
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_BASE_URL}/customs/${customId}`,
@@ -312,9 +319,11 @@ export default function CustomCocktailModify(props: Props) {
         );
         if (response.ok) {
           alert('커스텀 레시피가 수정되었습니다.');
-          router.push(`/cocktail/custom/detail/${customId}`);
+          console.log(formData);
+          // router.push(`/cocktail/custom/detail/${customId}`);
         } else {
           console.error('커스텀 레시피 수정 실패');
+          console.log(formData);
         }
       } else {
         // if (!customImage) {
