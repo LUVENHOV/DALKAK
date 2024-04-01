@@ -1,23 +1,37 @@
+/* eslint-disable no-nested-ternary */
+
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import styles from './LikeCount.module.scss';
 
 interface Props {
   count: number;
   cocktailId: number;
+  isLiked: boolean;
 }
 
-export default function LikeCount({ count, cocktailId }: Props) {
-  const [isLike, setIsLike] = useState(false);
-  const heart = () => {
-    if (isLike === false) {
-      setIsLike(true);
-    } else {
-      setIsLike(false);
-    }
-  };
+export default function LikeCount({ count, cocktailId, isLiked }: Props) {
+  const [isLike, setIsLike] = useState(isLiked);
+  const [isClient, setIsClient] = useState(false);
+  const [initialCount, setInitialCount] = useState(count);
+  const [state, setState] = useState(0);
+
+  useEffect(() => {
+    setIsClient(true);
+    // setInitialCount(count);
+  }, [count, initialCount]);
+
+  useEffect(() => {
+    // state 값이 변경될 때마다 UI를 업데이트
+  }, [state]);
+
+  // useEffect(() => {
+  //   if (initialCount !== count) {
+  //     setInitialCount(count);
+  //   }
+  // }, [count, initialCount]);
 
   const token = process.env.NEXT_PUBLIC_TOKEN;
 
@@ -33,11 +47,12 @@ export default function LikeCount({ count, cocktailId }: Props) {
 
     if (!response.ok) {
       const error = new Error('Failed to fetch data');
-
+      // setInitialCount((prevInitialCount) => prevInitialCount + 1);
+      setState(1);
+      setInitialCount(count + 1);
       throw error;
     } else {
       alert('해당 칵테일을 좋아요했습니다.');
-      return;
     }
   };
 
@@ -53,22 +68,45 @@ export default function LikeCount({ count, cocktailId }: Props) {
 
     if (!response.ok) {
       const error = new Error('Failed to fetch data');
-
+      // setInitialCount((prevInitialCount) => prevInitialCount - 1);
+      setState(2);
+      setInitialCount(count - 1);
       throw error;
     } else {
       alert('해당 칵테일을 좋아요취소했습니다.');
-      return;
+    }
+  };
+
+  const heart = async () => {
+    try {
+      if (isLike === false) {
+        likeThisCocktail();
+        setIsLike(true);
+      } else {
+        dislikeThisCocktail();
+        setIsLike(false);
+      }
+    } catch (error) {
+      console.error('Error');
     }
   };
 
   return (
-    <div className={styles.flex}>
-      <button type="button" onClick={heart}>
-        {isLike === false ? <div>🤍</div> : <div>🖤</div>}
-      </button>
-      {count}
-      <button onClick={likeThisCocktail}>좋아요</button>
-      <button onClick={dislikeThisCocktail}>좋아요취소</button>
+    <div>
+      {isClient && (
+        <div className={styles.flex}>
+          <button type="button" onClick={heart}>
+            {isLike ? '🖤' : '🤍'}
+          </button>
+          <div>
+            {state === 0
+              ? initialCount
+              : state === 1
+                ? initialCount + 1
+                : initialCount - 1}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
