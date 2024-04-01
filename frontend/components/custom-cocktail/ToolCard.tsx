@@ -18,15 +18,15 @@ interface Props {
 export default function ToolCard({ cocktailTool, index, lastIndex }: Props) {
   let className = '';
 
-  if (index === 0 && index !== lastIndex) {
-    className = styles['start-ingredient'];
-  } else if (index === 0 && index === lastIndex) {
-    className = styles['start-last-ingredient'];
-  } else if (index === 1 && index !== lastIndex) {
-    className = styles['inner-ingredient'];
-  } else {
-    className = styles['last-ingredient'];
-  }
+  // if (index === 0 && index !== lastIndex) {
+  //   className = styles['start-ingredient'];
+  // } else if (index === 0 && index === lastIndex) {
+  //   className = styles['start-last-ingredient'];
+  // } else if (index === 1 && index !== lastIndex) {
+  //   className = styles['inner-ingredient'];
+  // } else {
+  //   className = styles['last-ingredient'];
+  // }
 
   return (
     <div className={styles.container}>
