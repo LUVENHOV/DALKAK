@@ -5,11 +5,12 @@
   box-sizing: border-box;
 
   .image {
+    background-color: white;
     width: 17vw;
     height: 17vw;
     overflow: hidden;
     border-radius: 10%;
-    margin-bottom: 1vh;
+    margin-bottom: 2vh;
     text-align: center;
     box-shadow: 0.4vw 0.4vw 0.7vw 0.01vw var(--color-base);
 
@@ -27,12 +28,14 @@
     align-items: flex-start;
 
     .name {
+      max-width: 11vw;
       display: flex;
       flex-direction: column;
 
       .eng {
+        text-align: left;
         font-size: 1rem;
-        width: 12vw;
+        width: 11vw;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -40,7 +43,8 @@
 
       .kor {
         font-size: 0.6rem;
-        width: 12vw;
+        text-align: left;
+        width: 11vw;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;

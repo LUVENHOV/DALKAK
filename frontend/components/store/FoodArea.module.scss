@@ -30,6 +30,10 @@
       gap: 3.3vw;
       justify-content: flex-start;
       margin: 2vw auto 0 auto;
+
+      button {
+        cursor: grab;
+      }
     }
   }
   .container-inner::-webkit-scrollbar {
