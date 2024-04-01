@@ -162,10 +162,13 @@ public class CustomServiceImpl implements CustomService {
         Cocktail targetcocktail = cocktailRepository.findById(cocktailId)
             .orElseThrow(() -> new CocktailException(
                 CocktailErrorCode.FAIL_TO_FIND_COCKTAIL));
-        Page<Custom> customPage = customRepository.findAllByCocktailOrderByIdDesc(targetcocktail,
+
+        Page<Custom> customPage = customRepository.findAllByCocktailAndOpenIsTrueOrderByIdDesc(
+            targetcocktail,
             page);
 
         return CustomListResDto.builder()
+            .cocktailName(targetcocktail.getName())
             .customCocktails(toCustomCocktailDtoList(customPage.getContent()))
             .currentPage(customPage.getPageable().getPageNumber() + 1)
             .totalPage(customPage.getTotalPages())
@@ -174,11 +177,18 @@ public class CustomServiceImpl implements CustomService {
     }
 
     @Override
-    public CustomDetailResDto findCustom(Long customCocktailId) {
+    public CustomDetailResDto findCustom(MemberDto memberDto, Long customCocktailId) {
+
         Custom targetCustom = customRepository.findById(customCocktailId).orElseThrow(
             () -> new CustomException(CustomErrorCode.FAIL_TO_FIND_CUSTOM));
+
+        if (!memberDto.getId().equals(targetCustom.getMember().getId())) {
+            throw new CocktailException(CustomErrorCode.NOT_AVAILABLE);
+        }
+
         UserDto user = new UserDto(targetCustom.getMember().getId(),
             targetCustom.getMember().getNickname());
+
         CocktailDto cocktail = new CocktailDto(targetCustom.getCocktail().getId(),
             targetCustom.getCocktail().getName(), targetCustom.getCocktail().getKrName(),
             targetCustom.getCocktail().getImage(), targetCustom.getCocktail().getHeartCount());
@@ -198,7 +208,8 @@ public class CustomServiceImpl implements CustomService {
 
     @Override
     public CustomIdListResDto findAllCustomIdList() {
-        return new CustomIdListResDto(customRepository.findAll().stream().map(Custom::getId).toList());
+        return new CustomIdListResDto(
+            customRepository.findAll().stream().map(Custom::getId).toList());
     }
 
 

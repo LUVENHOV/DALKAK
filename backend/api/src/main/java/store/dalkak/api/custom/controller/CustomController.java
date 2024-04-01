@@ -65,8 +65,9 @@ public class CustomController {
 
     @GetMapping("/{customCocktailId}")
     public ResponseEntity<ApiResponse<CustomDetailResDto>> customDetail(
+        @LoginUser MemberDto memberDto,
         @PathVariable("customCocktailId") Long customCocktailId) {
-        CustomDetailResDto custom = customService.findCustom(customCocktailId);
+        CustomDetailResDto custom = customService.findCustom(memberDto,customCocktailId);
 
         ApiResponse<CustomDetailResDto> apiResponse = ApiResponse.of(200,
             custom);

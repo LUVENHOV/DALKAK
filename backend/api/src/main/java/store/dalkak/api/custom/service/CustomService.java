@@ -20,7 +20,7 @@ public interface CustomService {
 
     CustomListResDto getCustomList(Long cocktailId, Pageable page);
 
-    CustomDetailResDto findCustom(Long customCocktailId);
+    CustomDetailResDto findCustom(MemberDto memberDto, Long customCocktailId);
 
     CustomIdListResDto findAllCustomIdList();
 }

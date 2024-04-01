@@ -19,6 +19,6 @@ public interface CustomRepository extends JpaRepository<Custom, Long>, CustomRep
 
     List<Custom> findAllByCocktailOrderByIdDesc(Cocktail cocktail);
 
-    Page<Custom> findAllByCocktailOrderByIdDesc(Cocktail cocktail, Pageable pageable);
+    Page<Custom> findAllByCocktailAndOpenIsTrueOrderByIdDesc(Cocktail cocktail, Pageable pageable);
 
 }
