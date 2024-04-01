@@ -49,6 +49,7 @@ export default async function Oauth({
       const responseData = await response.json();
       const { data } = responseData;
 
+      // cookies.set('Authorization', data.accessToken, { path: '/' });
       console.log(data.headers);
       console.log(responseData.headers);
       console.log(response.headers);
