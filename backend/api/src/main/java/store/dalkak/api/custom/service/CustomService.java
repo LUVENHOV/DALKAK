@@ -3,6 +3,7 @@ package store.dalkak.api.custom.service;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 import store.dalkak.api.custom.dto.request.CustomCreateReqDto;
+import store.dalkak.api.custom.dto.request.CustomModifyReqDto;
 import store.dalkak.api.custom.dto.response.CustomDetailResDto;
 import store.dalkak.api.custom.dto.response.CustomIdListResDto;
 import store.dalkak.api.custom.dto.response.CustomListResDto;
@@ -16,7 +17,7 @@ public interface CustomService {
     void deleteCustomCocktail(Long userId, Long customCocktailId);
 
     void modifyCustomCocktail(Long userId, Long customCocktailId, MultipartFile image,
-        CustomCreateReqDto customCreateReqDto);
+        CustomModifyReqDto customModifyReqDto);
 
     CustomListResDto getCustomList(Long cocktailId, Pageable page);
 

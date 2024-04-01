@@ -2,7 +2,10 @@ package store.dalkak.api.custom.service;
 
 import jakarta.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +30,7 @@ import store.dalkak.api.custom.dto.CustomIngredientDto;
 import store.dalkak.api.custom.dto.CustomIngredientModifyDto;
 import store.dalkak.api.custom.dto.CustomModifyDto;
 import store.dalkak.api.custom.dto.request.CustomCreateReqDto;
+import store.dalkak.api.custom.dto.request.CustomModifyReqDto;
 import store.dalkak.api.custom.dto.response.CustomDetailResDto;
 import store.dalkak.api.custom.dto.response.CustomIdListResDto;
 import store.dalkak.api.custom.dto.response.CustomListResDto;
@@ -89,6 +93,10 @@ public class CustomServiceImpl implements CustomService {
     @Override
     @UserPermission(userId = "userId", customCocktailId = "customCocktailId")
     public void deleteCustomCocktail(Long userId, Long customCocktailId) {
+
+        // 기존에 가지고 있는 재료 삭제
+        customIngredientRepository.deleteCustomIngredeintsByCustomId(customCocktailId);
+
         Custom custom = customRepository.findCustomById(customCocktailId);
 
         if (!Objects.equals(userId, custom.getMember().getId())) {
@@ -98,11 +106,6 @@ public class CustomServiceImpl implements CustomService {
         // 이미지 삭제
         imageConfig.deleteImage(custom.getImage());
 
-        // 재료 삭제
-        for (CustomIngredient customIngredient : custom.getCustomIngredients()) {
-            customIngredientRepository.deleteCustomIngredientById(customIngredient.getId());
-        }
-
         // 커스텀 칵테일 삭제
         customRepository.deleteCustomById(customCocktailId);
     }
@@ -110,8 +113,10 @@ public class CustomServiceImpl implements CustomService {
     @Override
     @UserPermission(userId = "userId", customCocktailId = "customCocktailId")
     public void modifyCustomCocktail(Long userId, Long customCocktailId, MultipartFile image,
+        CustomModifyReqDto customModifyReqDto) {
 
-        CustomCreateReqDto customCreateReqDto) {
+        // 기존에 가지고 있는 재료 삭제
+        customIngredientRepository.deleteCustomIngredeintsByCustomId(customCocktailId);
 
         Custom custom = customRepository.findCustomById(customCocktailId);
 
@@ -119,26 +124,14 @@ public class CustomServiceImpl implements CustomService {
 //            throw new UserException(UserErrorCode.FORBIDDEN);
 //        }
 
-        // 현재 커스텀 칵테일이 저장하고 있는 커스텀 재료 아이디를 리스트에 저장
-        List<Long> customIngredientIdList = new ArrayList<>();
-        for (CustomIngredient customIngredient : custom.getCustomIngredients()) {
-            customIngredientIdList.add(customIngredient.getId());
-        }
-
-        // 현재 가지고 있는 아이디 리스트와 비교해서 만약 존재한다면 update, 존재하지 않는다면 save
-        for (CustomIngredientDto customIngredientDto : customCreateReqDto.getCustomIngredientList()) {
+        // 새로 들어온 재료 생성
+        for(CustomIngredientDto customIngredientDto : customModifyReqDto.getCustomIngredientList()) {
             Unit unit = unitRepository.findUnitById(customIngredientDto.getUnitId());
-            if (customIngredientIdList.contains(customIngredientDto.getId())) {
-                customIngredientRepository.ModifyCustomIngredient(
-                    new CustomIngredientModifyDto(customCocktailId, customIngredientDto.getAmount(),
-                        unit));
-            } else {
-                Ingredient ingredient = ingredientRepository.findIngredientById(
-                    customIngredientDto.getId());
-                customIngredientRepository.save(
-                    CustomIngredient.builder().unit(unit).ingredient(ingredient).custom(custom)
-                        .build());
-            }
+            Ingredient ingredient = ingredientRepository.findIngredientById(
+                customIngredientDto.getId());
+            customIngredientRepository.save(CustomIngredient.builder().custom(custom)
+                .amount(customIngredientDto.getAmount()).ingredient(ingredient).unit(unit)
+                .build());
         }
 
         String imageUrl;
@@ -150,11 +143,12 @@ public class CustomServiceImpl implements CustomService {
             imageUrl = custom.getImage();
         }
 
-        CustomModifyDto customModifyDto = new CustomModifyDto(customCreateReqDto.getCustomName(),
-            customCreateReqDto.getCustomSummary(), customCreateReqDto.getCustomComment(),
-            customCreateReqDto.getCustomRecipe(), imageUrl, customCreateReqDto.getOpen());
+        CustomModifyDto customModifyDto = new CustomModifyDto(customModifyReqDto.getCustomName(),
+            customModifyReqDto.getCustomSummary(), customModifyReqDto.getCustomComment(),
+            customModifyReqDto.getCustomRecipe(), imageUrl, customModifyReqDto.getOpen());
 
         customRepository.modifyCustomCocktail(customCocktailId, customModifyDto);
+
     }
 
     @Override

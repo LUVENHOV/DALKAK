@@ -1,8 +1,10 @@
 package store.dalkak.api.custom.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import store.dalkak.api.custom.domain.CustomIngredient;
 import store.dalkak.api.custom.domain.QCustomIngredient;
 import store.dalkak.api.custom.dto.CustomIngredientModifyDto;
 
@@ -20,5 +22,11 @@ public class CustomIngredientRepositoryImpl implements CustomIngredientCustom {
             .set(qCustomIngredient.unit, customIngredientModifyDto.getUnit())
             .where(qCustomIngredient.custom.id.eq(customIngredientModifyDto.getCustomCocktailId()))
             .execute();
+    }
+
+    @Override
+    public void deleteCustomIngredeintsByCustomId(Long customCocktailId) {
+        QCustomIngredient qCustomIngredient = QCustomIngredient.customIngredient;
+        queryFactory.delete(qCustomIngredient).where(qCustomIngredient.custom.id.eq(customCocktailId)).execute();
     }
 }
