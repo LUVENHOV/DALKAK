@@ -9,10 +9,12 @@ import { IIngredientType } from '@/type/refrigeratorTypes';
 interface IPropsType {
   placeholder: string;
   handleOnClick: (ingredient: IIngredientType) => void;
+  // eslint-disable-next-line react/no-unused-prop-types
+  addItem: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export default function SearchIngredient(props: IPropsType) {
-  const { placeholder, handleOnClick } = props;
+  const { placeholder, handleOnClick, addItem } = props;
   const [keyword, setKeyword] = useState('');
   const [resultList, setResultList] = useState([]);
 
@@ -59,6 +61,7 @@ export default function SearchIngredient(props: IPropsType) {
               key={ingredient.id}
               ingredient={ingredient}
               handleOnClick={handleOnClick}
+              addItem={addItem}
             />
           ))}
         </div>
