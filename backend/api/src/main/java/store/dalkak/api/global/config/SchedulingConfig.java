@@ -29,39 +29,41 @@ public class SchedulingConfig {
     private final Logger viewLogger = LoggerFactory.getLogger("view-log");
 
     // dump 입력
-//    @Scheduled(cron = "0 * * * * *")
-//    public void takeViewAndHeart() {
-//        for (int i = 0; i < 100; i++) {
-//            int randomNumber = ThreadLocalRandom.current().nextInt(1, 3163);
-//            viewLogger.info("view-log {} {}", randomNumber, System.currentTimeMillis());
-//        }
-//        for (int i = 0; i < 100; i++) {
-//            int randomNumber = ThreadLocalRandom.current().nextInt(1, 3163);
-//            heartLogger.info("heart-log {} {}", randomNumber, System.currentTimeMillis());
-//        }
-//    }
+    @Scheduled(cron = "0 */5 * * * *")
+    public void takeViewAndHeart() {
+        int size = ThreadLocalRandom.current().nextInt(1, 70);
+        for (int i = 0; i < size; i++) {
+            int randomNumber = ThreadLocalRandom.current().nextInt(1, 3166);
+            viewLogger.info("view-log {} {}", randomNumber, System.currentTimeMillis());
+        }
+        size = ThreadLocalRandom.current().nextInt(1, 40);
+        for (int i = 0; i < size; i++) {
+            int randomNumber = ThreadLocalRandom.current().nextInt(1, 3166);
+            heartLogger.info("heart-log {} {}", randomNumber, System.currentTimeMillis());
+        }
+    }
 
     // 현재 인기있는 칵테일 순위
-    @Scheduled(cron = "0 0 */6 * * *") // 매 6시간마다 실행 (초, 분, 시, 일, 월, 요일)
-    public void executeTask() {
-        List<ElasticDto> viewLogList = elasticService.findAllElasticLog("week", "view-log");
-        List<ElasticDto> heartLogList = elasticService.findAllElasticLog("week", "heart-log");
-        log.info("viewLogList size: {}", viewLogList.size());
-        log.info("heartLogList size: {}", heartLogList.size());
-        cocktailService.modifyRank(viewLogList, heartLogList);
-    }
-
-    // 좋아요 Count, Match를 Database에 입력
-    @Scheduled(cron = "0 5 * * * *") // 정각의 5분마다
-    public void migrateHeartToDatabase() {
-        cocktailService.migrateHeart();
-    }
-
-    // 조회수 Count를 Database에 입력
-    @Scheduled(cron = "0 0 12 * * ?") // 하루마다, 정오에
-    public void migrateViewToDatabase() {
-        List<ElasticDto> viewLogList = elasticService.findAllElasticLog("day", "view-log");
-        cocktailService.migrateView(viewLogList);
-    }
+//    @Scheduled(cron = "0 0 */6 * * *") // 매 6시간마다 실행 (초, 분, 시, 일, 월, 요일)
+//    public void executeTask() {
+//        List<ElasticDto> viewLogList = elasticService.findAllElasticLog("week", "view-log");
+//        List<ElasticDto> heartLogList = elasticService.findAllElasticLog("week", "heart-log");
+//        log.info("viewLogList size: {}", viewLogList.size());
+//        log.info("heartLogList size: {}", heartLogList.size());
+//        cocktailService.modifyRank(viewLogList, heartLogList);
+//    }
+//
+//    // 좋아요 Count, Match를 Database에 입력
+//    @Scheduled(cron = "0 5 * * * *") // 정각의 5분마다
+//    public void migrateHeartToDatabase() {
+//        cocktailService.migrateHeart();
+//    }
+//
+//    // 조회수 Count를 Database에 입력
+//    @Scheduled(cron = "0 0 12 * * ?") // 하루마다, 정오에
+//    public void migrateViewToDatabase() {
+//        List<ElasticDto> viewLogList = elasticService.findAllElasticLog("day", "view-log");
+//        cocktailService.migrateView(viewLogList);
+//    }
 
 }

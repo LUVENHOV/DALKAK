@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import store.dalkak.api.custom.dto.request.CustomCreateReqDto;
+import store.dalkak.api.custom.dto.request.CustomModifyReqDto;
 import store.dalkak.api.custom.dto.response.CustomDetailResDto;
 import store.dalkak.api.custom.dto.response.CustomIdListResDto;
 import store.dalkak.api.custom.dto.response.CustomListResDto;
@@ -48,9 +49,9 @@ public class CustomController {
         @LoginUser MemberDto memberDto,
         @PathVariable("customCocktailId") Long customCocktailId,
         @RequestPart("image") MultipartFile image,
-        @RequestPart("CustomCreateReqDto") CustomCreateReqDto customCreateReqDto) {
+        @RequestPart("CustomModifyReqDto") CustomModifyReqDto customModifyReqDto) {
         customService.modifyCustomCocktail(memberDto.getId(), customCocktailId, image,
-            customCreateReqDto);
+            customModifyReqDto);
         return ResponseEntity.status(HttpStatus.OK)
             .body(ApiResponse.of(201, "커스텀 칵테일이 수정되었습니다."));
     }
@@ -87,6 +88,7 @@ public class CustomController {
     }
     @GetMapping("/custom-list")
     public ResponseEntity<ApiResponse<CustomIdListResDto>> customCocktailIdList() {
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, customService.findAllCustomIdList()));
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(ApiResponse.of(200, customService.findAllCustomIdList()));
     }
 }
