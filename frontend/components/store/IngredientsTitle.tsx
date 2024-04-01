@@ -25,6 +25,7 @@ export default function IngredientsTitle(props: IPropsType) {
       <div className={styles.search}>
         <IngredientSearchForm
           placeholder={placeholder}
+          type="refrigerator"
           handleOnClick={isRefr ? addRefrList : addMemoList}
         />
       </div>
