@@ -2,11 +2,12 @@ import React from 'react';
 
 import styles from './CustomCocktailDetail.module.scss';
 
+import CustomCocktailDetailButtonArea from './CustomCocktailDetailButtonArea';
 import IngredientCardWrapper from '../IngredientCardWrapper';
-import CustomCocktailDeleteButton from '@/components/custom-cocktail/CustomCocktailDeleteButton';
+// import CustomCocktailDeleteButton from '@/components/custom-cocktail/CustomCocktailDeleteButton';
 import CustomCocktailImage from '@/components/custom-cocktail/CustomCocktailImage';
 import CustomCocktailInfo from '@/components/custom-cocktail/CustomCocktailInfo';
-import CustomCocktailModifyButton from '@/components/custom-cocktail/CustomCocktailModifyButton';
+// import CustomCocktailModifyButton from '@/components/custom-cocktail/CustomCocktailModifyButton';
 import CustomCocktailRecipe from '@/components/custom-cocktail/CustomCocktailRecipe';
 
 interface Custom_Ingredients {
@@ -116,9 +117,11 @@ export async function getData({ customId }: Props) {
   );
 
   if (!response.ok) {
-    if (response.status === 403) {
-      console.log('403에러, 다음에 처리');
-    }
+    const error = new Error('Failed to fetch data');
+    throw error;
+    // if (response.status === 403) {
+    //   console.log('403에러, 다음에 처리');
+    // }
   } else {
     const data: ApiResponse = await response.json();
     return data.data;
@@ -146,18 +149,12 @@ export default async function CustomCocktailDetail({ customId }: Props) {
             </div>
           </div>
           <div />
-
-          <div className={styles.buttons}>
-            <div className={styles.button}>
-              <CustomCocktailModifyButton customId={customId} />
-            </div>
-            <div className={styles['divide-line']}>|</div>
-            <div className={styles.button}>
-              <CustomCocktailDeleteButton
-                customId={customId}
-                cocktailId={originCocktail.id}
-              />
-            </div>
+          <div>
+            <CustomCocktailDetailButtonArea
+              customId={customId}
+              originId={originCocktail.id}
+              authorId={customCocktailDetailData.user.id}
+            />
           </div>
         </div>
 

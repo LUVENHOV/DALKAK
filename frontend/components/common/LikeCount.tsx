@@ -14,24 +14,21 @@ interface Props {
 
 export default function LikeCount({ count, cocktailId, isLiked }: Props) {
   const [isLike, setIsLike] = useState(isLiked);
-  const [isClient, setIsClient] = useState(false);
+  // const [isClient, setIsClient] = useState(false);
   const [initialCount, setInitialCount] = useState(count);
   const [state, setState] = useState(0);
 
-  useEffect(() => {
-    setIsClient(true);
-    // setInitialCount(count);
-  }, [count, initialCount]);
-
-  useEffect(() => {
-    // state 값이 변경될 때마다 UI를 업데이트
-  }, [state]);
-
   // useEffect(() => {
-  //   if (initialCount !== count) {
-  //     setInitialCount(count);
-  //   }
+  //   setIsClient(true);
   // }, [count, initialCount]);
+
+  useEffect(() => {
+    if (state === 1) {
+      setInitialCount(count + 1);
+    } else if (state === 2) {
+      setInitialCount(count - 1);
+    }
+  }, [state, count]);
 
   const token = process.env.NEXT_PUBLIC_TOKEN;
 
@@ -49,7 +46,7 @@ export default function LikeCount({ count, cocktailId, isLiked }: Props) {
       const error = new Error('Failed to fetch data');
       // setInitialCount((prevInitialCount) => prevInitialCount + 1);
       setState(1);
-      setInitialCount(count + 1);
+      // setInitialCount(count + 1);
       throw error;
     } else {
       alert('해당 칵테일을 좋아요했습니다.');
@@ -68,12 +65,12 @@ export default function LikeCount({ count, cocktailId, isLiked }: Props) {
 
     if (!response.ok) {
       const error = new Error('Failed to fetch data');
-      // setInitialCount((prevInitialCount) => prevInitialCount - 1);
+
       setState(2);
-      setInitialCount(count - 1);
+
       throw error;
     } else {
-      alert('해당 칵테일을 좋아요취소했습니다.');
+      alert('해당 칵테일 좋아요를 취소했습니다.');
     }
   };
 
@@ -81,9 +78,11 @@ export default function LikeCount({ count, cocktailId, isLiked }: Props) {
     try {
       if (isLike === false) {
         likeThisCocktail();
+        setInitialCount(initialCount + 1);
         setIsLike(true);
       } else {
         dislikeThisCocktail();
+        setInitialCount(initialCount - 1);
         setIsLike(false);
       }
     } catch (error) {
@@ -93,20 +92,28 @@ export default function LikeCount({ count, cocktailId, isLiked }: Props) {
 
   return (
     <div>
-      {isClient && (
+      {/* {isClient && (
         <div className={styles.flex}>
           <button type="button" onClick={heart}>
             {isLike ? '🖤' : '🤍'}
           </button>
-          <div>
-            {state === 0
-              ? initialCount
-              : state === 1
-                ? initialCount + 1
-                : initialCount - 1}
-          </div>
+          <div>{initialCount}</div>
         </div>
       )}
+      {!isClient && (
+        <div className={styles.flex}>
+          <button type="button" onClick={heart}>
+            {isLike ? '🖤' : '🤍'}
+          </button>
+          <div>{initialCount}</div>
+        </div>
+      )} */}
+      <div className={styles.flex}>
+        <button type="button" onClick={heart}>
+          {isLike ? '🖤' : '🤍'}
+        </button>
+        <div>{initialCount}</div>
+      </div>
     </div>
   );
 }

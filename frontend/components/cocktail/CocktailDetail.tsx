@@ -131,8 +131,7 @@ export async function getData({ cocktailId }: Props) {
 
   if (!response.ok) {
     // const error = new Error('Failed to fetch data');
-    console.log(response);
-
+    // console.log(response);
     // throw error;
   } else {
     const data: ApiResponse = await response.json();
@@ -164,6 +163,7 @@ export default async function CocktailDetail({ cocktailId }: Props) {
               당도{cocktailDetailData.sweetness}
             </div>
           </div>
+
           <div />
           <div className={styles.buttons}>
             <Link href={`/cocktail/custom/write/${cocktailId}`}>
