@@ -15,9 +15,9 @@ export interface IRefrigeratorType {
   setRefgList: () => void;
   setMemoList: () => void;
   addRefrList: (id: number) => void;
-  removeRefrList: (id: number | IIngredientType) => void;
+  removeRefrList: (id: number) => void;
   addMemoList: (id: number) => void;
-  removeMemoList: (id: number | IIngredientType) => void;
+  removeMemoList: (id: number) => void;
   memoToRefr: (id: number) => void;
   refrToMemo: (id: number) => void;
 }

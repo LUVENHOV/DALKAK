@@ -10,18 +10,14 @@ interface ITagType {
 export default function IngredientTag(props: ITagType) {
   const { ingredient, type, handleOnClick } = props;
 
-  const addIngredient = () => {
-    if (type === 'refrigerator') {
-      handleOnClick(ingredient.id);
-    } else {
-      handleOnClick(ingredient);
-    }
-  };
-
   return (
     <button
       type="button"
-      onClick={() => addIngredient()}
+      onClick={
+        type === 'search'
+          ? () => handleOnClick(ingredient)
+          : () => handleOnClick(ingredient.id)
+      }
       className={styles.container}
     >
       {ingredient.name}
