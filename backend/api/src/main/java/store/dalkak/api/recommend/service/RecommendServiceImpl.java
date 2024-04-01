@@ -9,13 +9,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import store.dalkak.api.cocktail.domain.Cocktail;
-import store.dalkak.api.cocktail.domain.heart.HeartRank;
 import store.dalkak.api.cocktail.dto.CocktailDto;
 import store.dalkak.api.cocktail.repository.CocktailRepository;
 import store.dalkak.api.cocktail.repository.heart.HeartRankRepository;
 import store.dalkak.api.recommend.dto.FastPreferDto;
 import store.dalkak.api.recommend.dto.FastRefrigeratorDto;
-import store.dalkak.api.recommend.dto.HeartRankDto;
 import store.dalkak.api.recommend.dto.response.HeartRankRecommendResDto;
 import store.dalkak.api.recommend.dto.response.PreferRecommendResDto;
 import store.dalkak.api.recommend.dto.response.RefrigeratorRecommendResDto;
@@ -73,12 +71,6 @@ public class RecommendServiceImpl implements RecommendService {
 
     @Override
     public HeartRankRecommendResDto heartRankRecommend() {
-        List<HeartRank> heartRanks=heartRankRepository.findAll(Sort.by("id"));
-        List<HeartRankDto> heartRankDtos=new ArrayList<>();
-        for(HeartRank heartRank:heartRanks){
-            heartRankDtos.add(HeartRankDto.builder().cocktailId(heartRank.getCocktail().getId()).cocktailKoreanName(heartRank.getCocktail()
-                .getKrName()).build());
-        }
-        return HeartRankRecommendResDto.builder().heartRankList(heartRankDtos).build();
+        return new HeartRankRecommendResDto(heartRankRepository.findAll(Sort.by("id")));
     }
 }
