@@ -19,7 +19,7 @@ public interface CustomService {
     void modifyCustomCocktail(Long userId, Long customCocktailId, MultipartFile image,
         CustomModifyReqDto customModifyReqDto);
 
-    CustomListResDto getCustomList(Long cocktailId, Pageable page);
+    CustomListResDto getCustomList(MemberDto memberDto, Long cocktailId, Pageable page);
 
     CustomDetailResDto findCustom(MemberDto memberDto, Long customCocktailId);
 

@@ -152,12 +152,13 @@ public class CustomServiceImpl implements CustomService {
     }
 
     @Override
-    public CustomListResDto getCustomList(Long cocktailId, Pageable page) {
+    public CustomListResDto getCustomList(MemberDto memberDto, Long cocktailId, Pageable page) {
         Cocktail targetcocktail = cocktailRepository.findById(cocktailId)
             .orElseThrow(() -> new CocktailException(
                 CocktailErrorCode.FAIL_TO_FIND_COCKTAIL));
 
-        Page<Custom> customPage = customRepository.findAllByCocktailAndOpenIsTrueOrderByIdDesc(
+        Page<Custom> customPage = customRepository.findAllCustom(
+            memberDto,
             targetcocktail,
             page);
 
@@ -176,8 +177,9 @@ public class CustomServiceImpl implements CustomService {
         Custom targetCustom = customRepository.findById(customCocktailId).orElseThrow(
             () -> new CustomException(CustomErrorCode.FAIL_TO_FIND_CUSTOM));
 
-        if (!memberDto.getId().equals(targetCustom.getMember().getId())) {
-            throw new CocktailException(CustomErrorCode.NOT_AVAILABLE);
+        if(Boolean.FALSE.equals(targetCustom.getOpen()) && (!memberDto.getId().equals(targetCustom.getMember().getId()))) {
+                throw new CocktailException(CustomErrorCode.NOT_AVAILABLE);
+
         }
 
         UserDto user = new UserDto(targetCustom.getMember().getId(),

@@ -87,16 +87,6 @@ public class CocktailRepositoryImpl implements CocktailRepositoryCustom {
 
         OrderSpecifier<?> orderSpecifier = orderByCondition(orderBy);
 
-//        int currentPage = page.getPageNumber();
-//        int pageSize = page.getPageSize();
-//
-//        if (currentPage < 0) {
-//
-//             throw new CocktailException(FAIL_TO_FIND_PAGE); // 사용자 정의 예외를 사용하는 경우
-//        } else {
-//
-//            page = PageRequest.of(currentPage, pageSize);
-//        }
         List<Long> distinctCocktailIds = queryFactory
             .select(cocktail.id)
             .from(cocktail)
