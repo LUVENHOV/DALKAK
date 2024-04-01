@@ -188,22 +188,22 @@ export default function CocktailSearchForm() {
                 />
               </div>
             </div>
-            <div className={`${styles.searchRow} ${base}`}>
+            <div className={`${styles.searchRow} ${styles.base}`}>
               <div className={styles.title}>베이스</div>
               <SearchBlock list={baseList} state={base} handleState={setBase} />
             </div>
-            <div className={`${styles.searchRow} ${alcoholContent}`}>
+            <div className={`${styles.searchRow} ${styles.alcoholContent}`}>
               <div className={styles.title}>도수</div>
               <SearchAlcoholContent
                 alcoholContent={[minAlcohol, maxAlcohol]}
                 handleAlcoholContent={handleAlcoholContent}
               />
             </div>
-            <div className={`${styles.searchRow} ${color}`}>
+            <div className={`${styles.searchRow} ${styles.color}`}>
               <div className={styles.title}>색상</div>
               <SearchColor color={color} handleState={setColor} />
             </div>
-            <div className={`${styles.searchRow} ${sweetness}`}>
+            <div className={`${styles.searchRow} ${styles.sweetness}`}>
               <div className={styles.title}>당도</div>
               <SearchBlock
                 list={sweetnessList}

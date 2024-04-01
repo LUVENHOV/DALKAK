@@ -9,7 +9,7 @@ interface StoreState {
   gender: string;
   isLoggedIn: boolean;
   surveyCompletion: boolean;
-  setId: (id: string) => void;
+  setId: (id: number) => void;
   setNickname: (nickname: string) => void;
   setBirthDate: (birthDate: string) => void;
   setGender: (gender: string) => void;
@@ -33,7 +33,7 @@ const memberStore = create(
       gender: '',
       isLoggedIn: true,
       surveyCompletion: false,
-      setId: (id: string) => set({ id }),
+      setId: (id: number) => set({ id }),
       setNickname: (nickname: string) => set({ nickname }),
       setBirthDate: (birthDate: string) => set({ birthDate }),
       setGender: (gender: string) => set({ gender }),
