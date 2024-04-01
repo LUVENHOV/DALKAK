@@ -17,7 +17,7 @@ public interface CocktailService {
         Integer sweetness,
         Integer orderBy);
 
-    CocktailDetailResDto findCocktail(Long originCocktailId);
+    CocktailDetailResDto findCocktail(MemberDto memberDto, Long originCocktailId);
 
     List<IngredientDto> findIngredient(String ingredientName);
 

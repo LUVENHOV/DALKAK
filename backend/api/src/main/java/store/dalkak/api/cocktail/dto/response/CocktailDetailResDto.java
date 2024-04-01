@@ -26,13 +26,14 @@ public class CocktailDetailResDto {
     private Integer alcoholContent;
     private Integer sweetness;
     private String recipe;
+    private Boolean heart;
     List<CocktailIngredientDto> cocktailIngredients;
     List<ToolDto> cocktailTools;
     List<CustomCocktailDto> customCocktails;
 
     public static CocktailDetailResDto of(Cocktail cocktail,
         List<CocktailIngredientDto> ingredients, List<ToolDto> tools,
-        List<CustomCocktailDto> customCocktails) {
+        List<CustomCocktailDto> customCocktails, Boolean heart) {
 
         return CocktailDetailResDto.builder()
             .id(cocktail.getId())
@@ -47,6 +48,7 @@ public class CocktailDetailResDto {
             .cocktailIngredients(ingredients)
             .cocktailTools(tools)
             .customCocktails(customCocktails)
+            .heart(heart)
             .build();
     }
 }

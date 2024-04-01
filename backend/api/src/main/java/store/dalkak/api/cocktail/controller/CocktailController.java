@@ -38,7 +38,7 @@ public class CocktailController {
     @GetMapping("/{cocktailId}")
     public ResponseEntity<ApiResponse<CocktailDetailResDto>> cocktailDetail(
         @LoginUser MemberDto memberDto, @PathVariable("cocktailId") Long originCocktailId) {
-        CocktailDetailResDto cocktail = cocktailService.findCocktail(originCocktailId);
+        CocktailDetailResDto cocktail = cocktailService.findCocktail(memberDto, originCocktailId);
         ApiResponse<CocktailDetailResDto> apiResponse = ApiResponse.of(200,
             cocktail);
 

@@ -110,7 +110,7 @@ public class CocktailServiceImpl implements CocktailService {
             cocktailFindResDtoPage.getPageable().getPageNumber() + 1);
     }
 
-    public CocktailDetailResDto findCocktail(Long originCocktailId) {
+    public CocktailDetailResDto findCocktail(MemberDto memberDto, Long originCocktailId) {
         Cocktail targetCocktail = cocktailRepository.findById(originCocktailId)
             .orElseThrow(
                 () -> new CocktailException(CocktailErrorCode.FAIL_TO_FIND_COCKTAIL));
@@ -120,6 +120,15 @@ public class CocktailServiceImpl implements CocktailService {
         HeartCountDto cocktailHeartCountDto = heartRedisRepository.findHeartCountById(cocktailKey);
         if (cocktailHeartCountDto.getCockatailId() != null) {
             targetCocktail.updateCocktailHeart(Integer.parseInt(cocktailHeartCountDto.getCount()));
+        }
+
+        String cocktailMemberKey = "heartMatch:[" + redisMatchPrefix + "]" + memberDto.getId() + "_" + originCocktailId;
+        HeartMatchDto heartMatchDto = heartRedisRepository.findHeartMatchById(cocktailMemberKey);
+        boolean isHearted = false;
+        Member member = memberRepository.findMemberById(memberDto.getId());
+        Heart heart = heartRepository.findHeartByCocktailAndMember(targetCocktail, member);
+        if(heartMatchDto.getCocktailId() != null || heart != null) {
+            isHearted = true;
         }
 
         //재료 리스트
@@ -165,7 +174,7 @@ public class CocktailServiceImpl implements CocktailService {
             .toList();
 
         return CocktailDetailResDto.of(targetCocktail, cocktailIngredientDtoList, toolDtoList,
-            customCocktailDtoList);
+            customCocktailDtoList, isHearted);
 
     }
 
