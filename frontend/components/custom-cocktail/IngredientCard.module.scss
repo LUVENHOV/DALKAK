@@ -1,24 +1,52 @@
 .container {
+  width: 10svw;
   margin-bottom: 2.5vw;
+  // background-color: pink;
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
+  border-top: 1px solid var(--color-placeholder);
+  border-right: 1px solid var(--color-placeholder);
+  border-bottom: 1px solid var(--color-placeholder);
+}
+
+.container:nth-child(5n + 1) {
+  border-radius: 1vw 0 0 1vw;
+  border-left: 1px solid var(--color-placeholder);
+}
+
+.container:nth-child(5n) {
+  border-radius: 0 1vw 1vw 0;
+}
+.container:last-child {
+  border-radius: 0 1vw 1vw 0;
+}
+
+.container:nth-child(5n + 1):last-child {
+  border-radius: 1vw;
+  border-left: 1px solid var(--color-placeholder);
 }
 
 .count {
   display: flex;
   justify-content: center;
-  margin-top: 1vw;
+  // margin-top: 1vw;
   font-size: 1.02vw;
 }
 
 .ingredient-img {
   width: 4vw;
   height: 4vw;
-  margin-top: 0.5vw;
 }
 
 .ingredient-name {
   margin-top: 0.9vw;
   margin-bottom: 0.3vw;
   font-size: 1.02vw;
+  // width: 7vw;
+  // overflow: hidden;
+  // text-overflow: ellipsis;
+  // white-space: nowrap;
 
   .stored-ingredient {
     color: var(--color-point);
