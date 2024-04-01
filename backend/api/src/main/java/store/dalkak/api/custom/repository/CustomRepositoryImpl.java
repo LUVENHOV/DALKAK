@@ -68,8 +68,6 @@ public class CustomRepositoryImpl implements CustomRepositoryCustom {
 
         long total = totalCount != null ? totalCount : 0;
 
-        log.info("total: {}", total);
-
         return new PageImpl<>(customList, pageable, total);
     }
 
