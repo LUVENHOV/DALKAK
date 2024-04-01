@@ -55,7 +55,7 @@ public class CookieUtil {
     private static void makeCookie(HttpServletResponse httpServletResponse, String name,
         String value, long maxAge) {
         httpServletResponse.addHeader(HttpHeaders.SET_COOKIE,
-            ResponseCookie.from(name, value).httpOnly(true).secure(true).path("/")
+            ResponseCookie.from(name, value).httpOnly(true).secure(false).path("/")
                 .domain(staticDomain).maxAge(maxAge).build().toString());
     }
 
