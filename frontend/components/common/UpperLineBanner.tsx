@@ -10,7 +10,7 @@ import cocktails2 from '../../public/assets/imgs/cocktails2.png';
 import fireworks from '../../public/assets/imgs/fireworks.png';
 
 interface Props {
-  frontText: string;
+  frontText: string | undefined;
   secondText: string;
 }
 
