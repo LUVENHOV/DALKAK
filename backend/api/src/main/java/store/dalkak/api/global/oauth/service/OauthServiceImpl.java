@@ -33,6 +33,7 @@ public class OauthServiceImpl implements OauthService {
     @Override
     @Transactional
     public OauthLoginResDto login(OauthLoginReqDto oauthLoginReqDto) {
+        log.info("------로그인 서비스");
         String sub = sub(oauthLoginReqDto);
         // 없으면 회원가입
         if (!memberRepository.existsByOauthSubAndOauthProvider(sub,

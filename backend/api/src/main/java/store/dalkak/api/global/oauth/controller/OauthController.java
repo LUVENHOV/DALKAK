@@ -30,6 +30,7 @@ public class OauthController {
     public ResponseEntity<ApiResponse<OauthLoginResDto>> login(
         HttpServletResponse httpServletResponse,
         @RequestBody OauthLoginReqDto oauthLoginReqDto) {
+        log.info("------로그인 컨트롤러");
         OauthLoginResDto oauthLoginResDto = oauthService.login(oauthLoginReqDto);
         CookieUtil.createCookie(httpServletResponse, oauthLoginResDto.getAccessToken(),
             oauthLoginResDto.getRefreshToken());

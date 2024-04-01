@@ -64,6 +64,8 @@ public class NaverService implements ProviderService {
                 .block();
             return naverUserAuthDto.getAccessToken();
         } catch (Exception e) {
+            log.info("{}",e.getMessage());
+            e.printStackTrace();
             throw new DalkakException(DalkakErrorCode.INTERNAL_SERVER_ERROR);
         }
     }

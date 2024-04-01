@@ -30,11 +30,13 @@ public class GoogleService implements ProviderService {
 
     @Override
     public String userInfo(String token) {
+        log.info("------로그인 userInfo");
         return googleIdTokenVerify(token);
     }
 
     @Override
     public String userAuth(String code) {
+        log.info("------로그인 userAuth");
 
         // webclient로 통신해서 access token, refresh token받아오기
         WebClient webClient = WebClient.builder()
@@ -57,6 +59,8 @@ public class GoogleService implements ProviderService {
                 .block();
             return googleUserAuthDto.getIdToken();
         } catch (Exception e) {
+            log.info(e.getMessage());
+            e.printStackTrace();
             throw new DalkakException(DalkakErrorCode.INTERNAL_SERVER_ERROR);
         }
     }
