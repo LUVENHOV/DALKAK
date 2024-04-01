@@ -122,12 +122,13 @@ public class CocktailServiceImpl implements CocktailService {
             targetCocktail.updateCocktailHeart(Integer.parseInt(cocktailHeartCountDto.getCount()));
         }
 
-        String cocktailMemberKey = "heartMatch:[" + redisMatchPrefix + "]" + memberDto.getId() + "_" + originCocktailId;
+        String cocktailMemberKey =
+            "heartMatch:[" + redisMatchPrefix + "]" + memberDto.getId() + "_" + originCocktailId;
         HeartMatchDto heartMatchDto = heartRedisRepository.findHeartMatchById(cocktailMemberKey);
         boolean isHearted = false;
         Member member = memberRepository.findMemberById(memberDto.getId());
         Heart heart = heartRepository.findHeartByCocktailAndMember(targetCocktail, member);
-        if(heartMatchDto.getCocktailId() != null || heart != null) {
+        if (heartMatchDto.getCocktailId() != null || heart != null) {
             isHearted = true;
         }
 
@@ -335,7 +336,9 @@ public class CocktailServiceImpl implements CocktailService {
             if (cocktailCount++ == 10) {
                 break;
             }
-            heartRankRepository.save(HeartRank.builder().cocktailId(entry.getKey()).build());
+            heartRankRepository.save(
+                HeartRank.builder().cocktail(cocktailRepository.findCocktailById(entry.getKey()))
+                    .build());
         }
     }
 
