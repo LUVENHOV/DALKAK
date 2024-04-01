@@ -11,6 +11,6 @@ public interface CustomRepositoryCustom {
 
     void modifyCustomCocktail(Long customCocktailId, CustomModifyDto customModifyDto);
 
-    Page<Custom> findAllCustom(MemberDto memberDto, Cocktail cocktail, Pageable pageable);
+    Page<Custom> findAllCustom(MemberDto memberDto, Cocktail targetCocktail, Pageable pageable);
 
 }
