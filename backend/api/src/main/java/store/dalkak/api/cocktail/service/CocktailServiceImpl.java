@@ -335,7 +335,9 @@ public class CocktailServiceImpl implements CocktailService {
             if (cocktailCount++ == 10) {
                 break;
             }
-            heartRankRepository.save(HeartRank.builder().cocktailId(entry.getKey()).build());
+            heartRankRepository.save(
+                HeartRank.builder().cocktail(cocktailRepository.findCocktailById(entry.getKey()))
+                    .build());
         }
     }
 

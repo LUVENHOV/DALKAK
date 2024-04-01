@@ -11,9 +11,9 @@ import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import store.dalkak.api.global.jwt.Exception.JwtErrorCode;
-import store.dalkak.api.global.jwt.Exception.JwtException;
 import store.dalkak.api.global.jwt.dto.TokenDto;
+import store.dalkak.api.global.jwt.exception.JwtErrorCode;
+import store.dalkak.api.global.jwt.exception.JwtException;
 
 @Slf4j
 @Component
@@ -84,16 +84,15 @@ public class JwtProvider {
     }
 
     //토큰 검증
-    public boolean validateToken(String token) {
+    public int validateToken(String token) {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(this.generateKey())
                 .parseClaimsJws(token);
-            return true;
+            return 1;
         } catch (ExpiredJwtException eje) {
-            throw new JwtException(JwtErrorCode.TOKEN_TIMEOUT);
+            return 0;
         } catch (Exception e) {
-            log.info("검증실패");
-            return false;
+            return -1;
         }
     }
 
