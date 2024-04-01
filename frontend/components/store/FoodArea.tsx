@@ -5,11 +5,12 @@ import { Draggable } from '@hello-pangea/dnd';
 import styles from './FoodArea.module.scss';
 import IngredientBlock from '../common/IngredientBlock';
 import useRefrigeratorStore from '@/store/refrigeratorStore';
+import { IIngredientType } from '@/type/refrigeratorTypes';
 
 export default function FoodArea() {
   const { refgList, removeRefrList } = useRefrigeratorStore();
 
-  const [foodList, setFoodList] = useState([]);
+  const [foodList, setFoodList] = useState<IIngredientType[]>([]);
 
   useLayoutEffect(() => {
     const onlyFood = refgList.filter(
@@ -19,17 +20,11 @@ export default function FoodArea() {
   }, [refgList]);
 
   return (
-    // <Droppable droppableId="food">
-    //   {(droppableProvided) => (
-    <div
-      className={styles.container}
-      // ref={droppableProvided.innerRef}
-      // {...droppableProvided.droppableProps}
-    >
+    <div className={styles.container}>
       <div className={styles['container-outer']}>
         <div className={styles['container-inner']}>
           <div className={styles.inside}>
-            {foodList.map((ingredient) => (
+            {foodList.map((ingredient: IIngredientType) => (
               <Draggable
                 draggableId={ingredient.id.toString()}
                 key={ingredient.id}
@@ -59,7 +54,5 @@ export default function FoodArea() {
         <div className={styles.hinge} />
       </div>
     </div>
-    //   )}
-    // </Droppable>
   );
 }

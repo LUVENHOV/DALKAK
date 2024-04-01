@@ -20,10 +20,12 @@ export default function IngredientBlock(props: ITagType) {
   };
 
   return (
-    <button
-      type="button"
+    <div
+      role="button"
+      tabIndex={0}
       onClick={deleteIngredient}
       className={styles.container}
+      onKeyDown={() => {}}
     >
       <div className={styles['title-wrapper']}>{ingredient.name}</div>
       <div className={styles['image-wrapper']}>
@@ -34,6 +36,6 @@ export default function IngredientBlock(props: ITagType) {
           height={100}
         />
       </div>
-    </button>
+    </div>
   );
 }

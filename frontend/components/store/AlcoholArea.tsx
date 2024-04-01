@@ -5,11 +5,12 @@ import { Draggable } from '@hello-pangea/dnd';
 import styles from './AlcoholArea.module.scss';
 import IngredientBlock from '../common/IngredientBlock';
 import useRefrigeratorStore from '@/store/refrigeratorStore';
+import { IIngredientType } from '@/type/refrigeratorTypes';
 
 export default function AlcoholArea() {
   const { refgList, removeRefrList } = useRefrigeratorStore();
 
-  const [alcoholList, setAlcoholList] = useState([]);
+  const [alcoholList, setAlcoholList] = useState<IIngredientType[]>([]);
 
   useLayoutEffect(() => {
     const onlyAlcohol = refgList.filter(
@@ -19,16 +20,10 @@ export default function AlcoholArea() {
   }, [refgList]);
 
   return (
-    // <Droppable droppableId="alcohol">
-    //   {(droppableProvided) => (
-    <div
-      className={styles['container-outer']}
-      // ref={droppableProvided.innerRef}
-      // {...droppableProvided.droppableProps}
-    >
+    <div className={styles['container-outer']}>
       <div className={styles['container-inner']}>
         <div className={styles.inside}>
-          {alcoholList.map((ingredient) => (
+          {alcoholList.map((ingredient: IIngredientType) => (
             <Draggable
               draggableId={ingredient.id.toString()}
               key={ingredient.id}
@@ -53,7 +48,5 @@ export default function AlcoholArea() {
         </div>
       </div>
     </div>
-    //   )}
-    // </Droppable>
   );
 }
