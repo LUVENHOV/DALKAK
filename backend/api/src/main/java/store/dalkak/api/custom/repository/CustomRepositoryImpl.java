@@ -34,13 +34,18 @@ public class CustomRepositoryImpl implements CustomRepositoryCustom {
     }
 
     @Override
-    public Page<Custom> findAllCustom(MemberDto memberDto, Cocktail targetCocktail, Pageable pageable) {
+    public Page<Custom> findAllCustom(MemberDto memberDto, Cocktail targetCocktail,
+        Pageable pageable) {
         // 조회 조건에 맞는 데이터 목록 조회
         List<Custom> customList = queryFactory
             .selectFrom(custom)
             .where(custom.cocktail.id.eq(targetCocktail.getId())
                 .and(custom.open.isTrue())
-                .or(custom.member.id.eq(memberDto.getId())))
+                .or(
+                    custom.cocktail.id.eq(targetCocktail.getId())
+                        .and(custom.member.id.eq(memberDto.getId()))
+                )
+            )
             .orderBy(custom.id.desc())
             .offset(pageable.getOffset())
             .limit(pageable.getPageSize())
@@ -58,11 +63,6 @@ public class CustomRepositoryImpl implements CustomRepositoryCustom {
 
         return new PageImpl<>(customList, pageable, total);
     }
-
-
-
-
-
 
 
 }
