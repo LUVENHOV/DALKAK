@@ -67,50 +67,6 @@ interface ApiResponse {
   data: Data;
 }
 
-interface Ingredient {
-  id: number;
-  name: string;
-
-  category: {
-    id: number;
-    name: string;
-  };
-}
-
-interface StoreData {
-  ingredients: Ingredient[];
-}
-const storeData: StoreData = {
-  ingredients: [
-    {
-      id: 270,
-      name: '라임',
-
-      category: {
-        id: 2,
-        name: 'fruit',
-      },
-    },
-    {
-      id: 435,
-      name: '얼음',
-      category: {
-        id: 3,
-        name: 'beverage',
-      },
-    },
-    {
-      id: 187,
-      name: '앱솔루트 보드카',
-      category: {
-        id: 1,
-        name: 'alcohol',
-      },
-    },
-  ],
-};
-const storeList = storeData.ingredients;
-
 interface Props {
   cocktailId: number;
 }
@@ -172,10 +128,7 @@ export default async function CocktailDetail({ cocktailId }: Props) {
             <CustomCocktailImage customImage={cocktailDetailData.image} />
           </div>
           <div className={styles.space}>
-            <IngredientCardWrapper
-              ingredients={cocktailIngredients}
-              storeData={storeList}
-            />
+            <IngredientCardWrapper ingredients={cocktailIngredients} />
             <ToolCardWrapper
               cocktailTools={cocktailDetailData.cocktail_tools}
             />

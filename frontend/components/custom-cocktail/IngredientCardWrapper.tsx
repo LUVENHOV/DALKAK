@@ -29,25 +29,14 @@ interface Custom_Ingredients {
   };
 }
 
-interface StoreData {
-  id: number;
-  name: string;
-  category: {
-    id: number;
-    name: string;
-  };
-}
-
 type IngredientType = Cocktail_Ingredients | Custom_Ingredients;
 
 interface Props<T extends IngredientType> {
   ingredients: T[];
-  storeData: StoreData[];
 }
 
 export default function IngredientCardWrapper<T extends IngredientType>({
   ingredients,
-  storeData,
 }: Props<T>) {
   const lastIndex =
     ingredients && ingredients.length > 0 ? ingredients.length - 1 : 0;
@@ -69,7 +58,6 @@ export default function IngredientCardWrapper<T extends IngredientType>({
               ingredient={ingredient}
               index={index}
               lastIndex={lastIndex}
-              storeData={storeData}
             />
           ))
         ) : (
