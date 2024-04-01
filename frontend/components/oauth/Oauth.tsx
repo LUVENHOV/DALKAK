@@ -6,7 +6,7 @@ import { Login } from '@/apis/Auth';
 interface IToken {
   nickname: string;
   id: number;
-  survey_comletion: boolean | null;
+  survey_completion: boolean | null;
   accessToken: string;
   refreshToken: string;
   accessTokenExpiresIn: number;
@@ -28,13 +28,13 @@ export default async function Oauth({
   code: string;
   provider: string;
 }) {
-  const cookieStore = cookies();
-  const token = cookieStore.get('Authorization');
-  console.log(token);
+  // const cookieStore = cookies();
+  // const authCookie = cookieStore.get('Authorization');
+  // console.log(token);
   let tokens: IToken = {
     nickname: '',
     id: 0,
-    survey_comletion: null,
+    survey_completion: null,
     accessToken: '',
     refreshToken: '',
     accessTokenExpiresIn: 0,
@@ -44,16 +44,24 @@ export default async function Oauth({
   try {
     const response = await Login({ code, provider: provider.toUpperCase() });
     status = response.status;
+
     if (response.status === 200) {
       const responseData = await response.json();
       const { data } = responseData;
 
-      console.log(responseData.data);
+      console.log(data.headers);
+      console.log(responseData.headers);
+      console.log(response.headers);
+      console.log(responseData.headers);
+      // console.log(responseData.data);
+
+      // const cookie = response.headers.getSetCookie();
+      // console.log(cookie);
 
       tokens = {
         nickname: data.nickname,
         id: data.id,
-        survey_comletion: data.survey_completion,
+        survey_completion: data.survey_completion,
         accessToken: data.accessToken,
         refreshToken: data.refreshToken,
         accessTokenExpiresIn: data.accessTokenExpiresIn,
@@ -68,7 +76,7 @@ export default async function Oauth({
       redirect('/');
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 
   return <Token tokens={tokens} status={status} />;
