@@ -3,8 +3,8 @@
 import React, { useEffect } from 'react';
 
 import surveyStore from '../../store/surveyStore';
-import authStore from '@/store/authStore';
 import { submitSurvey } from '@/apis/Member';
+// import authStore from '@/store/authStore';
 
 import './page.scss';
 
@@ -32,34 +32,34 @@ export default function Layout({
     }
   }, [progress]);
 
-  const submitMemeberInfo = () => {
-    const token = authStore.getState().accessToken;
-    const { nickname, birthDate, gender } = surveyStore.getState();
+  // const submitMemeberInfo = () => {
+  //   const token = authStore.getState().accessToken;
+  //   const { nickname, birthDate, gender } = surveyStore.getState();
 
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users/profile`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: token,
-      },
-      body: JSON.stringify({
-        nickname,
-        birth_date: `${birthDate.slice(0, 4)}-${birthDate.slice(
-          4,
-          6,
-        )}-${birthDate.slice(6, 8)}`,
-        gender,
-      }),
-    })
-      .then((res) => {
-        if (res.status === 200) {
-          nextProgress();
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  //   fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users/profile`, {
+  //     method: 'PATCH',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Authorization: token,
+  //     },
+  //     body: JSON.stringify({
+  //       nickname,
+  //       birth_date: `${birthDate.slice(0, 4)}-${birthDate.slice(
+  //         4,
+  //         6,
+  //       )}-${birthDate.slice(6, 8)}`,
+  //       gender,
+  //     }),
+  //   })
+  //     .then((res) => {
+  //       if (res.status === 200) {
+  //         nextProgress();
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   const submit = async () => {
     const {
@@ -73,8 +73,8 @@ export default function Layout({
     try {
       const response = await submitSurvey({
         survey_cocktails: surveyCocktails,
-        occasion_id: 4,
-        base_id: 3,
+        occasion_id: occassionId,
+        base_id: baseId,
         alcohol_content: alcoholContent,
         sweetness,
         survey_ingredients: surveyIngredients,

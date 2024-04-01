@@ -10,16 +10,17 @@ interface ItemProps {
 }
 export default function SweetItem({ id, name, val, description }: ItemProps) {
   const [selected, setSelected] = useState(
-    surveyStore.getState().sweatness === id,
+    surveyStore.getState().sweetness === id,
   );
   useEffect(() => {
+    console.log(name);
     const deselect = surveyStore.subscribe(() => {
-      const newSelected = surveyStore.getState().sweatness === val;
+      const newSelected = surveyStore.getState().sweetness === val;
       setSelected(newSelected);
     });
 
     return () => deselect();
-  }, [val]);
+  }, [name, val]);
   const setSweetness = surveyStore((state) => state.setSweatness);
 
   return (

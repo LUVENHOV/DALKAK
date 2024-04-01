@@ -1,11 +1,12 @@
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import Token from './Token';
 import { Login } from '@/apis/Auth';
 
-interface IToken{
-  nickname: string,
-  id: number,
-  survey_comletion: boolean|null;
+interface IToken {
+  nickname: string;
+  id: number;
+  survey_comletion: boolean | null;
   accessToken: string;
   refreshToken: string;
   accessTokenExpiresIn: number;
@@ -27,6 +28,9 @@ export default async function Oauth({
   code: string;
   provider: string;
 }) {
+  const cookieStore = cookies();
+  const token = cookieStore.get('Authorization');
+  console.log(token);
   let tokens: IToken = {
     nickname: '',
     id: 0,
@@ -57,7 +61,7 @@ export default async function Oauth({
       };
 
       if (data.survey_comletion === null) {
-        alert('정보 입력이 되지 않아 정보 입력 페이지로 이동합니다.')
+        alert('정보 입력이 되지 않아 정보 입력 페이지로 이동합니다.');
         redirect('/survey');
       }
       console.log(tokens);
@@ -67,7 +71,5 @@ export default async function Oauth({
     console.log(error);
   }
 
-  return (
-    <Token tokens={tokens} status={status} />
-  );
+  return <Token tokens={tokens} status={status} />;
 }

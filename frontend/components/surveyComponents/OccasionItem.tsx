@@ -9,16 +9,17 @@ interface ItemProps {
 }
 export default function OccasionItem({ id, name, description }: ItemProps) {
   const [selected, setSelected] = useState(
-    surveyStore.getState().occationId === id,
+    surveyStore.getState().occassionId === id,
   );
   useEffect(() => {
+    console.log(name);
     const deselect = surveyStore.subscribe(() => {
-      const newSelected = surveyStore.getState().occationId === id;
+      const newSelected = surveyStore.getState().occassionId === id;
       setSelected(newSelected);
     });
 
     return () => deselect();
-  }, [id]);
+  }, [id, name]);
   const setOccasionId = surveyStore((state) => state.setOccationId);
 
   return (

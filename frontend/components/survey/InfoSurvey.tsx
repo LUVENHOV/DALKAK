@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import './InfoSurvey.scss';
 import authStore from '@/store/authStore';
 import surveyStore from '@/store/surveyStore';

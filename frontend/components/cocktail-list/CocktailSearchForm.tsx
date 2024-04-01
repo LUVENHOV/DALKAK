@@ -93,10 +93,6 @@ export default function CocktailSearchForm() {
     sweetness,
     setPage,
     setCocktailName,
-<<<<<<< HEAD
-    setIngredients,
-=======
->>>>>>> 63e61083686595329cb2cebaa5324d97fb6745a7
     setBase,
     setMinAlcohol,
     setMaxAlcohol,
@@ -174,18 +170,16 @@ export default function CocktailSearchForm() {
             </div>
             <div className={`${styles.searchRow} ${ingredients}`}>
               <div className={styles.title}>재료</div>
-<<<<<<< HEAD
-=======
               <div className={styles['ingredients-container']}>
                 <div className={styles['selected-container']}>
                   {ingredients.size > 0
                     ? Array.from(ingredients).map((ingredient) => (
-                        <IngredientBlock
-                          key={ingredient.id}
-                          ingredient={ingredient}
-                          handleOnClick={removeIngredient}
-                        />
-                      ))
+                      <IngredientBlock
+                        key={ingredient.id}
+                        ingredient={ingredient}
+                        handleOnClick={removeIngredient}
+                      />
+                    ))
                     : null}
                 </div>
                 <IngredientSearchForm
@@ -193,7 +187,6 @@ export default function CocktailSearchForm() {
                   handleOnClick={addIngredient}
                 />
               </div>
->>>>>>> 63e61083686595329cb2cebaa5324d97fb6745a7
             </div>
             <div className={`${styles.searchRow} ${base}`}>
               <div className={styles.title}>베이스</div>

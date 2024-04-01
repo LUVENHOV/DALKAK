@@ -2,7 +2,6 @@
 
 import React from 'react';
 import HomeIcon from '@mui/icons-material/Home';
-import axios, { AxiosError, AxiosResponse } from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -20,12 +19,12 @@ export default function Navbar() {
   // const nickname = memberStore((state) => state.nickname);
   const clearAll = memberStore((state) => state.clearAll);
   const clearTokens = authStore((state) => state.clearTokens);
-  const accessToken = authStore((state) => state.accessToken);
-  const headerConfig = {
-    headers: {
-      Authorization: accessToken,
-    },
-  };
+  // const accessToken = authStore((state) => state.accessToken);
+  // const headerConfig = {
+  //   headers: {
+  //     Authorization: accessToken,
+  //   },
+  // };
   const LogoutFunction = async () => {
     try {
       const response = await Logout();
@@ -69,7 +68,11 @@ export default function Navbar() {
       <div />
       {isLoggedIn ? (
         <>
-          <button className={styles.btn} type="button" onClick={() => LogoutFunction()}>
+          <button
+            className={styles.btn}
+            type="button"
+            onClick={() => LogoutFunction()}
+          >
             로그아웃
           </button>
           <Link href="/member">

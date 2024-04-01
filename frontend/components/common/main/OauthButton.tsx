@@ -21,10 +21,13 @@ export default function OauthButton({
       type="button"
       onClick={() => {
         if (provider === 'GOOGLE') {
+          // eslint-disable-next-line no-restricted-globals
           location.href = process.env.NEXT_PUBLIC_OAUTH_GOOGLE_URL as string;
         } else if (provider === 'KAKAO') {
+          // eslint-disable-next-line no-restricted-globals
           location.href = process.env.NEXT_PUBLIC_OAUTH_KAKAO_URL as string;
         } else if (provider === 'NAVER') {
+          // eslint-disable-next-line no-restricted-globals
           location.href = process.env.NEXT_PUBLIC_OAUTH_NAVER_URL as string;
         }
       }}

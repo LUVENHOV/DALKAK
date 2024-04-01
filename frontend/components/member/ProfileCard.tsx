@@ -27,7 +27,7 @@ export default function ProfileCard({ nickname, birth_date, gender }: ICard) {
       birth_date,
       gender,
     });
-  }, []);
+  }, [birth_date, gender, nickname]);
 
   const [nicknameChange, setNicknameChange] = useState(false);
   const [birthDateChange, setBirthDateChange] = useState(false);
