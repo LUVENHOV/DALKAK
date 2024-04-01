@@ -100,7 +100,6 @@ export default function CocktailSearchForm() {
     setSweetness,
     setOrderBy,
     setActivateSearch,
-    addIngredient,
     removeIngredient,
     clearAll,
   } = useSearchStore();
@@ -177,8 +176,7 @@ export default function CocktailSearchForm() {
                     <IngredientBlock
                       key={ingredient.id}
                       ingredient={ingredient}
-                      searchType="search"
-                      handleOnClick={removeIngredient}
+                      handleOnClick={() => removeIngredient(ingredient)}
                     />
                     // eslint-disable-next-line indent
                   ))}
@@ -186,7 +184,6 @@ export default function CocktailSearchForm() {
                 <IngredientSearchForm
                   placeholder="칵테일에 사용되는 재료를 검색해보세요!"
                   type="search"
-                  handleOnClick={addIngredient}
                 />
               </div>
             </div>
