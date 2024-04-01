@@ -5,6 +5,7 @@ import static store.dalkak.api.custom.domain.QCustom.custom;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,7 @@ import store.dalkak.api.custom.domain.QCustom;
 import store.dalkak.api.custom.dto.CustomModifyDto;
 import store.dalkak.api.user.dto.MemberDto;
 
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class CustomRepositoryImpl implements CustomRepositoryCustom {
@@ -36,7 +38,6 @@ public class CustomRepositoryImpl implements CustomRepositoryCustom {
     @Override
     public Page<Custom> findAllCustom(MemberDto memberDto, Cocktail targetCocktail,
         Pageable pageable) {
-        // 조회 조건에 맞는 데이터 목록 조회
         List<Custom> customList = queryFactory
             .selectFrom(custom)
             .where(custom.cocktail.id.eq(targetCocktail.getId())
@@ -44,6 +45,7 @@ public class CustomRepositoryImpl implements CustomRepositoryCustom {
                 .or(
                     custom.cocktail.id.eq(targetCocktail.getId())
                         .and(custom.member.id.eq(memberDto.getId()))
+                        .and(custom.open.isFalse())
                 )
             )
             .orderBy(custom.id.desc())
@@ -56,10 +58,17 @@ public class CustomRepositoryImpl implements CustomRepositoryCustom {
             .from(custom)
             .where(custom.cocktail.id.eq(targetCocktail.getId())
                 .and(custom.open.isTrue())
-                .or(custom.member.id.eq(memberDto.getId())))
+                .or(
+                    custom.cocktail.id.eq(targetCocktail.getId())
+                        .and(custom.member.id.eq(memberDto.getId()))
+                        .and(custom.open.isFalse())
+                )
+            )
             .fetchOne();
 
         long total = totalCount != null ? totalCount : 0;
+
+        log.info("total: {}", total);
 
         return new PageImpl<>(customList, pageable, total);
     }
