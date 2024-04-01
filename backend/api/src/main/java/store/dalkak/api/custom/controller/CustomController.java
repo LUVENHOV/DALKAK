@@ -77,10 +77,11 @@ public class CustomController {
 
     @GetMapping("/{cocktailId}/custom-list")
     public ResponseEntity<ApiResponse<CustomListResDto>> customCocktailList(
+        @LoginUser MemberDto memberDto,
         @PathVariable("cocktailId") Long cocktailId,
         @PageableDefault(value = 20) Pageable page
     ) {
-        CustomListResDto customListResDto = customService.getCustomList(cocktailId, page);
+        CustomListResDto customListResDto = customService.getCustomList(memberDto, cocktailId, page);
 
         ApiResponse<CustomListResDto> apiResponse = ApiResponse.of(200, customListResDto);
 
