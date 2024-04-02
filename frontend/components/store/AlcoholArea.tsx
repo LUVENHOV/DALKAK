@@ -8,7 +8,7 @@ import useRefrigeratorStore from '@/store/refrigeratorStore';
 import { IIngredientType } from '@/type/refrigeratorTypes';
 
 export default function AlcoholArea() {
-  const { refgList, removeRefrList } = useRefrigeratorStore();
+  const { refgList } = useRefrigeratorStore();
 
   const [alcoholList, setAlcoholList] = useState<IIngredientType[]>([]);
 
@@ -37,8 +37,8 @@ export default function AlcoholArea() {
                 >
                   <IngredientBlock
                     key={ingredient.id}
+                    type="refrigerator"
                     ingredient={ingredient}
-                    handleOnClick={() => removeRefrList(ingredient.id)}
                   />
                 </div>
               )}

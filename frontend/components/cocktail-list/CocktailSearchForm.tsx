@@ -100,7 +100,6 @@ export default function CocktailSearchForm() {
     setSweetness,
     setOrderBy,
     setActivateSearch,
-    removeIngredient,
     clearAll,
   } = useSearchStore();
 
@@ -167,16 +166,18 @@ export default function CocktailSearchForm() {
                 handleOnClick={clearAll}
               />
             </div>
-            <div className={`${styles.searchRow} ${styles.ingredients}`}>
+            <div className={`${styles.searchRow} ${ingredients}`}>
               <div className={styles.title}>재료</div>
-              <div className={styles['ingredients-container']}>
+              <div
+                className={`${styles.content} ${styles['ingredients-container']}`}
+              >
                 <div className={styles['selected-container']}>
                   {ingredients?.map((ingredient) => (
                     // eslint-disable-next-line react/jsx-indent
                     <IngredientBlock
                       key={ingredient.id}
+                      type="search"
                       ingredient={ingredient}
-                      handleOnClick={() => removeIngredient(ingredient)}
                     />
                     // eslint-disable-next-line indent
                   ))}
@@ -189,30 +190,42 @@ export default function CocktailSearchForm() {
             </div>
             <div className={`${styles.searchRow} ${styles.base}`}>
               <div className={styles.title}>베이스</div>
-              <SearchBlock list={baseList} state={base} handleState={setBase} />
+              <div className={styles.content}>
+                <SearchBlock
+                  list={baseList}
+                  state={base}
+                  handleState={setBase}
+                />
+              </div>
             </div>
             <div className={`${styles.searchRow} ${styles.alcoholContent}`}>
               <div className={styles.title}>도수</div>
-              <SearchAlcoholContent
-                alcoholContent={[minAlcohol, maxAlcohol]}
-                handleAlcoholContent={handleAlcoholContent}
-              />
+              <div className={styles.content}>
+                <SearchAlcoholContent
+                  alcoholContent={[minAlcohol, maxAlcohol]}
+                  handleAlcoholContent={handleAlcoholContent}
+                />
+              </div>
             </div>
             <div className={`${styles.searchRow} ${styles.color}`}>
               <div className={styles.title}>색상</div>
-              <SearchColor color={color} handleState={setColor} />
+              <div className={styles.content}>
+                <SearchColor color={color} handleState={setColor} />
+              </div>
             </div>
             <div className={`${styles.searchRow} ${styles.sweetness}`}>
               <div className={styles.title}>당도</div>
-              <SearchBlock
-                list={sweetnessList}
-                state={sweetness}
-                handleState={setSweetness}
-              />
+              <div className={styles.content}>
+                <SearchBlock
+                  list={sweetnessList}
+                  state={sweetness}
+                  handleState={setSweetness}
+                />
+              </div>
             </div>
             <div className={styles.searchBtn}>
               <BtnWithIcon
-                text="적용"
+                text="찾기"
                 btnStyle="full-point"
                 handleOnClick={handleOnClick}
               />

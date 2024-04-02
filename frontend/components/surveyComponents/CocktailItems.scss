@@ -1,0 +1,15 @@
+.cocktail-item {
+  width: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 3px solid transparent;
+  align-self: center;
+  box-sizing: border-box;
+  &:hover {
+    cursor: pointer;
+  }
+}
+.selected {
+  border: 3px solid var(--color-point);
+}

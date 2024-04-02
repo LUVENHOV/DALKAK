@@ -8,7 +8,7 @@ import useRefrigeratorStore from '@/store/refrigeratorStore';
 import { IIngredientType } from '@/type/refrigeratorTypes';
 
 export default function FoodArea() {
-  const { refgList, removeRefrList } = useRefrigeratorStore();
+  const { refgList } = useRefrigeratorStore();
 
   const [foodList, setFoodList] = useState<IIngredientType[]>([]);
 
@@ -38,8 +38,8 @@ export default function FoodArea() {
                   >
                     <IngredientBlock
                       key={ingredient.id}
+                      type="refrigerator"
                       ingredient={ingredient}
-                      handleOnClick={() => removeRefrList(ingredient.id)}
                     />
                   </div>
                 )}
