@@ -1,5 +1,7 @@
 import React from 'react';
 
+import CustomCocktailModify from '@/components/custom-cocktail/modify/CustomCocktailModify';
+
 // interface ICustomType {
 //   id: number;
 //   image: string;
@@ -13,9 +15,10 @@ import React from 'react';
 
 export default function Page({ params }: { params: { customId: string } }) {
   const { customId } = params;
+  const customIdInt = parseInt(customId, 10);
   return (
     <div>
-      <h1>{customId} 커스텀 칵테일 수정 페이지</h1>
+      <CustomCocktailModify customId={customIdInt} />
     </div>
   );
 }
@@ -31,7 +34,15 @@ export async function generateStaticParams() {
     },
   ).then((res) => res.json());
 
-  const initialPage = (await json).data.customIdList;
+  let initialPage = (await json).data.customIdList;
+
+  const test = initialPage.map((custom: number) => ({
+    customId: custom.toString(),
+  }));
+
+  if (test.length === 0) {
+    initialPage = [1];
+  }
 
   return initialPage.map((custom: number) => ({
     customId: custom.toString(),

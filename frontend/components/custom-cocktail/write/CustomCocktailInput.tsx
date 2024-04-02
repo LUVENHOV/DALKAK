@@ -1,28 +1,35 @@
 'use client';
 
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent } from 'react';
 
 import styles from './CustomCocktailInput.module.scss';
 
 interface Props {
   max: number;
   placeText: string;
+  inputValue: string;
+  handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 // interface StringNumberPair {
 //   slice(start?: number, end?: number): Array<string | number>;
 // }
 
-export default function CustomCocktailInput({ max, placeText }: Props) {
-  const [inputValue, setInputValue] = useState('');
+export default function CustomCocktailInput({
+  max,
+  placeText,
+  inputValue,
+  handleInputChange,
+}: Props) {
+  // const [inputValue, setInputValue] = useState('');
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length > max) {
-      e.target.value = e.target.value.slice(0, max);
-    }
+  // const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   if (e.target.value.length > max) {
+  //     e.target.value = e.target.value.slice(0, max);
+  //   }
 
-    setInputValue(e.target.value); // 입력된 값을 상태로 업데이트합니다.
-  };
+  //   setInputValue(e.target.value); // 입력된 값을 상태로 업데이트합니다.
+  // };
 
   return (
     <div className={styles.container}>

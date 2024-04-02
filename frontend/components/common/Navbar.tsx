@@ -6,7 +6,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.scss';
+import NavbarTopRank from './NavbarTopRank';
 import logo from '@/public/assets/imgs/logo.png';
+
 // import memberStore from '@/store/memberStore';
 
 export default function Navbar() {
@@ -43,10 +45,7 @@ export default function Navbar() {
         </div>
       </div>
       <div className={styles.center}>
-        현재 가장 인기 있는 칵테일&nbsp;&nbsp;&nbsp;|
-        <span className={styles['top-cocktail']}>
-          &nbsp;&nbsp;&nbsp;1 갓파더
-        </span>
+        <NavbarTopRank />
       </div>
       <div className={styles.right}>
         안녕하세요
