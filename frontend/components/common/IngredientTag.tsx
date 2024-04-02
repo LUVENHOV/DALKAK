@@ -1,13 +1,13 @@
 import styles from './IngredientTag.module.scss';
 import { IIngredientType } from '@/type/refrigeratorTypes';
 
+type AddItemFunction = (id: number, name: string) => void;
+
 interface ITagType {
   ingredient: IIngredientType;
   handleOnClick: (ingredient: IIngredientType) => void;
-  addItem?: (
-    id: number,
-    name: string,
-  ) => (event: React.MouseEvent<HTMLButtonElement>) => void;
+  // eslint-disable-next-line react/require-default-props
+  addItem?: AddItemFunction;
 }
 
 export default function IngredientTag(props: ITagType) {

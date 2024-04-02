@@ -1,7 +1,6 @@
 'use client';
 
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 import styles from './NavbarTopRank.module.scss';
@@ -31,16 +30,14 @@ export default function NavbarTopRank() {
         return response.json();
       })
       .then((result) => {
-        // console.log(result);
-        // console.log(result.data);
-        // console.log(result.data.heart_rank_list);
         setTopCocktails(result.data.heart_rank_list);
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
 
-    console.log(topCocktails);
+    // console.log(topCocktails);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -53,6 +50,7 @@ export default function NavbarTopRank() {
     }, 1510);
 
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const currentCocktailId = topCocktails[currentIndex + 1]?.cocktail_id;
@@ -60,14 +58,13 @@ export default function NavbarTopRank() {
   const goToDetail = () => {
     if (currentCocktailId !== undefined) {
       router.push(`/cocktail/${currentCocktailId}`);
-    } else {
-      return;
     }
   };
 
   const currentCocktailName =
     topCocktails[currentIndex]?.cocktail_korean_name || '';
   const first = '';
+  // const firstCocktailName = topCocktails[0]?.cocktail_korean_name || '';
   const current = `${currentIndex + 1}  ${currentCocktailName}`;
   const nextCocktailName =
     topCocktails[currentIndex + 1]?.cocktail_korean_name || '';
@@ -78,31 +75,51 @@ export default function NavbarTopRank() {
       <div>
         <div className={styles.parent}>
           {currentIndex === 0 && (
-            <>
-              <div onClick={goToDetail} className={styles['slide-test']}>
+            <div>
+              <div
+                role="presentation"
+                onClick={goToDetail}
+                className={styles['slide-test']}
+              >
                 {first}
               </div>
-              <div onClick={goToDetail} className={styles['slide-test']}>
+              <div
+                role="presentation"
+                onClick={goToDetail}
+                className={styles['slide-test']}
+              >
                 {current}
               </div>
-            </>
+            </div>
           )}
           {currentIndex !== 0 && currentIndex !== 9 && (
             <>
-              <div onClick={goToDetail} className={styles['slide-test']}>
+              <div
+                role="presentation"
+                onClick={goToDetail}
+                className={styles['slide-test']}
+              >
                 {current}
               </div>
-              <div onClick={goToDetail} className={styles['slide-test']}>
+              <div
+                role="presentation"
+                onClick={goToDetail}
+                className={styles['slide-test']}
+              >
                 {next}
               </div>
             </>
           )}
           {currentIndex === 9 && (
-            <>
-              <div onClick={goToDetail} className={styles['slide-test']}>
+            <div>
+              <div
+                role="presentation"
+                onClick={goToDetail}
+                className={styles['slide-test']}
+              >
                 {current}
               </div>
-            </>
+            </div>
           )}
         </div>
       </div>

@@ -117,12 +117,11 @@ export async function getData({ customId }: Props) {
   );
 
   if (!response.ok) {
+    // console.log(response.status);
     const error = new Error('Failed to fetch data');
     throw error;
-    // if (response.status === 403) {
-    //   console.log('403에러, 다음에 처리');
-    // }
   } else {
+    // console.log(response.status);
     const data: ApiResponse = await response.json();
     return data.data;
   }

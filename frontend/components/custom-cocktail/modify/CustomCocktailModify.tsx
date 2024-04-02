@@ -1,11 +1,14 @@
+/* eslint-disable no-lonely-if */
+
 'use client';
 
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 
-import { useRouter } from 'next/navigation';
-
 import LockOutlined from '@mui/icons-material/LockOutlined';
 import PublicOutlined from '@mui/icons-material/PublicOutlined';
+
+import { useRouter } from 'next/navigation';
+
 import styles from './CustomCocktailModify.module.scss';
 
 import BtnWithIcon from '@/components/common/BtnWithIcon';
@@ -13,7 +16,7 @@ import CustomCocktailAddIngredientTest from '@/components/custom-cocktail/write/
 import CustomCocktailAddRecipe from '@/components/custom-cocktail/write/CustomCocktailAddRecipe';
 import CustomCocktailImageUpload from '@/components/custom-cocktail/write/CustomCocktailImageUpload';
 import CustomCocktailInput from '@/components/custom-cocktail/write/CustomCocktailInput';
-import { error } from 'console';
+// import { error } from 'console';
 // import { RepeatOneSharp } from '@mui/icons-material';
 
 interface Unit {
@@ -21,14 +24,14 @@ interface Unit {
   name: string;
 }
 
-interface Custom_Ingredients {
-  id: number;
-  name: string;
-  image: string;
-  category_id: number;
-  ingredient_amount: number;
-  unit: Unit;
-}
+// interface Custom_Ingredients {
+//   id: number;
+//   name: string;
+//   image: string;
+//   category_id: number;
+//   ingredient_amount: number;
+//   unit: Unit;
+// }
 
 const token = process.env.NEXT_PUBLIC_TOKEN;
 
@@ -37,19 +40,20 @@ interface CustomIngredientList {
   name: string;
   image: string;
   category_id: number;
-  ingredient_amount: number;
+  ingredient_amount?: number;
+  amount?: number;
   unit: Unit;
 }
 
-interface CustomModifyReqDto {
-  // cocktailId: number;
-  customName: string;
-  customSummary: string;
-  customComment: string;
-  customRecipe: string;
-  open: boolean;
-  customIngredientList: CustomIngredientList[];
-}
+// interface CustomModifyReqDto {
+//   // cocktailId: number;
+//   customName: string;
+//   customSummary: string;
+//   customComment: string;
+//   customRecipe: string;
+//   open: boolean;
+//   customIngredientList: CustomIngredientList[];
+// }
 
 interface Props {
   customId: number;
@@ -60,16 +64,16 @@ export default function CustomCocktailModify(props: Props) {
 
   const [isPublic, setIsPublic] = useState(false);
 
-  const [ingredientData, setIngredientData] = useState<Custom_Ingredients[]>(
-    [],
-  );
+  // const [ingredientData, setIngredientData] = useState<Custom_Ingredients[]>(
+  //   [],
+  // );
 
   const [uploadedImage, setUploadedImage] = useState('');
 
   // const [koreanName, setKoreanName] = useState('');
   const [name, setName] = useState('');
 
-  const [baseRecipe, setBaseRecipe] = useState('');
+  // const [baseRecipe, setBaseRecipe] = useState('');
 
   // 여기선 유저가 보낼 데이터
 
@@ -89,14 +93,16 @@ export default function CustomCocktailModify(props: Props) {
 
   const [tempList, setTempList] = useState<CustomIngredientList[]>([]);
 
-  const [customIngredientList, setCustomIngredientList] = useState<
-    CustomIngredientList[]
-  >([]);
+  // const [customIngredientList, setCustomIngredientList] = useState<
+  //   CustomIngredientList[]
+  // >([]);
 
   // eslint-disable-next-line camelcase
   const filteredList = tempList.map(
+    // eslint-disable-next-line camelcase
     ({ id, ingredient_amount, unit: { id: unitId } }) => ({
       id,
+      // eslint-disable-next-line camelcase
       amount: ingredient_amount,
       // eslint-disable-next-line camelcase
       unit_id: unitId,
@@ -129,9 +135,6 @@ export default function CustomCocktailModify(props: Props) {
   //   eslint-disable-next-line no-shadow
 
   const getBaseData = useCallback(async () => {
-    const authorization =
-      'Bear eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTE3ODg3MzksImV4cCI6MTcxMTc5MjMzOSwiaWQiOjZ9.gf_oCP1VhIvGGq7yQCM7HbRxk1S91v8C6p6mDawoVoE';
-
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/customs/${customId}`,
       {
@@ -172,16 +175,16 @@ export default function CustomCocktailModify(props: Props) {
 
       return data;
     }
-  }, []);
+  }, [customId]);
 
   useEffect(() => {
     const getBaseCocktailData = async () => {
       const response = await getBaseData();
       setName(await response.name);
-      setIngredientData(await response.custom_ingredients);
-      setCustomIngredientList(await response.custom_ingredients);
+      // setIngredientData(await response.custom_ingredients);
+      // setCustomIngredientList(await response.custom_ingredients);
       setUploadedImage(await response.image);
-      setBaseRecipe(await response.recipe);
+      // setBaseRecipe(await response.recipe);
       setCustomRecipe(await response.recipe);
       setTempList(await response.custom_ingredients);
       setCustomName(await response.name);
@@ -189,6 +192,7 @@ export default function CustomCocktailModify(props: Props) {
       setCustomComment(await response.comment);
     };
     getBaseCocktailData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -276,6 +280,7 @@ export default function CustomCocktailModify(props: Props) {
     }
   };
 
+  // eslint-disable-next-line no-shadow
   const addItem = (id: number, name: string) => {
     if (tempList.length < 12) {
       const newItem = {
@@ -287,7 +292,7 @@ export default function CustomCocktailModify(props: Props) {
         category_id: 0,
         unit: {
           id: 1,
-          name: null,
+          name: '',
         },
       };
       // 중복 여부 확인
@@ -420,7 +425,7 @@ export default function CustomCocktailModify(props: Props) {
                 <CustomCocktailInput
                   max={15}
                   placeText="커스텀 칵테일 이름을 입력해주세요"
-                  defaultValue={name}
+                  // defaultValue={name}
                   inputValue={customName}
                   handleInputChange={handleInputChange1}
                 />
@@ -446,21 +451,21 @@ export default function CustomCocktailModify(props: Props) {
           <div className={styles.space}>
             {/* <CustomCocktailAddIngredient origin={ingredientData} /> */}
             <CustomCocktailAddIngredientTest
-              origin={customIngredientList}
+              // origin={customIngredientList}
               handleInputChangeTest={handleInputChangeTest}
               handleUnitInputChange={handleUnitInputChange}
               removeItem={removeItem}
               tempList={tempList}
               inputValues={inputValues}
-              inputUnitValues={inputUnitValues}
+              // inputUnitValues={inputUnitValues}
               inputUnitValuesId={inputUnitValuesId}
               addItem={addItem}
             />
             <CustomCocktailAddRecipe
               handleInputChange={handleRecipeAreaChange}
               inputValue={customRecipe}
-              recipe={baseRecipe}
-              customRecipe={customRecipe}
+              // recipe={baseRecipe}
+              // customRecipe={customRecipe}
             />
           </div>
         </div>

@@ -174,11 +174,13 @@ export default function CocktailSearchForm() {
                 <div className={styles['selected-container']}>
                   {ingredients.size > 0
                     ? Array.from(ingredients).map((ingredient) => (
+                        // eslint-disable-next-line react/jsx-indent
                         <IngredientBlock
                           key={ingredient.id}
                           ingredient={ingredient}
                           handleOnClick={removeIngredient}
                         />
+                        // eslint-disable-next-line indent
                       ))
                     : null}
                 </div>

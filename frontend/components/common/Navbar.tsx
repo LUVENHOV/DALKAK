@@ -6,8 +6,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.scss';
-import logo from '@/public/assets/imgs/logo.png';
 import NavbarTopRank from './NavbarTopRank';
+import logo from '@/public/assets/imgs/logo.png';
+
 // import memberStore from '@/store/memberStore';
 
 export default function Navbar() {

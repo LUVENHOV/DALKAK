@@ -3,8 +3,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 import styles from './LikeCount.module.scss';
+
+import emptyheart from '../../public/assets/imgs/emptyheart.png';
+import heartImage from '../../public/assets/imgs/heartImage.png';
 
 interface Props {
   count: number;
@@ -92,25 +96,14 @@ export default function LikeCount({ count, cocktailId, isLiked }: Props) {
 
   return (
     <div>
-      {/* {isClient && (
-        <div className={styles.flex}>
-          <button type="button" onClick={heart}>
-            {isLike ? '🖤' : '🤍'}
-          </button>
-          <div>{initialCount}</div>
-        </div>
-      )}
-      {!isClient && (
-        <div className={styles.flex}>
-          <button type="button" onClick={heart}>
-            {isLike ? '🖤' : '🤍'}
-          </button>
-          <div>{initialCount}</div>
-        </div>
-      )} */}
       <div className={styles.flex}>
         <button type="button" onClick={heart}>
-          {isLike ? '🖤' : '🤍'}
+          {isLike ? (
+            // eslint-disable-next-line react/jsx-no-undef
+            <Image className={styles.hearts} src={heartImage} alt="하트" />
+          ) : (
+            <Image className={styles.hearts} src={emptyheart} alt="빈하트" />
+          )}
         </button>
         <div>{initialCount}</div>
       </div>

@@ -11,7 +11,7 @@ import CustomCocktailAddIngredientTest from '@/components/custom-cocktail/write/
 import CustomCocktailAddRecipe from '@/components/custom-cocktail/write/CustomCocktailAddRecipe';
 import CustomCocktailImageUpload from '@/components/custom-cocktail/write/CustomCocktailImageUpload';
 import CustomCocktailInput from '@/components/custom-cocktail/write/CustomCocktailInput';
-import { error } from 'console';
+// import { error } from 'console';
 // import { RepeatOneSharp } from '@mui/icons-material';
 
 interface Unit {
@@ -19,14 +19,14 @@ interface Unit {
   name: string;
 }
 
-interface Cocktail_Ingredients {
-  id: number;
-  name: string;
-  image: string;
-  category_id: number;
-  amount: number;
-  unit: Unit;
-}
+// interface Cocktail_Ingredients {
+//   id: number;
+//   name: string;
+//   image: string;
+//   category_id: number;
+//   amount: number;
+//   unit: Unit;
+// }
 
 const token = process.env.NEXT_PUBLIC_TOKEN;
 
@@ -39,16 +39,16 @@ interface CustomIngredientList {
   unit: Unit;
 }
 
-interface CustomCreateReqDto {
-  cocktailId: number;
-  customName: string;
-  customSummary: string;
-  customComment: string;
-  customRecipe: string;
-  open: boolean;
-  customIngredientList: CustomIngredientList[];
-}
-
+// interface CustomCreateReqDto {
+//   cocktailId: number;
+//   customName: string;
+//   customSummary: string;
+//   customComment: string;
+//   customRecipe: string;
+//   open: boolean;
+//   customIngredientList: CustomIngredientList[];
+// }
+type AddItemFunction = (id: number, name: string) => void;
 interface Props {
   cocktailId: number;
 }
@@ -57,26 +57,26 @@ export default function CustomCocktailWrite(props: Props) {
 
   const [isPublic, setIsPublic] = useState(false);
 
-  const [ingredientData, setIngredientData] = useState<Cocktail_Ingredients[]>(
-    [],
-  );
+  // const [ingredientData, setIngredientData] = useState<Cocktail_Ingredients[]>(
+  //   [],
+  // );
 
   const [koreanName, setKoreanName] = useState('');
   const [englishName, setEnglishName] = useState('');
 
-  const [baseRecipe, setBaseRecipe] = useState('');
+  // const [baseRecipe, setBaseRecipe] = useState('');
 
   // 여기선 유저가 보낼 데이터
 
   const [customName, setCustomName] = useState('');
   const [customSummary, setCustomSummary] = useState('');
-  const [customImage, setCustomImage] = useState(null);
+  const [customImage, setCustomImage] = useState<File | null>(null);
   const [customComment, setCustomComment] = useState('');
   const [customRecipe, setCustomRecipe] = useState('');
   const [open, setOpen] = useState(false);
 
   /** 이미지 변경 관련 */
-  const handleImageProps = (targetImage) => {
+  const handleImageProps = (targetImage: File | null) => {
     setCustomImage(targetImage);
   };
 
@@ -84,9 +84,9 @@ export default function CustomCocktailWrite(props: Props) {
 
   const [tempList, setTempList] = useState<CustomIngredientList[]>([]);
 
-  const [customIngredientList, setCustomIngredientList] = useState<
-    CustomIngredientList[]
-  >([]);
+  // const [customIngredientList, setCustomIngredientList] = useState<
+  //   CustomIngredientList[]
+  // >([]);
 
   // eslint-disable-next-line camelcase
   const filteredList = tempList.map(({ id, amount, unit: { id: unitId } }) => ({
@@ -124,9 +124,6 @@ export default function CustomCocktailWrite(props: Props) {
   //   eslint-disable-next-line no-shadow
 
   const getBaseData = useCallback(async () => {
-    const authorization =
-      'Beare eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTE3ODg3MzksImV4cCI6MTcxMTc5MjMzOSwiaWQiOjZ9.gf_oCP1VhIvGGq7yQCM7HbRxk1S91v8C6p6mDawoVoE';
-
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/${cocktailId}`,
       {
@@ -147,18 +144,27 @@ export default function CustomCocktailWrite(props: Props) {
 
       const data = await result.data;
 
-      setInputValues(data.cocktail_ingredients.map((item) => item.amount));
+      setInputValues(
+        data.cocktail_ingredients.map(
+          (item: { amount: number }) => item.amount,
+        ),
+      );
 
       setInputUnitValues(
-        data.cocktail_ingredients.map((item) => item.unit.name),
+        data.cocktail_ingredients.map(
+          (item: { unit: { name: string } }) => item.unit.name,
+        ),
       );
 
       setInputUnitValuesId(
-        data.cocktail_ingredients.map((item) => item.unit.id),
+        data.cocktail_ingredients.map(
+          (item: { unit: { id: number } }) => item.unit.id,
+        ),
       );
 
       return data;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -166,14 +172,15 @@ export default function CustomCocktailWrite(props: Props) {
       const response = await getBaseData();
       setKoreanName(response.korean_name);
       setEnglishName(await response.name);
-      setIngredientData(await response.cocktail_ingredients);
-      setCustomIngredientList(await response.cocktail_ingredients);
+      // setIngredientData(await response.cocktail_ingredients);
+      // setCustomIngredientList(await response.cocktail_ingredients);
 
-      setBaseRecipe(await response.recipe);
+      // setBaseRecipe(await response.recipe);
       setCustomRecipe(await response.recipe);
       setTempList(await response.cocktail_ingredients);
     };
     getBaseCocktailData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -199,7 +206,7 @@ export default function CustomCocktailWrite(props: Props) {
     setTempList((prevList) => prevList.filter((data) => data.id !== id));
   };
 
-  const addItem = (id: number, name: string) => {
+  const addItem: AddItemFunction = (id: number, name: string) => {
     if (tempList.length < 12) {
       const newItem = {
         id,
@@ -209,7 +216,7 @@ export default function CustomCocktailWrite(props: Props) {
         category_id: 0,
         unit: {
           id: 1,
-          name: null,
+          name: '',
         },
       };
       // 중복 여부 확인
@@ -337,20 +344,18 @@ export default function CustomCocktailWrite(props: Props) {
         } else {
           console.error('커스텀 레시피 등록 실패');
         }
-      } else {
-        if (!customImage) {
-          alert('커스텀 칵테일 이미지를 업로드해주세요.');
-        } else if (!customName) {
-          alert('커스텀 칵테일 이름을 작성해주세요.');
-        } else if (!customSummary) {
-          alert('커스텀 칵테일 한 줄 요약(summary)을 작성해주세요.');
-        } else if (!customComment) {
-          alert('커스텀 칵테일 간단한 설명(comment)를 작성해주세요.');
-        } else if (!customRecipe || customRecipe.trim() === '') {
-          alert('커스텀 칵테일 레시피를 작성해주세요.');
-        } else if (filteredList.length < 1) {
-          alert('커스텀 칵테일 재료를 추가해주세요.');
-        }
+      } else if (!customImage) {
+        alert('커스텀 칵테일 이미지를 업로드해주세요.');
+      } else if (!customName) {
+        alert('커스텀 칵테일 이름을 작성해주세요.');
+      } else if (!customSummary) {
+        alert('커스텀 칵테일 한 줄 요약(summary)을 작성해주세요.');
+      } else if (!customComment) {
+        alert('커스텀 칵테일 간단한 설명(comment)를 작성해주세요.');
+      } else if (!customRecipe || customRecipe.trim() === '') {
+        alert('커스텀 칵테일 레시피를 작성해주세요.');
+      } else if (filteredList.length < 1) {
+        alert('커스텀 칵테일 재료를 추가해주세요.');
       }
     } catch (error) {
       console.log('서버와 통신 중 오류 발생');
@@ -425,21 +430,21 @@ export default function CustomCocktailWrite(props: Props) {
           <div className={styles.space}>
             {/* <CustomCocktailAddIngredient origin={ingredientData} /> */}
             <CustomCocktailAddIngredientTest
-              origin={customIngredientList}
+              // origin={customIngredientList}
               handleInputChangeTest={handleInputChangeTest}
               handleUnitInputChange={handleUnitInputChange}
               removeItem={removeItem}
               tempList={tempList}
               inputValues={inputValues}
-              inputUnitValues={inputUnitValues}
+              // inputUnitValues={inputUnitValues}
               inputUnitValuesId={inputUnitValuesId}
               addItem={addItem}
             />
             <CustomCocktailAddRecipe
               handleInputChange={handleRecipeAreaChange}
               inputValue={customRecipe}
-              recipe={baseRecipe}
-              customRecipe={customRecipe}
+              // recipe={baseRecipe}
+              // customRecipe={customRecipe}
             />
           </div>
         </div>

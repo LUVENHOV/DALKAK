@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, useState, useEffect } from 'react';
+import { ChangeEvent } from 'react';
 
 import styles from './CustomCocktailAddIngredient.module.scss';
 
@@ -24,27 +24,19 @@ interface CustomIngredientList {
   name: string;
   image: string;
   category_id: number;
-  amount: number;
+  amount?: number;
   ingredient_amount?: number;
   unit: Unit;
 }
 
-// interface Origin {
-//   id: number;
-//   name: string;
-//   image: string;
-//   category_id: number;
-//   amount: number;
-//   unit: Unit;
-// }
+type RemoveItemFunction = (id: number) => void;
+
+type AddItemFunction = (id: number, name: string) => void;
 
 interface Props {
-  // origin: CustomIngredientList[];
-  removeItem: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  addItem: (
-    id: number,
-    name: string,
-  ) => (event: React.MouseEvent<HTMLButtonElement>) => void;
+  removeItem: RemoveItemFunction;
+  // eslint-disable-next-line react/require-default-props
+  addItem?: AddItemFunction;
   handleInputChangeTest: (value: number, index: number[]) => void;
   handleUnitInputChange: (
     event: ChangeEvent<HTMLSelectElement>,
@@ -53,7 +45,7 @@ interface Props {
   ) => void;
   tempList: CustomIngredientList[];
   inputValues: number[];
-  inputUnitValues: string[];
+  // inputUnitValues: string[];
   inputUnitValuesId: number[];
 }
 
@@ -63,7 +55,7 @@ export default function CustomCocktailAddIngredientTest({
   handleUnitInputChange,
   tempList,
   inputValues,
-  inputUnitValues,
+  // inputUnitValues,
   inputUnitValuesId,
   addItem,
 }: Props) {
@@ -96,10 +88,12 @@ export default function CustomCocktailAddIngredientTest({
                     // value={tempValues[index]}
                     // onChange={(e) => handleInputChange(e, data.id)}
                     maxLength={4}
-                    onChange={(e) =>
-                      handleInputChangeTest(parseInt(e.target.value, 10), [
-                        index,
-                      ])
+                    onChange={
+                      (e) =>
+                        handleInputChangeTest(parseInt(e.target.value, 10), [
+                          index,
+                        ])
+                      // eslint-disable-next-line react/jsx-curly-newline
                     }
                   />
                 </div>
@@ -148,16 +142,18 @@ export default function CustomCocktailAddIngredientTest({
         placeholder="추가할 재료를 검색해보세요!"
       /> */}
       <div className={`${styles.searchRow} ${styles.ingredients}`}>
-        <div className={styles.title}></div>
+        <div className={styles.title} />
         <div className={styles['ingredients-container']}>
           <div className={styles['selected-container']}>
             {ingredients.size > 0
               ? Array.from(ingredients).map((ingredient) => (
+                  // eslint-disable-next-line react/jsx-indent
                   <IngredientBlock
                     key={ingredient.id}
                     ingredient={ingredient}
                     handleOnClick={removeIngredient}
                   />
+                  // eslint-disable-next-line indent
                 ))
               : null}
           </div>

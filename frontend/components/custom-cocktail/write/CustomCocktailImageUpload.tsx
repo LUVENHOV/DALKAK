@@ -1,12 +1,14 @@
 'use client';
 
-import React, { useEffect, useState, useRef, ChangeEvent } from 'react';
+import React, { useState, useRef, ChangeEvent } from 'react';
 
 import styles from './CustomCocktailImageUpload.module.scss';
 import BtnWithIcon from '@/components/common/BtnWithIcon';
 
 interface Props {
-  handleImageProps: (parameter: any) => void;
+  // handleImageProps: (parameter: any) => void;
+  handleImageProps: (targetImage: File | null) => void;
+  // eslint-disable-next-line react/require-default-props
   uploadedImage?: string;
 }
 

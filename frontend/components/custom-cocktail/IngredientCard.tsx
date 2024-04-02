@@ -48,20 +48,20 @@ type IngredientType = Cocktail_Ingredients | Custom_Ingredients;
 
 interface Props<T extends IngredientType> {
   ingredient: T;
-  index: number;
-  lastIndex: number;
+  // index: number;
+  // lastIndex: number;
   storeData: StoreData[];
 }
 
 export default function IngredientCard<T extends IngredientType>({
   ingredient,
-  index,
-  lastIndex,
+  // index,
+  // lastIndex,
   storeData,
 }: Props<T>) {
   // console.log(storeData);
 
-  let className = '';
+  const className = '';
 
   let isStored = '';
 

@@ -6,14 +6,13 @@ import styles from './IngredientSearchForm.module.scss';
 import IngredientTag from './IngredientTag';
 import { IIngredientType } from '@/type/refrigeratorTypes';
 
+type AddItemFunction = (id: number, name: string) => void;
+
 interface IPropsType {
   placeholder: string;
   handleOnClick: (ingredient: IIngredientType) => void;
-  // eslint-disable-next-line react/no-unused-prop-types
-  addItem?: (
-    id: number,
-    name: string,
-  ) => (event: React.MouseEvent<HTMLButtonElement>) => void;
+  // eslint-disable-next-line react/no-unused-prop-types, react/require-default-props
+  addItem?: AddItemFunction;
 }
 
 export default function SearchIngredient(props: IPropsType) {

@@ -1,18 +1,18 @@
 'use client';
 
-import React, { useState, useEffect, ChangeEvent } from 'react';
+import React, { ChangeEvent } from 'react';
 
 import styles from './CustomCocktailAddRecipe.module.scss';
 
 interface Props {
-  recipe: string;
+  // recipe: string;
   inputValue: string;
-  handleInputChange: ChangeEvent;
+  handleInputChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   // splitedRecipe: string;
 }
 
 export default function CustomCocktailAddRecipe({
-  recipe,
+  // recipe,
   inputValue,
   // splitedRecipe,
   handleInputChange,
@@ -27,7 +27,9 @@ export default function CustomCocktailAddRecipe({
   //   setInputValue(e.target.value);
   // };
 
-  const splitedRecipe = (inputValue) => inputValue.split('|').join('\n\n');
+  // eslint-disable-next-line no-shadow
+  const splitedRecipe = (inputValue: string) =>
+    inputValue.split('|').join('\n\n');
 
   return (
     <div>
