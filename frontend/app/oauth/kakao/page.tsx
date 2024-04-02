@@ -8,7 +8,7 @@ import {
 // eslint-disable-next-line import/no-extraneous-dependencies
 import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
-import { ResponseData, AuthResponse } from '../../types';
+import { ResponseData, AuthResponse } from '../types';
 import authStore from '@/store/authStore';
 // import { Login } from '@/apis/Auth';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
