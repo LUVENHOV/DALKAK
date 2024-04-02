@@ -12,12 +12,6 @@ interface Unit {
   name: string;
 }
 
-// interface CustomIngredientList {
-//   id: number;
-//   amount: number;
-//   unit_id: number;
-// }
-
 interface CustomIngredientList {
   id: number;
   name: string;
@@ -36,16 +30,16 @@ interface Props {
   removeItem: RemoveItemFunction;
   // eslint-disable-next-line react/require-default-props
   // addItem?: AddItemFunction;
-  handleInputChangeTest: (value: number, index: number[]) => void;
+  handleInputChangeTest: (value: number, index: number) => void;
   handleUnitInputChange: (
-    event: ChangeEvent<HTMLSelectElement>,
+    e: ChangeEvent<HTMLSelectElement>,
     id: number,
-    index: number[],
+    unitId: number,
   ) => void;
   tempList: CustomIngredientList[];
-  inputValues: number[];
+  // inputValues: number[];
   // inputUnitValues: string[];
-  inputUnitValuesId: number[];
+  // inputUnitValuesId: number[];
 }
 
 export default function CustomCocktailAddIngredientTest({
@@ -53,15 +47,8 @@ export default function CustomCocktailAddIngredientTest({
   handleInputChangeTest,
   handleUnitInputChange,
   tempList,
-  inputValues,
-  // inputUnitValues,
-  inputUnitValuesId,
   // addItem,
 }: Props) {
-  // console.log(inputValues);
-  // console.log('>>>>', inputUnitValuesId);
-  // console.log(tempList);
-
   return (
     <div>
       <div className={styles.title}>재료</div>
@@ -79,17 +66,15 @@ export default function CustomCocktailAddIngredientTest({
                     type="number"
                     pattern="[0-9]+"
                     className={styles['amount-input']}
-                    // defaultValue={inputValues[index]}
-                    defaultValue={inputValues[index]}
-                    // defaultValue={data.ingredient_amount}
-                    // value={tempValues[index]}
-                    // onChange={(e) => handleInputChange(e, data.id)}
+                    // defaultValue={tempList[index].amount}
+                    value={data.amount ? data.amount : data.ingredient_amount}
                     maxLength={4}
                     onChange={
                       (e) =>
-                        handleInputChangeTest(parseInt(e.target.value, 10), [
-                          index,
-                        ])
+                        handleInputChangeTest(
+                          parseInt(e.target.value, 10),
+                          tempList[index].id,
+                        )
                       // eslint-disable-next-line react/jsx-curly-newline
                     }
                   />
@@ -97,12 +82,15 @@ export default function CustomCocktailAddIngredientTest({
                 <div>
                   <select
                     className={styles['unit-input']}
-                    defaultValue={inputUnitValuesId[index]}
+                    // defaultValue={tempList[index].unit.id}
+                    value={data.unit.id}
                     onChange={
                       (e) =>
-                        handleUnitInputChange(e, parseInt(e.target.value, 10), [
-                          index,
-                        ])
+                        handleUnitInputChange(
+                          e,
+                          parseInt(e.target.value, 10),
+                          tempList[index].id,
+                        )
                       // eslint-disable-next-line react/jsx-curly-newline
                     }
                   >
@@ -134,25 +122,9 @@ export default function CustomCocktailAddIngredientTest({
           ))}
         </div>
       </div>
-      {/* <input
-        className={styles['ingredient-input-style']}
-        placeholder="추가할 재료를 검색해보세요!"
-      /> */}
       <div className={`${styles.searchRow} ${styles.ingredients}`}>
         <div className={styles.title} />
         <div className={styles['ingredients-container']}>
-          <div className={styles['selected-container']}>
-            {/* {ingredients.size > 0
-              ? Array.from(ingredients).map((ingredient) => (
-                  // eslint-disable-next-line react/jsx-indent
-                  <IngredientBlock
-                    key={ingredient.id}
-                    ingredient={ingredient}
-                    handleOnClick={() => removeIngredient}
-                  />
-                ))
-              : null} */}
-          </div>
           {/* <IngredientSearchForm
             placeholder="칵테일에 사용되는 재료를 검색해보세요!"
             handleOnClick={() => {}}
