@@ -1,21 +1,22 @@
 import React from 'react';
 
-// interface ICustomType {
-//   id: number;
-//   image: string;
-//   name: string;
-//   summary: string;
-//   user: {
-//     id: number;
-//     nickname: string;
-//   };
-// }
+interface ICustomType {
+  id: number;
+  image: string;
+  name: string;
+  summary: string;
+  user: {
+    id: number;
+    nickname: string;
+  };
+}
 
 export default function Page({ params }: { params: { customId: string } }) {
   const { customId } = params;
+  const customIdInt = parseInt(customId, 10);
   return (
     <div>
-      <h1>{customId} 커스텀 칵테일 수정 페이지</h1>
+      <CustomCocktailModify customId={customIdInt} />
     </div>
   );
 }

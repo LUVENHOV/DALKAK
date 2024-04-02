@@ -1,14 +1,13 @@
 import React from 'react';
 
-// import { StaticImageData } from 'next/image';
-
 import styles from './CustomCocktailDetail.module.scss';
 
+import CustomCocktailDetailButtonArea from './CustomCocktailDetailButtonArea';
 import IngredientCardWrapper from '../IngredientCardWrapper';
-import CustomCocktailDeleteButton from '@/components/custom-cocktail/CustomCocktailDeleteButton';
+// import CustomCocktailDeleteButton from '@/components/custom-cocktail/CustomCocktailDeleteButton';
 import CustomCocktailImage from '@/components/custom-cocktail/CustomCocktailImage';
 import CustomCocktailInfo from '@/components/custom-cocktail/CustomCocktailInfo';
-import CustomCocktailModifyButton from '@/components/custom-cocktail/CustomCocktailModifyButton';
+// import CustomCocktailModifyButton from '@/components/custom-cocktail/CustomCocktailModifyButton';
 import CustomCocktailRecipe from '@/components/custom-cocktail/CustomCocktailRecipe';
 
 interface Custom_Ingredients {
@@ -24,19 +23,21 @@ interface Custom_Ingredients {
   };
 }
 
+interface Origin_Cocktail {
+  id: number;
+  name: string;
+  korean_name: string;
+  image: string;
+  heart_count: number;
+}
+
 interface Data {
   custom_ingredients: Custom_Ingredients[];
   user: {
     id: number;
     nickname: string;
   };
-  origin_cocktail: {
-    id: number;
-    name: string;
-    korean_name: string;
-    image: string;
-    heart_count: number;
-  };
+  origin_cocktail: Origin_Cocktail;
   id: number;
   name: string;
   image: string;
@@ -71,9 +72,11 @@ export async function getData({ customId }: Props) {
   );
 
   if (!response.ok) {
+    // console.log(response.status);
     const error = new Error('Failed to fetch data');
     throw error;
   } else {
+    // console.log(response.status);
     const data: ApiResponse = await response.json();
     return data.data;
   }
@@ -84,24 +87,28 @@ export default async function CustomCocktailDetail({ customId }: Props) {
   const customIngredients: Custom_Ingredients[] =
     customCocktailDetailData.custom_ingredients;
 
+  const originCocktail: Origin_Cocktail =
+    customCocktailDetailData.origin_cocktail;
+
+  const originCocktailNames: string = `${originCocktail.name}, ${originCocktail.korean_name}`;
+
   return (
     <div className={styles['flex-container']}>
       <div className={styles.container}>
         <div className={styles['title-container']}>
-          <div className={styles.name}>{customCocktailDetailData.name}</div>
-          <div className={styles.nickname}>
-            by&nbsp;{customCocktailDetailData.user.nickname}
+          <div className={styles.names}>
+            <div className={styles.name}>{customCocktailDetailData.name}</div>
+            <div className={styles.nickname}>
+              by&nbsp;{customCocktailDetailData.user.nickname}
+            </div>
           </div>
           <div />
-
-          <div className={styles.buttons}>
-            <div className={styles.button}>
-              <CustomCocktailModifyButton />
-            </div>
-            <div className={styles['divide-line']}>|</div>
-            <div className={styles.button}>
-              <CustomCocktailDeleteButton />
-            </div>
+          <div>
+            <CustomCocktailDetailButtonArea
+              customId={customId}
+              originId={originCocktail.id}
+              authorId={customCocktailDetailData.user.id}
+            />
           </div>
         </div>
 
@@ -110,7 +117,7 @@ export default async function CustomCocktailDetail({ customId }: Props) {
           <div className={styles.space}>
             <CustomCocktailImage customImage={customCocktailDetailData.image} />
             <div className={styles['info-container']}>
-              <CustomCocktailInfo cocktail={customCocktailDetailData.name} />
+              <CustomCocktailInfo cocktail={originCocktailNames} />
               <CustomCocktailInfo summary={customCocktailDetailData.summary} />
               <CustomCocktailInfo comment={customCocktailDetailData.comment} />
             </div>

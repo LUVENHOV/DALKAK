@@ -37,38 +37,40 @@ type IngredientType = Cocktail_Ingredients | Custom_Ingredients;
 
 interface Props<T extends IngredientType> {
   ingredient: T;
-  index: number;
-  lastIndex: number;
+  // index: number;
+  // lastIndex: number;
+  storeData: StoreData[];
 }
 
 export default function IngredientCard<T extends IngredientType>({
   ingredient,
-  index,
-  lastIndex,
+  // index,
+  // lastIndex,
+  storeData,
 }: Props<T>) {
   const { refgList } = useRefrigeratorStore();
 
-  let className = '';
+  const className = '';
 
   let isStored = '';
 
-  if (
-    (index === 0 && index !== lastIndex) ||
-    (index === 5 && index !== lastIndex) ||
-    (index === 10 && index !== lastIndex)
-  ) {
-    className = styles['start-ingredient'];
-  } else if (
-    (index === 0 && index === lastIndex) ||
-    (index === 5 && index === lastIndex) ||
-    (index === 10 && index === lastIndex)
-  ) {
-    className = styles['start-last-ingredient'];
-  } else if (index === 4 || index === 9 || index === lastIndex) {
-    className = styles['last-ingredient'];
-  } else {
-    className = styles['inner-ingredient'];
-  }
+  // if (
+  //   (index === 0 && index !== lastIndex) ||
+  //   (index === 5 && index !== lastIndex) ||
+  //   (index === 10 && index !== lastIndex)
+  // ) {
+  //   className = styles['start-ingredient'];
+  // } else if (
+  //   (index === 0 && index === lastIndex) ||
+  //   (index === 5 && index === lastIndex) ||
+  //   (index === 10 && index === lastIndex)
+  // ) {
+  //   className = styles['start-last-ingredient'];
+  // } else if (index === 4 || index === 9 || index === lastIndex) {
+  //   className = styles['last-ingredient'];
+  // } else {
+  //   className = styles['inner-ingredient'];
+  // }
 
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < refgList.length; i++) {

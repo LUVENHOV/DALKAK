@@ -38,8 +38,8 @@ interface Props<T extends IngredientType> {
 export default function IngredientCardWrapper<T extends IngredientType>({
   ingredients,
 }: Props<T>) {
-  const lastIndex =
-    ingredients && ingredients.length > 0 ? ingredients.length - 1 : 0;
+  // const lastIndex =
+  //   ingredients && ingredients.length > 0 ? ingredients.length - 1 : 0;
 
   return (
     <div>
@@ -56,8 +56,9 @@ export default function IngredientCardWrapper<T extends IngredientType>({
               // eslint-disable-next-line react/no-array-index-key
               key={index}
               ingredient={ingredient}
-              index={index}
-              lastIndex={lastIndex}
+              // index={index}
+              // lastIndex={lastIndex}
+              storeData={storeData}
             />
           ))
         ) : (
