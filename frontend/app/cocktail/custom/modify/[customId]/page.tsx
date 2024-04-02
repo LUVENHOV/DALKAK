@@ -1,15 +1,17 @@
 import React from 'react';
 
-interface ICustomType {
-  id: number;
-  image: string;
-  name: string;
-  summary: string;
-  user: {
-    id: number;
-    nickname: string;
-  };
-}
+import CustomCocktailModify from '@/components/custom-cocktail/modify/CustomCocktailModify';
+
+// interface ICustomType {
+//   id: number;
+//   image: string;
+//   name: string;
+//   summary: string;
+//   user: {
+//     id: number;
+//     nickname: string;
+//   };
+// }
 
 export default function Page({ params }: { params: { customId: string } }) {
   const { customId } = params;
