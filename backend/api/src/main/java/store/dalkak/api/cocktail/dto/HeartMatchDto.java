@@ -14,4 +14,5 @@ public class HeartMatchDto {
     String id;
     String cocktailId;
     String memberId;
+    String isHearted;
 }

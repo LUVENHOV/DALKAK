@@ -224,7 +224,7 @@ public class CocktailServiceImpl implements CocktailService {
         }
         heartMatchRepository.save(
             HeartMatch.builder().id(memberKey.substring(11)).cocktailId(cocktailId)
-                .memberId(memberDto.getId()).build());
+                .memberId(memberDto.getId()).isHearted(true).build());
     }
 
     @Override
@@ -236,18 +236,25 @@ public class CocktailServiceImpl implements CocktailService {
         HeartCountDto cocktailHeartCountDto = heartRedisRepository.findHeartCountById(cocktailKey);
         Cocktail cocktail = cocktailRepository.findCocktailById(cocktailId);
         // 만약 캐싱 멤버가 있다면
-        if (cocktailHeartMatchDto.getMemberId() != null) {
-            heartRedisRepository.deleteHeartMatchById(memberKey);
-        }
-        // 만약 캐싱 멤버가 없다면
-        else {
-            Member member = memberRepository.findMemberById(memberDto.getId());
-            heartRepository.deleteHeartByCocktailAndMember(cocktail, member);
-        }
+//        if (cocktailHeartMatchDto.getMemberId() != null) {
+//            heartRedisRepository.deleteHeartMatchById(memberKey);
+//
+//        }
+//        // 만약 캐싱 멤버가 없다면
+//        else {
+//            heartMatchRepository.save(
+//                HeartMatch.builder().id(memberKey.substring(11)).cocktailId(cocktailId)
+//                    .memberId(memberDto.getId()).isHearted(false).build());
+////            Member member = memberRepository.findMemberById(memberDto.getId());
+////            heartRepository.deleteHeartByCocktailAndMember(cocktail, member);
+//        }
+
+        heartMatchRepository.save(
+                HeartMatch.builder().id(memberKey.substring(11)).cocktailId(cocktailId)
+                    .memberId(memberDto.getId()).isHearted(false).build());
 
         // 만약 캐싱 좋아요가 있다면
         if (cocktailHeartCountDto.getCockatailId() != null) {
-            log.info(cocktailHeartCountDto.getCount());
             heartCountRepository.save(
                 HeartCount.builder().id(cocktailKey.substring(11)).cocktailId(cocktailId)
                     .count(Integer.parseInt(cocktailHeartCountDto.getCount()) - 1).build());
@@ -281,8 +288,15 @@ public class CocktailServiceImpl implements CocktailService {
             Member member = memberRepository.findMemberById(
                 Long.parseLong(heartMatchDto.getMemberId()));
             Heart heart = heartRepository.findHeartByCocktailAndMember(cocktail, member);
-            if (heart == null) {
-                heartRepository.save(Heart.builder().cocktail(cocktail).member(member).build());
+            if(heartMatchDto.getIsHearted().equals("1")) {
+                if(heart == null) {
+                    heartRepository.save(Heart.builder().cocktail(cocktail).member(member).build());
+                }
+            } else {
+                heartRedisRepository.deleteHeartMatchById(matchKey);
+                if(heart != null) {
+                    heartRepository.deleteHeartByCocktailAndMember(cocktail, member);
+                }
             }
         }
     }

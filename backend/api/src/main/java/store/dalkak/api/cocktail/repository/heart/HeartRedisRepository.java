@@ -12,5 +12,7 @@ public interface HeartRedisRepository {
 
     HeartMatchDto findHeartMatchById(String id);
 
+    void updateHeartMatchById(String id);
+
     void deleteHeartMatchById(String id);
 }
