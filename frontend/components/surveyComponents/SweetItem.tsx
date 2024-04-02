@@ -7,7 +7,7 @@ interface ItemProps {
   id: number;
   name: string;
   description: string;
-  imgSrc: string;
+  imgSrc: StaticImageData;
   val: number;
 }
 export default function SweetItem({

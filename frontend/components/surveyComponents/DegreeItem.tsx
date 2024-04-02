@@ -5,13 +5,13 @@ import surveyStore from '@/store/surveyStore';
 
 interface ItemProps {
   val: number;
-  title: string;
+  // title: string;
   description: string;
   image: StaticImageData;
 }
 export default function DegreeItem({
   val,
-  title,
+  // title,
   image,
   description,
 }: ItemProps) {

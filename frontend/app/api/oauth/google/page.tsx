@@ -1,7 +1,10 @@
 'use client';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { useState, useEffect } from 'react';
+import {
+  // useState,
+  useEffect,
+} from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
