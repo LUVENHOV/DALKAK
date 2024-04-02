@@ -8,7 +8,7 @@ import useSearchStore from '@/store/searchStore';
 import { ICocktailType, ISearchParamsType } from '@/type/searchTypes';
 
 const authorization =
-  'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTIwMTY1NjAsImV4cCI6MTcxMjAyMDE2MCwiaWQiOjZ9.bshhzwSA_T7voxjZXUFyo0VJobpJOI-y2TlEm0lyQtA';
+  'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTE3ODk1MDgsImV4cCI6MTcxMjE0OTUwOCwiaWQiOjN9.rxVLMICLt23rj4vV_btj7QtObPgxszooG-rzQG_et3A';
 
 const getCocktailList = async ({
   page,

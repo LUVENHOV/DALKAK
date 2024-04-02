@@ -1,8 +1,7 @@
 .grid-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-
-  padding: 1.3vw;
+  width: 50vw;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .flex {

@@ -25,7 +25,7 @@ export default function Page({ params }: { params: { customId: string } }) {
 
 export async function generateStaticParams() {
   const authorization =
-    'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTIwMTY1NjAsImV4cCI6MTcxMjAyMDE2MCwiaWQiOjZ9.bshhzwSA_T7voxjZXUFyo0VJobpJOI-y2TlEm0lyQtA';
+    'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTE3ODk1MDgsImV4cCI6MTcxMjE0OTUwOCwiaWQiOjN9.rxVLMICLt23rj4vV_btj7QtObPgxszooG-rzQG_et3A';
 
   const json = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/customs/custom-list`,
@@ -34,7 +34,15 @@ export async function generateStaticParams() {
     },
   ).then((res) => res.json());
 
-  const initialPage = (await json).data.customIdList;
+  let initialPage = (await json).data.customIdList;
+
+  const test = initialPage.map((custom: number) => ({
+    customId: custom.toString(),
+  }));
+
+  if (test.length === 0) {
+    initialPage = [1];
+  }
 
   return initialPage.map((custom: number) => ({
     customId: custom.toString(),

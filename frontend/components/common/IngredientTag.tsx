@@ -3,16 +3,21 @@ import { IIngredientType } from '@/type/refrigeratorTypes';
 
 interface ITagType {
   ingredient: IIngredientType;
-  handleOnClick: (ingredient: IIngredientType) => void;
+  type: string;
+  handleOnClick: (ingredient: IIngredientType | number) => void;
 }
 
 export default function IngredientTag(props: ITagType) {
-  const { ingredient, handleOnClick } = props;
+  const { ingredient, type, handleOnClick } = props;
 
   return (
     <button
       type="button"
-      onClick={() => handleOnClick(ingredient)}
+      onClick={
+        type === 'search'
+          ? () => handleOnClick(ingredient)
+          : () => handleOnClick(ingredient.id)
+      }
       className={styles.container}
     >
       {ingredient.name}

@@ -29,28 +29,17 @@ interface Custom_Ingredients {
   };
 }
 
-interface StoreData {
-  id: number;
-  name: string;
-  category: {
-    id: number;
-    name: string;
-  };
-}
-
 type IngredientType = Cocktail_Ingredients | Custom_Ingredients;
 
 interface Props<T extends IngredientType> {
   ingredients: T[];
-  storeData: StoreData[];
 }
 
 export default function IngredientCardWrapper<T extends IngredientType>({
   ingredients,
-  storeData,
 }: Props<T>) {
-  const lastIndex =
-    ingredients && ingredients.length > 0 ? ingredients.length - 1 : 0;
+  // const lastIndex =
+  //   ingredients && ingredients.length > 0 ? ingredients.length - 1 : 0;
 
   return (
     <div>
@@ -67,9 +56,8 @@ export default function IngredientCardWrapper<T extends IngredientType>({
               // eslint-disable-next-line react/no-array-index-key
               key={index}
               ingredient={ingredient}
-              index={index}
-              lastIndex={lastIndex}
-              storeData={storeData}
+              // index={index}
+              // lastIndex={lastIndex}
             />
           ))
         ) : (

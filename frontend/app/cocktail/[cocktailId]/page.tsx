@@ -1,5 +1,6 @@
 import CocktailDetail from '@/components/cocktail/CocktailDetail';
 // import { ICocktailType } from '@/type/searchTypes';
+// import { ICocktailType } from '@/type/searchTypes';
 
 // export const dynamic = 'force-static';
 
@@ -74,7 +75,6 @@ import CocktailDetail from '@/components/cocktail/CocktailDetail';
 export default function Page({ params }: { params: { cocktailId: string } }) {
   const { cocktailId } = params;
   const cocktailIdInt = parseInt(cocktailId, 10);
-  // const cocktailData = await generateStaticParams({ params });
 
   return (
     <div>

@@ -1,11 +1,10 @@
 'use client';
 
-// zustand로 냉장고 데이터 가져올려면 CSR로 만들어야함
-
 import React from 'react';
 
 import Image from 'next/image';
 import styles from './IngredientCard.module.scss';
+import useRefrigeratorStore from '@/store/refrigeratorStore';
 
 interface Unit {
   id: number;
@@ -34,67 +33,51 @@ interface Custom_Ingredients {
   };
 }
 
-interface StoreData {
-  id: number;
-  name: string;
-  // image: string;
-  category: {
-    id: number;
-    name: string;
-  };
-}
-
 type IngredientType = Cocktail_Ingredients | Custom_Ingredients;
 
 interface Props<T extends IngredientType> {
   ingredient: T;
-  index: number;
-  lastIndex: number;
-  storeData: StoreData[];
+  // index: number;
+  // lastIndex: number;
 }
 
 export default function IngredientCard<T extends IngredientType>({
   ingredient,
-  index,
-  lastIndex,
-  storeData,
+  // index,
+  // lastIndex,
 }: Props<T>) {
-  // console.log(storeData);
+  const { refgList } = useRefrigeratorStore();
 
-  let className = '';
+  const className = '';
 
   let isStored = '';
 
-  if (
-    (index === 0 && index !== lastIndex) ||
-    (index === 5 && index !== lastIndex) ||
-    (index === 10 && index !== lastIndex)
-  ) {
-    className = styles['start-ingredient'];
-  } else if (
-    (index === 0 && index === lastIndex) ||
-    (index === 5 && index === lastIndex) ||
-    (index === 10 && index === lastIndex)
-  ) {
-    className = styles['start-last-ingredient'];
-  } else if (index === 4 || index === 9 || index === lastIndex) {
-    className = styles['last-ingredient'];
-  } else {
-    className = styles['inner-ingredient'];
-  }
+  // if (
+  //   (index === 0 && index !== lastIndex) ||
+  //   (index === 5 && index !== lastIndex) ||
+  //   (index === 10 && index !== lastIndex)
+  // ) {
+  //   className = styles['start-ingredient'];
+  // } else if (
+  //   (index === 0 && index === lastIndex) ||
+  //   (index === 5 && index === lastIndex) ||
+  //   (index === 10 && index === lastIndex)
+  // ) {
+  //   className = styles['start-last-ingredient'];
+  // } else if (index === 4 || index === 9 || index === lastIndex) {
+  //   className = styles['last-ingredient'];
+  // } else {
+  //   className = styles['inner-ingredient'];
+  // }
 
   // eslint-disable-next-line no-plusplus
-  for (let i = 0; i < storeData.length; i++) {
+  for (let i = 0; i < refgList.length; i++) {
     if (
-      (ingredient as Cocktail_Ingredients)?.id === storeData[i].id ||
-      (ingredient as Custom_Ingredients)?.ingredient?.id === storeData[i].id
+      (ingredient as Cocktail_Ingredients)?.id === refgList[i].id ||
+      (ingredient as Custom_Ingredients)?.ingredient?.id === refgList[i].id
     ) {
       isStored = styles['stored-ingredient'];
     }
-
-    // console.log((ingredient as Cocktail_Ingredients)?.id);
-    // console.log('스토어데이터');
-    // console.log(storeData[i].id);
   }
 
   return (

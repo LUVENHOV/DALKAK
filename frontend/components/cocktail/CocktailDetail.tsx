@@ -52,6 +52,7 @@ interface Data {
   korean_name: string;
   image: string;
   heart_count: number;
+  heart: boolean;
   view_count: number;
   alcohol_content: number;
   sweetness: number;
@@ -67,56 +68,12 @@ interface ApiResponse {
   data: Data;
 }
 
-interface Ingredient {
-  id: number;
-  name: string;
-
-  category: {
-    id: number;
-    name: string;
-  };
-}
-
-interface StoreData {
-  ingredients: Ingredient[];
-}
-const storeData: StoreData = {
-  ingredients: [
-    {
-      id: 270,
-      name: '라임',
-
-      category: {
-        id: 2,
-        name: 'fruit',
-      },
-    },
-    {
-      id: 435,
-      name: '얼음',
-      category: {
-        id: 3,
-        name: 'beverage',
-      },
-    },
-    {
-      id: 187,
-      name: '앱솔루트 보드카',
-      category: {
-        id: 1,
-        name: 'alcohol',
-      },
-    },
-  ],
-};
-const storeList = storeData.ingredients;
-
 interface Props {
   cocktailId: number;
 }
 
 const token =
-  'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTIwMTY1NjAsImV4cCI6MTcxMjAyMDE2MCwiaWQiOjZ9.bshhzwSA_T7voxjZXUFyo0VJobpJOI-y2TlEm0lyQtA';
+  'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTE3ODk1MDgsImV4cCI6MTcxMjE0OTUwOCwiaWQiOjN9.rxVLMICLt23rj4vV_btj7QtObPgxszooG-rzQG_et3A';
 
 export async function getData({ cocktailId }: Props) {
   const response = await fetch(
@@ -130,7 +87,7 @@ export async function getData({ cocktailId }: Props) {
 
   if (!response.ok) {
     const error = new Error('Failed to fetch data');
-
+    console.log(error);
     throw error;
   } else {
     const data: ApiResponse = await response.json();
@@ -150,14 +107,19 @@ export default async function CocktailDetail({ cocktailId }: Props) {
           <div className={styles.name}>{cocktailDetailData.name}</div>
 
           <div className={styles.nickname}>
-            <LikeCount count={245} />
+            <LikeCount
+              count={cocktailDetailData.heart_count}
+              cocktailId={cocktailId}
+              isLiked={cocktailDetailData.heart}
+            />
             <div className={styles.info}>
-              도수{cocktailDetailData.alcohol_content}
+              {cocktailDetailData.alcohol_content}도
             </div>
             <div className={styles.info}>
               당도{cocktailDetailData.sweetness}
             </div>
           </div>
+
           <div />
           <div className={styles.buttons}>
             <Link href={`/cocktail/custom/write/${cocktailId}`}>
@@ -172,10 +134,7 @@ export default async function CocktailDetail({ cocktailId }: Props) {
             <CustomCocktailImage customImage={cocktailDetailData.image} />
           </div>
           <div className={styles.space}>
-            <IngredientCardWrapper
-              ingredients={cocktailIngredients}
-              storeData={storeList}
-            />
+            <IngredientCardWrapper ingredients={cocktailIngredients} />
             <ToolCardWrapper
               cocktailTools={cocktailDetailData.cocktail_tools}
             />

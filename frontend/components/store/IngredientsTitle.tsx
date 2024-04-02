@@ -3,7 +3,6 @@
 import styles from './IngredientsTitle.module.scss';
 
 import IngredientSearchForm from '../common/IngredientSearchForm';
-import useRefrigeratorStore from '@/store/refrigeratorStore';
 
 interface IPropsType {
   title: string;
@@ -14,7 +13,6 @@ interface IPropsType {
 
 export default function IngredientsTitle(props: IPropsType) {
   const { title, desc, placeholder, isRefr } = props;
-  const { addRefrList, addMemoList } = useRefrigeratorStore();
 
   return (
     <div className={styles.container}>
@@ -25,7 +23,7 @@ export default function IngredientsTitle(props: IPropsType) {
       <div className={styles.search}>
         <IngredientSearchForm
           placeholder={placeholder}
-          handleOnClick={isRefr ? addRefrList : addMemoList}
+          type={isRefr ? 'refrigerator' : 'memo'}
         />
       </div>
     </div>
