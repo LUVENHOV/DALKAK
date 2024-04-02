@@ -1,85 +1,48 @@
 'use client';
 
-// import { useState } from 'react';
-// import { useSearchParams } from 'next/navigation';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { useState, useEffect } from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import axios from 'axios';
+import { useSearchParams } from 'next/navigation';
+import { ResponseData, AuthResponse } from '../../types';
+import authStore from '@/store/authStore';
+// import { Login } from '@/apis/Auth';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import memberStore from '@/store/memberStore';
 
-// const fetchOauthData = async (code: string) => {
-//   try {
-//     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/oauth/login`, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify({
-//         code,
-//         provider: 'GOOGLE',
-//         state: 'dalkaknaver',
-//       }),
-//     });
-//     if (res.ok) {
-//       const responseData = await res.json();
-//       return responseData;
-//     }
-//     console.error('Server response was not ok.');
-//   } catch (error) {
-//     console.error('Error:', error);
-//   }
-// };
-export default function OauthRedirect() {
-  // const [data, setData] = useState(null);
-  // const [loading, setLoading] = useState(true);
-  // const useSearch = useSearchParams();
+export default function Page() {
+  const param = useSearchParams();
+  // const [result, setResult] = useState({});
+  const setTokens = authStore((state) => state.setTokens);
+  const setInfo = memberStore((state) => state.setMemberStateLogin);
 
-  // useEffect(() => {
-  //   const fetchOauthData = async () => {
-  //     const code = useSearch?.get('code');
-  //     if (!code) {
-  //       setLoading(false);
-  //       return;
-  //     }
-  //     try {
-  //       const res = await fetch(
-  //         `${process.env.NEXT_PUBLIC_BASE_URL}auth/login`,
-  //         {
-  //           method: 'POST',
-  //           headers: {
-  //             'Content-Type': 'application/json',
-  //           },
-  //           body: JSON.stringify({
-  //             authorization_code: code,
-  //             provider: 'GOOGLE',
-  //             code: '',
-  //           }),
-  //         },
-  //       );
-  //       if (res.ok) {
-  //         const responseData = await res.json();
-  //         console.log(responseData);
-  //         setData(responseData);
-  //       } else {
-  //         console.error('Server response was not ok.');
-  //       }
-  //     } catch (error) {
-  //       console.error('Error:', error);
-  //     } finally {
-  //       setLoading(false);
-  //       console.log('finally');
-  //     }
-  //   };
-  //   fetchOauthData();
-  // }, [useSearch]);
+  useEffect(() => {
+    if (param?.get('code')) {
+      // eslint-disable-next-line no-use-before-define
+      authorization(encodeURIComponent(param.get('code') as string));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [param]);
 
-  return (
-    <div>
-      hi
-      {/* {data ? (
-        <div>
-          <h1>Success</h1>
-          <p>{JSON.stringify(data)}</p>
-        </div>
-      ) : (
-        <h1>Authentication failed.</h1>
-      )} */}
-    </div>
-  );
+  const authorization = async (authCode: string) => {
+    await axios
+      .post(`${process.env.NEXT_PUBLIC_BASE_URL as string}/oauth/login`, {
+        code: authCode,
+        provider: 'GOOGLE',
+      })
+      .then((response) => {
+        const res = response.data as AuthResponse;
+        const data = res.data as ResponseData;
+        console.log(res.data);
+        setTokens(data.accessToken, data.refreshToken, 0, 0);
+        setInfo(data.id, data.nickname, data.survey_completion || false);
+        window.location.href = '/';
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  return <div>redirect...</div>;
 }
