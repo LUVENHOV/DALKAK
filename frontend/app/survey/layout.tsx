@@ -4,9 +4,11 @@ import React, { useEffect } from 'react';
 
 import surveyStore from '../../store/surveyStore';
 import { submitSurvey } from '@/apis/Member';
-// import authStore from '@/store/authStore';
+import authStore from '@/store/authStore';
 
 import './page.scss';
+import memberStore from '@/store/memberStore';
+import useSearchStore from '@/store/searchStore';
 
 export default function Layout({
   children,
@@ -17,6 +19,8 @@ export default function Layout({
   const getQuestion = surveyStore((state) => state.getQuestion);
   const nextProgress = surveyStore((state) => state.nextProgress);
   const beforeProgress = surveyStore((state) => state.beforeProgress);
+  const { ingredients, removeIngredient } = useSearchStore();
+  const addSurveyIngredients = surveyStore((state) => state.addSurveyIngredients);
   const [fadeOut, setFadeOut] = React.useState(false);
   const clearSurvey = () => {
     surveyStore.getState().clearSurvey();
@@ -32,36 +36,46 @@ export default function Layout({
     }
   }, [progress]);
 
-  // const submitMemeberInfo = () => {
-  //   const token = authStore.getState().accessToken;
-  //   const { nickname, birthDate, gender } = surveyStore.getState();
+  const submitMemeberInfo = () => {
+    const token = authStore.getState().accessToken;
+    const { nickname, birthDate, gender } = surveyStore.getState();
 
-  //   fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users/profile`, {
-  //     method: 'PATCH',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: token,
-  //     },
-  //     body: JSON.stringify({
-  //       nickname,
-  //       birth_date: `${birthDate.slice(0, 4)}-${birthDate.slice(
-  //         4,
-  //         6,
-  //       )}-${birthDate.slice(6, 8)}`,
-  //       gender,
-  //     }),
-  //   })
-  //     .then((res) => {
-  //       if (res.status === 200) {
-  //         nextProgress();
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
+    if (nickname === '' || birthDate === '' || gender === '') {
+      alert('모든 항목을 입력해주세요');
+    } else {
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users/profile`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+        body: JSON.stringify({
+          nickname,
+          birth_date: `${birthDate.slice(0, 4)}-${birthDate.slice(
+            4,
+            6,
+          )}-${birthDate.slice(6, 8)}`,
+          gender,
+        }),
+      })
+        .then((res) => {
+          if (res.status === 200) {
+            nextProgress();
+            memberStore.getState().setNickname(nickname);
+            memberStore.getState().setBirthDate(birthDate);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
 
   const submit = async () => {
+    ingredients.forEach((ingredient) => {
+      addSurveyIngredients(ingredient.id);
+      removeIngredient(ingredient);
+    });
     const {
       surveyCocktails,
       occassionId,
@@ -79,8 +93,10 @@ export default function Layout({
         sweetness,
         survey_ingredients: surveyIngredients,
       });
-      if (response.status === 200) {
-        nextProgress();
+      if (response.status === 201) {
+        alert("제출 완료!")
+        console.log('submit success');
+        window.location.replace('/');
       }
     } catch (error) {
       console.error(error);
@@ -112,7 +128,15 @@ export default function Layout({
         )}
 
         {progress < 6 && (
-          <button className="next" type="button" onClick={() => nextProgress()}>
+          <button
+            className="next"
+            type="button"
+            onClick={() => {
+              if (progress === 0) {
+                submitMemeberInfo();
+              }
+              nextProgress();
+            }}>
             다음
           </button>
         )}
@@ -122,27 +146,23 @@ export default function Layout({
             className="next"
             type="button"
             onClick={() => {
-              console.log('hh');
-              nextProgress();
-              // submitMemeberInfo();
               submit();
-              // submit API
             }}
           >
             제출
           </button>
         )}
-        {progress === 7 && (
+        {/* {progress === 7 && (
           <button
             className="next"
             type="button"
             onClick={() => {
-              // submitSurvey();
+              submitSurvey();
             }}
           >
             홈으로
           </button>
-        )}
+        )} */}
       </div>
     </>
   );

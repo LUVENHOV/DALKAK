@@ -79,3 +79,9 @@
     font-size: 0.8rem;
   }
 }
+
+.genderSelect-active{
+  cursor: pointer;
+  color: white;
+  background-color: var(--color-point-active);
+}

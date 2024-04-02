@@ -3,6 +3,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { getProfile } from '@/apis/Member';
 import CocktailCard from '@/components/cocktail-list/CocktailCard';
 import CustomCocktailCard from '@/components/custom-cocktail/CustomCocktailCard';
@@ -35,8 +36,8 @@ interface ICocktailType {
   image: string;
   heartCount: number;
 }
-// const convertBirthdateToString = (birth: number[]) =>
-//   `${birth[0]}${birth[1].toString().padStart(2, '0')}${birth[2].toString().padStart(2, '0')}`;
+const convertBirthdateToString = (birth: number[]) =>
+  `${birth[0]}.${birth[1].toString().padStart(2, '0')}.${birth[2].toString().padStart(2, '0')}`;
 export default function Page() {
   const [profile, setProfile] = useState({} as IData);
   const [loading, setLoading] = useState(true);
@@ -80,7 +81,7 @@ export default function Page() {
           <ProfileCard
             nickname={profile.nickname}
             // birth_date={profile.birth_date}
-            birth_date="1999-01-01"
+            birth_date={convertBirthdateToString(profile.birth_date)}
             gender={profile.gender}
           />
         )}
@@ -95,21 +96,28 @@ export default function Page() {
         <hr />
         <div className="container">
           <h3>좋아요 누른 칵테일</h3>
-          {myCocktails?.map((cocktail) => (
-            <CocktailCard
-              key={cocktail.id}
-              id={cocktail.id}
-              name={cocktail.name}
-              koreanName={cocktail.koreanName}
-              image={cocktail.image}
-              heartCount={cocktail.heartCount}
-            />
-          ))}
-          {myCocktails.length === 0 && (
-            <div className="no-content-like">
-              <h3>좋아요 누른 칵테일이 없습니다.</h3>
-            </div>
-          )}
+          <div className="list-wrapper">
+            {myCocktails?.slice(0, 3).map((cocktail) => (
+              <CocktailCard
+                key={cocktail.id}
+                id={cocktail.id}
+                name={cocktail.name}
+                koreanName={cocktail.koreanName}
+                image={cocktail.image}
+                heartCount={cocktail.heartCount}
+              />
+            ))}
+            {myCocktails.length === 0 ? (
+              <div className="no-content-like">
+                <h3>좋아요 누른 칵테일이 없습니다.</h3>
+              </div>
+            ) : (
+              <Link href="/member/like">
+                <button type="button" className="more">MORE</button>
+              </Link>
+            )}
+          </div>
+
         </div>
       </div>
       <div className="mypage-cocktail">
@@ -117,17 +125,23 @@ export default function Page() {
         <div className="container">
           <h3>커스텀 칵테일</h3>
           <div className="list-wrapper">
-            {customCocktails.map((cocktail) => (
-              <CustomCocktailCard
-                key={cocktail.id}
-                custom={cocktail}
-                type="big"
-              />
+            {customCocktails?.map((cocktail) => (
+              <div className="sized-container">
+                <CustomCocktailCard
+                  key={cocktail.id}
+                  custom={cocktail}
+                  type=""
+                />
+              </div>
             ))}
-            {customCocktails.length === 0 && (
+            {customCocktails.length === 0 ? (
               <div className="no-content-like">
                 <h3>내 커스텀 칵테일이 없습니다.</h3>
               </div>
+            ) : (
+              <Link href="/member/custom">
+                <button type="button" className="more">MORE</button>
+              </Link>
             )}
           </div>
         </div>

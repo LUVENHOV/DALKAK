@@ -4,6 +4,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import authStore from '@/store/authStore';
 
 import styles from './LikeCount.module.scss';
 
@@ -21,7 +22,6 @@ export default function LikeCount({ count, cocktailId, isLiked }: Props) {
   // const [isClient, setIsClient] = useState(false);
   const [initialCount, setInitialCount] = useState(count);
   const [state, setState] = useState(0);
-
   // useEffect(() => {
   //   setIsClient(true);
   // }, [count, initialCount]);
@@ -34,14 +34,14 @@ export default function LikeCount({ count, cocktailId, isLiked }: Props) {
     }
   }, [state, count]);
 
-  const token = process.env.NEXT_PUBLIC_TOKEN;
+  const token = () => authStore.getState().accessToken;
 
   const likeThisCocktail = async () => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/${cocktailId}/like`,
       {
         headers: {
-          Authorization: token ? `${token}` : '',
+          Authorization: token() ? token() : '',
         },
       },
     );
@@ -62,7 +62,7 @@ export default function LikeCount({ count, cocktailId, isLiked }: Props) {
       `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/${cocktailId}/dislike`,
       {
         headers: {
-          Authorization: token ? `${token}` : '',
+          Authorization: token() ? token() : '',
         },
       },
     );

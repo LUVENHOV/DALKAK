@@ -28,8 +28,9 @@
             align-self: center;
             margin-right : auto;
         }
-        .list-wrapper{
+        .list-wrapper {
             width : 100%;
+            align-items: end;
         }
         .container{
             width : 100%;
@@ -62,5 +63,20 @@
     height : 400px;
     h3 {
         color : rgb(219, 219, 219)
+    }
+}
+.more {
+    font-size: 1.4rem;
+    width: 10vh;
+    height: 10vh;
+    box-sizing: border-box;
+    position : relative;
+    bottom : 16vh;
+    margin-left : 10px;
+    // background-color: rgb(216, 216, 216);
+    border-radius: 50px;
+    cursor: pointer;
+    &:hover {
+        background-color: rgb(241, 241, 241);
     }
 }

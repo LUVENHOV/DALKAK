@@ -10,6 +10,7 @@
   padding: 40px;
   box-sizing: border-box;
   justify-content: space-around;
+  margin-right : 12px;
   .info {
     width: 100%;
     .wrapper {
@@ -27,6 +28,7 @@
     display: flex;
     justify-content: space-between;
     button {
+      visibility: hidden;
       margin-top: auto;
       border-radius: 0.8rem;
       font-size: 1rem;
