@@ -1,36 +1,44 @@
 .cocktailName-search-container {
   width: 40vw;
-  height: 5vw;
+  height: 40px;
   text-align: center;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 10vh auto 0 auto;
-  padding: 1vw;
+  padding: 10px;
   box-sizing: border-box;
-  border: 3px solid var(--color-text);
-  border-radius: 1.5vw;
+  border: 1.5px solid var(--color-placeholder);
+  border-radius: 10px;
 
   input {
     width: 35vw;
-    height: 3vw;
+    height: 20px;
     border: none;
-    padding: 0 1vw;
+    padding: 0 5px;
+    box-sizing: border-box;
+    font-size: 0.8rem;
   }
   input:focus {
     outline: none;
   }
 
   button {
+    height: 20px;
     cursor: pointer;
+
     svg {
-      font-size: 2vw;
+      font-size: 1.2rem;
+      fill: var(--color-placeholder);
     }
   }
 }
 
 .detail-search-container {
+  // background-color: pink;
   text-align: center;
+  width: 500px;
+  margin: 0 auto;
 
   .header {
     display: flex;
@@ -61,26 +69,31 @@
 
     .searchRow {
       // background-color: orange;
-      width: 60vw;
+      width: 500px;
       text-align: start;
-      margin: 0 auto 5vh auto;
+      margin: 0 auto 30px auto;
       display: flex;
-      gap: 1vw;
+      align-items: center;
 
       .title {
-        width: 7vw;
-        // background-color: orange;
-        font-size: 1.2rem;
-        font-weight: 900;
+        // background-color: red;
+        width: 60px;
+        font-size: 0.8rem;
+        font-weight: 700;
+      }
+
+      .content {
+        // background-color: yellow;
+        width: 440px;
       }
     }
 
     .searchBtn {
       button {
-        font-size: 2vw;
-        font-weight: 900;
-        padding: 0.8vw 3vw;
-        border-radius: 1vw;
+        font-size: 1rem;
+        // font-weight: 700;
+        padding: 5px 30px;
+        border-radius: 10px;
         margin: 0 auto;
       }
     }
@@ -88,8 +101,8 @@
 }
 
 .ingredients-container {
-  width: 52vw;
   // background-color: pink;
+  width: 52vw;
   display: flex;
   flex-direction: column;
 
@@ -101,7 +114,6 @@
   }
 
   input {
-    width: 52vw;
-    height: 4vw;
+    height: 40px;
   }
 }

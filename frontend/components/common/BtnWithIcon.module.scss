@@ -1,20 +1,20 @@
 .btn {
-  padding: 0.3vw 0.8vw;
-  border-radius: 0.7vw;
+  padding: 3px 7px;
+  border-radius: 7px;
   display: flex;
   align-items: center;
-  font-size: 1.2vw;
+  font-size: 0.7rem;
   cursor: pointer;
 
   svg {
-    margin-right: 0.5vw;
-    font-size: 1.5vw;
+    margin-right: 5px;
+    font-size: 1rem;
   }
 }
 
 .empty-dark {
   color: var(--color-text);
-  border: 2px solid var(--color-text);
+  border: 1.5px solid var(--color-text);
   background-color: white;
 
   svg {
@@ -24,7 +24,7 @@
 
 .empty-light {
   color: var(--color-placeholder);
-  border: 2px solid var(--color-placeholder);
+  border: 1.5px solid var(--color-placeholder);
   background-color: white;
 
   svg {
