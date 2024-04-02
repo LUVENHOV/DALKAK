@@ -15,6 +15,7 @@ import store.dalkak.api.cocktail.domain.base.Base;
 import store.dalkak.api.cocktail.domain.heart.HeartMatch;
 import store.dalkak.api.cocktail.domain.ingredient.Ingredient;
 import store.dalkak.api.cocktail.dto.CocktailDto;
+import store.dalkak.api.cocktail.dto.HeartCountDto;
 import store.dalkak.api.cocktail.dto.HeartMatchDto;
 import store.dalkak.api.cocktail.repository.CocktailRepository;
 import store.dalkak.api.cocktail.repository.heart.HeartRedisRepository;
@@ -77,6 +78,9 @@ public class UserServiceImpl implements UserService {
 
     @Value("${spring.data.redis.match.prefix}")
     private String redisMatchPrefix;
+
+    @Value("${spring.data.redis.count.prefix}")
+    private String redisCountPrefix;
 
     @Override
     @Transactional
@@ -146,17 +150,25 @@ public class UserServiceImpl implements UserService {
         // 만약 캐싱된 HeartMatch가 있다면
         String memberKey = "*" + redisMatchPrefix + "]" + memberDto.getId() + "_*";
         List<String> keyList = heartRedisRepository.findAllRedisList(memberKey);
-        List<HeartMatch> heartMatchList = new ArrayList<>();
         for (String key : keyList) {
             HeartMatchDto heartMatchDto = heartRedisRepository.findHeartMatchById(key);
-            heartMatchList.add(
-                HeartMatch.builder().id(key).memberId(Long.parseLong(heartMatchDto.getMemberId()))
-                    .cocktailId(Long.parseLong(heartMatchDto.getCocktailId())).build());
-            heartRedisRepository.deleteHeartMatchById(key);
-        }
-        for (HeartMatch heartMatch : heartMatchList) {
-            Cocktail cocktail = cocktailRepository.findCocktailById(heartMatch.getCocktailId());
-            heartRepository.save(Heart.builder().member(member).cocktail(cocktail).build());
+            Cocktail cocktail = cocktailRepository.findCocktailById(Long.parseLong(heartMatchDto.getCocktailId()));
+            Heart heart = heartRepository.findHeartByCocktailAndMember(cocktail, member);
+            String cocktailKey = "heartCount:[" + redisCountPrefix + "]" + heartMatchDto.getCocktailId();
+            if(heartMatchDto.getIsHearted().equals("1")) {
+                if(heart == null) {
+                    heartRepository.save(Heart.builder().member(member).cocktail(cocktail).build());
+                    HeartCountDto heartCountDto = heartRedisRepository.findHeartCountById(
+                        cocktailKey);
+                    cocktailRepository.modifyHeartCount(Long.parseLong(heartCountDto.getCockatailId()),
+                        Integer.parseInt(heartCountDto.getCount()));
+                }
+            } else {
+                heartRedisRepository.deleteHeartMatchById(key);
+                if(heart != null) {
+                    heartRepository.deleteHeartByCocktailAndMember(cocktail, member);
+                }
+            }
         }
 
         List<Heart> hearts = heartRepository.findTop5ByMember_IdOrderByIdDesc(

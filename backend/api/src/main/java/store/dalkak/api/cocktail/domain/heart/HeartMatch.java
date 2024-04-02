@@ -21,10 +21,13 @@ public class HeartMatch {
 
     Long cocktailId;
 
+    Boolean isHearted;
+
     @Builder
-    public HeartMatch(String id, Long memberId, Long cocktailId) {
+    public HeartMatch(String id, Long memberId, Long cocktailId, Boolean isHearted) {
         this.id = id;
         this.memberId = memberId;
         this.cocktailId = cocktailId;
+        this.isHearted = isHearted;
     }
 }

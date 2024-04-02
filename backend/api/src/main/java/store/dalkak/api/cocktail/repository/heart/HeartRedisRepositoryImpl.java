@@ -10,6 +10,7 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.stereotype.Repository;
+import store.dalkak.api.cocktail.domain.heart.HeartMatch;
 import store.dalkak.api.cocktail.dto.HeartCountDto;
 import store.dalkak.api.cocktail.dto.HeartMatchDto;
 
@@ -54,7 +55,13 @@ public class HeartRedisRepositoryImpl implements HeartRedisRepository {
     public HeartMatchDto findHeartMatchById(String id) {
         Map<String, Object> entries = hashOperations.entries(id);
         return new HeartMatchDto(id, (String) entries.get("cocktailId"),
-            (String) entries.get("memberId"));
+            (String) entries.get("memberId"), (String) entries.get("isHearted"));
+    }
+
+    @Override
+    public void updateHeartMatchById(String id) {
+        HeartMatch heartMatch = (HeartMatch) hashOperations.get("heartMatch", id);
+
     }
 
     @Override
