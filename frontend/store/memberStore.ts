@@ -1,4 +1,3 @@
-/* eslint-disable implicit-arrow-linebreak */
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
@@ -28,6 +27,7 @@ interface StoreState {
   surveyCompletion: boolean;
   myCocktails: ICocktailType[];
   customCocktails: ICustomCocktailType[];
+  visited: ICocktailType[];
   setId: (id: number) => void;
   setNickname: (nickname: string) => void;
   setBirthDate: (birthDate: string) => void;
@@ -36,6 +36,7 @@ interface StoreState {
   setSurveyCompletion: (surveyCompletion: boolean) => void;
   setMyCocktails: (myCocktails: ICocktailType[]) => void;
   setCustomCocktails: (customCocktails: ICustomCocktailType[]) => void;
+  setVisited: (cocktail: ICocktailType) => void;
   clearAll: () => void;
   setMemberStateLogin: (
     id: number,
@@ -47,7 +48,7 @@ interface StoreState {
 const memberStore = create(
   persist<StoreState>(
     (set) => ({
-      // todo : initial state
+      // 초기 상태
       id: 0,
       nickname: '',
       birthDate: '',
@@ -56,6 +57,7 @@ const memberStore = create(
       surveyCompletion: false,
       myCocktails: [],
       customCocktails: [],
+      visited: [],
       setId: (id: number) => set({ id }),
       setNickname: (nickname: string) => set({ nickname }),
       setBirthDate: (birthDate: string) => set({ birthDate }),
@@ -70,6 +72,12 @@ const memberStore = create(
       setCustomCocktails(customCocktails) {
         set({ customCocktails });
       },
+      setVisited: (cocktail) => {
+        set((state) => {
+          const updatedVisited = [cocktail, ...state.visited].slice(0, 10);
+          return { visited: updatedVisited };
+        });
+      },
       clearAll: () =>
         set({
           id: 0,
@@ -77,6 +85,7 @@ const memberStore = create(
           birthDate: '',
           gender: '',
           isLoggedIn: false,
+          visited: [],
         }),
       setMemberStateLogin: (
         id: number,

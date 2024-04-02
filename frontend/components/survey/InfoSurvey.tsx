@@ -111,14 +111,20 @@ export default function InfoSurvey() {
             <button
               className={`${selectedGender === 'MALE' ? 'genderSelect-active' : ''}`}
               type="button"
-              onClick={() => setSelectedGender('MALE')}
+              onClick={() => {
+                setSelectedGender('MALE');
+                setGender('MALE');
+              }}
             >
               남
             </button>
             <button
               className={`${selectedGender === 'FEMALE' ? 'genderSelect-active' : ''}`}
               type="button"
-              onClick={() => setSelectedGender('FEMALE')}
+              onClick={() => {
+                setSelectedGender('FEMALE');
+                setGender('FEMALE');
+              }}
             >
               여
             </button>
