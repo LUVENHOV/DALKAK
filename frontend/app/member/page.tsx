@@ -8,6 +8,7 @@ import { getProfile } from '@/apis/Member';
 import CocktailCard from '@/components/cocktail-list/CocktailCard';
 import CustomCocktailCard from '@/components/custom-cocktail/CustomCocktailCard';
 import ProfileCard from '@/components/member/ProfileCard';
+import memberStore from '@/store/memberStore';
 
 import './page.scss';
 
@@ -43,6 +44,9 @@ export default function Page() {
   const [loading, setLoading] = useState(true);
   const [myCocktails, setMyCocktails] = useState([] as ICocktailType[]);
   const [customCocktails, setCustomCocktails] = useState([] as ICustom[]);
+
+  const setMyLikeCocktails = memberStore((state) => state.setMyCocktails);
+  const setMyCustomCocktails = memberStore((state) => state.setCustomCocktails);
   const loadProfile = async () => {
     setLoading(true);
     try {
@@ -53,6 +57,8 @@ export default function Page() {
         console.log(data);
         setMyCocktails(data.heart_cocktails);
         setCustomCocktails(data.custom_cocktails);
+        setMyLikeCocktails(data.heart_cocktails);
+        setMyCustomCocktails(data.custom_cocktails);
         setProfile(data);
       } else if (response.status === 401) {
         window.location.replace('/');
@@ -88,7 +94,7 @@ export default function Page() {
         <div className="container">
           <h3 className="title">최근 조회한 칵테일</h3>
           <div className="no-content-like">
-            <h3>최근 조죄한 칵테일이 없습니다</h3>
+            <h3>최근 조회한 칵테일이 없습니다</h3>
           </div>
         </div>
       </div>
@@ -97,27 +103,30 @@ export default function Page() {
         <div className="container">
           <h3>좋아요 누른 칵테일</h3>
           <div className="list-wrapper">
-            {myCocktails?.slice(0, 3).map((cocktail) => (
-              <CocktailCard
-                key={cocktail.id}
-                id={cocktail.id}
-                name={cocktail.name}
-                koreanName={cocktail.koreanName}
-                image={cocktail.image}
-                heartCount={cocktail.heartCount}
-              />
-            ))}
+            {myCocktails
+              ?.slice(0, 3)
+              .map((cocktail) => (
+                <CocktailCard
+                  key={cocktail.id}
+                  id={cocktail.id}
+                  name={cocktail.name}
+                  koreanName={cocktail.koreanName}
+                  image={cocktail.image}
+                  heartCount={cocktail.heartCount}
+                />
+              ))}
             {myCocktails.length === 0 ? (
               <div className="no-content-like">
                 <h3>좋아요 누른 칵테일이 없습니다.</h3>
               </div>
             ) : (
               <Link href="/member/like">
-                <button type="button" className="more">MORE</button>
+                <button type="button" className="more">
+                  MORE
+                </button>
               </Link>
             )}
           </div>
-
         </div>
       </div>
       <div className="mypage-cocktail">
@@ -140,7 +149,9 @@ export default function Page() {
               </div>
             ) : (
               <Link href="/member/custom">
-                <button type="button" className="more">MORE</button>
+                <button type="button" className="more">
+                  MORE
+                </button>
               </Link>
             )}
           </div>
