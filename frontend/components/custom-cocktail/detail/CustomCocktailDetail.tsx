@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 
 // import { StaticImageData } from 'next/image';
@@ -69,24 +70,27 @@ export async function getData({ customId }: Props) {
 
   if (!response.ok) {
     if (response.status === 403) {
-      return null;
+      return 403;
     }
-    const error = new Error('Failed to fetch data');
-    throw error;
-  } else {
-    const data: ApiResponse = await response.json();
-    return data.data;
+    // const error = new Error('Failed to fetch data');
+    // throw error;
+
+    return 404;
   }
+  const data: ApiResponse = await response.json();
+  return data.data;
 }
 export default async function CustomCocktailDetail({ customId }: Props) {
   const customCocktailDetailData = await getData({ customId });
   let customIngredients: Custom_Ingredients[] = [];
-  if (customCocktailDetailData !== null) {
+  if (customCocktailDetailData !== 403 && customCocktailDetailData !== 404) {
     customIngredients = customCocktailDetailData.custom_ingredients;
   }
 
-  return customCocktailDetailData === null ? (
+  return customCocktailDetailData === 403 ? (
     <div>접근 권한이 없습니다</div>
+  ) : customCocktailDetailData === 404 ? (
+    <div>게시글을 불러올 수 없습니다</div>
   ) : (
     <div className={styles['flex-container']}>
       <div className={styles.container}>
