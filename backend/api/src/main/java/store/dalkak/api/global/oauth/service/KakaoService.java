@@ -1,6 +1,7 @@
 package store.dalkak.api.global.oauth.service;
 
 import static store.dalkak.api.global.util.DecodeUtil.payloadDecoder;
+import static store.dalkak.api.global.util.VerifyUtil.kakaoIdTokenVerify;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
+import store.dalkak.api.global.exception.DalkakErrorCode;
+import store.dalkak.api.global.exception.DalkakException;
 import store.dalkak.api.global.oauth.dto.KakaoUserAuthDto;
 
 @Service
@@ -25,8 +28,7 @@ public class KakaoService implements ProviderService {
 
     @Override
     public String userInfo(String token) {
-        String jwtPayload = token.split("\\.")[1];
-        return payloadDecoder(jwtPayload);
+        return kakaoIdTokenVerify(token);
     }
 
     @Override
@@ -42,13 +44,18 @@ public class KakaoService implements ProviderService {
         formData.add("redirect_uri", redirectUri);
         formData.add("code", code);
 
-        KakaoUserAuthDto kakaoUserAuthDto = webClient
-            .post()
-            .bodyValue(formData)
-            .retrieve()
-            .bodyToMono(KakaoUserAuthDto.class)
-            .block();
+        try {
+            KakaoUserAuthDto kakaoUserAuthDto = webClient
+                .post()
+                .bodyValue(formData)
+                .retrieve()
+                .bodyToMono(KakaoUserAuthDto.class)
+                .block();
 
-        return kakaoUserAuthDto.getIdToken();
+            return kakaoUserAuthDto.getIdToken();
+        } catch (Exception e) {
+            throw new DalkakException(DalkakErrorCode.INTERNAL_SERVER_ERROR);
+        }
+
     }
 }

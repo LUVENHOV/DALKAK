@@ -1,5 +1,6 @@
 package store.dalkak.api.global.oauth.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,8 @@ import store.dalkak.api.global.oauth.exception.OauthErrorCode;
 import store.dalkak.api.global.oauth.exception.OauthException;
 import store.dalkak.api.user.domain.Member;
 import store.dalkak.api.user.dto.MemberDto;
+import store.dalkak.api.user.exception.UserErrorCode;
+import store.dalkak.api.user.exception.UserException;
 import store.dalkak.api.user.repository.MemberRepository;
 
 @Service
@@ -28,6 +31,7 @@ public class OauthServiceImpl implements OauthService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Override
+    @Transactional
     public OauthLoginResDto login(OauthLoginReqDto oauthLoginReqDto) {
         String sub = sub(oauthLoginReqDto);
         // 없으면 회원가입
@@ -39,7 +43,8 @@ public class OauthServiceImpl implements OauthService {
         }
 
         Member member = memberRepository.findByOauthSubAndOauthProvider(sub,
-            oauthLoginReqDto.getProvider()).orElseThrow();
+                oauthLoginReqDto.getProvider())
+            .orElseThrow(() -> new OauthException(OauthErrorCode.FAIL_TO_GET_INFO));
         return generateOauthLoginResDto(member.getId());
     }
 
@@ -74,7 +79,8 @@ public class OauthServiceImpl implements OauthService {
     //AccessToken, RefreshToken을 생성
     //AccessToken, RefreshToken, AccessTokenExpireTime 정보 전달
     private OauthLoginResDto generateOauthLoginResDto(long id) {
-        Member member = memberRepository.findById(id).orElseThrow();
+        Member member = memberRepository.findById(id).orElseThrow(() -> new UserException(
+            UserErrorCode.INVALID_USER));
         String nickname = member.getNickname();
 
         TokenDto accessToken = jwtProvider.createAccessToken(id);
