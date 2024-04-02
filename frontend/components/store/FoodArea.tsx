@@ -38,8 +38,8 @@ export default function FoodArea() {
                   >
                     <IngredientBlock
                       key={ingredient.id}
+                      type="refrigerator"
                       ingredient={ingredient}
-                      handleOnClick={() => removeRefrList(ingredient.id)}
                     />
                   </div>
                 )}

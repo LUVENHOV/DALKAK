@@ -34,7 +34,7 @@
 }
 
 .slide-test:nth-child(1) {
-  // animation: 1500ms ease-in 0s 1 normal forward slideTest;
+  // animation: 1500ms ease-in 0s 1 normal forward running slideTest;
 
   animation-name: slidein;
   animation-duration: 1500ms;
@@ -49,6 +49,7 @@
   animation-range-end: normal;
   height: 28px;
   line-height: 28px;
+
   // position: absolute;
 }
 
@@ -67,4 +68,8 @@
   height: 28px;
   line-height: 28px;
   // position: relative;
+}
+
+.point {
+  color: var(--color-point);
 }

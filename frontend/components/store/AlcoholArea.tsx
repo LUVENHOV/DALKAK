@@ -37,8 +37,8 @@ export default function AlcoholArea() {
                 >
                   <IngredientBlock
                     key={ingredient.id}
+                    type="refrigerator"
                     ingredient={ingredient}
-                    handleOnClick={() => removeRefrList(ingredient.id)}
                   />
                 </div>
               )}

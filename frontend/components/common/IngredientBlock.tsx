@@ -1,22 +1,34 @@
 import Image from 'next/image';
 import styles from './IngredientBlock.module.scss';
+import useRefrigeratorStore from '@/store/refrigeratorStore';
+import useSearchStore from '@/store/searchStore';
 import { IIngredientType } from '@/type/refrigeratorTypes';
 
 interface ITagType {
+  type: string;
   ingredient: IIngredientType;
-  handleOnClick: (ingredient: IIngredientType | number) => void;
 }
 
 export default function IngredientBlock(props: ITagType) {
-  const { ingredient, handleOnClick } = props;
+  const { type, ingredient } = props;
+  const { removeIngredient } = useSearchStore();
+  const { removeRefrList } = useRefrigeratorStore();
+
+  const deleteIngredient = () => {
+    if (type === 'search') {
+      removeIngredient(ingredient);
+    } else if (type === 'refrigerator') {
+      removeRefrList(ingredient.id);
+    }
+  };
 
   return (
     <div
       role="button"
       tabIndex={0}
-      onClick={handleOnClick}
+      onClick={deleteIngredient}
       className={styles.container}
-      onKeyDown={() => {}}
+      onKeyDown={deleteIngredient}
     >
       <div className={styles['title-wrapper']}>{ingredient.name}</div>
       <div className={styles['image-wrapper']}>
