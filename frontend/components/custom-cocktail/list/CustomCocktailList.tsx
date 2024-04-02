@@ -35,12 +35,14 @@ interface Props {
 
 export default function CustomCocktailList(props: Props) {
   const { cocktailId } = props;
+
   const [currentPage, setCurrentPage] = useState(1);
   const [customAllData, setCustomAllData] = useState<ApiResponse>();
   const [customList, setCustomList] = useState<Custom_Cocktails[]>([]);
 
   const getCustomList = useCallback(
     async (id: number) => {
+      console.log(id);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/customs/${id}/custom-list?page=${currentPage}`,
         {

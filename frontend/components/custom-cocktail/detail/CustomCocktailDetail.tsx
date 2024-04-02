@@ -72,11 +72,12 @@ export async function getData({ customId }: Props) {
   );
 
   if (!response.ok) {
-    // console.log(response.status);
+    if (response.status === 403) {
+      return null;
+    }
     const error = new Error('Failed to fetch data');
     throw error;
   } else {
-    // console.log(response.status);
     const data: ApiResponse = await response.json();
     return data.data;
   }
@@ -84,15 +85,23 @@ export async function getData({ customId }: Props) {
 export default async function CustomCocktailDetail({ customId }: Props) {
   const customCocktailDetailData = await getData({ customId });
 
-  const customIngredients: Custom_Ingredients[] =
-    customCocktailDetailData.custom_ingredients;
-
-  const originCocktail: Origin_Cocktail =
-    customCocktailDetailData.origin_cocktail;
-
-  const originCocktailNames: string = `${originCocktail.name}, ${originCocktail.korean_name}`;
-
-  return (
+  let customIngredients: Custom_Ingredients[] = [];
+  let originCocktail: Origin_Cocktail = {
+    id: 0,
+    name: '',
+    korean_name: '',
+    image: '',
+    heart_count: 0,
+  };
+  let originCocktailNames: string = '';
+  if (customCocktailDetailData !== null) {
+    customIngredients = customCocktailDetailData.custom_ingredients;
+    originCocktail = customCocktailDetailData?.origin_cocktail;
+    originCocktailNames = `${originCocktail?.name}, ${originCocktail?.korean_name}`;
+  }
+  return customCocktailDetailData === null ? (
+    <div>접근 권한이 없습니다</div>
+  ) : (
     <div className={styles['flex-container']}>
       <div className={styles.container}>
         <div className={styles['title-container']}>
