@@ -2,6 +2,7 @@ package store.dalkak.api.global.oauth.service;
 
 import static store.dalkak.api.global.util.DecodeUtil.payloadDecoder;
 import static store.dalkak.api.global.util.DecodeUtil.urlDecoder;
+import static store.dalkak.api.global.util.VerifyUtil.googleIdTokenVerify;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,8 +31,7 @@ public class GoogleService implements ProviderService {
 
     @Override
     public String userInfo(String token) {
-        String jwtPayload = token.split("\\.")[1];
-        return payloadDecoder(jwtPayload);
+        return googleIdTokenVerify(token);
     }
 
     @Override
