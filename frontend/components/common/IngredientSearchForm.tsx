@@ -11,10 +11,11 @@ import { IIngredientType } from '@/type/refrigeratorTypes';
 interface IPropsType {
   placeholder: string;
   type: string;
+  addTempList: (id: number, name: string) => void;
 }
 
 export default function IngredientSearchForm(props: IPropsType) {
-  const { placeholder, type } = props;
+  const { placeholder, type, addTempList } = props;
   const [keyword, setKeyword] = useState('');
   const [resultList, setResultList] = useState([]);
   const { addRefrList, addMemoList } = useRefrigeratorStore();
@@ -55,6 +56,8 @@ export default function IngredientSearchForm(props: IPropsType) {
       addRefrList(ingredient);
     } else if (type === 'memo' && typeof ingredient === 'number') {
       addMemoList(ingredient);
+    } else if (type === 'custom' && typeof ingredient !== 'number') {
+      addTempList(ingredient.id, ingredient.name);
     }
   };
 
