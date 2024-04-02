@@ -1,9 +1,13 @@
 .container {
+  width: 100%;
+
   input {
-    border: 2px solid var(--color-placeholder);
+    width: 100%;
+    border: 1.5px solid var(--color-placeholder);
     border-radius: 20px;
     padding: 0 1vw;
     box-sizing: border-box;
+    font-size: 0.7rem;
   }
   input:focus {
     outline: none;

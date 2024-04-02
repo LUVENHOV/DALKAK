@@ -1,18 +1,18 @@
 .container {
+  // background-color: skyblue;
   display: flex;
-  width: 53vw;
+  width: 44vw;
   align-items: center;
 
   .barArea {
     width: 100%;
     background-color: var(--color-base);
-    height: 1vw;
     border-radius: 1vw;
     position: relative;
 
     .bar {
-      height: 1vw;
-      width: 51vw;
+      height: 10px;
+      width: 43vw;
       display: flex;
       position: relative;
       left: 0.6vw;
@@ -20,20 +20,20 @@
       .btn {
         position: absolute;
         cursor: pointer;
-        width: 1.7vw;
+        width: 14px;
         display: flex;
         flex-direction: column;
-        transform: translate(-1vw, -0.3vw);
+        transform: translate(-8px, -2px);
 
         .btnCircle {
-          width: 1.7vw;
-          height: 1.7vw;
+          width: 14px;
+          height: 14px;
           border-radius: 100%;
           background-color: var(--color-text);
         }
 
         .btnNum {
-          font-size: 1rem;
+          font-size: 0.7rem;
         }
       }
       .btn:focus {
@@ -43,7 +43,7 @@
       .mid {
         position: absolute;
         background-color: var(--color-text);
-        height: 1vw;
+        height: 10px;
       }
     }
   }

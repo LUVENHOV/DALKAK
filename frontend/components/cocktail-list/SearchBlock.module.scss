@@ -1,16 +1,16 @@
 .container {
   display: flex;
-  width: 53vw;
+  width: 100%;
 
   .block {
-    height: 3vw;
+    height: 30px;
     background-color: white;
     padding: 0 1vw;
-    border-top: 2px solid var(--color-placeholder);
-    border-left: 2px solid var(--color-placeholder);
-    border-bottom: 2px solid var(--color-placeholder);
+    border-top: 1.5px solid var(--color-placeholder);
+    border-left: 1.5px solid var(--color-placeholder);
+    border-bottom: 1.5px solid var(--color-placeholder);
     box-sizing: border-box;
-    font-size: 1rem;
+    font-size: 0.7rem;
     cursor: pointer;
   }
 

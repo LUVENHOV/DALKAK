@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-wrap: wrap;
-  width: 53vw;
+  width: 100%;
   justify-content: space-between;
 
   .btnArea {
@@ -10,14 +10,16 @@
     align-items: center;
 
     .btn {
-      width: 4vw;
-      height: 4vw;
+      width: 3vw;
+      height: 3vw;
       border-radius: 50%;
       cursor: pointer;
     }
 
     .title {
       color: var(--color-placeholder);
+      font-size: 0.7rem;
+      margin-top: 5px;
     }
   }
 
