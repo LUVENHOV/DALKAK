@@ -1,14 +1,22 @@
 import { useState, useEffect } from 'react';
 import './SweetItem.scss';
+import Image, { StaticImageData } from 'next/image';
 import surveyStore from '@/store/surveyStore';
 
 interface ItemProps {
   id: number;
   name: string;
   description: string;
+  imgSrc: string;
   val: number;
 }
-export default function SweetItem({ id, name, val, description }: ItemProps) {
+export default function SweetItem({
+  id,
+  name,
+  val,
+  description,
+  imgSrc,
+}: ItemProps) {
   const [selected, setSelected] = useState(
     surveyStore.getState().sweetness === id,
   );
@@ -31,11 +39,8 @@ export default function SweetItem({ id, name, val, description }: ItemProps) {
       key={id}
       className={`sweet-item ${selected ? 'selected' : ''}`}
     >
-      <div className="sample" />
-      {/* <div className="cocktial-image-wrapper">
-      <img src={cocktail.image} alt={cocktail.name} />
-    </div> */}
-      <div>{description}</div>
+      <Image src={imgSrc} width={80} />
+      <div className="description">{description}</div>
     </div>
   );
 }

@@ -1,6 +1,10 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import React, { useState } from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import axios from 'axios';
+
 import './InfoSurvey.scss';
-// import authStore from '@/store/authStore';
+import authStore from '@/store/authStore';
 import surveyStore from '@/store/surveyStore';
 
 interface IMemberInfo {
@@ -10,18 +14,20 @@ interface IMemberInfo {
 }
 
 export default function InfoSurvey() {
-  // const accessToken = authStore((state) => state.accessToken);
+  const accessToken = authStore((state) => state.accessToken);
   const setNickname = surveyStore((state) => state.setNickname);
   const setbirthDate = surveyStore((state) => state.setBirthDate);
   const setGender = surveyStore((state) => state.setGender);
-
-  // const headerConfig = {
-  //   headers: {
-  //     Authorization: accessToken,
-  //   },
-  // };
-  // const [isNicknameChecked, setIsNicknameChecked] = useState<boolean>(false);
-  // console.log(isNicknameChecked);
+  const [selectedGender, setSelectedGender] = useState(
+    surveyStore.getState().gender,
+  );
+  const headerConfig = {
+    headers: {
+      Authorization: accessToken,
+    },
+  };
+  const [isNicknameChecked, setIsNicknameChecked] = useState<boolean>(false);
+  console.log(isNicknameChecked);
   const [memberInfo, setMemberInfo] = useState<IMemberInfo>({
     nickname: '',
     birth: '',
@@ -51,27 +57,24 @@ export default function InfoSurvey() {
     }
   };
 
-  // const checkNickname = async () => {
-  //   await axios
-  //     .post(
-  //       `${process.env.NEXT_PUBLIC_BASE_URL}/users/profile/dupcheck`,
-  //       {
-  //         nickname: surveyStore.getState().nickname,
-  //       },
-  //       headerConfig,
-  //     )
-  //     .then((res) => {
-  //       if (res.status === 200) {
-  //         setIsNicknameChecked(true);
-  //         alert('hi');
-  //       } else if (res.status === 409) {
-  //         alert('중복된 닉네임입니다.');
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
+  const checkNickname = async () => {
+    await axios
+      .post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/users/profile/dupcheck`,
+        {
+          nickname: surveyStore.getState().nickname,
+        },
+        headerConfig,
+      )
+      .then(() => {
+        setIsNicknameChecked(true);
+        alert('사용 가능합니다!');
+      })
+      .catch((err) => {
+        alert('중복된 닉네임입니다.');
+        console.log(err);
+      });
+  };
 
   return (
     <div className="wrapper">
@@ -86,7 +89,7 @@ export default function InfoSurvey() {
           <button
             type="button"
             onClick={() => {
-              // checkNickname();
+              checkNickname();
             }}
           >
             중복확인
@@ -105,19 +108,21 @@ export default function InfoSurvey() {
         <div className="gender input-wrapper">
           <div>성별</div>
           <div className="genderSelect">
-            <button type="button" onClick={() => setGender('MALE')}>
+            <button
+              className={`${selectedGender === 'MALE' ? 'genderSelect-active' : ''}`}
+              type="button"
+              onClick={() => setSelectedGender('MALE')}
+            >
               남
             </button>
-            <button type="button" onClick={() => setGender('FEMALE')}>
+            <button
+              className={`${selectedGender === 'FEMALE' ? 'genderSelect-active' : ''}`}
+              type="button"
+              onClick={() => setSelectedGender('FEMALE')}
+            >
               여
             </button>
           </div>
-          {/* <input
-            placeholder="성별"
-            onChange={(e) => {
-              setMemberInfoHandler(e, 'gender');
-            }}
-          /> */}
         </div>
         <hr />
       </div>

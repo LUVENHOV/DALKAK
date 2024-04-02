@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import './DegreeItem.scss';
+import Image, { StaticImageData } from 'next/image';
 import surveyStore from '@/store/surveyStore';
 
 interface ItemProps {
   val: number;
   title: string;
   description: string;
-  image: string;
+  image: StaticImageData;
 }
 export default function DegreeItem({
   val,
@@ -33,15 +34,13 @@ export default function DegreeItem({
     <div
       onClick={() => setAlcoholContent(val)}
       key={val}
-      className={`occation-item ${selected ? 'selected' : ''}`}
+      className={`degree-item ${selected ? 'selected' : ''}`}
     >
-      {image}
-      {title}
-      <div className="sample" />
+      <Image src={image} width={100} alt="nodegree" />
       {/* <div className="cocktial-image-wrapper">
       <img src={cocktail.image} alt={cocktail.name} />
     </div> */}
-      <div>{description}</div>
+      <div className="description">{description}</div>
     </div>
   );
 }

@@ -24,7 +24,6 @@ const $Fetch = async (
   const config: RequestInit = {
     method,
     headers: Headers,
-    credentials: 'include',
   };
 
   // 4. Need body?
@@ -41,6 +40,7 @@ const $Fetch = async (
   }
 
   const response = await fetch(URL, config);
+
   return response;
 };
 export default $Fetch;

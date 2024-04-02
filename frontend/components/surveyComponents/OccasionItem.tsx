@@ -1,13 +1,20 @@
 import { useState, useEffect } from 'react';
 import './OccasionItem.scss';
+import Image, { StaticImageData } from 'next/image';
 import surveyStore from '@/store/surveyStore';
 
 interface ItemProps {
   id: number;
   name: string;
   description: string;
+  url: StaticImageData;
 }
-export default function OccasionItem({ id, name, description }: ItemProps) {
+export default function OccasionItem({
+  id,
+  name,
+  description,
+  url,
+}: ItemProps) {
   const [selected, setSelected] = useState(
     surveyStore.getState().occassionId === id,
   );
@@ -30,11 +37,7 @@ export default function OccasionItem({ id, name, description }: ItemProps) {
       key={id}
       className={`occation-item ${selected ? 'selected' : ''}`}
     >
-      {description}
-      <div className="sample" />
-      {/* <div className="cocktial-image-wrapper">
-      <img src={cocktail.image} alt={cocktail.name} />
-    </div> */}
+      <Image className="" src={url} width={160} alt="noimg" />
       <div>{description}</div>
     </div>
   );

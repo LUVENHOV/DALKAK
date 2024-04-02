@@ -56,7 +56,11 @@ export default function Page() {
       } else if (response.status === 401) {
         window.location.replace('/');
       }
+    } catch (e) {
+      console.error(e);
+      alert('프로필을 불러오는데 실패했습니다.');
     } finally {
+      console.log('done');
       setLoading(false);
     }
   };
