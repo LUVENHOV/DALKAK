@@ -25,7 +25,7 @@ public class GoogleService implements ProviderService {
     @Value("${google.client_id}")
     private String clientId;
 //    @Value("${google.redirect_uri}")
-    private String redirectUri="http://localhost:3000/api/oauth/google";
+    private String redirectUri="http://localhost:3000/oauth/google";
     @Value("${google.client_secret}")
     private String clientSecret;
 
