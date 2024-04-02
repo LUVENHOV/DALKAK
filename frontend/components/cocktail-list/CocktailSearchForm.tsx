@@ -100,7 +100,6 @@ export default function CocktailSearchForm() {
     setSweetness,
     setOrderBy,
     setActivateSearch,
-    removeIngredient,
     clearAll,
   } = useSearchStore();
 
@@ -177,8 +176,8 @@ export default function CocktailSearchForm() {
                     // eslint-disable-next-line react/jsx-indent
                     <IngredientBlock
                       key={ingredient.id}
+                      type="search"
                       ingredient={ingredient}
-                      handleOnClick={() => removeIngredient(ingredient)}
                     />
                     // eslint-disable-next-line indent
                   ))}
