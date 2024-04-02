@@ -280,35 +280,6 @@ export default function CustomCocktailModify(props: Props) {
     }
   };
 
-  // eslint-disable-next-line no-shadow
-  const addItem = (id: number, name: string) => {
-    if (tempList.length < 12) {
-      const newItem = {
-        id,
-        name,
-        ingredient_amount: 0,
-        // amount: 0,
-        image: '',
-        category_id: 0,
-        unit: {
-          id: 1,
-          name: '',
-        },
-      };
-      // 중복 여부 확인
-      const isDuplicate = tempList.some((item) => item.id === id);
-      // 중복이 없을 경우에만 새로운 아이템 추가
-      if (!isDuplicate) {
-        setTempList((prevList) => [...prevList, newItem]);
-      } else {
-        // 중복된 아이템이 있다면 여기에 대한 처리를 추가할 수 있습니다.
-        alert('이미 추가된 재료입니다');
-      }
-    } else {
-      alert('재료는 최대 12개까지 추가할 수 있습니다.');
-    }
-  };
-
   const modifyCustomCocktail = async () => {
     try {
       if (
@@ -459,7 +430,6 @@ export default function CustomCocktailModify(props: Props) {
               inputValues={inputValues}
               // inputUnitValues={inputUnitValues}
               inputUnitValuesId={inputUnitValuesId}
-              addItem={addItem}
             />
             <CustomCocktailAddRecipe
               handleInputChange={handleRecipeAreaChange}

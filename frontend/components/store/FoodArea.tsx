@@ -8,7 +8,7 @@ import useRefrigeratorStore from '@/store/refrigeratorStore';
 import { IIngredientType } from '@/type/refrigeratorTypes';
 
 export default function FoodArea() {
-  const { refgList, removeRefrList } = useRefrigeratorStore();
+  const { refgList } = useRefrigeratorStore();
 
   const [foodList, setFoodList] = useState<IIngredientType[]>([]);
 
