@@ -116,7 +116,7 @@ interface Props {
 }
 
 const token =
-  'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTE5MzU2NzQsImV4cCI6MTcxMTkzOTI3NCwiaWQiOjZ9.DQmc9ZXM1FloaGTEYmEt6O7gjb8TCY5WY1YIcvuRgjs';
+  'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTIwMTY1NjAsImV4cCI6MTcxMjAyMDE2MCwiaWQiOjZ9.bshhzwSA_T7voxjZXUFyo0VJobpJOI-y2TlEm0lyQtA';
 
 export async function getData({ cocktailId }: Props) {
   const response = await fetch(
