@@ -70,10 +70,10 @@ export default function CustomCocktailModify(props: Props) {
   // eslint-disable-next-line camelcase
   const filteredList = tempList.map(
     // eslint-disable-next-line camelcase
-    ({ id, amount, unit: { id: unitId } }) => ({
+    ({ id, ingredient_amount, unit: { id: unitId } }) => ({
       id,
       // eslint-disable-next-line camelcase
-      amount,
+      amount: ingredient_amount,
       // eslint-disable-next-line camelcase
       unit_id: unitId,
     }),
@@ -133,6 +133,7 @@ export default function CustomCocktailModify(props: Props) {
       setCustomName(await response.name);
       setCustomSummary(await response.summary);
       setCustomComment(await response.comment);
+      setIsPublic(await response.open);
     };
     getBaseCocktailData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -145,7 +146,7 @@ export default function CustomCocktailModify(props: Props) {
   const handleInputChangeTest = (value: number, id: number) => {
     const updatedList = tempList.map((item) => {
       if (item.id === id) {
-        return { ...item, amount: value };
+        return { ...item, ingredient_amount: value };
       }
       return item;
     });
@@ -237,6 +238,33 @@ export default function CustomCocktailModify(props: Props) {
   //     alert('재료는 최대 12개까지 추가할 수 있습니다.');
   //   }
   // };
+
+  // eslint-disable-next-line no-shadow
+  const addTempList: (id: number, name: string) => void = (id, name) => {
+    const isAlreadyAdded = tempList.some((item) => item.id === id);
+
+    if (isAlreadyAdded) {
+      alert('이미 추가된 항목입니다.');
+      return;
+    }
+
+    if (tempList.length >= 12) {
+      alert('더 이상 재료를 추가할 수 없습니다.');
+      return;
+    }
+    const updatedList: CustomIngredientList[] = [
+      ...tempList,
+      {
+        id,
+        name,
+        image: '',
+        category_id: 1,
+        ingredient_amount: 1,
+        unit: { id: 1, name: '개' },
+      },
+    ];
+    setTempList(updatedList);
+  };
 
   const modifyCustomCocktail = async () => {
     try {
@@ -383,6 +411,7 @@ export default function CustomCocktailModify(props: Props) {
               handleUnitInputChange={handleUnitInputChange}
               removeItem={removeItem}
               tempList={tempList}
+              addTempList={addTempList}
               // addItem={addItem}
             />
             <CustomCocktailAddRecipe

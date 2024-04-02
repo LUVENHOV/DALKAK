@@ -5,7 +5,7 @@ import { ChangeEvent } from 'react';
 import styles from './CustomCocktailAddIngredient.module.scss';
 
 // import IngredientBlock from '@/components/common/IngredientBlock';
-// import IngredientSearchForm from '@/components/common/IngredientSearchForm';
+import IngredientSearchForm from '@/components/common/IngredientSearchForm';
 
 interface Unit {
   id: number;
@@ -40,6 +40,7 @@ interface Props {
   // inputValues: number[];
   // inputUnitValues: string[];
   // inputUnitValuesId: number[];
+  addTempList: (id: number, name: string) => void;
 }
 
 export default function CustomCocktailAddIngredientTest({
@@ -47,6 +48,7 @@ export default function CustomCocktailAddIngredientTest({
   handleInputChangeTest,
   handleUnitInputChange,
   tempList,
+  addTempList,
   // addItem,
 }: Props) {
   return (
@@ -125,12 +127,12 @@ export default function CustomCocktailAddIngredientTest({
       <div className={`${styles.searchRow} ${styles.ingredients}`}>
         <div className={styles.title} />
         <div className={styles['ingredients-container']}>
-          {/* <IngredientSearchForm
+          <IngredientSearchForm
             placeholder="칵테일에 사용되는 재료를 검색해보세요!"
-            handleOnClick={() => {}}
-            // handleOnClick={testThis}
-            // addItem={addItem}
-          /> */}
+            type="custom"
+            // handleOnClick={() => {}}
+            addTempList={addTempList}
+          />
         </div>
       </div>
     </div>

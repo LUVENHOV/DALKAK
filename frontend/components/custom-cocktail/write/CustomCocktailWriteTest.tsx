@@ -29,7 +29,8 @@ interface CustomIngredientList {
   name: string;
   image: string;
   category_id: number;
-  amount: number;
+  amount?: number;
+  ingredient_amount?: number;
   unit: Unit;
 }
 
@@ -228,6 +229,32 @@ export default function CustomCocktailWrite(props: Props) {
     }
   };
 
+  const addTempList: (id: number, name: string) => void = (id, name) => {
+    const isAlreadyAdded = tempList.some((item) => item.id === id);
+
+    if (isAlreadyAdded) {
+      alert('이미 추가된 항목입니다.');
+      return;
+    }
+
+    if (tempList.length >= 12) {
+      alert('더 이상 재료를 추가할 수 없습니다.');
+      return;
+    }
+    const updatedList: CustomIngredientList[] = [
+      ...tempList,
+      {
+        id,
+        name,
+        image: '',
+        category_id: 1,
+        amount: 1,
+        unit: { id: 1, name: '개' },
+      },
+    ];
+    setTempList(updatedList);
+  };
+
   const postCustomCocktail = async () => {
     try {
       if (
@@ -363,6 +390,7 @@ export default function CustomCocktailWrite(props: Props) {
               handleUnitInputChange={handleUnitInputChange}
               removeItem={removeItem}
               tempList={tempList}
+              addTempList={addTempList}
               // addItem={addItem}
             />
             <CustomCocktailAddRecipe
