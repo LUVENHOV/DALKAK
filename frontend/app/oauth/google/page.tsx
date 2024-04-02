@@ -13,6 +13,7 @@ import authStore from '@/store/authStore';
 // import { Login } from '@/apis/Auth';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import memberStore from '@/store/memberStore';
+import surveyStore from '@/store/surveyStore';
 
 export default function Page() {
   const param = useSearchParams();
@@ -41,6 +42,13 @@ export default function Page() {
         setTokens(data.accessToken, data.refreshToken, 0, 0);
         setInfo(data.id, data.nickname, data.survey_completion || false);
         window.location.href = '/';
+
+        if (memberStore.getState().id === 0) {
+          surveyStore.setState({ progress: 0 });
+          window.location.href = '/survey';
+        } else {
+          window.location.href = '/';
+        }
       })
       .catch((error) => {
         console.log(error);
