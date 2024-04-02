@@ -40,6 +40,7 @@ export default function Navbar() {
       console.log(error);
     }
   };
+
   return (
     <div className={styles.navbar}>
       <div className={styles.left}>
@@ -67,30 +68,27 @@ export default function Navbar() {
         </div>
       </div>
       <div />
-      {isLoggedIn ? (
-        <>
-          <button
-            className={styles.btn}
-            type="button"
-            onClick={() => LogoutFunction()}
-          >
-            로그아웃
-          </button>
-          <Link href="/member">
-            <HomeIcon />
-          </Link>
-        </>
-      ) : (
-        <div className={styles.login}>로그인이 필요해요</div>
-      )}
+
       <div className={styles.center}>
         <NavbarTopRank />
       </div>
       <div className={styles.right}>
-        안녕하세요
-        <span>&nbsp;&nbsp;</span>
-        <span className={styles.nickname}>test</span>
-        님!
+        {isLoggedIn ? (
+          <>
+            <div className={styles.nickname}>
+              {memberStore.getState().nickname} 님 반가워요!
+            </div>
+            <button
+              className={styles.btn}
+              type="button"
+              onClick={() => LogoutFunction()}
+            >
+              로그아웃
+            </button>
+          </>
+        ) : (
+          <div className={styles.login}>로그인이 필요해요</div>
+        )}
         <Link href="/member">
           <HomeIcon />
         </Link>
