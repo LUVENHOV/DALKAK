@@ -112,6 +112,7 @@ def recommend_by_refrigerator(m_id: int, db: Session):
 
 # 결과 이용해서 코사인 유사도 정렬
 def _sort_by_survey(survey_res_df, df, max_l):
+  print("-----survey_result",survey_res_df)
   survey_res_df['오후 술'] = survey_res_df['occasion_id'].apply(
       lambda x: 1 if x == 14 else 0)
   survey_res_df['식전 술'] = survey_res_df['occasion_id'].apply(
