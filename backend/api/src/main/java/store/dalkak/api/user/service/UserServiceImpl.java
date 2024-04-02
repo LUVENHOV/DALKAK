@@ -155,11 +155,10 @@ public class UserServiceImpl implements UserService {
             Cocktail cocktail = cocktailRepository.findCocktailById(Long.parseLong(heartMatchDto.getCocktailId()));
             Heart heart = heartRepository.findHeartByCocktailAndMember(cocktail, member);
             String cocktailKey = "heartCount:[" + redisCountPrefix + "]" + heartMatchDto.getCocktailId();
+            HeartCountDto heartCountDto = heartRedisRepository.findHeartCountById(cocktailKey);
             if(heartMatchDto.getIsHearted().equals("1")) {
                 if(heart == null) {
                     heartRepository.save(Heart.builder().member(member).cocktail(cocktail).build());
-                    HeartCountDto heartCountDto = heartRedisRepository.findHeartCountById(
-                        cocktailKey);
                     cocktailRepository.modifyHeartCount(Long.parseLong(heartCountDto.getCockatailId()),
                         Integer.parseInt(heartCountDto.getCount()));
                 }
@@ -167,6 +166,8 @@ public class UserServiceImpl implements UserService {
                 heartRedisRepository.deleteHeartMatchById(key);
                 if(heart != null) {
                     heartRepository.deleteHeartByCocktailAndMember(cocktail, member);
+                    cocktailRepository.modifyHeartCount(Long.parseLong(heartCountDto.getCockatailId()),
+                        Integer.parseInt(heartCountDto.getCount()));
                 }
             }
         }

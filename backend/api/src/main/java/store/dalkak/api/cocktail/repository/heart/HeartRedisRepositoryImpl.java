@@ -61,7 +61,6 @@ public class HeartRedisRepositoryImpl implements HeartRedisRepository {
     @Override
     public void updateHeartMatchById(String id) {
         HeartMatch heartMatch = (HeartMatch) hashOperations.get("heartMatch", id);
-
     }
 
     @Override
