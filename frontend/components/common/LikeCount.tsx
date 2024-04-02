@@ -4,12 +4,12 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import authStore from '@/store/authStore';
 
 import styles from './LikeCount.module.scss';
 
 import emptyheart from '../../public/assets/imgs/emptyheart.png';
 import heartImage from '../../public/assets/imgs/heartImage.png';
+import authStore from '@/store/authStore';
 
 interface Props {
   count: number;

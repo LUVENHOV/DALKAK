@@ -20,7 +20,9 @@ export default function Layout({
   const nextProgress = surveyStore((state) => state.nextProgress);
   const beforeProgress = surveyStore((state) => state.beforeProgress);
   const { ingredients, removeIngredient } = useSearchStore();
-  const addSurveyIngredients = surveyStore((state) => state.addSurveyIngredients);
+  const addSurveyIngredients = surveyStore(
+    (state) => state.addSurveyIngredients,
+  );
   const [fadeOut, setFadeOut] = React.useState(false);
   const clearSurvey = () => {
     surveyStore.getState().clearSurvey();
@@ -94,7 +96,7 @@ export default function Layout({
         survey_ingredients: surveyIngredients,
       });
       if (response.status === 201) {
-        alert("제출 완료!")
+        alert('제출 완료!');
         console.log('submit success');
         window.location.replace('/');
       }
@@ -136,7 +138,8 @@ export default function Layout({
                 submitMemeberInfo();
               }
               nextProgress();
-            }}>
+            }}
+          >
             다음
           </button>
         )}
