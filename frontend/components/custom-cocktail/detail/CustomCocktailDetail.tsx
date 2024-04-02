@@ -143,4 +143,3 @@ export default async function CustomCocktailDetail({ customId }: Props) {
     </div>
   );
 }
-}
