@@ -226,7 +226,7 @@ export default function CocktailSearchForm() {
             </div>
             <div className={styles.searchBtn}>
               <BtnWithIcon
-                text="적용"
+                text="찾기"
                 btnStyle="full-point"
                 handleOnClick={handleOnClick}
               />

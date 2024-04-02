@@ -37,7 +37,7 @@
 .detail-search-container {
   // background-color: pink;
   text-align: center;
-  width: 50vw;
+  width: 500px;
   margin: 0 auto;
 
   .header {
@@ -69,31 +69,30 @@
 
     .searchRow {
       // background-color: orange;
-      width: 50vw;
+      width: 500px;
       text-align: start;
-      margin: 0 auto 5vh auto;
+      margin: 0 auto 30px auto;
       display: flex;
       align-items: center;
 
       .title {
         // background-color: red;
-        width: 5vw;
+        width: 60px;
         font-size: 0.8rem;
         font-weight: 700;
       }
 
       .content {
         // background-color: yellow;
-        width: 44vw;
-        margin-left: 1vw;
+        width: 440px;
       }
     }
 
     .searchBtn {
       button {
         font-size: 1rem;
-        font-weight: 700;
-        padding: 0.5vw 2vw;
+        // font-weight: 700;
+        padding: 5px 30px;
         border-radius: 10px;
         margin: 0 auto;
       }
