@@ -4,9 +4,8 @@ import { ChangeEvent } from 'react';
 
 import styles from './CustomCocktailAddIngredient.module.scss';
 
-import IngredientBlock from '@/components/common/IngredientBlock';
-import IngredientSearchForm from '@/components/common/IngredientSearchForm';
-import useSearchStore from '@/store/searchStore';
+// import IngredientBlock from '@/components/common/IngredientBlock';
+// import IngredientSearchForm from '@/components/common/IngredientSearchForm';
 
 interface Unit {
   id: number;
@@ -31,12 +30,12 @@ interface CustomIngredientList {
 
 type RemoveItemFunction = (id: number) => void;
 
-type AddItemFunction = (id: number, name: string) => void;
+// type AddItemFunction = (id: number, name: string) => void;
 
 interface Props {
   removeItem: RemoveItemFunction;
   // eslint-disable-next-line react/require-default-props
-  addItem?: AddItemFunction;
+  // addItem?: AddItemFunction;
   handleInputChangeTest: (value: number, index: number[]) => void;
   handleUnitInputChange: (
     event: ChangeEvent<HTMLSelectElement>,
@@ -57,13 +56,11 @@ export default function CustomCocktailAddIngredientTest({
   inputValues,
   // inputUnitValues,
   inputUnitValuesId,
-  addItem,
+  // addItem,
 }: Props) {
   // console.log(inputValues);
   // console.log('>>>>', inputUnitValuesId);
   // console.log(tempList);
-
-  const { ingredients, addIngredient, removeIngredient } = useSearchStore();
 
   return (
     <div>
@@ -145,24 +142,23 @@ export default function CustomCocktailAddIngredientTest({
         <div className={styles.title} />
         <div className={styles['ingredients-container']}>
           <div className={styles['selected-container']}>
-            {ingredients.size > 0
+            {/* {ingredients.size > 0
               ? Array.from(ingredients).map((ingredient) => (
                   // eslint-disable-next-line react/jsx-indent
                   <IngredientBlock
                     key={ingredient.id}
                     ingredient={ingredient}
-                    handleOnClick={removeIngredient}
+                    handleOnClick={() => removeIngredient}
                   />
-                  // eslint-disable-next-line indent
                 ))
-              : null}
+              : null} */}
           </div>
-          <IngredientSearchForm
+          {/* <IngredientSearchForm
             placeholder="칵테일에 사용되는 재료를 검색해보세요!"
-            handleOnClick={addIngredient}
+            handleOnClick={() => {}}
             // handleOnClick={testThis}
-            addItem={addItem}
-          />
+            // addItem={addItem}
+          /> */}
         </div>
       </div>
     </div>

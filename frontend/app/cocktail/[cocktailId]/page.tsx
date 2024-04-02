@@ -89,9 +89,4 @@ export async function generateStaticParams() {
     staticParamList.push({ cocktailId: i.toString() });
   }
   return staticParamList;
-  const staticParamList = [];
-  for (let i = 1; i <= 3165; i += 1) {
-    staticParamList.push({ cocktailId: i.toString() });
-  }
-  return staticParamList;
 }

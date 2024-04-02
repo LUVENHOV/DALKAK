@@ -58,7 +58,6 @@ export default function IngredientCardWrapper<T extends IngredientType>({
               ingredient={ingredient}
               // index={index}
               // lastIndex={lastIndex}
-              storeData={storeData}
             />
           ))
         ) : (

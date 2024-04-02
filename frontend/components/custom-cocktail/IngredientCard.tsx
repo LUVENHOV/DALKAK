@@ -39,14 +39,12 @@ interface Props<T extends IngredientType> {
   ingredient: T;
   // index: number;
   // lastIndex: number;
-  storeData: StoreData[];
 }
 
 export default function IngredientCard<T extends IngredientType>({
   ingredient,
   // index,
   // lastIndex,
-  storeData,
 }: Props<T>) {
   const { refgList } = useRefrigeratorStore();
 
@@ -80,10 +78,6 @@ export default function IngredientCard<T extends IngredientType>({
     ) {
       isStored = styles['stored-ingredient'];
     }
-
-    // console.log((ingredient as Cocktail_Ingredients)?.id);
-    // console.log('스토어데이터');
-    // console.log(storeData[i].id);
   }
 
   return (

@@ -14,7 +14,7 @@ export default function IngredientBlock(props: ITagType) {
     <div
       role="button"
       tabIndex={0}
-      onClick={() => handleOnClick}
+      onClick={handleOnClick}
       className={styles.container}
       onKeyDown={() => {}}
     >

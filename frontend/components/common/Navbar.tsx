@@ -44,8 +44,8 @@ export default function Navbar() {
           </Link>
         </div>
       </div>
-      <div className={styles.center}><NavbarTopRank /></div>
-
+      <div className={styles.center}>
+        <NavbarTopRank />
       </div>
       <div className={styles.right}>
         안녕하세요
