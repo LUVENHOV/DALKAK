@@ -61,14 +61,20 @@ export default function NavbarTopRank() {
     }
   };
 
+  const secondIndex = `${currentIndex + 1}`;
+  const thirdIndex = `${currentIndex + 2}`;
+
   const currentCocktailName =
     topCocktails[currentIndex]?.cocktail_korean_name || '';
   const first = '';
   // const firstCocktailName = topCocktails[0]?.cocktail_korean_name || '';
-  const current = `${currentIndex + 1}  ${currentCocktailName}`;
+  // const current = `${currentIndex + 1}  ${currentCocktailName}`;
   const nextCocktailName =
     topCocktails[currentIndex + 1]?.cocktail_korean_name || '';
-  const next = `${currentIndex + 2}  ${nextCocktailName}`;
+  // const next = `${currentIndex + 2}  ${nextCocktailName}`;
+
+  const current = `${currentCocktailName}`;
+  const next = `${nextCocktailName}`;
 
   return (
     <div>
@@ -88,17 +94,20 @@ export default function NavbarTopRank() {
                 onClick={goToDetail}
                 className={styles['slide-test']}
               >
+                <span className={styles.point}>{secondIndex} &nbsp;</span>{' '}
                 {current}
               </div>
             </div>
           )}
+
           {currentIndex !== 0 && currentIndex !== 9 && (
-            <>
+            <div>
               <div
                 role="presentation"
                 onClick={goToDetail}
                 className={styles['slide-test']}
               >
+                <span className={styles.point}>{secondIndex} &nbsp;</span>{' '}
                 {current}
               </div>
               <div
@@ -106,9 +115,10 @@ export default function NavbarTopRank() {
                 onClick={goToDetail}
                 className={styles['slide-test']}
               >
+                <span className={styles.point}>{thirdIndex} &nbsp;</span>
                 {next}
               </div>
-            </>
+            </div>
           )}
           {currentIndex === 9 && (
             <div>
@@ -117,6 +127,7 @@ export default function NavbarTopRank() {
                 onClick={goToDetail}
                 className={styles['slide-test']}
               >
+                <span className={styles.point}>{secondIndex} &nbsp;</span>
                 {current}
               </div>
             </div>
