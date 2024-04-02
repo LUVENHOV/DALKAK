@@ -34,17 +34,16 @@ export async function generateStaticParams() {
     },
   ).then((res) => res.json());
 
-  let initialPage = (await json).data.customIdList;
+  const customList = (await json).data.customIdList;
+  let initialPage;
 
-  const test = initialPage.map((custom: number) => ({
-    customId: custom.toString(),
-  }));
-
-  if (test.length === 0) {
-    initialPage = [1];
+  if (customList.length === 0) {
+    initialPage = [{ customId: 1 }];
+  } else {
+    initialPage = customList.map((custom: number) => ({
+      customId: custom.toString(),
+    }));
   }
 
-  return initialPage.map((custom: number) => ({
-    customId: custom.toString(),
-  }));
+  return initialPage;
 }
