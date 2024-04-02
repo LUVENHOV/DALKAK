@@ -7,7 +7,7 @@ import memberStore from '@/store/memberStore';
 interface IToken {
   nickname: string;
   id: number;
-  survey_comletion: boolean | null;
+  survey_completion: boolean | null;
   accessToken: string;
   refreshToken: string;
   accessTokenExpiresIn: number;
@@ -28,11 +28,8 @@ export default function Token({ tokens, status }: ITokenProps) {
       tokens.refreshTokenExpiresIn,
     );
 
-    setInfo(tokens.id, tokens.nickname, tokens.survey_comletion || false);
+    setInfo(tokens.id, tokens.nickname, tokens.survey_completion || false);
   }, [setInfo, setTokens, tokens]);
 
-  // if (status === 200) {
-  //   window.location.replace('/');
-  // }
   return status === 200 ? <div>로그인 성공</div> : <div>Token 처리 중...</div>;
 }

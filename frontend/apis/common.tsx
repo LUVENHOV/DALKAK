@@ -24,6 +24,7 @@ const $Fetch = async (
   const config: RequestInit = {
     method,
     headers: Headers,
+    credentials: 'include',
   };
 
   // 4. Need body?

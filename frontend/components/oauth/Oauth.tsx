@@ -1,4 +1,3 @@
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import Token from './Token';
 import { Login } from '@/apis/Auth';
@@ -13,14 +12,6 @@ interface IToken {
   refreshTokenExpiresIn: number;
 }
 
-// export async function getServerSideProps({ res }) {
-//   res.writeHead(302, { Location: '/' });
-//   res.end();
-
-//   return {
-//     props: {},
-//   };
-// }
 export default async function Oauth({
   code,
   provider,
@@ -28,9 +19,6 @@ export default async function Oauth({
   code: string;
   provider: string;
 }) {
-  // const cookieStore = cookies();
-  // const authCookie = cookieStore.get('Authorization');
-  // console.log(token);
   let tokens: IToken = {
     nickname: '',
     id: 0,
@@ -48,17 +36,6 @@ export default async function Oauth({
     if (response.status === 200) {
       const responseData = await response.json();
       const { data } = responseData;
-
-      // cookies.set('Authorization', data.accessToken, { path: '/' });
-      console.log(data.headers);
-      console.log(responseData.headers);
-      console.log(response.headers);
-      console.log(responseData.headers);
-      // console.log(responseData.data);
-
-      // const cookie = response.headers.getSetCookie();
-      // console.log(cookie);
-
       tokens = {
         nickname: data.nickname,
         id: data.id,
@@ -68,7 +45,8 @@ export default async function Oauth({
         accessTokenExpiresIn: data.accessTokenExpiresIn,
         refreshTokenExpiresIn: data.refreshTokenExpiresIn,
       };
-
+      console.log(response.headers);
+      console.log(responseData);
       if (data.survey_comletion === null) {
         alert('정보 입력이 되지 않아 정보 입력 페이지로 이동합니다.');
         redirect('/survey');
