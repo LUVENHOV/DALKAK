@@ -113,16 +113,17 @@ def recommend_by_refrigerator(m_id: int, db: Session):
 # 결과 이용해서 코사인 유사도 정렬
 def _sort_by_survey(survey_res_df, df, max_l):
   print("-----survey_result",survey_res_df)
-  survey_res_df['오후 술'] = survey_res_df['occasion_id'].apply(
+  local_survey_res_df=survey_res_df[:]
+  local_survey_res_df['오후 술'] = local_survey_res_df['occasion_id'].apply(
       lambda x: 1 if x == 14 else 0)
-  survey_res_df['식전 술'] = survey_res_df['occasion_id'].apply(
+  local_survey_res_df['식전 술'] = local_survey_res_df['occasion_id'].apply(
       lambda x: 1 if x == 4 else 0)
-  survey_res_df['식후 술'] = survey_res_df['occasion_id'].apply(
+  local_survey_res_df['식후 술'] = local_survey_res_df['occasion_id'].apply(
       lambda x: 1 if x == 13 else 0)
-  survey_res_df['저녁 술'] = survey_res_df['occasion_id'].apply(
+  local_survey_res_df['저녁 술'] = local_survey_res_df['occasion_id'].apply(
       lambda x: 1 if x == 15 else 0)
-  del survey_res_df['occasion_id']
-  df = pd.concat([survey_res_df, df], axis=0)
+  del local_survey_res_df['occasion_id']
+  df = pd.concat([local_survey_res_df, df], axis=0)
   one_hot_encoded = df['base_spirit'].str.get_dummies(sep='|')
   df = pd.concat([df, one_hot_encoded], axis=1)
   del df['base_spirit']
