@@ -166,7 +166,7 @@ export default function CocktailSearchForm() {
                 handleOnClick={clearAll}
               />
             </div>
-            <div className={`${styles.searchRow} ${styles.ingredients}`}>
+            <div className={`${styles.searchRow} ${ingredients}`}>
               <div className={styles.title}>재료</div>
               <div
                 className={`${styles.content} ${styles['ingredients-container']}`}
