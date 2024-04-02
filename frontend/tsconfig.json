@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -17,10 +13,7 @@
     "jsx": "preserve",
     "incremental": true,
     "allowImportingTsExtensions": true,
-    "typeRoots": [
-      "./node_modules/@types",
-      "@types"
-    ],
+    "typeRoots": ["./node_modules/@types", "@types"],
     "plugins": [
       {
         "name": "next"
@@ -31,9 +24,7 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
   "include": [
@@ -43,7 +34,5 @@
     ".next/types/**/*.ts",
     "build/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

@@ -67,56 +67,12 @@ interface ApiResponse {
   data: Data;
 }
 
-interface Ingredient {
-  id: number;
-  name: string;
-
-  category: {
-    id: number;
-    name: string;
-  };
-}
-
-interface StoreData {
-  ingredients: Ingredient[];
-}
-const storeData: StoreData = {
-  ingredients: [
-    {
-      id: 270,
-      name: '라임',
-
-      category: {
-        id: 2,
-        name: 'fruit',
-      },
-    },
-    {
-      id: 435,
-      name: '얼음',
-      category: {
-        id: 3,
-        name: 'beverage',
-      },
-    },
-    {
-      id: 187,
-      name: '앱솔루트 보드카',
-      category: {
-        id: 1,
-        name: 'alcohol',
-      },
-    },
-  ],
-};
-const storeList = storeData.ingredients;
-
 interface Props {
   cocktailId: number;
 }
 
 const token =
-  'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTEzMjkwNDUsImV4cCI6MTcxMTc2MTA0NSwiaWQiOjN9.zcY6r5AdHWBddd-sUz8oFdGV14DZLLyXi_5-BG--C20';
+  'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTE3ODk1MDgsImV4cCI6MTcxMjE0OTUwOCwiaWQiOjN9.rxVLMICLt23rj4vV_btj7QtObPgxszooG-rzQG_et3A';
 
 export async function getData({ cocktailId }: Props) {
   const response = await fetch(
@@ -172,10 +128,7 @@ export default async function CocktailDetail({ cocktailId }: Props) {
             <CustomCocktailImage customImage={cocktailDetailData.image} />
           </div>
           <div className={styles.space}>
-            <IngredientCardWrapper
-              ingredients={cocktailIngredients}
-              storeData={storeList}
-            />
+            <IngredientCardWrapper ingredients={cocktailIngredients} />
             <ToolCardWrapper
               cocktailTools={cocktailDetailData.cocktail_tools}
             />

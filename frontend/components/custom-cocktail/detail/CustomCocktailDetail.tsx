@@ -1,7 +1,6 @@
 import React from 'react';
 
 // import { StaticImageData } from 'next/image';
-
 import styles from './CustomCocktailDetail.module.scss';
 
 import IngredientCardWrapper from '../IngredientCardWrapper';
@@ -52,51 +51,6 @@ interface ApiResponse {
   data: Data;
 }
 
-interface Ingredient {
-  id: number;
-  name: string;
-
-  category: {
-    id: number;
-    name: string;
-  };
-}
-
-interface StoreData {
-  ingredients: Ingredient[];
-}
-const storeData: StoreData = {
-  ingredients: [
-    {
-      id: 270,
-      name: '라임',
-
-      category: {
-        id: 2,
-        name: 'fruit',
-      },
-    },
-    {
-      id: 435,
-      name: '얼음',
-      category: {
-        id: 3,
-        name: 'beverage',
-      },
-    },
-    {
-      id: 187,
-      name: '앱솔루트 보드카',
-      category: {
-        id: 1,
-        name: 'alcohol',
-      },
-    },
-  ],
-};
-
-const storeList = storeData.ingredients;
-
 interface Props {
   customId: number;
 }
@@ -104,8 +58,6 @@ interface Props {
 const token = process.env.NEXT_PUBLIC_TOKEN;
 
 export async function getData({ customId }: Props) {
-  // console.log(customId);
-
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/customs/${customId}`,
     {
@@ -116,6 +68,9 @@ export async function getData({ customId }: Props) {
   );
 
   if (!response.ok) {
+    if (response.status === 403) {
+      return null;
+    }
     const error = new Error('Failed to fetch data');
     throw error;
   } else {
@@ -125,11 +80,14 @@ export async function getData({ customId }: Props) {
 }
 export default async function CustomCocktailDetail({ customId }: Props) {
   const customCocktailDetailData = await getData({ customId });
+  let customIngredients: Custom_Ingredients[] = [];
+  if (customCocktailDetailData !== null) {
+    customIngredients = customCocktailDetailData.custom_ingredients;
+  }
 
-  const customIngredients: Custom_Ingredients[] =
-    customCocktailDetailData.custom_ingredients;
-
-  return (
+  return customCocktailDetailData === null ? (
+    <div>접근 권한이 없습니다</div>
+  ) : (
     <div className={styles['flex-container']}>
       <div className={styles.container}>
         <div className={styles['title-container']}>
@@ -161,10 +119,7 @@ export default async function CustomCocktailDetail({ customId }: Props) {
             </div>
           </div>
           <div className={styles.space}>
-            <IngredientCardWrapper
-              ingredients={customIngredients}
-              storeData={storeList}
-            />
+            <IngredientCardWrapper ingredients={customIngredients} />
             <CustomCocktailRecipe recipe={customCocktailDetailData.recipe} />
           </div>
         </div>

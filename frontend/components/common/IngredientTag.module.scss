@@ -1,10 +1,12 @@
 .container {
   border: 2px solid var(--color-base);
-  padding: 0.5vw 1vw;
+  padding: 10px;
   border-radius: 100px;
   font-size: 0.8rem;
   transition: 0.3s;
   cursor: pointer;
+  margin: 1vh 1vw 0 0;
+  box-sizing: border-box;
 }
 .container:hover {
   border: 2px solid var(--color-point);

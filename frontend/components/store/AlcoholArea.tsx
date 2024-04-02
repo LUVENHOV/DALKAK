@@ -1,27 +1,48 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useLayoutEffect, useState } from 'react';
+import { Draggable } from '@hello-pangea/dnd';
 import styles from './AlcoholArea.module.scss';
 import IngredientBlock from '../common/IngredientBlock';
 import useRefrigeratorStore from '@/store/refrigeratorStore';
+import { IIngredientType } from '@/type/refrigeratorTypes';
 
 export default function AlcoholArea() {
   const { refgList, removeRefrList } = useRefrigeratorStore();
-  const alcoholList = useMemo(
-    () => refgList.filter((ingredient) => ingredient.category.id === 1),
-    [refgList],
-  );
+
+  const [alcoholList, setAlcoholList] = useState<IIngredientType[]>([]);
+
+  useLayoutEffect(() => {
+    const onlyAlcohol = refgList.filter(
+      (ingredient) => ingredient.category.id === 1,
+    );
+    setAlcoholList(onlyAlcohol);
+  }, [refgList]);
 
   return (
     <div className={styles['container-outer']}>
       <div className={styles['container-inner']}>
         <div className={styles.inside}>
-          {alcoholList.map((ingredient) => (
-            <IngredientBlock
+          {alcoholList.map((ingredient: IIngredientType) => (
+            <Draggable
+              draggableId={ingredient.id.toString()}
               key={ingredient.id}
-              ingredient={ingredient}
-              handleOnClick={removeRefrList}
-            />
+              index={ingredient.id}
+            >
+              {(draggableProvided) => (
+                <div
+                  ref={draggableProvided.innerRef}
+                  {...draggableProvided.draggableProps}
+                  {...draggableProvided.dragHandleProps}
+                >
+                  <IngredientBlock
+                    key={ingredient.id}
+                    ingredient={ingredient}
+                    handleOnClick={() => removeRefrList(ingredient.id)}
+                  />
+                </div>
+              )}
+            </Draggable>
           ))}
         </div>
       </div>

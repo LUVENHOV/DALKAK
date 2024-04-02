@@ -1,0 +1,30 @@
+.container {
+  width: 90vw;
+  padding: 5vw;
+  box-sizing: border-box;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title-container {
+  margin: 0 auto 5vh auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .title {
+    font-size: 1rem;
+    margin: 0 10px;
+  }
+
+  .color-block {
+    background-color: var(--color-point);
+    height: 3vh;
+    width: 3px;
+  }
+}
+
+.cocktails {
+  display: flex;
+  flex-wrap: wrap;
+}

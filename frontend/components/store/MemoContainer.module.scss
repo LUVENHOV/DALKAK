@@ -1,18 +1,10 @@
 .container {
-  // background-color: lightblue;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  height: calc(100vh - 5vw);
+  height: 95vh;
 
   .search-wrapper {
-    // background-color: orange;
-    flex: 2;
     display: flex;
-  }
-
-  .memo-wrapper {
-    // background-color: black;
-    flex: 3;
   }
 }
