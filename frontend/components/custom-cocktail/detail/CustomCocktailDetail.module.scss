@@ -11,8 +11,12 @@
 .title-container {
   width: 98%;
   display: grid;
-  grid-template-columns: 4fr 2fr 2fr 1.5fr;
+  grid-template-columns: 4fr 2fr 1.5fr;
   margin-bottom: 2vw;
+
+  .names {
+    display: flex;
+  }
 
   .name {
     font-size: 1.8vw;
@@ -22,6 +26,7 @@
 
   .nickname {
     align-self: end;
+    margin-left: 1vw;
   }
 
   .buttons {

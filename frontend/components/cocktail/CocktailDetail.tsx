@@ -52,6 +52,7 @@ interface Data {
   korean_name: string;
   image: string;
   heart_count: number;
+  heart: boolean;
   view_count: number;
   alcohol_content: number;
   sweetness: number;
@@ -86,7 +87,7 @@ export async function getData({ cocktailId }: Props) {
 
   if (!response.ok) {
     const error = new Error('Failed to fetch data');
-
+    console.log(error);
     throw error;
   } else {
     const data: ApiResponse = await response.json();
@@ -106,14 +107,19 @@ export default async function CocktailDetail({ cocktailId }: Props) {
           <div className={styles.name}>{cocktailDetailData.name}</div>
 
           <div className={styles.nickname}>
-            <LikeCount count={245} />
+            <LikeCount
+              count={cocktailDetailData.heart_count}
+              cocktailId={cocktailId}
+              isLiked={cocktailDetailData.heart}
+            />
             <div className={styles.info}>
-              도수{cocktailDetailData.alcohol_content}
+              {cocktailDetailData.alcohol_content}도
             </div>
             <div className={styles.info}>
               당도{cocktailDetailData.sweetness}
             </div>
           </div>
+
           <div />
           <div className={styles.buttons}>
             <Link href={`/cocktail/custom/write/${cocktailId}`}>

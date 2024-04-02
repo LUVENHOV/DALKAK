@@ -50,7 +50,7 @@ export default function CustomCocktailCard({ custom, type }: Props) {
           src={custom.image}
           alt={custom.name}
         />
-        <div className={styles.author}>{custom.user.nickname}</div>
+        <div className={styles.author}>by {custom.user.nickname}</div>
       </button>
       <div className={previewTitleName}>{custom.name}</div>
       <div className={previewCommentName}>{custom.summary}</div>

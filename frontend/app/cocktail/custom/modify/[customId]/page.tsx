@@ -1,5 +1,7 @@
 import React from 'react';
 
+import CustomCocktailModify from '@/components/custom-cocktail/modify/CustomCocktailModify';
+
 // interface ICustomType {
 //   id: number;
 //   image: string;
@@ -13,9 +15,10 @@ import React from 'react';
 
 export default function Page({ params }: { params: { customId: string } }) {
   const { customId } = params;
+  const customIdInt = parseInt(customId, 10);
   return (
     <div>
-      <h1>{customId} 커스텀 칵테일 수정 페이지</h1>
+      <CustomCocktailModify customId={customIdInt} />
     </div>
   );
 }
