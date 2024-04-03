@@ -40,7 +40,12 @@ export default function Page() {
         console.log(res.data);
         setTokens(data.accessToken, data.refreshToken, 0, 0);
         setInfo(data.id, data.nickname, data.survey_completion || false);
-        window.location.href = '/';
+        if (memberStore.getState().nickname === null) {
+          surveyStore.setState({ progress: 0 });
+          window.location.href = '/survey';
+        } else {
+          window.location.href = '/';
+        }
       })
       .catch((error) => {
         console.log(error);
