@@ -112,7 +112,6 @@ export default function InfoSurvey() {
               className={`${selectedGender === 'MALE' ? 'genderSelect-active' : ''}`}
               type="button"
               onClick={() => {
-                setGender('MALE');
                 setSelectedGender('MALE');
               }}
             >
@@ -122,7 +121,6 @@ export default function InfoSurvey() {
               className={`${selectedGender === 'FEMALE' ? 'genderSelect-active' : ''}`}
               type="button"
               onClick={() => {
-                setGender('FEMALE');
                 setSelectedGender('FEMALE');
               }}
             >

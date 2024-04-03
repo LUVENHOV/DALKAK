@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useEffect } from 'react';
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import surveyStore from '../../store/surveyStore';
 // eslint-disable-next-line import/extensions, import/no-unresolved
@@ -12,9 +13,17 @@ import InfoSurvey from '@/components/survey/InfoSurvey';
 import IngredientSurvey from '@/components/survey/IngredientSurvey';
 import OccationSurvey from '@/components/survey/OccationSurvey';
 import SweetnessSurvey from '@/components/survey/SweetnessSurvey';
+import memberStore from '@/store/memberStore';
 
 export default function Survey() {
   const progress = surveyStore((state) => state.progress);
+  const isLoggedIn = memberStore((state) => state.isLoggedIn);
+  useEffect(() => {
+    if (!isLoggedIn) {
+      alert('로그인이 필요합니다');
+      window.location.replace('/oauth');
+    }
+  }, [isLoggedIn]);
   switch (progress) {
     case 0:
       return <InfoSurvey />;

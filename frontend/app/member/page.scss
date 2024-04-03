@@ -6,13 +6,13 @@
 
   margin-top: 80px;
   hr {
-    width: 70%;
+    width: 90%;
     align-self: center;
     margin-top: 28px;
     margin-bottom: 28px;
   }
   .container {
-    width: 70%;
+    width: 90%;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -33,6 +33,11 @@
       display: flex;
       justify-content: flex-start;
       // align-items: end;
+      a > div {
+        width: 20vw;
+        height: 20vw;
+        padding: 0.4vh;
+      }
     }
     .visited {
       Image {
