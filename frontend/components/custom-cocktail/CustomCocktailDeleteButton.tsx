@@ -40,7 +40,6 @@ export default function CustomCocktailDeleteButton({
         },
       );
       if (response.ok) {
-        alert('커스텀 레시피가 삭제되었습니다.');
         router.push(`/cocktail/customs?id=${cocktailId}`);
       } else {
         console.error('커스텀 레시피 삭제 실패');

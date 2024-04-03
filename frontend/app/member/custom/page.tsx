@@ -47,7 +47,6 @@ export default function Page() {
     } catch (e) {
       console.error(e);
     } finally {
-      console.log('done');
       setLoading(false);
     }
   };

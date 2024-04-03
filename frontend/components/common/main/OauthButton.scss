@@ -2,8 +2,6 @@
   margin-top: 10px;
   border-radius: 50px;
   border: 2px solid #dddddd;
-  width: 400px;
-  height: 60px;
   display: flex;
   font-size: 20px;
   align-items: center;
@@ -15,7 +13,6 @@
   img {
     width: 30px;
     height: 30px;
-    margin-right: 10px;
   }
   .text-field-btn {
     width: 100%;
@@ -33,9 +30,15 @@
   }
 }
 .naver {
-  background-color: #2db400;
+  background-color: #f8f8f8;
   border: none;
   div {
     color: white;
   }
+}
+.oauth-buttons{
+  margin : 3vw;
+  display: flex;
+  justify-content: space-around;
+  width : 15vw;
 }

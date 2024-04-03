@@ -7,13 +7,11 @@ interface OauthButtonProps {
   provider: string;
   bgcolor: string;
   icon: string;
-  text: string;
 }
 export default function OauthButton({
   provider,
   bgcolor,
   icon,
-  text,
 }: OauthButtonProps) {
   return (
     <button
@@ -33,7 +31,7 @@ export default function OauthButton({
       }}
     >
       <img src={icon} alt="not found" />
-      <div className="text-field-btn">{text}</div>
+      {/* <div className="text-field-btn">{text}</div> */}
     </button>
   );
 }

@@ -4,6 +4,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import './main.scss';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import CocktailCard from '@/components/cocktail-list/CocktailCard';
 import bartender from '@/public/assets/imgs/bartender.png';
 import authStore from '@/store/authStore';
@@ -22,6 +23,7 @@ export default function Page() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
 
+  const router = useRouter();
   const getRecommendation = async () => {
     try {
       const response = await fetch(
@@ -37,7 +39,6 @@ export default function Page() {
       if (response.ok) {
         const data = await response.json();
         setCocktails(data.data.cocktails);
-        console.log(data.data.cocktails);
       } else {
         throw new Error('Recommendation fetch failed');
       }
@@ -103,7 +104,7 @@ export default function Page() {
         className="cocktail-btn"
         type="button"
         // eslint-disable-next-line no-return-assign
-        onClick={() => (window.location.href = '/cocktail')}
+        onClick={() => router.push('/cocktail')}
       >
         칵테일 찾기
       </button>
