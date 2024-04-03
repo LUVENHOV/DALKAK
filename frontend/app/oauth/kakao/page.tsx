@@ -13,6 +13,7 @@ import authStore from '@/store/authStore';
 // import { Login } from '@/apis/Auth';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import memberStore from '@/store/memberStore';
+import surveyStore from '@/store/surveyStore';
 
 export default function Page() {
   const param = useSearchParams();
