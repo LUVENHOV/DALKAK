@@ -8,6 +8,7 @@ import { Favorite } from '@mui/icons-material';
 import Link from 'next/link';
 import styles from './CocktailCard.module.scss';
 import authStore from '@/store/authStore';
+import memberStore from '@/store/memberStore';
 
 interface ICocktailType {
   id: number;
@@ -23,6 +24,9 @@ export default function CocktailCard(props: ICocktailType) {
   const getAccessToken = () => authStore.getState().accessToken;
   const authorization = getAccessToken();
   const createLog = () => {
+    memberStore
+      .getState()
+      .setVisited({ id, name, koreanName, image, heartCount });
     fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/${id}/log`, {
       headers: { authorization },
     });

@@ -30,7 +30,7 @@ const patchProfile = (profile: {
 const duplicateCheck = (nickname: string) => {
   $Fetch('POST', `${URL}/users/profile/dupcheck`, '', {}, { nickname });
 };
-const getLikeCocktail = (page: number) => {
+const getLikeCocktail = (page: number) =>
   $Fetch(
     'GET',
     `${URL}/users/profile/heart-list`,
@@ -38,8 +38,7 @@ const getLikeCocktail = (page: number) => {
     {},
     { page },
   );
-};
-const getMyCustomCocktail = (page: number) => {
+const getMyCustomCocktail = (page: number) =>
   $Fetch(
     'GET',
     `${URL}/users/profile/custom-recipe-list`,
@@ -47,7 +46,6 @@ const getMyCustomCocktail = (page: number) => {
     {},
     { page },
   );
-};
 const getRecommendCocktail = (page: number) => {
   $Fetch(
     'GET',
