@@ -82,31 +82,6 @@ export default function CustomCocktailModify(props: Props) {
     }),
   );
 
-  const confirmData = () => {
-    // console.log('여기부터');
-    const postInput = {
-      customName,
-      customSummary,
-      customComment,
-      customRecipe,
-      open: isPublic ? 'True' : 'False',
-      customIngredientList: filteredList,
-    };
-    console.log(customImage);
-    console.log(newImage);
-    console.log(postInput);
-    // console.log(customName);
-    // console.log(customSummary);
-    // console.log(customComment);
-    // console.log(customRecipe);
-    console.log(changedRecipe);
-    // console.log(open);
-    // console.log(tempList);
-    // console.log(filteredList);
-
-    // console.log(uploadedImage);
-  };
-
   const infoPlaceholder =
     '추가 설명이나 후기를 알려주세요.\n\n 이런 내용이 들어가면 좋아요!| 이 재료는 다른 걸로 대체할 수 있어요 | - 기존 레시피와 비교해서 맛이 이렇게 달라요 | - 이럴 때 마시는 걸 추천해요';
 
