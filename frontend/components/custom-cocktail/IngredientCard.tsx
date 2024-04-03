@@ -3,7 +3,7 @@
 import React from 'react';
 
 import Image from 'next/image';
-import styles from './CustomCocktailCard.module.scss';
+import styles from './IngredientCard.module.scss';
 import useRefrigeratorStore from '@/store/refrigeratorStore';
 
 interface Unit {
