@@ -47,9 +47,6 @@ export default function IngredientCard<T extends IngredientType>({
   // lastIndex,
 }: Props<T>) {
   const { refgList } = useRefrigeratorStore();
-
-  const className = '';
-
   let isStored = '';
 
   // if (
@@ -82,21 +79,19 @@ export default function IngredientCard<T extends IngredientType>({
 
   return (
     <div className={styles.container}>
-      <div className={className}>
-        <Image
-          className={styles['ingredient-img']}
-          src={
-            (ingredient as Cocktail_Ingredients)?.image ||
-            (ingredient as Custom_Ingredients)?.ingredient?.image
-          }
-          alt="재료 이미지"
-          width={20}
-          height={20}
-        />
-        <div className={styles['ingredient-name']}>
-          {(ingredient as Cocktail_Ingredients)?.name ||
-            (ingredient as Custom_Ingredients)?.ingredient.name}
-        </div>
+      <Image
+        className={styles['ingredient-img']}
+        src={
+          (ingredient as Cocktail_Ingredients)?.image ||
+          (ingredient as Custom_Ingredients)?.ingredient?.image
+        }
+        alt="재료 이미지"
+        width={20}
+        height={20}
+      />
+      <div className={`${styles['ingredient-name']} ${isStored}`}>
+        {(ingredient as Cocktail_Ingredients)?.name ||
+          (ingredient as Custom_Ingredients)?.ingredient.name}
       </div>
       <div className={styles.count}>
         <div>

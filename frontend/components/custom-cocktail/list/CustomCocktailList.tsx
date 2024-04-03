@@ -103,7 +103,11 @@ export default function CustomCocktailList(props: Props) {
       {customAllData &&
       customAllData.custom_cocktails &&
       customAllData.custom_cocktails.length > 0 ? (
-        <CustomCocktailCardWrapper dummy={customList} type="big" />
+        <CustomCocktailCardWrapper
+          dummy={customList}
+          type="big"
+          cocktailId={cocktailId}
+        />
       ) : customAllData && customAllData.custom_cocktails.length < 1 ? (
         <div className={styles.empty}>등록된 커스텀 칵테일이 없습니다.</div>
       ) : null}
