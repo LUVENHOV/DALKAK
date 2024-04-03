@@ -55,13 +55,10 @@
 
   .center {
     display: flex;
-    // margin-left: 10vw;
+    align-items: center;
 
     .fix {
       margin-left: 9vw;
-    }
-    .popular {
-      width: max-content;
     }
   }
 
