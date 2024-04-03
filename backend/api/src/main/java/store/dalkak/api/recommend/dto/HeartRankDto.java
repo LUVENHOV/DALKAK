@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class HeartRankDto {
+
     Long cocktailId;
     String cocktailKoreanName;
 }

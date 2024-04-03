@@ -1,22 +1,24 @@
 package store.dalkak.api.global.util;
 
-import com.auth0.jwk.*;
+import static store.dalkak.api.global.util.DecodeUtil.payloadDecoder;
+
+import com.auth0.jwk.Jwk;
+import com.auth0.jwk.JwkException;
+import com.auth0.jwk.JwkProvider;
+import com.auth0.jwk.JwkProviderBuilder;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
 import jakarta.annotation.PostConstruct;
+import java.net.URL;
+import java.security.interfaces.RSAPublicKey;
+import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import store.dalkak.api.global.util.exception.UtilErrorCode;
 import store.dalkak.api.global.util.exception.UtilException;
-
-import java.net.URL;
-import java.security.interfaces.RSAPublicKey;
-import java.util.concurrent.TimeUnit;
-
-import static store.dalkak.api.global.util.DecodeUtil.payloadDecoder;
 
 @Slf4j
 @Component //유틸이지만 @Value를 주입받기 위해 사용
@@ -44,28 +46,6 @@ public class VerifyUtil {
     private String googleAud;
     @Value("${google.jwks}")
     private String googleJwks;
-
-
-    @PostConstruct
-    private void init() {
-        try {
-            staticKakaoIss = kakaoIss;
-            staticKakaoAud = kakaoAud;
-            staticGoogleIss1 = googleIss1;
-            staticGoogleIss2 = googleIss2;
-            staticGoogleAud = googleAud;
-
-            staticKakaoJwkProvider = new JwkProviderBuilder(kakaoIss)
-                .cached(10, 30, TimeUnit.DAYS) // 30일간 최대 10개 캐시
-                .build();
-
-            staticGoogleJwkProvider = new JwkProviderBuilder(new URL(googleJwks))
-                .cached(10, 30, TimeUnit.DAYS) // 30일간 최대 10개 캐시
-                .build();
-        } catch (Exception e) {
-
-        }
-    }
 
     public static String kakaoIdTokenVerify(String idToken) {
         try {
@@ -95,6 +75,27 @@ public class VerifyUtil {
             return jwt.getSubject();
         } catch (JwkException je) {
             throw new UtilException(UtilErrorCode.ID_TOKEN_FAIL_VERIFY);
+        }
+    }
+
+    @PostConstruct
+    private void init() {
+        try {
+            staticKakaoIss = kakaoIss;
+            staticKakaoAud = kakaoAud;
+            staticGoogleIss1 = googleIss1;
+            staticGoogleIss2 = googleIss2;
+            staticGoogleAud = googleAud;
+
+            staticKakaoJwkProvider = new JwkProviderBuilder(kakaoIss)
+                .cached(10, 30, TimeUnit.DAYS) // 30일간 최대 10개 캐시
+                .build();
+
+            staticGoogleJwkProvider = new JwkProviderBuilder(new URL(googleJwks))
+                .cached(10, 30, TimeUnit.DAYS) // 30일간 최대 10개 캐시
+                .build();
+        } catch (Exception e) {
+
         }
     }
 }

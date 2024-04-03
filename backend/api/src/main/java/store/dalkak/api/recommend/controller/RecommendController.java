@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import store.dalkak.api.global.annotation.LoginUser;
 import store.dalkak.api.global.response.ApiResponse;
 import store.dalkak.api.recommend.dto.response.HeartRankRecommendResDto;
-import store.dalkak.api.recommend.dto.response.RefrigeratorRecommendResDto;
 import store.dalkak.api.recommend.dto.response.PreferRecommendResDto;
+import store.dalkak.api.recommend.dto.response.RefrigeratorRecommendResDto;
 import store.dalkak.api.recommend.service.RecommendService;
 import store.dalkak.api.user.dto.MemberDto;
 

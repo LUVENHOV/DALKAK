@@ -47,7 +47,8 @@ public class CocktailController {
 
     // 칵테일 조회 로그 생성
     @GetMapping("/{cocktailId}/log")
-    public ResponseEntity<ApiResponse<String>> createLog(@PathVariable("cocktailId") Long originCocktailId) {
+    public ResponseEntity<ApiResponse<String>> createLog(
+        @PathVariable("cocktailId") Long originCocktailId) {
         viewLogger.info("view-log {} {}", originCocktailId, System.currentTimeMillis());
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, "로그 생성이 완료되었습니다."));
     }

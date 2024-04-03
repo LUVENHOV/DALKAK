@@ -151,21 +151,25 @@ public class UserServiceImpl implements UserService {
         List<String> keyList = heartRedisRepository.findAllRedisList(memberKey);
         for (String key : keyList) {
             HeartMatchDto heartMatchDto = heartRedisRepository.findHeartMatchById(key);
-            Cocktail cocktail = cocktailRepository.findCocktailById(Long.parseLong(heartMatchDto.getCocktailId()));
+            Cocktail cocktail = cocktailRepository.findCocktailById(
+                Long.parseLong(heartMatchDto.getCocktailId()));
             Heart heart = heartRepository.findHeartByCocktailAndMember(cocktail, member);
-            String cocktailKey = "heartCount:[" + redisCountPrefix + "]" + heartMatchDto.getCocktailId();
+            String cocktailKey =
+                "heartCount:[" + redisCountPrefix + "]" + heartMatchDto.getCocktailId();
             HeartCountDto heartCountDto = heartRedisRepository.findHeartCountById(cocktailKey);
-            if(heartMatchDto.getIsHearted().equals("1")) {
-                if(heart == null) {
+            if (heartMatchDto.getIsHearted().equals("1")) {
+                if (heart == null) {
                     heartRepository.save(Heart.builder().member(member).cocktail(cocktail).build());
-                    cocktailRepository.modifyHeartCount(Long.parseLong(heartCountDto.getCockatailId()),
+                    cocktailRepository.modifyHeartCount(
+                        Long.parseLong(heartCountDto.getCockatailId()),
                         Integer.parseInt(heartCountDto.getCount()));
                 }
             } else {
                 heartRedisRepository.deleteHeartMatchById(key);
-                if(heart != null) {
+                if (heart != null) {
                     heartRepository.deleteHeartByCocktailAndMember(cocktail, member);
-                    cocktailRepository.modifyHeartCount(Long.parseLong(heartCountDto.getCockatailId()),
+                    cocktailRepository.modifyHeartCount(
+                        Long.parseLong(heartCountDto.getCockatailId()),
                         Integer.parseInt(heartCountDto.getCount()));
                 }
             }

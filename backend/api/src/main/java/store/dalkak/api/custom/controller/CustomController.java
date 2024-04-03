@@ -48,7 +48,7 @@ public class CustomController {
     public ResponseEntity<ApiResponse<String>> modifyCustomCocktail(
         @LoginUser MemberDto memberDto,
         @PathVariable("customCocktailId") Long customCocktailId,
-        @RequestPart(value="image", required = false) MultipartFile image,
+        @RequestPart(value = "image", required = false) MultipartFile image,
         @RequestPart("CustomModifyReqDto") CustomModifyReqDto customModifyReqDto) {
         customService.modifyCustomCocktail(memberDto.getId(), customCocktailId, image,
             customModifyReqDto);
@@ -68,7 +68,7 @@ public class CustomController {
     public ResponseEntity<ApiResponse<CustomDetailResDto>> customDetail(
         @LoginUser MemberDto memberDto,
         @PathVariable("customCocktailId") Long customCocktailId) {
-        CustomDetailResDto custom = customService.findCustom(memberDto,customCocktailId);
+        CustomDetailResDto custom = customService.findCustom(memberDto, customCocktailId);
 
         ApiResponse<CustomDetailResDto> apiResponse = ApiResponse.of(200,
             custom);
@@ -82,12 +82,14 @@ public class CustomController {
         @PathVariable("cocktailId") Long cocktailId,
         @PageableDefault(value = 20) Pageable page
     ) {
-        CustomListResDto customListResDto = customService.getCustomList(memberDto, cocktailId, page);
+        CustomListResDto customListResDto = customService.getCustomList(memberDto, cocktailId,
+            page);
 
         ApiResponse<CustomListResDto> apiResponse = ApiResponse.of(200, customListResDto);
 
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
+
     @GetMapping("/custom-list")
     public ResponseEntity<ApiResponse<CustomIdListResDto>> customCocktailIdList() {
         return ResponseEntity.status(HttpStatus.OK)
