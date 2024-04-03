@@ -14,8 +14,8 @@ import store.dalkak.api.custom.dto.CustomCocktailDto;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CustomListResDto {
 
-    private String cocktailName;
     List<CustomCocktailDto> customCocktails;
+    private String cocktailName;
     private Integer currentPage;
     private Integer totalPage;
     private Long totalElements;

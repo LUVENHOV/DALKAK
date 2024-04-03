@@ -54,7 +54,8 @@ public class UserController {
     public ResponseEntity<ApiResponse<String>> createSurveyResult(@LoginUser MemberDto memberDto,
         @RequestBody UserCreateSurveyResultReqDto userCreateSurveyResultReqDto) {
         userService.createSurveyResult(memberDto, userCreateSurveyResultReqDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.of(201, "설문 정보 저장이 완료되었습니다."));
+        return ResponseEntity.status(HttpStatus.CREATED)
+            .body(ApiResponse.of(201, "설문 정보 저장이 완료되었습니다."));
     }
 
     @GetMapping("/profile")
@@ -73,10 +74,12 @@ public class UserController {
     }
 
     @PostMapping("/profile/dupcheck")
-    public ResponseEntity<ApiResponse<String>> hasNickname(@LoginUser MemberDto memberDto, @RequestBody
-    UserHasNicknameReqDto userHasNicknameReqDto) {
+    public ResponseEntity<ApiResponse<String>> hasNickname(@LoginUser MemberDto memberDto,
+        @RequestBody
+        UserHasNicknameReqDto userHasNicknameReqDto) {
         userService.hasNickname(memberDto, userHasNicknameReqDto);
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, "닉네임 중복 검사가 완료되었습니다."));
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(ApiResponse.of(200, "닉네임 중복 검사가 완료되었습니다."));
 
     }
 

@@ -1,6 +1,5 @@
 package store.dalkak.api.global.oauth.service;
 
-import static store.dalkak.api.global.util.DecodeUtil.payloadDecoder;
 import static store.dalkak.api.global.util.VerifyUtil.kakaoIdTokenVerify;
 
 import lombok.RequiredArgsConstructor;

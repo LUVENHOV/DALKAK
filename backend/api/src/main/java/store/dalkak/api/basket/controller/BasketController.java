@@ -43,7 +43,8 @@ public class BasketController {
     public ResponseEntity<ApiResponse<String>> deleteFromRef(@LoginUser MemberDto memberDto,
         @PathVariable("ingredientId") Long ingredientId) {
         basketService.deleteBasket(memberDto, ingredientId);
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, "위시리스트에서 재료를 제거했습니다."));
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(ApiResponse.of(200, "위시리스트에서 재료를 제거했습니다."));
     }
 
 

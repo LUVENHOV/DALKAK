@@ -2,10 +2,7 @@ package store.dalkak.api.custom.service;
 
 import jakarta.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +24,6 @@ import store.dalkak.api.custom.domain.CustomIngredient;
 import store.dalkak.api.custom.dto.CustomCocktailDto;
 import store.dalkak.api.custom.dto.CustomIngredientDetailDto;
 import store.dalkak.api.custom.dto.CustomIngredientDto;
-import store.dalkak.api.custom.dto.CustomIngredientModifyDto;
 import store.dalkak.api.custom.dto.CustomModifyDto;
 import store.dalkak.api.custom.dto.request.CustomCreateReqDto;
 import store.dalkak.api.custom.dto.request.CustomModifyReqDto;
@@ -125,7 +121,7 @@ public class CustomServiceImpl implements CustomService {
 //        }
 
         // 새로 들어온 재료 생성
-        for(CustomIngredientDto customIngredientDto : customModifyReqDto.getCustomIngredientList()) {
+        for (CustomIngredientDto customIngredientDto : customModifyReqDto.getCustomIngredientList()) {
             Unit unit = unitRepository.findUnitById(customIngredientDto.getUnitId());
             Ingredient ingredient = ingredientRepository.findIngredientById(
                 customIngredientDto.getId());
@@ -177,8 +173,9 @@ public class CustomServiceImpl implements CustomService {
         Custom targetCustom = customRepository.findById(customCocktailId).orElseThrow(
             () -> new CustomException(CustomErrorCode.FAIL_TO_FIND_CUSTOM));
 
-        if(Boolean.FALSE.equals(targetCustom.getOpen()) && (!memberDto.getId().equals(targetCustom.getMember().getId()))) {
-                throw new CocktailException(CustomErrorCode.NOT_AVAILABLE);
+        if (Boolean.FALSE.equals(targetCustom.getOpen()) && (!memberDto.getId()
+            .equals(targetCustom.getMember().getId()))) {
+            throw new CocktailException(CustomErrorCode.NOT_AVAILABLE);
 
         }
 

@@ -17,6 +17,9 @@ import store.dalkak.api.custom.dto.CustomCocktailDto;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CocktailDetailResDto {
 
+    List<CocktailIngredientDto> cocktailIngredients;
+    List<ToolDto> cocktailTools;
+    List<CustomCocktailDto> customCocktails;
     private Long id;
     private String name;
     private String koreanName;
@@ -27,9 +30,6 @@ public class CocktailDetailResDto {
     private Integer sweetness;
     private String recipe;
     private Boolean heart;
-    List<CocktailIngredientDto> cocktailIngredients;
-    List<ToolDto> cocktailTools;
-    List<CustomCocktailDto> customCocktails;
 
     public static CocktailDetailResDto of(Cocktail cocktail,
         List<CocktailIngredientDto> ingredients, List<ToolDto> tools,

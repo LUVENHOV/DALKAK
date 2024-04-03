@@ -128,7 +128,8 @@ public class CocktailServiceImpl implements CocktailService {
         boolean isHearted = false;
         Member member = memberRepository.findMemberById(memberDto.getId());
         Heart heart = heartRepository.findHeartByCocktailAndMember(targetCocktail, member);
-        if (heartMatchDto.getIsHearted() != null && heartMatchDto.getIsHearted().equals("1") || heart != null) {
+        if (heartMatchDto.getIsHearted() != null && heartMatchDto.getIsHearted().equals("1")
+            || heart != null) {
             isHearted = true;
         }
 
@@ -237,8 +238,8 @@ public class CocktailServiceImpl implements CocktailService {
 
         // heartMatch를 false로 저장
         heartMatchRepository.save(
-                HeartMatch.builder().id(memberKey.substring(11)).cocktailId(cocktailId)
-                    .memberId(memberDto.getId()).isHearted(false).build());
+            HeartMatch.builder().id(memberKey.substring(11)).cocktailId(cocktailId)
+                .memberId(memberDto.getId()).isHearted(false).build());
 
         // 만약 캐싱 좋아요가 있다면
         if (cocktailHeartCountDto.getCockatailId() != null) {
@@ -275,13 +276,13 @@ public class CocktailServiceImpl implements CocktailService {
             Member member = memberRepository.findMemberById(
                 Long.parseLong(heartMatchDto.getMemberId()));
             Heart heart = heartRepository.findHeartByCocktailAndMember(cocktail, member);
-            if(heartMatchDto.getIsHearted().equals("1")) {
-                if(heart == null) {
+            if (heartMatchDto.getIsHearted().equals("1")) {
+                if (heart == null) {
                     heartRepository.save(Heart.builder().cocktail(cocktail).member(member).build());
                 }
             } else {
                 heartRedisRepository.deleteHeartMatchById(matchKey);
-                if(heart != null) {
+                if (heart != null) {
                     heartRepository.deleteHeartByCocktailAndMember(cocktail, member);
                 }
             }

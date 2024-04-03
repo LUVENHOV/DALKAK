@@ -3,8 +3,8 @@ package store.dalkak.api.global.util;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import lombok.extern.slf4j.Slf4j;
 import store.dalkak.api.global.oauth.dto.OIDCDto;
@@ -26,10 +26,6 @@ public class DecodeUtil {
     }
 
     public static String urlDecoder(String target) {
-        try {
-            return URLDecoder.decode(target, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new UtilException(UtilErrorCode.DECODE_ERROR);
-        }
+        return URLDecoder.decode(target, StandardCharsets.UTF_8);
     }
 }

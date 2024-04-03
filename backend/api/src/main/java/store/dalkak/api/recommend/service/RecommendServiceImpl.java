@@ -73,11 +73,12 @@ public class RecommendServiceImpl implements RecommendService {
 
     @Override
     public HeartRankRecommendResDto heartRankRecommend() {
-        List<HeartRank> heartRanks=heartRankRepository.findAll(Sort.by("id"));
-        List<HeartRankDto> heartRankDtos=new ArrayList<>();
-        for(HeartRank heartRank:heartRanks){
-            heartRankDtos.add(HeartRankDto.builder().cocktailId(heartRank.getCocktail().getId()).cocktailKoreanName(heartRank.getCocktail()
-                .getKrName()).build());
+        List<HeartRank> heartRanks = heartRankRepository.findAll(Sort.by("id"));
+        List<HeartRankDto> heartRankDtos = new ArrayList<>();
+        for (HeartRank heartRank : heartRanks) {
+            heartRankDtos.add(HeartRankDto.builder().cocktailId(heartRank.getCocktail().getId())
+                .cocktailKoreanName(heartRank.getCocktail()
+                    .getKrName()).build());
         }
         return HeartRankRecommendResDto.builder().heartRankList(heartRankDtos).build();
     }
