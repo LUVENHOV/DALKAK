@@ -42,16 +42,18 @@ export default function NavbarTopRank() {
 
   useEffect(() => {
     const interval = setInterval(() => {
+      // setCurrentIndex((prevIndex) => (prevIndex + 1) % 10);
       if (currentIndex < 9) {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % 10);
+        // console.log(currentIndex);
       } else {
-        setCurrentIndex(0);
+        setCurrentIndex(1);
       }
-    }, 1510);
+    }, 1500);
 
     return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [currentIndex]);
 
   const currentCocktailId = topCocktails[currentIndex + 1]?.cocktail_id;
 
@@ -94,20 +96,40 @@ export default function NavbarTopRank() {
                 onClick={goToDetail}
                 className={styles['slide-test']}
               >
-                <span className={styles.point}>{secondIndex} &nbsp;</span>{' '}
+                <span className={styles.point}>{secondIndex} &nbsp;</span>
                 {current}
               </div>
             </div>
           )}
-
-          {currentIndex !== 0 && currentIndex !== 9 && (
+          {currentIndex === 1 && (
             <div>
               <div
                 role="presentation"
                 onClick={goToDetail}
                 className={styles['slide-test']}
               >
-                <span className={styles.point}>{secondIndex} &nbsp;</span>{' '}
+                <span className={styles.point}>{secondIndex} &nbsp;</span>
+                {topCocktails[1].cocktail_korean_name}
+              </div>
+              <div
+                role="presentation"
+                onClick={goToDetail}
+                className={styles['slide-test']}
+              >
+                <span className={styles.point}>{thirdIndex} &nbsp;</span>
+                {next}
+              </div>
+            </div>
+          )}
+
+          {currentIndex !== 0 && currentIndex !== 1 && currentIndex !== 9 && (
+            <div>
+              <div
+                role="presentation"
+                onClick={goToDetail}
+                className={styles['slide-test']}
+              >
+                <span className={styles.point}>{secondIndex} &nbsp;</span>
                 {current}
               </div>
               <div
@@ -129,6 +151,14 @@ export default function NavbarTopRank() {
               >
                 <span className={styles.point}>{secondIndex} &nbsp;</span>
                 {current}
+              </div>
+              <div
+                role="presentation"
+                onClick={goToDetail}
+                className={styles['slide-test']}
+              >
+                <span className={styles.point}>1 &nbsp;</span>
+                {topCocktails[0]?.cocktail_korean_name}
               </div>
             </div>
           )}
