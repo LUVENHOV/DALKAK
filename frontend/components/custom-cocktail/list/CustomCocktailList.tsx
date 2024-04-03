@@ -42,7 +42,6 @@ export default function CustomCocktailList(props: Props) {
 
   const getCustomList = useCallback(
     async (id: number) => {
-      console.log(id);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/customs/${id}/custom-list?page=${currentPage}`,
         {

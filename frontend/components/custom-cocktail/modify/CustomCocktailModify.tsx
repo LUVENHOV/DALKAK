@@ -215,36 +215,6 @@ export default function CustomCocktailModify(props: Props) {
       setIsPublic(false);
     }
   };
-
-  // // eslint-disable-next-line no-shadow
-  // const addItem = (id: number, name: string) => {
-  //   if (tempList.length < 12) {
-  //     const newItem = {
-  //       id,
-  //       name,
-  //       ingredient_amount: 0,
-  //       // amount: 0,
-  //       image: '',
-  //       category_id: 0,
-  //       unit: {
-  //         id: 1,
-  //         name: '',
-  //       },
-  //     };
-  //     // 중복 여부 확인
-  //     const isDuplicate = tempList.some((item) => item.id === id);
-  //     // 중복이 없을 경우에만 새로운 아이템 추가
-  //     if (!isDuplicate) {
-  //       setTempList((prevList) => [...prevList, newItem]);
-  //     } else {
-  //       // 중복된 아이템이 있다면 여기에 대한 처리를 추가할 수 있습니다.
-  //       alert('이미 추가된 재료입니다');
-  //     }
-  //   } else {
-  //     alert('재료는 최대 12개까지 추가할 수 있습니다.');
-  //   }
-  // };
-
   // eslint-disable-next-line no-shadow
   const addTempList: (id: number, name: string) => void = (id, name) => {
     const isAlreadyAdded = tempList.some((item) => item.id === id);
@@ -290,7 +260,6 @@ export default function CustomCocktailModify(props: Props) {
           open: isPublic ? 'True' : 'False',
           customIngredientList: filteredList,
         };
-        console.log(newImage, postInput);
 
         const formData = new FormData();
         // if (newImage === null) {
@@ -322,7 +291,7 @@ export default function CustomCocktailModify(props: Props) {
         if (response.ok) {
           alert('커스텀 레시피가 수정되었습니다.');
           // console.log(formData);
-          router.push(`/cocktail/custom/detail/${customId}`);
+          router.push(`/cocktail/detail?id=${customId}`);
         } else {
           console.error('커스텀 레시피 수정 실패');
           console.log(response);

@@ -30,7 +30,7 @@ export default function UpperLineBanner({
   };
 
   const goToWrite = () => {
-    router.push(`/cocktail/custom/write/${cocktailId}`);
+    router.push(`/cocktail/write/?id=${cocktailId}`);
   };
 
   return (

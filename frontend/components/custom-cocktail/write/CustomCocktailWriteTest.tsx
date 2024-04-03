@@ -299,7 +299,7 @@ export default function CustomCocktailWrite(props: Props) {
         );
         if (response.ok) {
           alert('커스텀 레시피가 등록되었습니다.');
-          router.push(`/cocktail/custom/${cocktailId}`);
+          router.push(`/cocktail/customs?id=${cocktailId}`);
         } else {
           console.error('커스텀 레시피 등록 실패');
         }

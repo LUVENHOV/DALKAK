@@ -123,7 +123,12 @@ export default async function CocktailDetail({ cocktailId }: Props) {
 
           <div />
           <div className={styles.buttons}>
-            <Link href={`/cocktail/custom/write/${cocktailId}`}>
+            <Link
+              href={{
+                pathname: '/cocktail/write',
+                query: { id: cocktailId },
+              }}
+            >
               <BtnWithIcon text="커스텀 레시피 만들기" btnStyle="full-point" />
             </Link>
           </div>
@@ -149,7 +154,12 @@ export default async function CocktailDetail({ cocktailId }: Props) {
 
           <div className={styles.all}>
             {cocktailDetailData.custom_cocktails?.length > 0 ? (
-              <Link href={`/cocktail/custom/${cocktailId}`}>
+              <Link
+                href={{
+                  pathname: '/cocktail/customs',
+                  query: { id: cocktailId },
+                }}
+              >
                 <BtnWithIcon text="전체보기" btnStyle="full-point" />
               </Link>
             ) : null}
