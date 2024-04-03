@@ -35,13 +35,11 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-        NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        log.info("----token ");
+        NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
         HttpServletRequest httpServletRequest = webRequest.getNativeRequest(
             HttpServletRequest.class);
         if (httpServletRequest != null) {
             String token = httpServletRequest.getHeader("Authorization");
-            log.info("들어온 토큰: {}", token);
             if (token != null && !token.isEmpty()) {
                 token = token.split(" ")[1]; //Bearer token
                 if (jwtProvider.validateToken(token)) {

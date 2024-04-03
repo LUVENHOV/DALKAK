@@ -71,7 +71,6 @@ public class ElasticServiceImpl implements ElasticService {
             }
 
         } catch (IOException e) {
-            log.error("Error find hit source", e);
         } finally {
             // Scroll 컨텍스트 정리
             if (scrollId != null) {
@@ -80,7 +79,6 @@ public class ElasticServiceImpl implements ElasticService {
                 try {
                     client.clearScroll(clearScrollRequest, RequestOptions.DEFAULT);
                 } catch (IOException e) {
-                    log.error("Error find hit source", e);
                 }
             }
         }
@@ -100,7 +98,6 @@ public class ElasticServiceImpl implements ElasticService {
                 logList.add(new ElasticDto(cocktailId, logName));
                 // 추출한 값 로깅
             } catch (Exception e) {
-                log.error("Error parsing hit source", e);
             }
         }
     }

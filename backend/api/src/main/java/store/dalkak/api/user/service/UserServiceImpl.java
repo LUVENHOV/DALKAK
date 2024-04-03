@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import store.dalkak.api.cocktail.domain.Cocktail;
 import store.dalkak.api.cocktail.domain.Occasion;
 import store.dalkak.api.cocktail.domain.base.Base;
-import store.dalkak.api.cocktail.domain.heart.HeartMatch;
 import store.dalkak.api.cocktail.domain.ingredient.Ingredient;
 import store.dalkak.api.cocktail.dto.CocktailDto;
 import store.dalkak.api.cocktail.dto.HeartCountDto;
@@ -194,7 +193,6 @@ public class UserServiceImpl implements UserService {
         Member member = memberRepository.findById(memberDto.getId()).orElseThrow();
         member.updateMember(userModifyProfileReqDto.getNickname(),
             userModifyProfileReqDto.getBirthDate(), userModifyProfileReqDto.getGender());
-        log.info("{}", member);
         memberRepository.save(member);
     }
 

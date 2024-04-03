@@ -71,8 +71,6 @@ public class VerifyUtil {
         try {
             DecodedJWT decodedJWT = JWT.decode(idToken);
             Jwk jwk = staticKakaoJwkProvider.get(decodedJWT.getKeyId()); //kid로 가져오기
-            //TODO: nonce값으로 검증하기-프론트에서도 url변경 nonce=dalkak?? 이런식으로(원래는 각자 기기 id같은거 보내야하나..?)
-            log.info("{}", payloadDecoder(decodedJWT.getPayload()).getNonce());
             Algorithm algorithm = Algorithm.RSA256((RSAPublicKey) jwk.getPublicKey(), null);
             JWTVerifier verifier = JWT.require(algorithm).withIssuer(staticKakaoIss)
                 .withAudience(staticKakaoAud).build();
@@ -91,7 +89,6 @@ public class VerifyUtil {
                 throw new UtilException(UtilErrorCode.ID_TOKEN_FAIL_VERIFY);
             }
             Jwk jwk = staticGoogleJwkProvider.get(decodedJWT.getKeyId()); //kid로 가져오기
-            //TODO: nonce값으로 검증하기-프론트에서도 url변경 nonce=dalkak?? 이런식으로(원래는 각자 기기 id같은거 보내야하나..?)
             Algorithm algorithm = Algorithm.RSA256((RSAPublicKey) jwk.getPublicKey(), null);
             JWTVerifier verifier = JWT.require(algorithm).withAudience(staticGoogleAud).build();
             DecodedJWT jwt = verifier.verify(idToken);

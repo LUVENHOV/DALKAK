@@ -74,11 +74,7 @@ public class JwtProvider {
         try {
             key = salt.getBytes("UTF-8");
         } catch (UnsupportedEncodingException e) {
-            if (log.isInfoEnabled()) {
-                e.printStackTrace();
-            } else {
-                log.error("Making JWT Key Error {}", e.getMessage());
-            }
+
         }
         return key;
     }
@@ -92,7 +88,6 @@ public class JwtProvider {
         } catch (ExpiredJwtException eje) {
             throw new JwtException(JwtErrorCode.TOKEN_TIMEOUT);
         } catch (Exception e) {
-            log.info("검증실패");
             return false;
         }
     }

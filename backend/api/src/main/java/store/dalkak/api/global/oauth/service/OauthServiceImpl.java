@@ -91,8 +91,6 @@ public class OauthServiceImpl implements OauthService {
             .id(id)
             .value(refreshToken.getToken())
             .build());
-        log.info("------------------refresh token {}",
-            refreshTokenRepository.findById(id).toString());
         return OauthLoginResDto.builder()
             .accessToken(accessToken.getToken())
             .accessTokenExpiresIn(accessToken.getExpired())

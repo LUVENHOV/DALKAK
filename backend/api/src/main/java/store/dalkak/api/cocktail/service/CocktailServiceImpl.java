@@ -290,22 +290,16 @@ public class CocktailServiceImpl implements CocktailService {
 
     @Override
     public void migrateView(List<ElasticDto> viewLogList) {
-        int viewLogSize = viewLogList.size();
         Map<Long, Integer> cocktailMap = new ConcurrentHashMap<>();
         for (ElasticDto elasticDto : viewLogList) {
             cocktailMap.put(elasticDto.getCocktailId(),
                 cocktailMap.getOrDefault(elasticDto.getCocktailId(), 0) + 1);
         }
-        int sum = 0;
         for (Entry<Long, Integer> entry : cocktailMap.entrySet()) {
-            sum += entry.getValue();
             Cocktail cocktail = cocktailRepository.findCocktailById(entry.getKey());
-            log.info(entry.getKey() + " " + entry.getValue());
-            log.info(entry.getKey() + " " + cocktail.getHeartCount() + entry.getValue());
             cocktailRepository.modifyViewCount(entry.getKey(),
                 cocktail.getHeartCount() + entry.getValue());
         }
-        log.info(viewLogSize + " " + sum);
     }
 
     @Override

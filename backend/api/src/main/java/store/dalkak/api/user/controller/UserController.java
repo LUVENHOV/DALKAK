@@ -46,7 +46,6 @@ public class UserController {
 
     @DeleteMapping
     public ResponseEntity<ApiResponse<String>> deleteMember(@LoginUser MemberDto memberDto) {
-        log.info(String.valueOf(memberDto.getId()));
         userService.deleteMember(memberDto);
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, "회원 탈퇴가 완료되었습니다."));
     }
