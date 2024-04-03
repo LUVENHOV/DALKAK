@@ -74,7 +74,7 @@ export default function CustomFour(props: IPropsType) {
               전체 보기
             </button>
           </div>
-          <div>
+          <div className={styles.content}>
             {customList?.map((item) => (
               <CustomCocktailCard key={item.id} custom={item} type="small" />
             ))}
