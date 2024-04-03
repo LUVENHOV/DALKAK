@@ -2,7 +2,24 @@
   display: flex;
   flex-direction: column;
 }
-
+.flexRow{
+  font-size: 1.3vw;
+    margin-left: 1.3vw;
+    font-weight: 600;
+    margin-left: 2vw;
+  display: flex;
+  justify-content: space-between;
+  button{
+    width : 5.4vw;
+    height : 2vw;
+    padding : 1vw;
+    font-size: large;
+    text-align: center;
+    margin-right : 2vw;
+    margin-bottom : 2vw;
+  }
+}
 .content {
   display: flex;
+  justify-content: space-evenly;
 }

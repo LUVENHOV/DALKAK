@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './CustomFour.module.scss';
+import BtnWithIcon from '../common/BtnWithIcon';
 import NoContent from '../common/NoContent';
 import CustomCocktailCard from '../custom-cocktail/CustomCocktailCard';
 
@@ -53,7 +54,9 @@ export default function CustomFour(props: IPropsType) {
   }, [authorization, cocktailId]);
 
   const router = useRouter();
-
+  const routeToCustomCocktail = () => {
+    router.push(`/cocktail/customs?id=${cocktailId}`);
+  };
   return (
     <div className={styles.container}>
       {customList.length === 0 ? (
@@ -64,15 +67,12 @@ export default function CustomFour(props: IPropsType) {
         />
       ) : (
         <div className={styles.flexContainer}>
-          <div className={styles.title}>
-            <button
-              type="button"
-              onClick={() => {
-                router.push(`/cocktail/customs?id=${cocktailId}`);
-              }}
-            >
-              전체 보기
-            </button>
+          <div className={styles.flexRow}>커스텀 칵테일
+            <BtnWithIcon
+              btnStyle="full-point"
+              text="전체보기"
+              handleOnClick={routeToCustomCocktail}
+            />
           </div>
           <div className={styles.content}>
             {customList?.map((item) => (
