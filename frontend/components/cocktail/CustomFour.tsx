@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from './CustomFour.module.scss';
 import NoContent from '../common/NoContent';
 import CustomCocktailCard from '../custom-cocktail/CustomCocktailCard';
@@ -51,6 +52,8 @@ export default function CustomFour(props: IPropsType) {
       });
   }, [authorization, cocktailId]);
 
+  const router = useRouter();
+
   return (
     <div className={styles.container}>
       {customList.length === 0 ? (
@@ -61,9 +64,21 @@ export default function CustomFour(props: IPropsType) {
         />
       ) : (
         <div className={styles.flexContainer}>
-          {customList?.map((item) => (
-            <CustomCocktailCard key={item.id} custom={item} type="small" />
-          ))}
+          <div className={styles.title}>
+            <button
+              type="button"
+              onClick={() => {
+                router.push(`/cocktail/customs?id=${cocktailId}`);
+              }}
+            >
+              전체 보기
+            </button>
+          </div>
+          <div>
+            {customList?.map((item) => (
+              <CustomCocktailCard key={item.id} custom={item} type="small" />
+            ))}
+          </div>
         </div>
       )}
     </div>
