@@ -44,18 +44,18 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
-    @DeleteMapping()
-    public ResponseEntity<?> deleteMember(@LoginUser MemberDto memberDto) {
+    @DeleteMapping
+    public ResponseEntity<ApiResponse<String>> deleteMember(@LoginUser MemberDto memberDto) {
         log.info(String.valueOf(memberDto.getId()));
         userService.deleteMember(memberDto);
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, null));
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, "회원 탈퇴가 완료되었습니다."));
     }
 
     @PostMapping("/survey")
-    public ResponseEntity<?> createSurveyResult(@LoginUser MemberDto memberDto,
+    public ResponseEntity<ApiResponse<String>> createSurveyResult(@LoginUser MemberDto memberDto,
         @RequestBody UserCreateSurveyResultReqDto userCreateSurveyResultReqDto) {
         userService.createSurveyResult(memberDto, userCreateSurveyResultReqDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.of(201, null));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.of(201, "설문 정보 저장이 완료되었습니다."));
     }
 
     @GetMapping("/profile")
@@ -67,17 +67,17 @@ public class UserController {
     }
 
     @PatchMapping("/profile")
-    public ResponseEntity<?> modifyProfile(@LoginUser MemberDto memberDto,
+    public ResponseEntity<ApiResponse<String>> modifyProfile(@LoginUser MemberDto memberDto,
         @RequestBody UserModifyProfileReqDto userModifyProfileReqDto) {
         userService.modifyProfile(memberDto, userModifyProfileReqDto);
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, null));
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, "프로필 수정이 완료되었습니다."));
     }
 
     @PostMapping("/profile/dupcheck")
-    public ResponseEntity<ApiResponse<?>> hasNickname(@LoginUser MemberDto memberDto, @RequestBody
+    public ResponseEntity<ApiResponse<String>> hasNickname(@LoginUser MemberDto memberDto, @RequestBody
     UserHasNicknameReqDto userHasNicknameReqDto) {
         userService.hasNickname(memberDto, userHasNicknameReqDto);
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, null));
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, "닉네임 중복 검사가 완료되었습니다."));
 
     }
 

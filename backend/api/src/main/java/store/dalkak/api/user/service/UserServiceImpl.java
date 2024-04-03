@@ -172,10 +172,10 @@ public class UserServiceImpl implements UserService {
             }
         }
 
-        List<Heart> hearts = heartRepository.findTop5ByMember_IdOrderByIdDesc(
+        List<Heart> hearts = heartRepository.findTop3ByMember_IdOrderByIdDesc(
             memberDto.getId());
 
-        List<Custom> customs = customRepository.findTop5ByMember_IdOrderByIdDesc(
+        List<Custom> customs = customRepository.findTop3ByMember_IdOrderByIdDesc(
             memberDto.getId());
         return UserLoadProfileResDto.builder()
             .id(member.getId())
