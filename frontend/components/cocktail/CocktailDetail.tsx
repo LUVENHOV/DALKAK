@@ -81,7 +81,7 @@ export async function getData({ cocktailId }: Props) {
 
   if (!response.ok) {
     const error = new Error('Failed to fetch data');
-    console.log(error);
+    window.location.replace('/oauth');
     throw error;
   } else {
     const data = await response.json();
