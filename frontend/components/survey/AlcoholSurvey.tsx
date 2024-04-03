@@ -40,6 +40,10 @@ export default function AlcoholSurvey() {
         <DegreeItem
           key={degree.val}
           val={degree.val}
+<<<<<<< 1659a5aad8d2a1ea79002af521be9abd00605cdc
+          // title={degree.title}
+=======
+>>>>>>> fdc37dbab147706660d0ed3c301304f3113199a5
           description={degree.description}
           image={degree.image}
         />

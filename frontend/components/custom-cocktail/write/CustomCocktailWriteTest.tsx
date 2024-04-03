@@ -4,6 +4,9 @@ import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 
 import LockOutlined from '@mui/icons-material/LockOutlined';
 import PublicOutlined from '@mui/icons-material/PublicOutlined';
+
+import { useRouter } from 'next/navigation';
+
 import styles from './CustomCocktailWrite.module.scss';
 
 import BtnWithIcon from '@/components/common/BtnWithIcon';
@@ -19,15 +22,6 @@ interface Unit {
   name: string;
 }
 
-// interface Cocktail_Ingredients {
-//   id: number;
-//   name: string;
-//   image: string;
-//   category_id: number;
-//   amount: number;
-//   unit: Unit;
-// }
-
 const token = process.env.NEXT_PUBLIC_TOKEN;
 
 interface CustomIngredientList {
@@ -35,35 +29,25 @@ interface CustomIngredientList {
   name: string;
   image: string;
   category_id: number;
-  amount: number;
+  amount?: number;
+  ingredient_amount?: number;
   unit: Unit;
 }
 
-// interface CustomCreateReqDto {
-//   cocktailId: number;
-//   customName: string;
-//   customSummary: string;
-//   customComment: string;
-//   customRecipe: string;
-//   open: boolean;
-//   customIngredientList: CustomIngredientList[];
-// }
+// type AddItemFunction = (id: number, name: string) => void;
 interface Props {
   cocktailId: number;
 }
 export default function CustomCocktailWrite(props: Props) {
+  const router = useRouter();
+
   const { cocktailId } = props;
 
   const [isPublic, setIsPublic] = useState(false);
 
-  // const [ingredientData, setIngredientData] = useState<Cocktail_Ingredients[]>(
-  //   [],
-  // );
-
-  const [koreanName, setKoreanName] = useState('');
-  const [englishName, setEnglishName] = useState('');
-
-  // const [baseRecipe, setBaseRecipe] = useState('');
+  // const [koreanName, setKoreanName] = useState('');
+  // const [englishName, setEnglishName] = useState('');
+  const [names, setNames] = useState('');
 
   // 여기선 유저가 보낼 데이터
 
@@ -83,10 +67,6 @@ export default function CustomCocktailWrite(props: Props) {
 
   const [tempList, setTempList] = useState<CustomIngredientList[]>([]);
 
-  // const [customIngredientList, setCustomIngredientList] = useState<
-  //   CustomIngredientList[]
-  // >([]);
-
   // eslint-disable-next-line camelcase
   const filteredList = tempList.map(({ id, amount, unit: { id: unitId } }) => ({
     id,
@@ -94,12 +74,6 @@ export default function CustomCocktailWrite(props: Props) {
     // eslint-disable-next-line camelcase
     unit_id: unitId,
   }));
-
-  const [inputValues, setInputValues] = useState<number[]>([]);
-
-  const [inputUnitValues, setInputUnitValues] = useState<string[]>([]);
-
-  const [inputUnitValuesId, setInputUnitValuesId] = useState<number[]>([]);
 
   const confirmData = () => {
     // console.log('여기부터');
@@ -111,8 +85,8 @@ export default function CustomCocktailWrite(props: Props) {
     // console.log(customComment);
     // console.log(customRecipe);
     // console.log(open);
-    console.log('>>', inputValues);
-    console.log('>>>', inputUnitValues);
+    // console.log('>>', inputValues);
+    // console.log('>>>', inputUnitValues);
     console.log(tempList);
     console.log(filteredList);
   };
@@ -126,8 +100,6 @@ export default function CustomCocktailWrite(props: Props) {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/${cocktailId}`,
       {
-        // 분명 같은 토큰인데 왜 어쩔때는 위에 코드가 안되고
-        // 어쩔때는 아래 코드가 안 되는 건지 모르겠음...
         headers: {
           Authorization: token ? `${token}` : '',
           // Authorization: `${authorization}`,
@@ -143,24 +115,6 @@ export default function CustomCocktailWrite(props: Props) {
 
       const data = await result.data;
 
-      setInputValues(
-        data.cocktail_ingredients.map(
-          (item: { amount: number }) => item.amount,
-        ),
-      );
-
-      setInputUnitValues(
-        data.cocktail_ingredients.map(
-          (item: { unit: { name: string } }) => item.unit.name,
-        ),
-      );
-
-      setInputUnitValuesId(
-        data.cocktail_ingredients.map(
-          (item: { unit: { id: number } }) => item.unit.id,
-        ),
-      );
-
       return data;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -169,65 +123,71 @@ export default function CustomCocktailWrite(props: Props) {
   useEffect(() => {
     const getBaseCocktailData = async () => {
       const response = await getBaseData();
-      setKoreanName(response.korean_name);
-      setEnglishName(await response.name);
-      // setIngredientData(await response.cocktail_ingredients);
-      // setCustomIngredientList(await response.cocktail_ingredients);
-
-      // setBaseRecipe(await response.recipe);
+      // setKoreanName(response.korean_name);
+      // setEnglishName(await response.name);
       setCustomRecipe(await response.recipe);
       setTempList(await response.cocktail_ingredients);
+      setNames(`${response.name}, ${response.korean_name}`);
     };
     getBaseCocktailData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    if (inputValues.length === 12) {
-      alert('재료는 12개 이하로만 추가할 수 있습니다.');
-    } else {
-      setTempList((prevTempList) => {
-        const newTempList = prevTempList.map((item, index) => ({
-          ...item,
-          amount: inputValues[index],
-          unit: {
-            ...item.unit,
-            name: inputUnitValues[index],
-            id: inputUnitValuesId[index],
-          },
-        }));
-        return newTempList;
-      });
-    }
-  }, [inputValues, inputUnitValues, inputUnitValuesId]);
-
   const removeItem = (id: number) => {
     setTempList((prevList) => prevList.filter((data) => data.id !== id));
   };
 
-  const handleInputChangeTest = (value: number, index: number[]) => {
-    const tempNum = value;
-    const indexToUpdate = index[0];
-    setInputValues((prevInputValues) => {
-      const newInputValues: number[] = [...prevInputValues];
-      newInputValues[indexToUpdate] = tempNum;
-      return newInputValues;
+  // const addItem: AddItemFunction = (id: number, name: string) => {
+  //   if (tempList.length < 12) {
+  //     const newItem = {
+  //       id,
+  //       name,
+  //       amount: 0,
+  //       image: '',
+  //       category_id: 0,
+  //       unit: {
+  //         id: 1,
+  //         name: '',
+  //       },
+  //     };
+  //     // 중복 여부 확인
+  //     const isDuplicate = tempList.some((item) => item.id === id);
+  //     // 중복이 없을 경우에만 새로운 아이템 추가
+  //     if (!isDuplicate) {
+  //       setTempList((prevList) => [...prevList, newItem]);
+  //     } else {
+  //       // 중복된 아이템이 있다면 여기에 대한 처리를 추가할 수 있습니다.
+  //       alert('이미 추가된 재료입니다');
+  //     }
+  //   } else {
+  //     alert('재료는 최대 12개까지 추가할 수 있습니다.');
+  //   }
+  // };
+
+  const handleInputChangeTest = (value: number, id: number) => {
+    const updatedList = tempList.map((item) => {
+      if (item.id === id) {
+        return { ...item, amount: value };
+      }
+      return item;
     });
+
+    setTempList(updatedList);
   };
 
   const handleUnitInputChange = (
     e: ChangeEvent<HTMLSelectElement>,
+    unitId: number,
     id: number,
-    index: number[],
   ) => {
-    const indexToUpdate = index[0];
-    const unitValue = id;
-
-    setInputUnitValuesId((prevUnitValuesId) => {
-      const updatedUnitValuesId = [...prevUnitValuesId];
-      updatedUnitValuesId[indexToUpdate] = unitValue;
-      return updatedUnitValuesId;
+    const updatedList = tempList.map((item) => {
+      if (item.id === id) {
+        return { ...item, unit: { ...item.unit, id: unitId } };
+      }
+      return item;
     });
+
+    setTempList(updatedList);
   };
 
   // eslint-disable-next-line no-shadow
@@ -269,6 +229,32 @@ export default function CustomCocktailWrite(props: Props) {
       setIsPublic(false);
       setOpen(false);
     }
+  };
+
+  const addTempList: (id: number, name: string) => void = (id, name) => {
+    const isAlreadyAdded = tempList.some((item) => item.id === id);
+
+    if (isAlreadyAdded) {
+      alert('이미 추가된 항목입니다.');
+      return;
+    }
+
+    if (tempList.length >= 12) {
+      alert('더 이상 재료를 추가할 수 없습니다.');
+      return;
+    }
+    const updatedList: CustomIngredientList[] = [
+      ...tempList,
+      {
+        id,
+        name,
+        image: '',
+        category_id: 1,
+        amount: 1,
+        unit: { id: 1, name: '개' },
+      },
+    ];
+    setTempList(updatedList);
   };
 
   const postCustomCocktail = async () => {
@@ -313,6 +299,7 @@ export default function CustomCocktailWrite(props: Props) {
         );
         if (response.ok) {
           alert('커스텀 레시피가 등록되었습니다.');
+          router.push(`/cocktail/custom/${cocktailId}`);
         } else {
           console.error('커스텀 레시피 등록 실패');
         }
@@ -344,7 +331,8 @@ export default function CustomCocktailWrite(props: Props) {
           </div>
 
           <div className={styles.explain}>
-            &nbsp;&nbsp; {englishName}, {koreanName}
+            {/* &nbsp;&nbsp; {englishName}, {koreanName} */}
+            &nbsp;&nbsp;&nbsp;{names}
           </div>
           <div />
 
@@ -400,22 +388,17 @@ export default function CustomCocktailWrite(props: Props) {
             </div>
           </div>
           <div className={styles.space}>
-            {/* <CustomCocktailAddIngredient origin={ingredientData} /> */}
             <CustomCocktailAddIngredientTest
-              // origin={customIngredientList}
               handleInputChangeTest={handleInputChangeTest}
               handleUnitInputChange={handleUnitInputChange}
               removeItem={removeItem}
               tempList={tempList}
-              inputValues={inputValues}
-              // inputUnitValues={inputUnitValues}
-              inputUnitValuesId={inputUnitValuesId}
+              addTempList={addTempList}
+              // addItem={addItem}
             />
             <CustomCocktailAddRecipe
               handleInputChange={handleRecipeAreaChange}
               inputValue={customRecipe}
-              // recipe={baseRecipe}
-              // customRecipe={customRecipe}
             />
           </div>
         </div>
