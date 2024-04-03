@@ -1,7 +1,12 @@
 'use client';
 
 import React from 'react';
+
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { IconButton } from '@mui/material';
 import { useRouter } from 'next/navigation';
+
+import styles from './CustomCocktailModifyButton.module.scss';
 
 interface Props {
   customId: number;
@@ -40,9 +45,9 @@ export default function CustomCocktailDeleteButton({
 
   return (
     <div>
-      <button type="button" onClick={DeleteClick}>
-        🖍&nbsp;삭제
-      </button>
+      <IconButton type="button" onClick={DeleteClick}>
+        <DeleteOutlineIcon className={styles.icons} /> &nbsp;삭제
+      </IconButton>
     </div>
   );
 }
