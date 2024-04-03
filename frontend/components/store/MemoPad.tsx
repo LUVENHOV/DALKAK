@@ -18,7 +18,7 @@ export default function MemoPad() {
           ref={provided.innerRef}
           {...provided.droppableProps}
         >
-          {memoList.map((ingredient, index) => (
+          {memoList?.map((ingredient, index) => (
             <MemoRow
               key={ingredient.id}
               index={index}
