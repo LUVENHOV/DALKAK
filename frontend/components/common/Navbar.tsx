@@ -50,7 +50,7 @@ export default function Navbar() {
           </Link>
         </div>
         <div className={styles.pages}>
-          <Link href="/cocktail">
+          <Link href={isLoggedIn ? '/cocktail' : '/oauth'}>
             <div
               className={pathName?.startsWith('/cocktail') ? styles.active : ''}
             >
@@ -58,7 +58,7 @@ export default function Navbar() {
             </div>
           </Link>
 
-          <Link href="/storage">
+          <Link href={isLoggedIn ? '/storage' : '/oauth'}>
             <div
               className={pathName?.startsWith('/storage') ? styles.active : ''}
             >
