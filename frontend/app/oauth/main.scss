@@ -1,0 +1,24 @@
+.mainWrapper {
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .title-main {
+    padding-top: 10vh;
+    font-size: 1.4rem;
+    margin: 1rem 0;
+  }
+  .subtitle-main {
+    font-size: 1.2rem;
+    margin: 1rem 0;
+  }
+  .cocktail-btn {
+    margin: 3rem 0;
+    font-size: 1.4rem;
+    padding: 1rem 3rem;
+    border-radius: 2rem;
+    color: white;
+    background-color: var(--color-point);
+  }
+}

@@ -8,11 +8,12 @@ import {
 // eslint-disable-next-line import/no-extraneous-dependencies
 import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
-import { ResponseData, AuthResponse } from '../../types';
+import { ResponseData, AuthResponse } from '../types';
 import authStore from '@/store/authStore';
 // import { Login } from '@/apis/Auth';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import memberStore from '@/store/memberStore';
+import surveyStore from '@/store/surveyStore';
 
 export default function Page() {
   const param = useSearchParams();
@@ -32,7 +33,7 @@ export default function Page() {
     await axios
       .post(`${process.env.NEXT_PUBLIC_BASE_URL as string}/oauth/login`, {
         code: authCode,
-        provider: 'GOOGLE',
+        provider: 'NAVER',
       })
       .then((response) => {
         const res = response.data as AuthResponse;
@@ -40,7 +41,12 @@ export default function Page() {
         console.log(res.data);
         setTokens(data.accessToken, data.refreshToken, 0, 0);
         setInfo(data.id, data.nickname, data.survey_completion || false);
-        window.location.href = '/';
+        if (memberStore.getState().nickname === null) {
+          surveyStore.setState({ progress: 0 });
+          window.location.href = '/survey';
+        } else {
+          window.location.href = '/';
+        }
       })
       .catch((error) => {
         console.log(error);

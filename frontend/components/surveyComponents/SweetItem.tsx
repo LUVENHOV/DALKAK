@@ -39,7 +39,7 @@ export default function SweetItem({
       key={id}
       className={`sweet-item ${selected ? 'selected' : ''}`}
     >
-      <Image src={imgSrc} width={80} alt="이미지" />
+      <Image src={imgSrc} width={80} alt="nosweet" />
       <div className="description">{description}</div>
     </div>
   );
