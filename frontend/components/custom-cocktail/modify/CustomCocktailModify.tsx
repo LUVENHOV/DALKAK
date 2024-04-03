@@ -271,7 +271,6 @@ export default function CustomCocktailModify(props: Props) {
         );
         if (response.ok) {
           // eslint-disable-next-line no-alert
-          alert('커스텀 레시피가 수정되었습니다.');
           // console.log(formData);
           router.push(`/cocktail/detail?id=${customId}`);
         } else {

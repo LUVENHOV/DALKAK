@@ -54,7 +54,9 @@ export default function CustomFour(props: IPropsType) {
   }, [authorization, cocktailId]);
 
   const router = useRouter();
-
+  const routeToCustomCocktail = () => {
+    router.push(`/cocktail/customs?id=${cocktailId}`);
+  };
   return (
     <div className={styles.container}>
       {customList.length === 0 ? (
