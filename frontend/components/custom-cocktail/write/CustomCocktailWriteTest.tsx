@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+/* eslint-disable no-alert */
+
 'use client';
 
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
@@ -45,8 +48,9 @@ export default function CustomCocktailWrite(props: Props) {
 
   const [isPublic, setIsPublic] = useState(false);
 
-  const [koreanName, setKoreanName] = useState('');
-  const [englishName, setEnglishName] = useState('');
+  // const [koreanName, setKoreanName] = useState('');
+  // const [englishName, setEnglishName] = useState('');
+  const [names, setNames] = useState('');
 
   // 여기선 유저가 보낼 데이터
 
@@ -55,6 +59,7 @@ export default function CustomCocktailWrite(props: Props) {
   const [customImage, setCustomImage] = useState<File | null>(null);
   const [customComment, setCustomComment] = useState('');
   const [customRecipe, setCustomRecipe] = useState('');
+  const [changedRecipe, setChangedRecipe] = useState('');
   const [open, setOpen] = useState(false);
 
   /** 이미지 변경 관련 */
@@ -74,6 +79,8 @@ export default function CustomCocktailWrite(props: Props) {
     unit_id: unitId,
   }));
 
+  // const changedRecipe = customRecipe.split('\n\n').join('|');
+
   const confirmData = () => {
     // console.log('여기부터');
     // console.log('image');
@@ -82,12 +89,13 @@ export default function CustomCocktailWrite(props: Props) {
     // console.log(customName);
     // console.log(customSummary);
     // console.log(customComment);
-    // console.log(customRecipe);
+    console.log(customRecipe);
+    console.log(changedRecipe);
     // console.log(open);
     // console.log('>>', inputValues);
     // console.log('>>>', inputUnitValues);
-    console.log(tempList);
-    console.log(filteredList);
+    // console.log(tempList);
+    // console.log(filteredList);
   };
 
   const infoPlaceholder =
@@ -122,14 +130,19 @@ export default function CustomCocktailWrite(props: Props) {
   useEffect(() => {
     const getBaseCocktailData = async () => {
       const response = await getBaseData();
-      setKoreanName(response.korean_name);
-      setEnglishName(await response.name);
+      // setKoreanName(response.korean_name);
+      // setEnglishName(await response.name);
       setCustomRecipe(await response.recipe);
       setTempList(await response.cocktail_ingredients);
+      setNames(`${response.name}, ${response.korean_name}`);
     };
     getBaseCocktailData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    setChangedRecipe(customRecipe.split('\n').join('|'));
+  }, [customRecipe]);
 
   const removeItem = (id: number) => {
     setTempList((prevList) => prevList.filter((data) => data.id !== id));
@@ -272,7 +285,8 @@ export default function CustomCocktailWrite(props: Props) {
           customName,
           customSummary,
           customComment,
-          customRecipe,
+          // customRecipe,
+          customRecipe: changedRecipe,
           open: open ? 'True' : 'False',
           customIngredientList: filteredList,
         };
@@ -329,7 +343,8 @@ export default function CustomCocktailWrite(props: Props) {
           </div>
 
           <div className={styles.explain}>
-            &nbsp;&nbsp; {englishName}, {koreanName}
+            {/* &nbsp;&nbsp; {englishName}, {koreanName} */}
+            &nbsp;&nbsp;&nbsp;{names}
           </div>
           <div />
 

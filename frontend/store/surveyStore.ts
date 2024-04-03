@@ -1,6 +1,7 @@
 /* eslint-disable implicit-arrow-linebreak */
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
+import { IIngredientType } from '@/type/refrigeratorTypes';
 
 const Question = [
   '당신이 궁금해요!',
@@ -23,7 +24,7 @@ interface storeState {
   occassionId: number;
   alcoholContent: number;
   sweetness: number;
-  surveyIngredients: number[];
+  surveyIngredients: IIngredientType[];
   getQuestion: (process: number) => string;
   nextProgress: () => void;
   beforeProgress: () => void;
@@ -37,8 +38,8 @@ interface storeState {
   setOccationId: (occationId: number) => void;
   setAlcoholContent: (alcoholContent: number) => void;
   setSweetness: (sweetness: number) => void;
-  addSurveyIngredients: (ingredient: number) => void;
-  deleteSurveyIngredients: (ingredient: number) => void;
+  addSurveyIngredients: (ingredient: IIngredientType) => void;
+  deleteSurveyIngredients: (ingredient: IIngredientType) => void;
   clearSurvey: () => void;
 }
 
@@ -54,7 +55,7 @@ const surveyStore = create(
       occassionId: 0,
       alcoholContent: 0,
       sweetness: 0,
-      surveyIngredients: [21, 3],
+      surveyIngredients: [],
 
       getQuestion: (process: number) => Question[process],
       // 다음 페이지 이동
@@ -89,9 +90,9 @@ const surveyStore = create(
       setOccationId: (occassionId: number) => set({ occassionId }),
       setAlcoholContent: (alcoholContent: number) => set({ alcoholContent }),
       setSweetness: (sweetness: number) => set({ sweetness }),
-      addSurveyIngredients: (ingredient: number) =>
+      addSurveyIngredients: (ingredient: IIngredientType) =>
         set({ surveyIngredients: [...get().surveyIngredients, ingredient] }),
-      deleteSurveyIngredients: (ingredient: number) =>
+      deleteSurveyIngredients: (ingredient: IIngredientType) =>
         set({
           surveyIngredients: get().surveyIngredients.filter(
             (item) => item !== ingredient,
@@ -105,7 +106,7 @@ const surveyStore = create(
           occassionId: 0,
           alcoholContent: 0,
           sweetness: 0,
-          surveyIngredients: [1, 2, 3],
+          surveyIngredients: [],
         }),
     }),
     {

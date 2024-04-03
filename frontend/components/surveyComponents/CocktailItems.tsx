@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import './CocktailItems.scss';
+import Image, { StaticImageData } from 'next/image';
 import surveyStore from '@/store/surveyStore';
 
 interface ItemProps {
   id: number;
   name: string;
-  image: string;
+  image: StaticImageData;
 }
 export default function CocktailItems({ id, name, image }: ItemProps) {
   const [selected, setSelected] = useState(false);
@@ -22,8 +23,6 @@ export default function CocktailItems({ id, name, image }: ItemProps) {
       setSelected(true);
       addSurveyCocktails(id);
     }
-    console.log(image);
-    console.log(surveyStore.getState().surveyCocktails);
   };
   return (
     // eslint-disable-next-line max-len
@@ -33,7 +32,7 @@ export default function CocktailItems({ id, name, image }: ItemProps) {
       key={id}
       className={`cocktail-item ${selected ? 'selected' : ''}`}
     >
-      <div className="sample" />
+      <Image src={image} width={100} alt="nococktail" />
       <div className="name">{name}</div>
       {/* <div className="cocktial-image-wrapper">
         <img src={cocktail.image} alt={cocktail.name} />

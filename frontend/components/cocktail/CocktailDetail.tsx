@@ -82,6 +82,7 @@ export async function getData({ cocktailId }: Props) {
       headers: {
         Authorization: token ? `${token}` : '',
       },
+      cache: 'no-store',
     },
   );
 
@@ -104,26 +105,30 @@ export default async function CocktailDetail({ cocktailId }: Props) {
     <div className={styles['flex-container']}>
       <div className={styles.container}>
         <div className={styles['title-container']}>
-          <div className={styles.name}>{cocktailDetailData.name}</div>
+          <div className={styles.left}>
+            <div className={styles.name}>{cocktailDetailData.name}</div>
 
-          <div className={styles.nickname}>
-            <LikeCount
-              count={cocktailDetailData.heart_count}
-              cocktailId={cocktailId}
-              isLiked={cocktailDetailData.heart}
-            />
-            <div className={styles.info}>
-              {cocktailDetailData.alcohol_content}도
-            </div>
-            <div className={styles.info}>
-              당도{cocktailDetailData.sweetness}
+            <div className={styles.nickname}>
+              <LikeCount
+                count={cocktailDetailData.heart_count}
+                cocktailId={cocktailId}
+                isLiked={cocktailDetailData.heart}
+              />
+              <div className={styles.info}>
+                {cocktailDetailData.alcohol_content}도
+              </div>
+              <div className={styles.info}>
+                당도{cocktailDetailData.sweetness}
+              </div>
             </div>
           </div>
 
-          <div />
           <div className={styles.buttons}>
             <Link href={`/cocktail/custom/write/${cocktailId}`}>
-              <BtnWithIcon text="커스텀 레시피 만들기" btnStyle="full-point" />
+              <BtnWithIcon
+                text="&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;커스텀 레시피 만들기"
+                btnStyle="full-point"
+              />
             </Link>
           </div>
         </div>
@@ -149,7 +154,7 @@ export default async function CocktailDetail({ cocktailId }: Props) {
           <div className={styles.all}>
             {cocktailDetailData.custom_cocktails?.length > 0 ? (
               <Link href={`/cocktail/custom/${cocktailId}`}>
-                <BtnWithIcon text="전체보기" btnStyle="full-point" />
+                <BtnWithIcon text="전체보기" btnStyle="no-border" />
               </Link>
             ) : null}
           </div>

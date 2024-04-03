@@ -11,7 +11,8 @@ import { IIngredientType } from '@/type/refrigeratorTypes';
 interface IPropsType {
   placeholder: string;
   type: string;
-  addTempList: (id: number, name: string) => void;
+  // eslint-disable-next-line react/require-default-props
+  addTempList?: (id: number, name: string) => void | undefined;
 }
 
 export default function IngredientSearchForm(props: IPropsType) {
@@ -56,7 +57,11 @@ export default function IngredientSearchForm(props: IPropsType) {
       addRefrList(ingredient);
     } else if (type === 'memo' && typeof ingredient === 'number') {
       addMemoList(ingredient);
-    } else if (type === 'custom' && typeof ingredient !== 'number') {
+    } else if (
+      type === 'custom' &&
+      addTempList &&
+      typeof ingredient !== 'number'
+    ) {
       addTempList(ingredient.id, ingredient.name);
     }
   };

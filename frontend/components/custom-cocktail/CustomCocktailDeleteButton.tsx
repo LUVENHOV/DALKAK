@@ -1,7 +1,12 @@
 'use client';
 
 import React from 'react';
+
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { IconButton } from '@mui/material';
 import { useRouter } from 'next/navigation';
+
+import styles from './CustomCocktailModifyButton.module.scss';
 
 interface Props {
   customId: number;
@@ -15,7 +20,13 @@ export default function CustomCocktailDeleteButton({
   cocktailId,
 }: Props) {
   const router = useRouter();
+
   const DeleteClick = async () => {
+    // eslint-disable-next-line no-restricted-globals
+    const confirmed = confirm('정말로 삭제하시겠습니까?');
+    if (!confirmed) {
+      return;
+    }
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/customs/${customId}`,
@@ -40,9 +51,9 @@ export default function CustomCocktailDeleteButton({
 
   return (
     <div>
-      <button type="button" onClick={DeleteClick}>
-        🖍&nbsp;삭제
-      </button>
+      <IconButton type="button" onClick={DeleteClick}>
+        <DeleteOutlineIcon className={styles.icons} /> &nbsp;삭제
+      </IconButton>
     </div>
   );
 }

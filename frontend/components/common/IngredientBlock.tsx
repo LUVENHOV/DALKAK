@@ -13,7 +13,6 @@ export default function IngredientBlock(props: ITagType) {
   const { type, ingredient } = props;
   const { removeIngredient } = useSearchStore();
   const { removeRefrList } = useRefrigeratorStore();
-
   const deleteIngredient = () => {
     if (type === 'search') {
       removeIngredient(ingredient);

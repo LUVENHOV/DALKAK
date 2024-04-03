@@ -4,9 +4,11 @@ import React, { useEffect } from 'react';
 
 import surveyStore from '../../store/surveyStore';
 import { submitSurvey } from '@/apis/Member';
-// import authStore from '@/store/authStore';
+import authStore from '@/store/authStore';
 
 import './page.scss';
+import memberStore from '@/store/memberStore';
+// import useSearchStore from '@/store/searchStore';
 
 export default function Layout({
   children,
@@ -17,6 +19,9 @@ export default function Layout({
   const getQuestion = surveyStore((state) => state.getQuestion);
   const nextProgress = surveyStore((state) => state.nextProgress);
   const beforeProgress = surveyStore((state) => state.beforeProgress);
+  // const addSurveyIngredients = surveyStore(
+  //   (state) => state.addSurveyIngredients,
+  // );
   const [fadeOut, setFadeOut] = React.useState(false);
   const clearSurvey = () => {
     surveyStore.getState().clearSurvey();
@@ -32,44 +37,44 @@ export default function Layout({
     }
   }, [progress]);
 
-  // const submitMemeberInfo = () => {
-  //   const token = authStore.getState().accessToken;
-  //   const { nickname, birthDate, gender } = surveyStore.getState();
+  const submitMemeberInfo = () => {
+    const token = authStore.getState().accessToken;
+    const { nickname, birthDate, gender } = surveyStore.getState();
 
-  //   fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users/profile`, {
-  //     method: 'PATCH',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: token,
-  //     },
-  //     body: JSON.stringify({
-  //       nickname,
-  //       birth_date: `${birthDate.slice(0, 4)}-${birthDate.slice(
-  //         4,
-  //         6,
-  //       )}-${birthDate.slice(6, 8)}`,
-  //       gender,
-  //     }),
-  //   })
-  //     .then((res) => {
-  //       if (res.status === 200) {
-  //         nextProgress();
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
+    if (nickname === '' || birthDate === '' || gender === '') {
+      alert('모든 항목을 입력해주세요');
+    } else {
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users/profile`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+        body: JSON.stringify({
+          nickname,
+          birth_date: `${birthDate.slice(0, 4)}-${birthDate.slice(
+            4,
+            6,
+          )}-${birthDate.slice(6, 8)}`,
+          gender,
+        }),
+      })
+        .then((res) => {
+          if (res.status === 200) {
+            nextProgress();
+            memberStore.getState().setNickname(nickname);
+            memberStore.getState().setBirthDate(birthDate);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
 
   const submit = async () => {
-    const {
-      surveyCocktails,
-      occassionId,
-      baseId,
-      alcoholContent,
-      sweetness,
-      surveyIngredients,
-    } = surveyStore.getState();
+    const { surveyCocktails, occassionId, baseId, alcoholContent, sweetness } =
+      surveyStore.getState();
     try {
       const response = await submitSurvey({
         survey_cocktails: surveyCocktails,
@@ -77,10 +82,12 @@ export default function Layout({
         base_id: baseId,
         alcohol_content: alcoholContent,
         sweetness,
-        survey_ingredients: surveyIngredients,
+        survey_ingredients: [1, 2, 3],
       });
-      if (response.status === 200) {
-        nextProgress();
+      if (response.status === 201) {
+        alert('제출 완료!');
+        console.log('submit success');
+        window.location.replace('/');
       }
     } catch (error) {
       console.error(error);
@@ -93,7 +100,7 @@ export default function Layout({
         <div className="progressBarWrapper">
           <div
             className={`progressBar ${fadeOut ? 'fadeOut' : ''}`}
-            style={{ width: `${(progress * 100) / 6}%` }}
+            style={{ width: `${(progress * 100) / 5}%` }}
           />
         </div>
       </div>
@@ -111,38 +118,74 @@ export default function Layout({
           </button>
         )}
 
-        {progress < 6 && (
-          <button className="next" type="button" onClick={() => nextProgress()}>
-            다음
-          </button>
-        )}
-
-        {progress === 6 && (
+        {progress < 5 && (
           <button
             className="next"
             type="button"
             onClick={() => {
-              console.log('hh');
-              nextProgress();
-              // submitMemeberInfo();
+              switch (progress) {
+                case 0:
+                  submitMemeberInfo();
+                  break;
+                case 1:
+                  if (surveyStore.getState().surveyCocktails.length !== 0) {
+                    nextProgress();
+                  } else {
+                    alert('최소 1개의 칵테일을 선택해주세요!');
+                  }
+                  break;
+                case 2:
+                  if (surveyStore.getState().occassionId !== 0) {
+                    nextProgress();
+                  } else {
+                    alert('언제 마시나요!');
+                  }
+                  break;
+                case 3:
+                  if (surveyStore.getState().baseId !== 0) {
+                    nextProgress();
+                  } else {
+                    alert('베이스를 선택해주세요!');
+                  }
+                  break;
+                case 4:
+                  if (surveyStore.getState().alcoholContent !== 0) {
+                    nextProgress();
+                  } else {
+                    alert('도수를 선택해주세요!');
+                  }
+                  break;
+                default:
+                  break;
+              }
+            }}
+          >
+            다음
+          </button>
+        )}
+
+        {progress === 5 && (
+          <button
+            className="next"
+            type="button"
+            onClick={() => {
               submit();
-              // submit API
             }}
           >
             제출
           </button>
         )}
-        {progress === 7 && (
+        {/* {progress === 7 && (
           <button
             className="next"
             type="button"
             onClick={() => {
-              // submitSurvey();
+              submitSurvey();
             }}
           >
             홈으로
           </button>
-        )}
+        )} */}
       </div>
     </>
   );

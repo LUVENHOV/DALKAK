@@ -5,6 +5,9 @@ const nextConfig = {
   distDir: 'build',
   output: 'export',
   trailingSlash: true,
+  experimental: {
+    missingSuspenseWithCSRBailout: false,
+  },
   images: {
     loader: 'custom',
     loaderFile: './image-loader.ts',
