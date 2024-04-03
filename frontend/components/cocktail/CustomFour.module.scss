@@ -1,24 +1,29 @@
+.container {
+  width: 93%;
+  margin: 0 auto;
+}
+
 .flexContainer {
   display: flex;
   flex-direction: column;
 }
-.flexRow{
-  font-size: 1.3vw;
-    margin-left: 1.3vw;
-    font-weight: 600;
-    margin-left: 2vw;
+
+.title {
   display: flex;
-  justify-content: space-between;
-  button{
-    width : 5.4vw;
-    height : 2vw;
-    padding : 1vw;
-    font-size: large;
-    text-align: center;
-    margin-right : 2vw;
-    margin-bottom : 2vw;
+  margin-bottom: 20px;
+  font-size: 1.3vw;
+  font-weight: 600;
+  margin-bottom: 50px;
+
+  button {
+    display: flex;
+    justify-content: center;
+    padding: 10px 20px;
+    font-size: 1.2vw;
+    margin-left: auto;
   }
 }
+
 .content {
   display: flex;
   justify-content: space-evenly;

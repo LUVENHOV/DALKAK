@@ -33,7 +33,7 @@ interface Props {
 }
 
 const authorization =
-  'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTIxNTI2NDYsImV4cCI6MTcxMjE1NjI0NiwiaWQiOjZ9.XV3T90UcRtNEt_aLSZ5KWTMMdI_IfYtfICZy3euo_v4';
+  'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTIxNTY2NTYsImV4cCI6MTcxMjE2MDI1NiwiaWQiOjI1fQ.8xrIJp465I-yfBBie7-jnYv4hQNV-FkgHvVNI9t5IVY';
 
 export async function getData({ cocktailId }: Props) {
   const response = await fetch(
@@ -46,12 +46,12 @@ export async function getData({ cocktailId }: Props) {
   );
 
   if (!response.ok) {
-    const error = new Error('Failed to fetch data');
-    throw error;
-  } else {
-    const data = await response.json();
-    return (await data).data;
+    // const error = new Error('Failed to fetch data');
+    window.location.replace('/oauth');
+    return 401;
   }
+  const data = await response.json();
+  return (await data).data;
 }
 
 export default async function CocktailDetail({ cocktailId }: Props) {

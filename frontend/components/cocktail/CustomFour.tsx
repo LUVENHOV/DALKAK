@@ -60,18 +60,24 @@ export default function CustomFour(props: IPropsType) {
   return (
     <div className={styles.container}>
       {customList.length === 0 ? (
-        <NoContent
-          title="이런!"
-          line1="아직 등록된 커스텀 칵테일이 없네요"
-          line2="제일 먼저 등록해볼까요?"
-        />
+        <>
+          <div className={styles.title}>커스텀 칵테일</div>
+          <NoContent
+            title="이런!"
+            line1="아직 등록된 커스텀 칵테일이 없네요"
+            line2="제일 먼저 등록해볼까요?"
+          />
+        </>
       ) : (
         <div className={styles.flexContainer}>
-          <div className={styles.flexRow}>커스텀 칵테일
+          <div className={styles.title}>
+            커스텀 칵테일
             <BtnWithIcon
+              text="전체 보기"
               btnStyle="full-point"
-              text="전체보기"
-              handleOnClick={routeToCustomCocktail}
+              handleOnClick={() => {
+                router.push(`/cocktail/customs?id=${cocktailId}`);
+              }}
             />
           </div>
           <div className={styles.content}>
