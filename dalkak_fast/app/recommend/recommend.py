@@ -82,6 +82,7 @@ def recommend_by_refrigerator(m_id: int, db: Session):
   for r in refrigerator_ingredients:
     set1.add(r._data[0])
   dislike=set()
+  print(dislike)
   for di in dislike_ingredients:
     dislike.add(di._data[0])
   df = pd.read_csv('/code/app/for_recommend.csv', index_col=0)
@@ -102,6 +103,7 @@ def recommend_by_refrigerator(m_id: int, db: Session):
                                 'occasion_id': [survey_res[0]._data[3]]})
 
   df1 = df[df['diff_len'] == 0]
+  print(df.iloc(3164))
   df1 = df1.drop(['jaccard_sim', 'diff', 'diff_len', 'ingredient'], axis=1)
   print("zeros",df1[:30])
   zero = _sort_by_survey(survey_res_df, df1[:30], 8)
