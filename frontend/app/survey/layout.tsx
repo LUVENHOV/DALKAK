@@ -2,10 +2,10 @@
 
 import React, { useEffect } from 'react';
 
+import { useRouter } from 'next/navigation';
 import surveyStore from '../../store/surveyStore';
 import { submitSurvey } from '@/apis/Member';
 import authStore from '@/store/authStore';
-import { useRouter } from 'next/router';
 import './page.scss';
 import memberStore from '@/store/memberStore';
 // import useSearchStore from '@/store/searchStore';
