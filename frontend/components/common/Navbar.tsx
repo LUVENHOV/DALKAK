@@ -67,10 +67,13 @@ export default function Navbar() {
           </Link>
         </div>
       </div>
-      <div />
-
       <div className={styles.center}>
-        <NavbarTopRank />
+        <div className={styles.fix}>
+          현재 가장 인기 있는 칵테일&nbsp;&nbsp;|&nbsp;&nbsp;
+        </div>
+        <div>
+          <NavbarTopRank />
+        </div>
       </div>
       <div className={styles.right}>
         {isLoggedIn ? (

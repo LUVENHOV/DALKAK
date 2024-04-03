@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 
-import styles from './IngredientCard.module.scss';
+import styles from './ToolCard.module.scss';
 
 interface CocktailTool {
   id: number;

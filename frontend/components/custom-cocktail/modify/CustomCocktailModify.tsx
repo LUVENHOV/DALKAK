@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-lonely-if */
 
 'use client';
@@ -53,6 +54,7 @@ export default function CustomCocktailModify(props: Props) {
   const [customImage, setCustomImage] = useState<string>('');
   const [customComment, setCustomComment] = useState('');
   const [customRecipe, setCustomRecipe] = useState('');
+  const [changedRecipe, setChangedRecipe] = useState('');
   const [isPublic, setIsPublic] = useState(false);
 
   /** 이미지 변경 관련 */
@@ -95,6 +97,7 @@ export default function CustomCocktailModify(props: Props) {
     // console.log(customSummary);
     // console.log(customComment);
     // console.log(customRecipe);
+    console.log(changedRecipe);
     // console.log(open);
     // console.log(tempList);
     // console.log(filteredList);
@@ -146,6 +149,10 @@ export default function CustomCocktailModify(props: Props) {
     getBaseCocktailData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    setChangedRecipe(customRecipe.split('\n').join('|'));
+  }, [customRecipe]);
 
   const removeItem = (id: number) => {
     setTempList((prevList) => prevList.filter((data) => data.id !== id));
@@ -286,10 +293,11 @@ export default function CustomCocktailModify(props: Props) {
           customName,
           customSummary,
           customComment,
-          customRecipe,
+          customRecipe: changedRecipe,
           open: isPublic ? 'True' : 'False',
           customIngredientList: filteredList,
         };
+        // eslint-disable-next-line no-console
         console.log(newImage, postInput);
 
         const formData = new FormData();
@@ -320,11 +328,14 @@ export default function CustomCocktailModify(props: Props) {
           },
         );
         if (response.ok) {
+          // eslint-disable-next-line no-alert
           alert('커스텀 레시피가 수정되었습니다.');
           // console.log(formData);
           router.push(`/cocktail/custom/detail/${customId}`);
         } else {
+          // eslint-disable-next-line no-console
           console.error('커스텀 레시피 수정 실패');
+          // eslint-disable-next-line no-console
           console.log(response);
           // console.log(formData);
         }
@@ -380,9 +391,9 @@ export default function CustomCocktailModify(props: Props) {
             </div>
           </div>
         </div>
-        <button type="button" onClick={confirmData}>
+        {/* <button type="button" onClick={confirmData}>
           저장된 데이터 확인
-        </button>
+        </button> */}
         <div className={styles['inner-container']}>
           <div className={styles.space}>
             <CustomCocktailImageUpload

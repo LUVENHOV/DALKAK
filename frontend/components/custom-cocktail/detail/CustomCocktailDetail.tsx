@@ -79,6 +79,8 @@ export async function getData({ customId }: Props) {
     return 404;
   }
   const data: ApiResponse = await response.json();
+  // console.log(data);
+  console.log(data.data.recipe);
   return data.data;
 }
 export default async function CustomCocktailDetail({ customId }: Props) {

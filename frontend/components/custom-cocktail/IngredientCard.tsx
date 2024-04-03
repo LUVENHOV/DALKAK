@@ -94,10 +94,8 @@ export default function IngredientCard<T extends IngredientType>({
           height={20}
         />
         <div className={styles['ingredient-name']}>
-          <div className={isStored}>
-            {(ingredient as Cocktail_Ingredients)?.name ||
-              (ingredient as Custom_Ingredients)?.ingredient.name}
-          </div>
+          {(ingredient as Cocktail_Ingredients)?.name ||
+            (ingredient as Custom_Ingredients)?.ingredient.name}
         </div>
       </div>
       <div className={styles.count}>

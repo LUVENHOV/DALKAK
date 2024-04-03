@@ -7,8 +7,13 @@
     justify-content: center;
     position: relative;
     bottom: 2vw;
+
     button {
-      padding: 0.5vw 1vw;
+      display: flex;
+      justify-content: center;
+      width: 18vw;
+      padding: 0.6vw 1.5vw;
+      font-size: 1.2vw;
     }
   }
 }
