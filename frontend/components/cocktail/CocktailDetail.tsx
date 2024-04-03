@@ -29,44 +29,38 @@ interface Cocktail_Ingredients {
   unit: Unit;
 }
 
-interface Cocktail_Tools {
-  id: number;
-  name: string;
-  image: string;
-}
+// interface Cocktail_Tools {
+//   id: number;
+//   name: string;
+//   image: string;
+// }
 
-interface Custom_Cocktails {
-  id: number;
-  image: string;
-  name: string;
-  summary: string;
-  user: {
-    id: number;
-    nickname: string;
-  };
-}
+// interface Custom_Cocktails {
+//   id: number;
+//   image: string;
+//   name: string;
+//   summary: string;
+//   user: {
+//     id: number;
+//     nickname: string;
+//   };
+// }
 
-interface Data {
-  id: number;
-  name: string;
-  korean_name: string;
-  image: string;
-  heart_count: number;
-  heart: boolean;
-  view_count: number;
-  alcohol_content: number;
-  sweetness: number;
-  recipe: string;
-  cocktail_ingredients: Cocktail_Ingredients[];
-  cocktail_tools: Cocktail_Tools[];
-  custom_cocktails: Custom_Cocktails[];
-}
-
-interface ApiResponse {
-  code: number;
-  messages: string[];
-  data: Data;
-}
+// interface Data {
+//   id: number;
+//   name: string;
+//   korean_name: string;
+//   image: string;
+//   heart_count: number;
+//   heart: boolean;
+//   view_count: number;
+//   alcohol_content: number;
+//   sweetness: number;
+//   recipe: string;
+//   cocktail_ingredients: Cocktail_Ingredients[];
+//   cocktail_tools: Cocktail_Tools[];
+//   custom_cocktails: Custom_Cocktails[];
+// }
 
 interface Props {
   cocktailId: number;
@@ -90,8 +84,8 @@ export async function getData({ cocktailId }: Props) {
     console.log(error);
     throw error;
   } else {
-    const data: ApiResponse = await response.json();
-    return data.data;
+    const data = await response.json();
+    return (await data).data;
   }
 }
 
@@ -100,6 +94,7 @@ export default async function CocktailDetail({ cocktailId }: Props) {
   const cocktailIngredients: Cocktail_Ingredients[] =
     cocktailDetailData.cocktail_ingredients;
   // console.log(cocktailDetailData);
+
   return (
     <div className={styles['flex-container']}>
       <div className={styles.container}>
@@ -180,10 +175,10 @@ export default async function CocktailDetail({ cocktailId }: Props) {
   // );
 }
 
-interface Custom_Cocktails {
-  custom_id: number;
-  custom_name: string;
-  custom_summary: string;
-  user_id: number;
-  user_nickname: string;
-}
+// interface Custom_Cocktails {
+//   custom_id: number;
+//   custom_name: string;
+//   custom_summary: string;
+//   user_id: number;
+//   user_nickname: string;
+// }

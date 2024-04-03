@@ -27,10 +27,10 @@ interface Props {
 }
 
 export default function CustomCocktailList({ dummy, type, cocktailId }: Props) {
+  const [customList, setCustomList] = useState<ICustomCocktail[]>([]);
+
   const getAccessToken = () => authStore.getState().accessToken;
   const authorization = getAccessToken();
-
-  const [customList, setCustomList] = useState<ICustomCocktail[]>([]);
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/${cocktailId}`, {
@@ -45,8 +45,7 @@ export default function CustomCocktailList({ dummy, type, cocktailId }: Props) {
         return response.json();
       })
       .then((result) => {
-        console.log(authorization);
-        console.log(result.data.custom_cocktails);
+        console.log('>>', result.data.custom_cocktails);
         setCustomList(result.data.custom_cocktails);
       })
       .catch((error) => {
@@ -55,18 +54,16 @@ export default function CustomCocktailList({ dummy, type, cocktailId }: Props) {
   }, [authorization, cocktailId]);
 
   return (
-    <div>
-      <div className={styles.container}>
-        <ul className={styles['grid-container']}>
-          {type === 'small'
-            ? customList?.map((item) => (
-                <CustomCocktailCard key={item.id} custom={item} type={type} />
-              ))
-            : dummy?.map((item) => (
-                <CustomCocktailCard key={item.id} custom={item} type={type} />
-              ))}
-        </ul>
-      </div>
+    <div className={styles.container}>
+      <ul className={styles['grid-container']}>
+        {type === 'small'
+          ? customList?.map((item) => (
+              <CustomCocktailCard key={item.id} custom={item} type={type} />
+            ))
+          : dummy?.map((item) => (
+              <CustomCocktailCard key={item.id} custom={item} type={type} />
+            ))}
+      </ul>
     </div>
   );
 }
