@@ -88,7 +88,11 @@ export default function CustomCocktailList(props: Props) {
         secondText="를 활용한 다른 회원들의 색다른 레시피를 확인해보세요!"
         cocktailId={cocktailId}
       />
-      <CustomCocktailCardWrapper dummy={customList} type="big" />
+      <CustomCocktailCardWrapper
+        dummy={customList}
+        type="big"
+        cocktailId={cocktailId}
+      />
 
       {customAllData && (
         <CustomCocktailPagination

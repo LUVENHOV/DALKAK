@@ -169,6 +169,7 @@ export default async function CocktailDetail({ cocktailId }: Props) {
             <CustomCocktailCardWrapper
               dummy={cocktailDetailData.custom_cocktails}
               type="small"
+              cocktailId={cocktailId}
             />
           ) : (
             <div className={styles['no-custom']}>
