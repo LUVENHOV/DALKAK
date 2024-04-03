@@ -103,6 +103,7 @@ def recommend_by_refrigerator(m_id: int, db: Session):
 
   df1 = df[df['diff_len'] == 0]
   df1 = df1.drop(['jaccard_sim', 'diff', 'diff_len', 'ingredient'], axis=1)
+  print("zeros",df1[:30])
   zero = _sort_by_survey(survey_res_df, df1[:30], 8)
   df2 = df[df['diff_len'] != 0]
   df2 = df2.drop(['jaccard_sim', 'diff', 'diff_len', 'ingredient'], axis=1)
