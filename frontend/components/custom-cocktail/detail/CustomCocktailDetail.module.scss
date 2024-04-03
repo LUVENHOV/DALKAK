@@ -22,9 +22,11 @@
     font-size: 1.8vw;
     font-weight: 600;
     margin-left: 2vw;
+    align-self: end;
   }
 
   .nickname {
+    font-size: 1vw;
     align-self: end;
     margin-left: 1vw;
   }
@@ -46,8 +48,9 @@
 
     .divide-line {
       color: var(--color-placeholder);
-      position: relative;
-      top: 0.2vw;
+      // position: relative;
+      // top: 0.2vw;
+      align-self: center;
     }
 
     button {

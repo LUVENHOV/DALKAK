@@ -1,8 +1,11 @@
 'use client';
 
 import React from 'react';
-
+import ModeIcon from '@mui/icons-material/Mode';
+import { IconButton } from '@mui/material';
 import { useRouter } from 'next/navigation';
+
+import styles from './CustomCocktailModifyButton.module.scss';
 
 interface Props {
   customId: number;
@@ -16,9 +19,9 @@ export default function CustomCocktailModifyButton({ customId }: Props) {
   };
   return (
     <div>
-      <button type="button" onClick={ModifyClick}>
-        🖍&nbsp;수정
-      </button>
+      <IconButton type="button" onClick={ModifyClick}>
+        <ModeIcon className={styles.icons} /> &nbsp;수정
+      </IconButton>
     </div>
   );
 }
