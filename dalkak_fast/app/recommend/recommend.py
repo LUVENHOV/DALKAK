@@ -70,6 +70,7 @@ def recommend_by_refrigerator(m_id: int, db: Session):
 
   def diff_len(ingredient):
     set2 = set(ingredient.split(","))
+    print("차집합 차이",set2,set1)
     return len(set2.difference(set1))
 
 
@@ -103,7 +104,6 @@ def recommend_by_refrigerator(m_id: int, db: Session):
                                 'occasion_id': [survey_res[0]._data[3]]})
 
   df1 = df[df['diff_len'] == 0]
-  print(df.iloc(3164))
   df1 = df1.drop(['jaccard_sim', 'diff', 'diff_len', 'ingredient'], axis=1)
   print("zeros",df1[:30])
   zero = _sort_by_survey(survey_res_df, df1[:30], 8)
