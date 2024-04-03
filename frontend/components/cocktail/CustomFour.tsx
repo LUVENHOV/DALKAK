@@ -7,6 +7,7 @@ import NoContent from '../common/NoContent';
 import CustomCocktailCard from '../custom-cocktail/CustomCocktailCard';
 
 import authStore from '@/store/authStore';
+import BtnWithIcon from '../common/BtnWithIcon';
 
 interface IPropsType {
   cocktailId: number;
@@ -57,22 +58,25 @@ export default function CustomFour(props: IPropsType) {
   return (
     <div className={styles.container}>
       {customList.length === 0 ? (
-        <NoContent
-          title="이런!"
-          line1="아직 등록된 커스텀 칵테일이 없네요"
-          line2="제일 먼저 등록해볼까요?"
-        />
+        <>
+          <div className={styles.title}>커스텀 칵테일</div>
+          <NoContent
+            title="이런!"
+            line1="아직 등록된 커스텀 칵테일이 없네요"
+            line2="제일 먼저 등록해볼까요?"
+          />
+        </>
       ) : (
         <div className={styles.flexContainer}>
           <div className={styles.title}>
-            <button
-              type="button"
-              onClick={() => {
+            커스텀 칵테일
+            <BtnWithIcon
+              text="전체 보기"
+              btnStyle="full-point"
+              handleOnClick={() => {
                 router.push(`/cocktail/customs?id=${cocktailId}`);
               }}
-            >
-              전체 보기
-            </button>
+            />
           </div>
           <div className={styles.content}>
             {customList?.map((item) => (

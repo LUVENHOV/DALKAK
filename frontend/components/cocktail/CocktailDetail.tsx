@@ -33,7 +33,7 @@ interface Props {
 }
 
 const authorization =
-  'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTE3ODk1MDgsImV4cCI6MTcxMjE0OTUwOCwiaWQiOjN9.rxVLMICLt23rj4vV_btj7QtObPgxszooG-rzQG_et3A';
+  'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTIxNTY2NTYsImV4cCI6MTcxMjE2MDI1NiwiaWQiOjI1fQ.8xrIJp465I-yfBBie7-jnYv4hQNV-FkgHvVNI9t5IVY';
 
 export async function getData({ cocktailId }: Props) {
   const response = await fetch(
@@ -46,13 +46,12 @@ export async function getData({ cocktailId }: Props) {
   );
 
   if (!response.ok) {
-    const error = new Error('Failed to fetch data');
+    // const error = new Error('Failed to fetch data');
     window.location.replace('/oauth');
-    throw error;
-  } else {
-    const data = await response.json();
-    return (await data).data;
+    return 401;
   }
+  const data = await response.json();
+  return (await data).data;
 }
 
 export default async function CocktailDetail({ cocktailId }: Props) {
@@ -107,7 +106,6 @@ export default async function CocktailDetail({ cocktailId }: Props) {
 
         <hr className={styles.hr2} />
         <div className={styles.flex}>
-          <div className={styles.title}>커스텀 칵테일</div>
           <CustomFour cocktailId={cocktailId} />
         </div>
       </div>
