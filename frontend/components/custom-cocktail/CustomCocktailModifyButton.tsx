@@ -18,7 +18,11 @@ export default function CustomCocktailModifyButton({ customId }: Props) {
   };
   return (
     <div>
-      <IconButton type="button" onClick={ModifyClick}>
+      <IconButton
+        className={styles['icon-button']}
+        type="button"
+        onClick={ModifyClick}
+      >
         <ModeIcon className={styles.icons} /> &nbsp;수정
       </IconButton>
     </div>

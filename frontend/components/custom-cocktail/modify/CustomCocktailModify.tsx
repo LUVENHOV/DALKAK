@@ -277,7 +277,7 @@ export default function CustomCocktailModify(props: Props) {
           // eslint-disable-next-line no-console
           console.error('커스텀 레시피 수정 실패');
           // eslint-disable-next-line no-console
-          console.log(response);
+          // console.log(response);
           // console.log(formData);
         }
       } else {
@@ -306,13 +306,14 @@ export default function CustomCocktailModify(props: Props) {
     <div className={styles['flex-container']}>
       <div className={styles.container}>
         <div className={styles['title-container']}>
-          <div className={styles.name}>
-            커스텀 칵테일 이름
-            <span className={styles['divide-line']}>&nbsp;&nbsp;&nbsp;|</span>
-          </div>
+          <div className={styles.left}>
+            <div className={styles.name}>
+              커스텀 칵테일 이름
+              <span className={styles['divide-line']}>&nbsp;&nbsp;&nbsp;|</span>
+            </div>
 
-          <div className={styles.explain}>&nbsp;&nbsp; {name}</div>
-          <div />
+            <div className={styles.explain}>&nbsp;&nbsp; {name}</div>
+          </div>
 
           <div className={styles.buttons}>
             <div className={`${styles.button} ${styles.button1}`}>
