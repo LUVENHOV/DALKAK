@@ -43,24 +43,23 @@ export default function CustomCocktailModify(props: Props) {
   const { customId } = props;
   const router = useRouter();
 
-  const [isPublic, setIsPublic] = useState(false);
-
-  const [uploadedImage, setUploadedImage] = useState('');
-
   const [name, setName] = useState('');
 
   // 여기선 유저가 보낼 데이터
 
+  // const [uploadedImage, setUploadedImage] = useState('');
   const [customName, setCustomName] = useState('');
   const [customSummary, setCustomSummary] = useState('');
-  const [customImage, setCustomImage] = useState<File | null>(null);
+  const [customImage, setCustomImage] = useState<string>('');
   const [customComment, setCustomComment] = useState('');
   const [customRecipe, setCustomRecipe] = useState('');
-  const [open, setOpen] = useState(false);
+  const [isPublic, setIsPublic] = useState(false);
 
   /** 이미지 변경 관련 */
+
+  const [newImage, setNewImage] = useState<File | null>(null);
   const handleImageProps = (targetImage: File | null) => {
-    setCustomImage(targetImage);
+    setNewImage(targetImage);
   };
 
   // 재료추가 기능 관련
@@ -81,14 +80,24 @@ export default function CustomCocktailModify(props: Props) {
 
   const confirmData = () => {
     // console.log('여기부터');
+    const postInput = {
+      customName,
+      customSummary,
+      customComment,
+      customRecipe,
+      open: isPublic ? 'True' : 'False',
+      customIngredientList: filteredList,
+    };
     console.log(customImage);
-    console.log(customName);
-    console.log(customSummary);
-    console.log(customComment);
-    console.log(customRecipe);
-    console.log(open);
-    console.log(tempList);
-    console.log(filteredList);
+    console.log(newImage);
+    console.log(postInput);
+    // console.log(customName);
+    // console.log(customSummary);
+    // console.log(customComment);
+    // console.log(customRecipe);
+    // console.log(open);
+    // console.log(tempList);
+    // console.log(filteredList);
 
     // console.log(uploadedImage);
   };
@@ -116,9 +125,7 @@ export default function CustomCocktailModify(props: Props) {
       throw error;
     } else {
       const result = await response.json();
-
       const data = await result.data;
-
       return data;
     }
   }, [customId]);
@@ -127,13 +134,14 @@ export default function CustomCocktailModify(props: Props) {
     const getBaseCocktailData = async () => {
       const response = await getBaseData();
       setName(await response.name);
-      setUploadedImage(await response.image);
+      setCustomImage(await response.image);
       setCustomRecipe(await response.recipe);
       setTempList(await response.custom_ingredients);
       setCustomName(await response.name);
       setCustomSummary(await response.summary);
       setCustomComment(await response.comment);
       setIsPublic(await response.open);
+      // console.log(response);
     };
     getBaseCocktailData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -203,10 +211,8 @@ export default function CustomCocktailModify(props: Props) {
   const handleIsPublic = () => {
     if (isPublic === false) {
       setIsPublic(true);
-      setOpen(true);
     } else {
       setIsPublic(false);
-      setOpen(false);
     }
   };
 
@@ -281,18 +287,23 @@ export default function CustomCocktailModify(props: Props) {
           customSummary,
           customComment,
           customRecipe,
-          open: open ? 'True' : 'False',
+          open: isPublic ? 'True' : 'False',
           customIngredientList: filteredList,
         };
+        console.log(newImage, postInput);
 
         const formData = new FormData();
-
-        if (customImage !== null) {
-          formData.append('image', customImage);
+        // if (newImage === null) {
+        //   formData.append('image', JSON.stringify(null));
+        // } else {
+        //   formData.append('image', newImage);
+        // }
+        if (newImage !== null) {
+          formData.append('image', newImage);
         } else {
-          formData.append('image', '');
+          // newImage가 null인 경우 FormData에 이미지 키에 null 값을 추가
+          formData.append('image', JSON.stringify(null));
         }
-
         formData.append(
           'CustomModifyReqDto',
           new Blob([JSON.stringify(postInput)], { type: 'application/json' }),
@@ -310,11 +321,12 @@ export default function CustomCocktailModify(props: Props) {
         );
         if (response.ok) {
           alert('커스텀 레시피가 수정되었습니다.');
-          console.log(formData);
+          // console.log(formData);
           router.push(`/cocktail/custom/detail/${customId}`);
         } else {
           console.error('커스텀 레시피 수정 실패');
-          console.log(formData);
+          console.log(response);
+          // console.log(formData);
         }
       } else {
         // if (!customImage) {
@@ -375,7 +387,7 @@ export default function CustomCocktailModify(props: Props) {
           <div className={styles.space}>
             <CustomCocktailImageUpload
               handleImageProps={handleImageProps}
-              uploadedImage={uploadedImage}
+              uploadedImage={customImage}
             />
             <div className={styles['input-container']}>
               <div className={styles.inputs}>
