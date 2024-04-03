@@ -72,9 +72,7 @@ export default function CustomFour(props: IPropsType) {
             <BtnWithIcon
               text="전체 보기"
               btnStyle="full-point"
-              handleOnClick={() => {
-                router.push(`/cocktail/customs?id=${cocktailId}`);
-              }}
+              handleOnClick={routeToCustomCocktail}
             />
           </div>
           <div className={styles.content}>
