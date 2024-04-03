@@ -14,7 +14,6 @@ import CustomCocktailRecipe from '@/components/custom-cocktail/CustomCocktailRec
 import IngredientCardWrapper from '@/components/custom-cocktail/IngredientCardWrapper';
 import ToolCardWrapper from '@/components/custom-cocktail/ToolCardWrapper';
 
-import authStore from '@/store/authStore';
 interface Unit {
   id: number;
   name: string;
