@@ -4,7 +4,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import './main.scss';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import CocktailCard from '@/components/cocktail-list/CocktailCard';
 import bartender from '@/public/assets/imgs/bartender.png';
 import authStore from '@/store/authStore';
