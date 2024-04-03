@@ -3,11 +3,10 @@ import React from 'react';
 import Link from 'next/link';
 
 import styles from './CocktailDetail.module.scss';
+import CustomFour from './CustomFour';
 import BtnWithIcon from '@/components/common/BtnWithIcon';
 
 import LikeCount from '@/components/common/LikeCount';
-
-import CustomCocktailCardWrapper from '@/components/custom-cocktail/CustomCocktailCardWrapper';
 
 import CustomCocktailImage from '@/components/custom-cocktail/CustomCocktailImage';
 import CustomCocktailRecipe from '@/components/custom-cocktail/CustomCocktailRecipe';
@@ -28,39 +27,6 @@ interface Cocktail_Ingredients {
   amount: number;
   unit: Unit;
 }
-
-// interface Cocktail_Tools {
-//   id: number;
-//   name: string;
-//   image: string;
-// }
-
-// interface Custom_Cocktails {
-//   id: number;
-//   image: string;
-//   name: string;
-//   summary: string;
-//   user: {
-//     id: number;
-//     nickname: string;
-//   };
-// }
-
-// interface Data {
-//   id: number;
-//   name: string;
-//   korean_name: string;
-//   image: string;
-//   heart_count: number;
-//   heart: boolean;
-//   view_count: number;
-//   alcohol_content: number;
-//   sweetness: number;
-//   recipe: string;
-//   cocktail_ingredients: Cocktail_Ingredients[];
-//   cocktail_tools: Cocktail_Tools[];
-//   custom_cocktails: Custom_Cocktails[];
-// }
 
 interface Props {
   cocktailId: number;
@@ -142,43 +108,10 @@ export default async function CocktailDetail({ cocktailId }: Props) {
         <hr className={styles.hr2} />
         <div className={styles.flex}>
           <div className={styles.title}>커스텀 칵테일</div>
-
-          <div className={styles.all}>
-            {cocktailDetailData.custom_cocktails?.length > 0 ? (
-              <Link
-                href={{
-                  pathname: '/cocktail/customs',
-                  query: { id: cocktailId },
-                }}
-              >
-                <BtnWithIcon text="전체보기" btnStyle="full-point" />
-              </Link>
-            ) : null}
-          </div>
-        </div>
-        <div>
-          {cocktailDetailData.custom_cocktails?.length > 0 ? (
-            <CustomCocktailCardWrapper
-              dummy={cocktailDetailData.custom_cocktails}
-              type="small"
-              cocktailId={cocktailId}
-            />
-          ) : (
-            <div className={styles['no-custom']}>
-              등록된 커스텀 칵테일이 없습니다.
-            </div>
-          )}
+          <CustomFour cocktailId={cocktailId} />
         </div>
       </div>
+      <div />
     </div>
   );
-  // );
 }
-
-// interface Custom_Cocktails {
-//   custom_id: number;
-//   custom_name: string;
-//   custom_summary: string;
-//   user_id: number;
-//   user_nickname: string;
-// }

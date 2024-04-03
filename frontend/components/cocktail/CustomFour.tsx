@@ -1,0 +1,71 @@
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import styles from './CustomFour.module.scss';
+import NoContent from '../common/NoContent';
+import CustomCocktailCard from '../custom-cocktail/CustomCocktailCard';
+
+import authStore from '@/store/authStore';
+
+interface IPropsType {
+  cocktailId: number;
+}
+
+interface ICustomCocktail {
+  id: number;
+  image: string;
+  name: string;
+  summary: string;
+  user: {
+    id: number;
+    nickname: string;
+  };
+}
+
+export default function CustomFour(props: IPropsType) {
+  const { cocktailId } = props;
+
+  const [customList, setCustomList] = useState<ICustomCocktail[]>([]);
+
+  const getAccessToken = () => authStore.getState().accessToken;
+  const authorization = getAccessToken();
+
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/${cocktailId}`, {
+      headers: {
+        authorization,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        return response.json();
+      })
+      .then((result) => {
+        console.log('>>', result.data.custom_cocktails);
+        setCustomList(result.data.custom_cocktails);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, [authorization, cocktailId]);
+
+  return (
+    <div className={styles.container}>
+      {customList.length === 0 ? (
+        <NoContent
+          title="이런!"
+          line1="아직 등록된 커스텀 칵테일이 없네요"
+          line2="제일 먼저 등록해볼까요?"
+        />
+      ) : (
+        <div className={styles.flexContainer}>
+          {customList?.map((item) => (
+            <CustomCocktailCard key={item.id} custom={item} type="small" />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
