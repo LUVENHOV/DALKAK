@@ -7,13 +7,15 @@ import { IconButton } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
 import styles from './CustomCocktailModifyButton.module.scss';
+import authStore from '@/store/authStore';
 
 interface Props {
   customId: number;
   cocktailId: number;
 }
 
-const token = process.env.NEXT_PUBLIC_TOKEN;
+const getAccessToken = () => authStore.getState().accessToken;
+const authorization = getAccessToken();
 
 export default function CustomCocktailDeleteButton({
   customId,
@@ -33,13 +35,13 @@ export default function CustomCocktailDeleteButton({
         {
           method: 'Delete',
           headers: {
-            Authorization: token ? `${token}` : '',
+            authorization,
           },
         },
       );
       if (response.ok) {
         alert('커스텀 레시피가 삭제되었습니다.');
-        router.push(`/cocktail/custom/${cocktailId}`);
+        router.push(`/cocktail/customs?id=${cocktailId}`);
       } else {
         console.error('커스텀 레시피 삭제 실패');
       }

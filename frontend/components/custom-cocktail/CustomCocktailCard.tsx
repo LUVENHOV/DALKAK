@@ -2,7 +2,8 @@
 
 import React from 'react';
 
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+// import { useRouter } from 'next/navigation';
 
 import styles from './CustomCocktailCard.module.scss';
 
@@ -23,12 +24,6 @@ interface Props {
 }
 
 export default function CustomCocktailCard({ custom, type }: Props) {
-  const router = useRouter();
-
-  const goToDetail = () => {
-    router.push(`/cocktail/custom/detail/${custom.id}`);
-  };
-
   const previewImageName =
     type === 'big' ? styles['custom-img'] : styles['custom-img-preview'];
 
@@ -39,21 +34,19 @@ export default function CustomCocktailCard({ custom, type }: Props) {
     type === 'big' ? styles.comment : styles['comment-preview'];
 
   return (
-    <div className={styles['grid-item']}>
-      <button
-        type="button"
-        onClick={goToDetail}
-        className={styles['image-box']}
-      >
-        <img
-          className={previewImageName}
-          src={custom.image}
-          alt={custom.name}
-        />
-        <div className={styles.author}>by {custom.user.nickname}</div>
-      </button>
-      <div className={previewTitleName}>{custom.name}</div>
-      <div className={previewCommentName}>{custom.summary}</div>
-    </div>
+    <Link href={{ pathname: '/cocktail/detail', query: { id: custom.id } }}>
+      <div className={styles['grid-item']}>
+        <div className={styles['image-box']}>
+          <img
+            className={previewImageName}
+            src={custom.image}
+            alt={custom.name}
+          />
+          <div className={styles.author}>by {custom.user.nickname}</div>
+        </div>
+        <div className={previewTitleName}>{custom.name}</div>
+        <div className={previewCommentName}>{custom.summary}</div>
+      </div>
+    </Link>
   );
 }

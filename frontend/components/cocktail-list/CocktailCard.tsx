@@ -7,6 +7,7 @@ import React from 'react';
 import { Favorite } from '@mui/icons-material';
 import Link from 'next/link';
 import styles from './CocktailCard.module.scss';
+import authStore from '@/store/authStore';
 
 interface ICocktailType {
   id: number;
@@ -19,8 +20,8 @@ interface ICocktailType {
 export default function CocktailCard(props: ICocktailType) {
   const { id, name, koreanName, image, heartCount } = props;
 
-  const authorization =
-    'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTIwMTY1NjAsImV4cCI6MTcxMjAyMDE2MCwiaWQiOjZ9.bshhzwSA_T7voxjZXUFyo0VJobpJOI-y2TlEm0lyQtA';
+  const getAccessToken = () => authStore.getState().accessToken;
+  const authorization = getAccessToken();
   const createLog = () => {
     fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/${id}/log`, {
       headers: { authorization },
@@ -28,7 +29,7 @@ export default function CocktailCard(props: ICocktailType) {
   };
 
   return (
-    <Link href={`/cocktail/${id}`}>
+    <Link href={`/cocktail/${id}/`}>
       <button type="button" className={styles.container} onClick={createLog}>
         <div className={styles.image}>
           <img src={image} alt={name} />

@@ -31,7 +31,7 @@ export default function Navbar() {
   const LogoutFunction = async () => {
     try {
       const response = await Logout();
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 401) {
         clearAll();
         clearTokens();
         window.location.replace('/');

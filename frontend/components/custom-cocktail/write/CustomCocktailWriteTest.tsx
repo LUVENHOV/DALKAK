@@ -17,6 +17,7 @@ import CustomCocktailAddIngredientTest from '@/components/custom-cocktail/write/
 import CustomCocktailAddRecipe from '@/components/custom-cocktail/write/CustomCocktailAddRecipe';
 import CustomCocktailImageUpload from '@/components/custom-cocktail/write/CustomCocktailImageUpload';
 import CustomCocktailInput from '@/components/custom-cocktail/write/CustomCocktailInput';
+import authStore from '@/store/authStore';
 // import { error } from 'console';
 // import { RepeatOneSharp } from '@mui/icons-material';
 
@@ -25,7 +26,8 @@ interface Unit {
   name: string;
 }
 
-const token = process.env.NEXT_PUBLIC_TOKEN;
+const getAccessToken = () => authStore.getState().accessToken;
+const authorization = getAccessToken();
 
 interface CustomIngredientList {
   id: number;
@@ -108,8 +110,7 @@ export default function CustomCocktailWrite(props: Props) {
       `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/${cocktailId}`,
       {
         headers: {
-          Authorization: token ? `${token}` : '',
-          // Authorization: `${authorization}`,
+          authorization,
         },
       },
     );
@@ -303,15 +304,14 @@ export default function CustomCocktailWrite(props: Props) {
           {
             method: 'POST',
             headers: {
-              Authorization: token ? `${token}` : '',
-              // 'Content-Type': 'application/json',
+              authorization,
             },
             body: formData,
           },
         );
         if (response.ok) {
           alert('커스텀 레시피가 등록되었습니다.');
-          router.push(`/cocktail/custom/${cocktailId}`);
+          router.push(`/cocktail/customs?id=${cocktailId}`);
         } else {
           console.error('커스텀 레시피 등록 실패');
         }

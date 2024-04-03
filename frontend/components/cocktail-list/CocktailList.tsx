@@ -4,11 +4,12 @@ import React, { useEffect, useState } from 'react';
 
 import styles from './CocktailList.module.scss';
 import CocktailCard from '@/components/cocktail-list/CocktailCard';
+import authStore from '@/store/authStore';
 import useSearchStore from '@/store/searchStore';
 import { ICocktailType, ISearchParamsType } from '@/type/searchTypes';
 
-const authorization =
-  'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTE3ODk1MDgsImV4cCI6MTcxMjE0OTUwOCwiaWQiOjN9.rxVLMICLt23rj4vV_btj7QtObPgxszooG-rzQG_et3A';
+const getAccessToken = () => authStore.getState().accessToken;
+const authorization = getAccessToken();
 
 const getCocktailList = async ({
   page,

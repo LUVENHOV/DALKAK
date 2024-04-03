@@ -17,6 +17,7 @@ import CustomCocktailAddIngredientTest from '@/components/custom-cocktail/write/
 import CustomCocktailAddRecipe from '@/components/custom-cocktail/write/CustomCocktailAddRecipe';
 import CustomCocktailImageUpload from '@/components/custom-cocktail/write/CustomCocktailImageUpload';
 import CustomCocktailInput from '@/components/custom-cocktail/write/CustomCocktailInput';
+import authStore from '@/store/authStore';
 // import { error } from 'console';
 // import { RepeatOneSharp } from '@mui/icons-material';
 
@@ -24,8 +25,6 @@ interface Unit {
   id: number;
   name: string;
 }
-
-const token = process.env.NEXT_PUBLIC_TOKEN;
 
 interface CustomIngredientList {
   id: number;
@@ -43,6 +42,9 @@ interface Props {
 export default function CustomCocktailModify(props: Props) {
   const { customId } = props;
   const router = useRouter();
+
+  const getAccessToken = () => authStore.getState().accessToken;
+  const authorization = getAccessToken();
 
   const [name, setName] = useState('');
 
@@ -117,8 +119,7 @@ export default function CustomCocktailModify(props: Props) {
         // 분명 같은 토큰인데 왜 어쩔때는 위에 코드가 안되고
         // 어쩔때는 아래 코드가 안 되는 건지 모르겠음...
         headers: {
-          Authorization: token ? `${token}` : '',
-          // Authorization: `${authorization}`,
+          authorization,
         },
       },
     );
@@ -131,7 +132,7 @@ export default function CustomCocktailModify(props: Props) {
       const data = await result.data;
       return data;
     }
-  }, [customId]);
+  }, [authorization, customId]);
 
   useEffect(() => {
     const getBaseCocktailData = async () => {
@@ -222,36 +223,6 @@ export default function CustomCocktailModify(props: Props) {
       setIsPublic(false);
     }
   };
-
-  // // eslint-disable-next-line no-shadow
-  // const addItem = (id: number, name: string) => {
-  //   if (tempList.length < 12) {
-  //     const newItem = {
-  //       id,
-  //       name,
-  //       ingredient_amount: 0,
-  //       // amount: 0,
-  //       image: '',
-  //       category_id: 0,
-  //       unit: {
-  //         id: 1,
-  //         name: '',
-  //       },
-  //     };
-  //     // 중복 여부 확인
-  //     const isDuplicate = tempList.some((item) => item.id === id);
-  //     // 중복이 없을 경우에만 새로운 아이템 추가
-  //     if (!isDuplicate) {
-  //       setTempList((prevList) => [...prevList, newItem]);
-  //     } else {
-  //       // 중복된 아이템이 있다면 여기에 대한 처리를 추가할 수 있습니다.
-  //       alert('이미 추가된 재료입니다');
-  //     }
-  //   } else {
-  //     alert('재료는 최대 12개까지 추가할 수 있습니다.');
-  //   }
-  // };
-
   // eslint-disable-next-line no-shadow
   const addTempList: (id: number, name: string) => void = (id, name) => {
     const isAlreadyAdded = tempList.some((item) => item.id === id);
@@ -297,8 +268,6 @@ export default function CustomCocktailModify(props: Props) {
           open: isPublic ? 'True' : 'False',
           customIngredientList: filteredList,
         };
-        // eslint-disable-next-line no-console
-        console.log(newImage, postInput);
 
         const formData = new FormData();
         // if (newImage === null) {
@@ -321,9 +290,7 @@ export default function CustomCocktailModify(props: Props) {
           `${process.env.NEXT_PUBLIC_BASE_URL}/customs/${customId}`,
           {
             method: 'PATCH',
-            headers: {
-              Authorization: token ? `${token}` : '',
-            },
+            headers: { authorization },
             body: formData,
           },
         );
@@ -331,7 +298,7 @@ export default function CustomCocktailModify(props: Props) {
           // eslint-disable-next-line no-alert
           alert('커스텀 레시피가 수정되었습니다.');
           // console.log(formData);
-          router.push(`/cocktail/custom/detail/${customId}`);
+          router.push(`/cocktail/detail?id=${customId}`);
         } else {
           // eslint-disable-next-line no-console
           console.error('커스텀 레시피 수정 실패');

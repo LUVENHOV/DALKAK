@@ -72,7 +72,7 @@ interface Props {
   cocktailId: number;
 }
 
-const token =
+const authorization =
   'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTE3ODk1MDgsImV4cCI6MTcxMjE0OTUwOCwiaWQiOjN9.rxVLMICLt23rj4vV_btj7QtObPgxszooG-rzQG_et3A';
 
 export async function getData({ cocktailId }: Props) {
@@ -80,9 +80,8 @@ export async function getData({ cocktailId }: Props) {
     `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/${cocktailId}`,
     {
       headers: {
-        Authorization: token ? `${token}` : '',
+        authorization,
       },
-      cache: 'no-store',
     },
   );
 
@@ -124,11 +123,13 @@ export default async function CocktailDetail({ cocktailId }: Props) {
           </div>
 
           <div className={styles.buttons}>
-            <Link href={`/cocktail/custom/write/${cocktailId}`}>
-              <BtnWithIcon
-                text="&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;커스텀 레시피 만들기"
-                btnStyle="full-point"
-              />
+            <Link
+              href={{
+                pathname: '/cocktail/write',
+                query: { id: cocktailId },
+              }}
+            >
+              <BtnWithIcon text="커스텀 레시피 만들기" btnStyle="full-point" />
             </Link>
           </div>
         </div>
@@ -153,8 +154,13 @@ export default async function CocktailDetail({ cocktailId }: Props) {
 
           <div className={styles.all}>
             {cocktailDetailData.custom_cocktails?.length > 0 ? (
-              <Link href={`/cocktail/custom/${cocktailId}`}>
-                <BtnWithIcon text="전체보기" btnStyle="no-border" />
+              <Link
+                href={{
+                  pathname: '/cocktail/customs',
+                  query: { id: cocktailId },
+                }}
+              >
+                <BtnWithIcon text="전체보기" btnStyle="full-point" />
               </Link>
             ) : null}
           </div>
@@ -164,6 +170,7 @@ export default async function CocktailDetail({ cocktailId }: Props) {
             <CustomCocktailCardWrapper
               dummy={cocktailDetailData.custom_cocktails}
               type="small"
+              cocktailId={cocktailId}
             />
           ) : (
             <div className={styles['no-custom']}>

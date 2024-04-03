@@ -64,9 +64,14 @@ export default function ProfileCard({ nickname, birth_date, gender }: ICard) {
         <div className="wrapper" onChange={() => handleGenderChange()}>
           <div className="label">성별</div>
           {genderChange ? (
-            <input className="gender" value={info.gender} />
+            <input
+              className="gender"
+              value={info.gender === 'FEMALE' ? '여성' : '남성'}
+            />
           ) : (
-            <div className="gender">{info.gender}</div>
+            <div className="gender">
+              {info.gender === 'FEMALE' ? '여성' : '남성'}
+            </div>
           )}
         </div>
       </div>

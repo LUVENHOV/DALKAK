@@ -4,15 +4,17 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 import styles from './NavbarTopRank.module.scss';
+import authStore from '@/store/authStore';
 
 interface Top_Cocktails {
   cocktail_id: number;
   cocktail_korean_name: string;
 }
 
-const token = process.env.NEXT_PUBLIC_TOKEN;
-
 export default function NavbarTopRank() {
+  const getAccessToken = () => authStore.getState().accessToken;
+  const authorization = getAccessToken();
+
   const router = useRouter();
   const [topCocktails, setTopCocktails] = useState<Top_Cocktails[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -20,7 +22,7 @@ export default function NavbarTopRank() {
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/recommends/heart-rank`, {
       headers: {
-        Authorization: token ? `${token}` : '',
+        authorization,
       },
     })
       .then((response) => {

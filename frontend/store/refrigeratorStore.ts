@@ -1,10 +1,11 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
+import authStore from './authStore';
 import { IRefrigeratorType } from '@/type/refrigeratorTypes';
 
-const authorization =
-  'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTE3ODk1MDgsImV4cCI6MTcxMjE0OTUwOCwiaWQiOjN9.rxVLMICLt23rj4vV_btj7QtObPgxszooG-rzQG_et3A';
+const getAccessToken = () => authStore.getState().accessToken;
+const authorization = getAccessToken();
 
 const useRefrigeratorStore = create(
   persist<IRefrigeratorType>(
