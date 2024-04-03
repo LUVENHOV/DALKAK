@@ -39,7 +39,6 @@ def recommend_by_prefer(m_id: int, db: Session):
 
   # 설문조사 결과
   survey_res = loader.load_survey_res(m_id)
-  # print(survey_res[0]._data[1])
   survey_res_df = pd.DataFrame({'base_spirit': [survey_res[0]._data[0]],
                                 'degree': [survey_res[0]._data[1]],
                                 'sugar': [survey_res[0]._data[2]],
@@ -60,7 +59,7 @@ def recommend_by_refrigerator(m_id: int, db: Session):
 
   def diff(ingredient):
     set2 = set(ingredient.split(","))
-    diffs= set2.difference(set1)
+    diffs = set2.difference(set1)
     for d in diffs:
       if d in dislike:
         return -1
@@ -70,34 +69,29 @@ def recommend_by_refrigerator(m_id: int, db: Session):
 
   def diff_len(ingredient):
     set2 = set(ingredient.split(","))
-    print("차집합 차이",set2,set1)
     return len(set2.difference(set1))
-
 
   loader = DataLoader(db)
   # 싫어하는 재료
-  dislike_ingredients=loader.load_dislike_ingredient(m_id)
+  dislike_ingredients = loader.load_dislike_ingredient(m_id)
   # 냉장고에 있는 재료
   refrigerator_ingredients = loader.load_refrigerator_ingredients(m_id)
   set1 = set()
   for r in refrigerator_ingredients:
     set1.add(r._data[0])
-  dislike=set()
-  print(dislike)
+  dislike = set()
   for di in dislike_ingredients:
     dislike.add(di._data[0])
   df = pd.read_csv('/code/app/for_recommend.csv', index_col=0)
   df['jaccard_sim'] = df['ingredient'].apply(jaccard_sim)
   df['diff'] = df['ingredient'].apply(diff)
   # diff에 싫어하는 재료 있는 경우 row 삭제
-  df= df[df['diff']!=-1]
+  df = df[df['diff'] != -1]
   df['diff_len'] = df['ingredient'].apply(diff_len)
 
   df = df.sort_values(by='jaccard_sim', ascending=False)
-  print(df)
   # 설문조사 결과
   survey_res = loader.load_survey_res(m_id)
-  # print(survey_res[0]._data[1])
   survey_res_df = pd.DataFrame({'base_spirit': [survey_res[0]._data[0]],
                                 'degree': [survey_res[0]._data[1]],
                                 'sugar': [survey_res[0]._data[2]],
@@ -105,7 +99,6 @@ def recommend_by_refrigerator(m_id: int, db: Session):
 
   df1 = df[df['diff_len'] == 0]
   df1 = df1.drop(['jaccard_sim', 'diff', 'diff_len', 'ingredient'], axis=1)
-  print("zeros",df1[:30])
   zero = _sort_by_survey(survey_res_df, df1[:30], 8)
   df2 = df[df['diff_len'] != 0]
   df2 = df2.drop(['jaccard_sim', 'diff', 'diff_len', 'ingredient'], axis=1)
@@ -115,8 +108,7 @@ def recommend_by_refrigerator(m_id: int, db: Session):
 
 # 결과 이용해서 코사인 유사도 정렬
 def _sort_by_survey(survey_res_df, df, max_l):
-  print("-----survey_result",survey_res_df)
-  local_survey_res_df=survey_res_df[:]
+  local_survey_res_df = survey_res_df[:]
   local_survey_res_df['오후 술'] = local_survey_res_df['occasion_id'].apply(
       lambda x: 1 if x == 14 else 0)
   local_survey_res_df['식전 술'] = local_survey_res_df['occasion_id'].apply(
@@ -130,7 +122,6 @@ def _sort_by_survey(survey_res_df, df, max_l):
   one_hot_encoded = df['base_spirit'].str.get_dummies(sep='|')
   df = pd.concat([df, one_hot_encoded], axis=1)
   del df['base_spirit']
-  print(df.iloc[0].values)
   cosine_sim = cosine_similarity(df.iloc[0].values.reshape(1, -1), df.values)
   df['cosine_sim'] = cosine_sim[0]
 
