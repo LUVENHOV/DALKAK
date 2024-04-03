@@ -22,7 +22,13 @@ export default function CustomCocktailDeleteButton({
   cocktailId,
 }: Props) {
   const router = useRouter();
+
   const DeleteClick = async () => {
+    // eslint-disable-next-line no-restricted-globals
+    const confirmed = confirm('정말로 삭제하시겠습니까?');
+    if (!confirmed) {
+      return;
+    }
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/customs/${customId}`,

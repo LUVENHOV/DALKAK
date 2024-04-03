@@ -104,23 +104,24 @@ export default async function CocktailDetail({ cocktailId }: Props) {
     <div className={styles['flex-container']}>
       <div className={styles.container}>
         <div className={styles['title-container']}>
-          <div className={styles.name}>{cocktailDetailData.name}</div>
+          <div className={styles.left}>
+            <div className={styles.name}>{cocktailDetailData.name}</div>
 
-          <div className={styles.nickname}>
-            <LikeCount
-              count={cocktailDetailData.heart_count}
-              cocktailId={cocktailId}
-              isLiked={cocktailDetailData.heart}
-            />
-            <div className={styles.info}>
-              {cocktailDetailData.alcohol_content}도
-            </div>
-            <div className={styles.info}>
-              당도{cocktailDetailData.sweetness}
+            <div className={styles.nickname}>
+              <LikeCount
+                count={cocktailDetailData.heart_count}
+                cocktailId={cocktailId}
+                isLiked={cocktailDetailData.heart}
+              />
+              <div className={styles.info}>
+                {cocktailDetailData.alcohol_content}도
+              </div>
+              <div className={styles.info}>
+                당도{cocktailDetailData.sweetness}
+              </div>
             </div>
           </div>
 
-          <div />
           <div className={styles.buttons}>
             <Link
               href={{

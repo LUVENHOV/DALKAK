@@ -1,6 +1,11 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable indent */
+
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
+
+import styles from './CustomCocktailList.module.scss';
 
 import UpperLineBannerCustomList from '@/components/common/UpperLineBannerCustomList';
 import CustomCocktailCardWrapper from '@/components/custom-cocktail/CustomCocktailCardWrapper';
@@ -81,25 +86,33 @@ export default function CustomCocktailList(props: Props) {
     updateCustomList();
   }, [currentPage, getCustomList, cocktailId]);
 
+  // const confirm = () => {
+  //   console.log(customAllData?.custom_cocktails);
+  // };
+
   return (
     <div>
+      {/* <button type="button" onClick={confirm}>
+        커스텀확인
+      </button> */}
       <UpperLineBannerCustomList
         frontText={customAllData && customAllData.cocktail_name}
         secondText="를 활용한 다른 회원들의 색다른 레시피를 확인해보세요!"
         cocktailId={cocktailId}
       />
-      <CustomCocktailCardWrapper
-        dummy={customList}
-        type="big"
-        cocktailId={cocktailId}
-      />
-
-      {customAllData && (
+      {customAllData &&
+      customAllData.custom_cocktails &&
+      customAllData.custom_cocktails.length > 0 ? (
+        <CustomCocktailCardWrapper dummy={customList} type="big" />
+      ) : customAllData && customAllData.custom_cocktails.length < 1 ? (
+        <div className={styles.empty}>등록된 커스텀 칵테일이 없습니다.</div>
+      ) : null}
+      {customAllData && customList.length > 0 ? (
         <CustomCocktailPagination
           totalPages={customAllData.total_page}
           handlePageClick={handlePageClick}
         />
-      )}
+      ) : null}
     </div>
   );
 }
