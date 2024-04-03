@@ -82,7 +82,6 @@ export async function getData({ cocktailId }: Props) {
       headers: {
         Authorization: token ? `${token}` : '',
       },
-      cache: 'no-store',
     },
   );
 
