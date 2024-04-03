@@ -160,7 +160,7 @@ public class CocktailServiceImpl implements CocktailService {
         List<Custom> customCocktails = customRepository.findAllByCocktailOrderByIdDesc(
             targetCocktail);
         List<CustomCocktailDto> customCocktailDtoList = customCocktails.stream()
-            .filter(Custom::getOpen)
+            .filter(custom -> custom.getOpen() || custom.getMember() == member)
             .limit(4)
             .map(custom -> CustomCocktailDto.builder()
                 .id(custom.getId())
