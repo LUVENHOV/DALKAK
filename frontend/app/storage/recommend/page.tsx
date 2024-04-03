@@ -6,12 +6,13 @@ import styles from './refrigerator-recommend.module.scss';
 import { ICocktailType } from '../../../type/searchTypes';
 import Loading from '@/components/common/Loading';
 import RecommendList from '@/components/store/RecommendList';
+import authStore from '@/store/authStore';
 
 let zeroList: ICocktailType[] = [];
 let nonZeroList: ICocktailType[] = [];
 
-const authorization =
-  'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTE3ODk1MDgsImV4cCI6MTcxMjE0OTUwOCwiaWQiOjN9.rxVLMICLt23rj4vV_btj7QtObPgxszooG-rzQG_et3A';
+const getAccessToken = () => authStore.getState().accessToken;
+const authorization = getAccessToken();
 
 const getRecommentResult = async () => {
   const res = await fetch(

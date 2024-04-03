@@ -4,6 +4,7 @@ import { ChangeEvent, useState, useMemo, useCallback } from 'react';
 import { debounce } from 'lodash';
 import styles from './IngredientSearchForm.module.scss';
 import IngredientTag from './IngredientTag';
+import authStore from '@/store/authStore';
 import useRefrigeratorStore from '@/store/refrigeratorStore';
 import useSearchStore from '@/store/searchStore';
 import { IIngredientType } from '@/type/refrigeratorTypes';
@@ -22,23 +23,33 @@ export default function IngredientSearchForm(props: IPropsType) {
   const { addRefrList, addMemoList } = useRefrigeratorStore();
   const { addIngredient } = useSearchStore();
 
-  const authorization =
-    'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTE3ODk1MDgsImV4cCI6MTcxMjE0OTUwOCwiaWQiOjN9.rxVLMICLt23rj4vV_btj7QtObPgxszooG-rzQG_et3A';
+  const getAccessToken = () => authStore.getState().accessToken;
+  const authorization = getAccessToken();
 
-  const getIngredientList = async (k: string) => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/ingredients?ingredient-name='${k}'`,
-      {
-        headers: { authorization },
-      },
-    );
-    const json = await res.json();
-    return (await json).data;
-  };
+  // const getIngredientList = async (k: string) => {
+  // const res = await fetch(
+  //   `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/ingredients?ingredient-name='${k}'`,
+  //   {
+  //     headers: { authorization },
+  //   },
+  // );
+  // const json = await res.json();
+  // return (await json).data;
+  // };
 
-  const getList = useCallback(async (k: string) => {
-    setResultList(await getIngredientList(k));
-  }, []);
+  const getList = useCallback(
+    async (k: string) => {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/ingredients?ingredient-name='${k}'`,
+        {
+          headers: { authorization },
+        },
+      );
+      const json = await res.json();
+      setResultList((await json).data);
+    },
+    [authorization],
+  );
 
   const debouncedGetList = useMemo(
     () => debounce((k: string) => getList(k), 700),

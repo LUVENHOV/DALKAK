@@ -16,6 +16,7 @@ import CustomCocktailAddIngredientTest from '@/components/custom-cocktail/write/
 import CustomCocktailAddRecipe from '@/components/custom-cocktail/write/CustomCocktailAddRecipe';
 import CustomCocktailImageUpload from '@/components/custom-cocktail/write/CustomCocktailImageUpload';
 import CustomCocktailInput from '@/components/custom-cocktail/write/CustomCocktailInput';
+import authStore from '@/store/authStore';
 // import { error } from 'console';
 // import { RepeatOneSharp } from '@mui/icons-material';
 
@@ -23,8 +24,6 @@ interface Unit {
   id: number;
   name: string;
 }
-
-const token = process.env.NEXT_PUBLIC_TOKEN;
 
 interface CustomIngredientList {
   id: number;
@@ -42,6 +41,9 @@ interface Props {
 export default function CustomCocktailModify(props: Props) {
   const { customId } = props;
   const router = useRouter();
+
+  const getAccessToken = () => authStore.getState().accessToken;
+  const authorization = getAccessToken();
 
   const [name, setName] = useState('');
 
@@ -114,8 +116,7 @@ export default function CustomCocktailModify(props: Props) {
         // 분명 같은 토큰인데 왜 어쩔때는 위에 코드가 안되고
         // 어쩔때는 아래 코드가 안 되는 건지 모르겠음...
         headers: {
-          Authorization: token ? `${token}` : '',
-          // Authorization: `${authorization}`,
+          authorization,
         },
       },
     );
@@ -128,7 +129,7 @@ export default function CustomCocktailModify(props: Props) {
       const data = await result.data;
       return data;
     }
-  }, [customId]);
+  }, [authorization, customId]);
 
   useEffect(() => {
     const getBaseCocktailData = async () => {
@@ -282,9 +283,7 @@ export default function CustomCocktailModify(props: Props) {
           `${process.env.NEXT_PUBLIC_BASE_URL}/customs/${customId}`,
           {
             method: 'PATCH',
-            headers: {
-              Authorization: token ? `${token}` : '',
-            },
+            headers: { authorization },
             body: formData,
           },
         );

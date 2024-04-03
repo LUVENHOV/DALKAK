@@ -7,13 +7,15 @@ import { IconButton } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
 import styles from './CustomCocktailModifyButton.module.scss';
+import authStore from '@/store/authStore';
 
 interface Props {
   customId: number;
   cocktailId: number;
 }
 
-const token = process.env.NEXT_PUBLIC_TOKEN;
+const getAccessToken = () => authStore.getState().accessToken;
+const authorization = getAccessToken();
 
 export default function CustomCocktailDeleteButton({
   customId,
@@ -27,7 +29,7 @@ export default function CustomCocktailDeleteButton({
         {
           method: 'Delete',
           headers: {
-            Authorization: token ? `${token}` : '',
+            authorization,
           },
         },
       );

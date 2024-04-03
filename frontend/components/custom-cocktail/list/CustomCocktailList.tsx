@@ -5,6 +5,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import UpperLineBannerCustomList from '@/components/common/UpperLineBannerCustomList';
 import CustomCocktailCardWrapper from '@/components/custom-cocktail/CustomCocktailCardWrapper';
 import CustomCocktailPagination from '@/components/custom-cocktail/list/CustomCocktailPagination';
+import authStore from '@/store/authStore';
 
 interface User {
   id: number;
@@ -27,7 +28,8 @@ interface ApiResponse {
   total_elements: number;
 }
 
-const token = process.env.NEXT_PUBLIC_TOKEN;
+const getAccessToken = () => authStore.getState().accessToken;
+const authorization = getAccessToken();
 
 interface Props {
   cocktailId: number;
@@ -46,7 +48,7 @@ export default function CustomCocktailList(props: Props) {
         `${process.env.NEXT_PUBLIC_BASE_URL}/customs/${id}/custom-list?page=${currentPage}`,
         {
           headers: {
-            Authorization: token ? `${token}` : '',
+            authorization,
           },
         },
       );

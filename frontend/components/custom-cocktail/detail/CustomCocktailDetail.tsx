@@ -10,6 +10,7 @@ import CustomCocktailImage from '@/components/custom-cocktail/CustomCocktailImag
 import CustomCocktailInfo from '@/components/custom-cocktail/CustomCocktailInfo';
 // import CustomCocktailModifyButton from '@/components/custom-cocktail/CustomCocktailModifyButton';
 import CustomCocktailRecipe from '@/components/custom-cocktail/CustomCocktailRecipe';
+import authStore from '@/store/authStore';
 
 interface Custom_Ingredients {
   ingredient: {
@@ -58,7 +59,8 @@ interface Props {
   customId: number;
 }
 
-const token = process.env.NEXT_PUBLIC_TOKEN;
+const getAccessToken = () => authStore.getState().accessToken;
+const authorization = getAccessToken();
 
 export async function getData({ customId }: Props) {
   // console.log(customId);
@@ -67,7 +69,7 @@ export async function getData({ customId }: Props) {
     `${process.env.NEXT_PUBLIC_BASE_URL}/customs/${customId}`,
     {
       headers: {
-        Authorization: token ? `${token}` : '',
+        authorization,
       },
     },
   );
