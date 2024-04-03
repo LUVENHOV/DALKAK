@@ -112,8 +112,8 @@ export default function InfoSurvey() {
               className={`${selectedGender === 'MALE' ? 'genderSelect-active' : ''}`}
               type="button"
               onClick={() => {
-                setSelectedGender('MALE');
                 setGender('MALE');
+                setSelectedGender('MALE');
               }}
             >
               남
@@ -122,8 +122,8 @@ export default function InfoSurvey() {
               className={`${selectedGender === 'FEMALE' ? 'genderSelect-active' : ''}`}
               type="button"
               onClick={() => {
-                setSelectedGender('FEMALE');
                 setGender('FEMALE');
+                setSelectedGender('FEMALE');
               }}
             >
               여

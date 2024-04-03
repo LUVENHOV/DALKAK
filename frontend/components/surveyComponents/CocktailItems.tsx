@@ -23,8 +23,6 @@ export default function CocktailItems({ id, name, image }: ItemProps) {
       setSelected(true);
       addSurveyCocktails(id);
     }
-    console.log(image);
-    console.log(surveyStore.getState().surveyCocktails);
   };
   return (
     // eslint-disable-next-line max-len
