@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 import surveyStore from '../../store/surveyStore';
 import { submitSurvey } from '@/apis/Member';
 import authStore from '@/store/authStore';
-
+import { useRouter } from 'next/router';
 import './page.scss';
 import memberStore from '@/store/memberStore';
 // import useSearchStore from '@/store/searchStore';
@@ -15,6 +15,7 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const router = useRouter();
   const progress = surveyStore((state) => state.progress);
   const getQuestion = surveyStore((state) => state.getQuestion);
   const nextProgress = surveyStore((state) => state.nextProgress);
@@ -86,8 +87,7 @@ export default function Layout({
       });
       if (response.status === 201) {
         alert('제출 완료!');
-        console.log('submit success');
-        window.location.replace('/');
+        router.push('/');
       }
     } catch (error) {
       console.error(error);
