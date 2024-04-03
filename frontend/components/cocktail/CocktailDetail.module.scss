@@ -16,6 +16,7 @@
 
   .left {
     display: flex;
+    text-align: end;
   }
 
   .name {
@@ -56,6 +57,11 @@
       padding: 0.5vw 1vw;
       font-size: 1vw;
       // margin-right: 2vw;
+      svg {
+        fill: white;
+        stroke: white;
+        stroke-width: 0.15vw;
+      }
     }
   }
 }

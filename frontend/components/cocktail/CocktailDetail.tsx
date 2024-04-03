@@ -1,5 +1,7 @@
 import React from 'react';
 
+import AddIcon from '@mui/icons-material/Add';
+
 import Link from 'next/link';
 
 import styles from './CocktailDetail.module.scss';
@@ -86,7 +88,11 @@ export default async function CocktailDetail({ cocktailId }: Props) {
                 query: { id: cocktailId },
               }}
             >
-              <BtnWithIcon text="커스텀 레시피 만들기" btnStyle="full-point" />
+              <BtnWithIcon
+                icon={AddIcon}
+                text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;커스텀 레시피 만들기"
+                btnStyle="full-point"
+              />
             </Link>
           </div>
         </div>

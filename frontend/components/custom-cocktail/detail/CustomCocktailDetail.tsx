@@ -82,7 +82,7 @@ export async function getData({ customId }: Props) {
   }
   const data: ApiResponse = await response.json();
   // console.log(data);
-  console.log(data.data.recipe);
+  // console.log(data.data.recipe);
   return data.data;
 }
 export default async function CustomCocktailDetail({ customId }: Props) {
