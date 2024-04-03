@@ -45,8 +45,9 @@ export default function CustomCocktailWrite(props: Props) {
 
   const [isPublic, setIsPublic] = useState(false);
 
-  const [koreanName, setKoreanName] = useState('');
-  const [englishName, setEnglishName] = useState('');
+  // const [koreanName, setKoreanName] = useState('');
+  // const [englishName, setEnglishName] = useState('');
+  const [names, setNames] = useState('');
 
   // 여기선 유저가 보낼 데이터
 
@@ -122,10 +123,11 @@ export default function CustomCocktailWrite(props: Props) {
   useEffect(() => {
     const getBaseCocktailData = async () => {
       const response = await getBaseData();
-      setKoreanName(response.korean_name);
-      setEnglishName(await response.name);
+      // setKoreanName(response.korean_name);
+      // setEnglishName(await response.name);
       setCustomRecipe(await response.recipe);
       setTempList(await response.cocktail_ingredients);
+      setNames(`${response.name}, ${response.korean_name}`);
     };
     getBaseCocktailData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -329,7 +331,8 @@ export default function CustomCocktailWrite(props: Props) {
           </div>
 
           <div className={styles.explain}>
-            &nbsp;&nbsp; {englishName}, {koreanName}
+            {/* &nbsp;&nbsp; {englishName}, {koreanName} */}
+            &nbsp;&nbsp;&nbsp;{names}
           </div>
           <div />
 

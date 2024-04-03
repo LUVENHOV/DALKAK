@@ -44,7 +44,7 @@ export default function AlcoholSurvey() {
         <DegreeItem
           key={degree.val}
           val={degree.val}
-          title={degree.title}
+          // title={degree.title}
           description={degree.description}
           image={degree.image}
         />
