@@ -43,7 +43,7 @@ export default function Page() {
         setInfo(data.id, data.nickname, data.survey_completion || false);
         window.location.href = '/';
 
-        if (memberStore.getState().id === 0) {
+        if (memberStore.getState().nickname === null) {
           surveyStore.setState({ progress: 0 });
           window.location.href = '/survey';
         } else {
