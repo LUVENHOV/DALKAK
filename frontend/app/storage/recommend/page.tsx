@@ -45,7 +45,7 @@ export default function Page() {
     fetchData();
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 3000);
     // fetchData 함수 호출
   }, []);
 
@@ -53,6 +53,7 @@ export default function Page() {
     <div>
       <Suspense
         fallback={
+          // eslint-disable-next-line react/jsx-wrap-multilines
           <Loading
             text1="가지고 있는 재료로 만들 수 있는"
             text2="최적의 칵테일을 추천해드릴게요!"
