@@ -48,7 +48,6 @@ export default function Layout({
     if (nickname === '' || birthDate === '' || gender === '') {
       Swal.fire({
         title: '모든 항목을 입력해주세요',
-        confirmButtonColor: '#ff7169',
         icon: 'warning',
       });
     } else {
@@ -95,7 +94,6 @@ export default function Layout({
       if (response.status === 201) {
         Swal.fire({
           title: '제출 완료',
-          confirmButtonColor: '#ff7169',
           icon: 'success',
         });
         router.push('/');
@@ -144,7 +142,6 @@ export default function Layout({
                   } else {
                     Swal.fire({
                       title: '최소 1개의 칵테일을 선택해주세요!',
-                      confirmButtonColor: '#ff7169',
                       icon: 'warning',
                     });
                   }
@@ -155,7 +152,6 @@ export default function Layout({
                   } else {
                     Swal.fire({
                       title: '언제 마시나요!',
-                      confirmButtonColor: '#ff7169',
                       icon: 'warning',
                     });
                   }
@@ -166,7 +162,6 @@ export default function Layout({
                   } else {
                     Swal.fire({
                       title: '베이스를 선택해주세요!',
-                      confirmButtonColor: '#ff7169',
                       icon: 'warning',
                     });
                   }
@@ -177,7 +172,6 @@ export default function Layout({
                   } else {
                     Swal.fire({
                       title: '도수를 선택해주세요!',
-                      confirmButtonColor: '#ff7169',
                       icon: 'warning',
                     });
                   }
