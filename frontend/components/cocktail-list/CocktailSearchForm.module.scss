@@ -1,0 +1,85 @@
+.keyword-search-container {
+  width: 40vw;
+  height: 5vw;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10vh auto 0 auto;
+  padding: 1vw;
+  box-sizing: border-box;
+  border: 0.25vw solid var(--color-text);
+  border-radius: 1.5vw;
+
+  input {
+    width: 35vw;
+    height: 3vw;
+    border: none;
+    padding: 0 1vw;
+  }
+  input:focus {
+    outline: none;
+  }
+
+  button {
+    svg {
+      font-size: 2vw;
+    }
+  }
+}
+
+.detail-search-container {
+  text-align: center;
+
+  .header {
+    display: flex;
+    margin: 2vh auto;
+    line-height: 5vh;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+
+    svg {
+      fill: var(--color-placeholder);
+    }
+  }
+
+  .body {
+    // background-color: skyblue;
+    border-top: 0.2vw solid var(--color-base);
+    border-bottom: 0.2vw solid var(--color-base);
+    padding: 5vh 0;
+
+    .reset {
+      margin-bottom: 3vh;
+
+      button {
+        margin-left: auto;
+      }
+    }
+
+    .searchRow {
+      width: 60vw;
+      line-height: 5vh;
+      text-align: start;
+      margin: 0 auto 5vh auto;
+      display: flex;
+      gap: 1vw;
+
+      .title {
+        width: 7vw;
+        font-size: 1.2rem;
+      }
+    }
+
+    .searchBtn {
+      button {
+        font-size: 2vw;
+        font-weight: 900;
+        padding: 0.8vw 3vw;
+        border-radius: 1vw;
+        margin: 0 auto;
+      }
+    }
+  }
+}

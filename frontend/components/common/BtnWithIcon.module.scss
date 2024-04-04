@@ -1,0 +1,57 @@
+.btn {
+  padding: 0.3vw 0.8vw;
+  border-radius: 0.7vw;
+  display: flex;
+  align-items: center;
+  font-size: 1.2vw;
+
+  svg {
+    margin-right: 0.5vw;
+    font-size: 1.5vw;
+  }
+}
+
+.empty-dark {
+  color: var(--color-text);
+  border: 0.2vw solid var(--color-text);
+  background-color: white;
+
+  svg {
+    fill: var(--color-text);
+  }
+}
+
+.empty-light {
+  color: var(--color-placeholder);
+  border: 0.2vw solid var(--color-placeholder);
+  background-color: white;
+
+  svg {
+    fill: var(--color-placeholder);
+  }
+}
+
+.no-border {
+  color: var(--color-placeholder);
+
+  svg {
+    fill: var(--color-placeholder);
+  }
+}
+
+.full-point {
+  color: white;
+  background-color: var(--color-point);
+
+  svg {
+    fill: var(--color-placeholder);
+  }
+}
+
+.full-dark {
+  background-color: var(--color-text);
+  color: white;
+  svg {
+    fill: var(--color-placeholder);
+  }
+}
