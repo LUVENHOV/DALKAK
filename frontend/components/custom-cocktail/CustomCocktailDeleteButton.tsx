@@ -35,10 +35,9 @@ export default function CustomCocktailDeleteButton({
       title: '커스텀 칵테일을 삭제하시겠습니까?',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#ff7169',
-      cancelButtonColor: '#afafaf',
-      confirmButtonText: '삭제',
-      cancelButtonText: '취소',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
@@ -57,7 +56,6 @@ export default function CustomCocktailDeleteButton({
             console.error('커스텀 레시피 삭제 실패');
             Swal.fire({
               title: '커스텀 레시피 삭제를 실패하였습니다.',
-              confirmButtonColor: '#ff7169',
               icon: 'error',
             });
           }
@@ -68,7 +66,6 @@ export default function CustomCocktailDeleteButton({
 
         Swal.fire({
           title: '커스텀 레시피가 삭제되었습니다.',
-          confirmButtonColor: '#ff7169',
           icon: 'success',
         });
       }

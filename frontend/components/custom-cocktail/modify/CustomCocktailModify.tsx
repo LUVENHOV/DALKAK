@@ -207,7 +207,6 @@ export default function CustomCocktailModify(props: Props) {
     if (isAlreadyAdded) {
       Swal.fire({
         title: '이미 추가된 항목입니다.',
-        confirmButtonColor: '#ff7169',
         icon: 'warning',
       });
       return;
@@ -216,7 +215,6 @@ export default function CustomCocktailModify(props: Props) {
     if (tempList.length >= 12) {
       Swal.fire({
         title: '더 이상 재료를 추가할 수 없습니다.',
-        confirmButtonColor: '#ff7169',
         icon: 'warning',
       });
       return;
@@ -298,31 +296,26 @@ export default function CustomCocktailModify(props: Props) {
         if (!customName) {
           Swal.fire({
             title: '커스텀 칵테일 이름을 작성해주세요.',
-            confirmButtonColor: '#ff7169',
             icon: 'warning',
           });
         } else if (!customSummary) {
           Swal.fire({
             title: '커스텀 칵테일 한 줄 요약(summary)을 작성해주세요.',
-            confirmButtonColor: '#ff7169',
             icon: 'warning',
           });
         } else if (!customComment) {
           Swal.fire({
             title: '커스텀 칵테일 간단한 설명(comment)를 작성해주세요.',
-            confirmButtonColor: '#ff7169',
             icon: 'warning',
           });
         } else if (!customRecipe || customRecipe.trim() === '') {
           Swal.fire({
             title: '커스텀 칵테일 레시피를 작성해주세요.',
-            confirmButtonColor: '#ff7169',
             icon: 'warning',
           });
         } else if (filteredList.length < 1) {
           Swal.fire({
             title: '커스텀 칵테일 재료를 추가해주세요.',
-            confirmButtonColor: '#ff7169',
             icon: 'warning',
           });
         }

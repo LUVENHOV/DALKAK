@@ -73,14 +73,12 @@ export default function InfoSurvey() {
 
         Swal.fire({
           title: '사용 가능한 닉네임입니다!',
-          confirmButtonColor: '#ff7169',
           icon: 'success',
         });
       })
       .catch((err) => {
         Swal.fire({
           title: '중복된 닉네임입니다.',
-          confirmButtonColor: '#ff7169',
           icon: 'warning',
         });
 
