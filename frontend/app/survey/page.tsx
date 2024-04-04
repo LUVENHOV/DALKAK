@@ -21,7 +21,7 @@ export default function Survey() {
   useEffect(() => {
     if (!isLoggedIn) {
       alert('로그인이 필요합니다');
-      window.location.replace('/oauth');
+      // window.location.replace('/oauth');
     }
   }, [isLoggedIn]);
   switch (progress) {

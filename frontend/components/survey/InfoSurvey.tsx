@@ -113,6 +113,7 @@ export default function InfoSurvey() {
               type="button"
               onClick={() => {
                 setSelectedGender('MALE');
+                setGender('MALE');
               }}
             >
               남
@@ -122,6 +123,7 @@ export default function InfoSurvey() {
               type="button"
               onClick={() => {
                 setSelectedGender('FEMALE');
+                setGender('FEMALE');
               }}
             >
               여

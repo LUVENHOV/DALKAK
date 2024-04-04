@@ -10,8 +10,8 @@
     margin: 1rem 0;
     display: flex;
     justify-self: center;
-    width : 300px;
-    margin-left : auto;
+    width: 300px;
+    margin-left: auto;
   }
   .subtitle-main {
     font-size: 1.2rem;
@@ -32,7 +32,13 @@
   justify-content: center;
   align-items: center;
 }
-.login-comment{
+.login-comment {
   font-size: 0.9rem;
-  color : grey
+  color: grey;
+}
+.oauth-buttons {
+  margin: 1vw;
+  display: flex;
+  justify-content: space-around;
+  width: 15vw;
 }
