@@ -3,7 +3,7 @@
 ### 🍸홈텐딩 :
 
 <strong>
-    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp홈과 바텐딩의 합성어로 코로나 시대 이후 수요가 점차 늘어나며 하나의 문화로 자리매김했습니다.
+    홈과 바텐딩의 합성어로 코로나 시대 이후 수요가 점차 늘어나며 하나의 문화로 자리매김했습니다.
 </strong>
 
 #### :heavy_check_mark: 항상 같은 칵테일을 마시는 게 지겨우신가요?
@@ -150,16 +150,16 @@
 
 ## ERD
 
-<img src='./constructure/ERD.PNG' width='800px' height='650px'>
+<img src='./산출물/ERD.PNG' width='800px' height='650px'>
 
 ## 아키텍쳐
 
-<img src='./constructure/Architecture.png' width='500px' height='300px'>
+<img src='./산출물/Architecture.png' width='500px' height='300px'>
 
 ## API 명세
 
-<img src='./constructure/API_Description_1.PNG' width='750px' height='550px'>
-<img src='./constructure/API_Description_2.PNG' width='750px' height='550px'>
+<img src='./산출물/API명세서_1.PNG' width='750px' height='550px'>
+<img src='./산출물/API명세서_2.PNG' width='750px' height='550px'>
 
 ## 데이터
 
@@ -180,9 +180,9 @@
 
 ### Frontend
 
-- 유현지 :
-- 김형진 :
-- 백천주 :
+- 유현지: FE 리더, protype 제작, 칵테일 검색 페이지, 냉장고 페이지, 냉장고 추천 페이지, 프론트엔드 배포, 좋아요 기능 
+- 김형진 : Oauth 로그인, 설문조사 페이지, 마이페이지 
+- 백천주 : 칵테일 상세, 커스텀 칵테일 리스트, 커스텀 칵테일 상세, 커스텀 칵테일 등록/수정,
 
 ### Backend
 
