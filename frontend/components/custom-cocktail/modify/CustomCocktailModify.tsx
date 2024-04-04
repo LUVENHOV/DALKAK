@@ -10,6 +10,8 @@ import PublicOutlined from '@mui/icons-material/PublicOutlined';
 
 import { useRouter } from 'next/navigation';
 
+import Swal from 'sweetalert2';
+
 import styles from './CustomCocktailModify.module.scss';
 
 import BtnWithIcon from '@/components/common/BtnWithIcon';
@@ -203,12 +205,18 @@ export default function CustomCocktailModify(props: Props) {
     const isAlreadyAdded = tempList.some((item) => item.id === id);
 
     if (isAlreadyAdded) {
-      alert('이미 추가된 항목입니다.');
+      Swal.fire({
+        title: '이미 추가된 항목입니다.',
+        icon: 'warning',
+      });
       return;
     }
 
     if (tempList.length >= 12) {
-      alert('더 이상 재료를 추가할 수 없습니다.');
+      Swal.fire({
+        title: '더 이상 재료를 추가할 수 없습니다.',
+        icon: 'warning',
+      });
       return;
     }
     const updatedList: CustomIngredientList[] = [
@@ -271,14 +279,13 @@ export default function CustomCocktailModify(props: Props) {
         );
         if (response.ok) {
           // eslint-disable-next-line no-alert
-          alert('커스텀 레시피가 수정되었습니다.');
           // console.log(formData);
           router.push(`/cocktail/detail?id=${customId}`);
         } else {
           // eslint-disable-next-line no-console
           console.error('커스텀 레시피 수정 실패');
           // eslint-disable-next-line no-console
-          console.log(response);
+          // console.log(response);
           // console.log(formData);
         }
       } else {
@@ -287,15 +294,30 @@ export default function CustomCocktailModify(props: Props) {
         // } else
 
         if (!customName) {
-          alert('커스텀 칵테일 이름을 작성해주세요.');
+          Swal.fire({
+            title: '커스텀 칵테일 이름을 작성해주세요.',
+            icon: 'warning',
+          });
         } else if (!customSummary) {
-          alert('커스텀 칵테일 한 줄 요약(summary)을 작성해주세요.');
+          Swal.fire({
+            title: '커스텀 칵테일 한 줄 요약(summary)을 작성해주세요.',
+            icon: 'warning',
+          });
         } else if (!customComment) {
-          alert('커스텀 칵테일 간단한 설명(comment)를 작성해주세요.');
+          Swal.fire({
+            title: '커스텀 칵테일 간단한 설명(comment)를 작성해주세요.',
+            icon: 'warning',
+          });
         } else if (!customRecipe || customRecipe.trim() === '') {
-          alert('커스텀 칵테일 레시피를 작성해주세요.');
+          Swal.fire({
+            title: '커스텀 칵테일 레시피를 작성해주세요.',
+            icon: 'warning',
+          });
         } else if (filteredList.length < 1) {
-          alert('커스텀 칵테일 재료를 추가해주세요.');
+          Swal.fire({
+            title: '커스텀 칵테일 재료를 추가해주세요.',
+            icon: 'warning',
+          });
         }
       }
     } catch (error) {
@@ -307,13 +329,14 @@ export default function CustomCocktailModify(props: Props) {
     <div className={styles['flex-container']}>
       <div className={styles.container}>
         <div className={styles['title-container']}>
-          <div className={styles.name}>
-            커스텀 칵테일 이름
-            <span className={styles['divide-line']}>&nbsp;&nbsp;&nbsp;|</span>
-          </div>
+          <div className={styles.left}>
+            <div className={styles.name}>
+              커스텀 칵테일 이름
+              <span className={styles['divide-line']}>&nbsp;&nbsp;&nbsp;|</span>
+            </div>
 
-          <div className={styles.explain}>&nbsp;&nbsp; {name}</div>
-          <div />
+            <div className={styles.explain}>&nbsp;&nbsp; {name}</div>
+          </div>
 
           <div className={styles.buttons}>
             <div className={`${styles.button} ${styles.button1}`}>

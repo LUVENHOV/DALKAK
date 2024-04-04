@@ -1,4 +1,7 @@
 import { redirect } from 'next/navigation';
+
+import Swal from 'sweetalert2';
+
 import Token from './Token';
 import { Login } from '@/apis/Auth';
 
@@ -48,7 +51,10 @@ export default async function Oauth({
       console.log(response.headers);
       console.log(responseData);
       if (data.survey_comletion === null) {
-        alert('정보 입력이 되지 않아 정보 입력 페이지로 이동합니다.');
+        Swal.fire({
+          title: '정보 입력이 되지 않아 정보 입력 페이지로 이동합니다.',
+          icon: 'warning',
+        });
         redirect('/survey');
       }
       console.log(tokens);

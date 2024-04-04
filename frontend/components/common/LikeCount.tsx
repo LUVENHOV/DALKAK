@@ -12,48 +12,31 @@ import heartImage from '../../public/assets/imgs/heartImage.png';
 import authStore from '@/store/authStore';
 
 interface Props {
-  count: number;
   cocktailId: number;
-  isLiked: boolean;
 }
 
-export default function LikeCount({ count, cocktailId, isLiked }: Props) {
-  const [isLike, setIsLike] = useState(isLiked);
-  // const [isClient, setIsClient] = useState(false);
-  const [initialCount, setInitialCount] = useState(count);
-  const [state, setState] = useState(0);
-  // useEffect(() => {
-  //   setIsClient(true);
-  // }, [count, initialCount]);
+export default function LikeCount({ cocktailId }: Props) {
+  const [isLike, setIsLike] = useState(false);
+  const [count, setCount] = useState(0);
 
-  useEffect(() => {
-    if (state === 1) {
-      setInitialCount(count + 1);
-    } else if (state === 2) {
-      setInitialCount(count - 1);
-    }
-  }, [state, count]);
-
-  const token = () => authStore.getState().accessToken;
+  const getAccessToken = () => authStore.getState().accessToken;
+  const authorization = getAccessToken();
 
   const likeThisCocktail = async () => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/${cocktailId}/like`,
       {
         headers: {
-          Authorization: token() ? token() : '',
+          authorization,
         },
       },
     );
-
     if (!response.ok) {
       const error = new Error('Failed to fetch data');
-      // setInitialCount((prevInitialCount) => prevInitialCount + 1);
-      setState(1);
-      // setInitialCount(count + 1);
       throw error;
     } else {
-      alert('해당 칵테일을 좋아요했습니다.');
+      setIsLike(true);
+      setCount((state) => state + 1);
     }
   };
 
@@ -62,51 +45,64 @@ export default function LikeCount({ count, cocktailId, isLiked }: Props) {
       `${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/${cocktailId}/dislike`,
       {
         headers: {
-          Authorization: token() ? token() : '',
+          authorization,
         },
       },
     );
-
     if (!response.ok) {
       const error = new Error('Failed to fetch data');
-
-      setState(2);
-
       throw error;
     } else {
-      alert('해당 칵테일 좋아요를 취소했습니다.');
+      setIsLike(false);
+      setCount((state) => state - 1);
     }
   };
 
   const heart = async () => {
     try {
-      if (isLike === false) {
-        likeThisCocktail();
-        setInitialCount(initialCount + 1);
-        setIsLike(true);
-      } else {
+      if (isLike) {
         dislikeThisCocktail();
-        setInitialCount(initialCount - 1);
-        setIsLike(false);
+      } else {
+        likeThisCocktail();
       }
     } catch (error) {
       console.error('Error');
     }
   };
 
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/${cocktailId}`, {
+      headers: {
+        authorization,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        return response.json();
+      })
+      .then((result) => {
+        // console.log(result.data);
+        setIsLike(result.data.heart);
+        setCount(result.data.heart_count);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, [authorization, cocktailId]);
+
   return (
-    <div>
-      <div className={styles.flex}>
-        <button type="button" onClick={heart}>
-          {isLike ? (
-            // eslint-disable-next-line react/jsx-no-undef
-            <Image className={styles.hearts} src={heartImage} alt="하트" />
-          ) : (
-            <Image className={styles.hearts} src={emptyheart} alt="빈하트" />
-          )}
-        </button>
-        <div>{initialCount}</div>
-      </div>
+    <div className={styles.flex}>
+      <button type="button" onClick={heart}>
+        {isLike ? (
+          // eslint-disable-next-line react/jsx-no-undef
+          <Image className={styles.hearts} src={heartImage} alt="하트" />
+        ) : (
+          <Image className={styles.hearts} src={emptyheart} alt="빈하트" />
+        )}
+      </button>
+      <div>{count}</div>
     </div>
   );
 }

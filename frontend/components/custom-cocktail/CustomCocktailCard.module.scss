@@ -8,12 +8,34 @@
   border-radius: 10%;
   width: 17vw;
   height: 17vw;
+  background-color: white;
+  overflow: hidden;
+  border-radius: 10%;
+  // margin-bottom: 2vh;
+  text-align: center;
+  box-shadow: 0.4vw 0.4vw 0.7vw 0.01vw var(--color-base);
+
+  img {
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 .custom-img-preview {
   border-radius: 10%;
   width: 14vw;
   height: 14vw;
+  background-color: white;
+  overflow: hidden;
+  border-radius: 10%;
+  // margin-bottom: 2vh;
+  text-align: center;
+  box-shadow: 0.2vw 0.2vw 0.35vw 0.005vw var(--color-base);
+
+  img {
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 .author {

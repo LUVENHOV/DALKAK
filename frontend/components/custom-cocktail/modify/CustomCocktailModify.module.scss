@@ -11,22 +11,31 @@
 }
 
 .title-container {
-  align-self: center;
+  // align-self: center;
   // max-width: 90%;
-  display: grid;
-  grid-template-columns: 2fr 2fr 3fr 3.5fr;
+  // display: grid;
+  // grid-template-columns: 2fr 2fr 3fr 3.5fr;
+  // margin-bottom: 1vw;
+  display: flex;
   margin-bottom: 1vw;
+
+  .left {
+    display: flex;
+  }
 
   .name {
     font-size: 1.3vw;
     font-weight: 600;
-    margin-left: 2vw;
+    margin-left: 3vw;
     align-self: end;
 
-    .divide-line {
-      position: relative;
-      top: 0.05vw;
-    }
+    // .divide-line {
+    //   position: relative;
+    //   top: 0.05vw;
+    // }
+    justify-self: start;
+    // position: fix;
+    right: 5vw;
   }
 
   .explain {
@@ -36,6 +45,9 @@
 
   .buttons {
     display: flex;
+    justify-self: end;
+    margin-left: auto;
+    margin-right: 3vw;
 
     .button1 {
       button {
@@ -44,6 +56,12 @@
         font-size: 1vw;
         cursor: pointer;
         height: 2.5vw;
+        padding-right: 0.7vw;
+
+        svg {
+          width: 1.5vw;
+          height: 1.5vw;
+        }
       }
     }
 

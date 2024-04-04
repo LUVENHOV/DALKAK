@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import axios from 'axios';
 
+import Swal from 'sweetalert2';
+
 import './InfoSurvey.scss';
 import authStore from '@/store/authStore';
 import surveyStore from '@/store/surveyStore';
@@ -68,10 +70,18 @@ export default function InfoSurvey() {
       )
       .then(() => {
         setIsNicknameChecked(true);
-        alert('사용 가능합니다!');
+
+        Swal.fire({
+          title: '사용 가능한 닉네임입니다!',
+          icon: 'success',
+        });
       })
       .catch((err) => {
-        alert('중복된 닉네임입니다.');
+        Swal.fire({
+          title: '중복된 닉네임입니다.',
+          icon: 'warning',
+        });
+
         console.log(err);
       });
   };
@@ -112,8 +122,8 @@ export default function InfoSurvey() {
               className={`${selectedGender === 'MALE' ? 'genderSelect-active' : ''}`}
               type="button"
               onClick={() => {
-                setGender('MALE');
                 setSelectedGender('MALE');
+                setGender('MALE');
               }}
             >
               남
@@ -122,8 +132,8 @@ export default function InfoSurvey() {
               className={`${selectedGender === 'FEMALE' ? 'genderSelect-active' : ''}`}
               type="button"
               onClick={() => {
-                setGender('FEMALE');
                 setSelectedGender('FEMALE');
+                setGender('FEMALE');
               }}
             >
               여
