@@ -23,6 +23,7 @@ export default function Page() {
     if (!isLoggedIn) {
       Swal.fire({
         title: '로그인이 필요합니다.',
+        confirmButtonColor: '#ff7169',
         icon: 'warning',
       });
       window.location.replace('/oauth');
