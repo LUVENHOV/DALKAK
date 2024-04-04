@@ -35,9 +35,10 @@ export default function CustomCocktailDeleteButton({
       title: '커스텀 칵테일을 삭제하시겠습니까?',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
+      confirmButtonColor: '#ff7169',
+      cancelButtonColor: '#afafaf',
+      confirmButtonText: '삭제',
+      cancelButtonText: '취소',
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
