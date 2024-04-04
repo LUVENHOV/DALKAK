@@ -150,16 +150,16 @@
 
 ## ERD
 
-<img src='./constructure/ERD.PNG' width='800px' height='650px'>
+<img src='./산출물/ERD.PNG' width='800px' height='650px'>
 
 ## 아키텍쳐
 
-<img src='./constructure/Architecture.png' width='500px' height='300px'>
+<img src='./산출물/Architecture.png' width='500px' height='300px'>
 
 ## API 명세
 
-<img src='./constructure/API_Description_1.PNG' width='750px' height='550px'>
-<img src='./constructure/API_Description_2.PNG' width='750px' height='550px'>
+<img src='./산출물/API명세서_1.PNG' width='750px' height='550px'>
+<img src='./산출물/API명세서_2.PNG' width='750px' height='550px'>
 
 ## 데이터
 
