@@ -17,6 +17,7 @@ import CustomCocktailRecipe from '@/components/custom-cocktail/CustomCocktailRec
 
 import IngredientCardWrapper from '@/components/custom-cocktail/IngredientCardWrapper';
 import ToolCardWrapper from '@/components/custom-cocktail/ToolCardWrapper';
+import authStore from '@/store/authStore';
 
 interface Unit {
   id: number;
@@ -36,8 +37,7 @@ interface Props {
   cocktailId: number;
 }
 
-const authorization =
-  'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTIxNTY2NTYsImV4cCI6MTcxMjE2MDI1NiwiaWQiOjI1fQ.8xrIJp465I-yfBBie7-jnYv4hQNV-FkgHvVNI9t5IVY';
+const authorization = authStore.getState().accessToken;
 
 export async function getData({ cocktailId }: Props) {
   const response = await fetch(
@@ -51,7 +51,6 @@ export async function getData({ cocktailId }: Props) {
 
   if (!response.ok) {
     // const error = new Error('Failed to fetch data');
-    window.location.replace('/oauth');
     return 401;
   }
   const data = await response.json();
