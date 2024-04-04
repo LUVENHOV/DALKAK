@@ -16,6 +16,7 @@
 
   .left {
     display: flex;
+    text-align: end;
   }
 
   .name {
@@ -56,6 +57,11 @@
       padding: 0.5vw 1vw;
       font-size: 1vw;
       // margin-right: 2vw;
+      svg {
+        fill: white;
+        stroke: white;
+        stroke-width: 0.15vw;
+      }
     }
   }
 }
@@ -107,7 +113,10 @@
 
 .flex {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+}
+.flexTitle{
+  display: flex;
 }
 
 .title {
@@ -115,22 +124,5 @@
   margin-left: 1.3vw;
   font-weight: 600;
   margin-left: 2vw;
-}
-
-.all {
-  margin-right: 3vw;
-  button {
-    // display: flex;
-    // justify-content: center;
-    // width: 18vw;
-    // padding: 0.6vw 1.5vw;
-    font-size: 1vw;
-  }
-}
-
-.no-custom {
-  margin-top: 10vw;
-  margin-bottom: 10vw;
-  text-align: center;
-  font-size: 1.5vw;
+  margin-bottom: 20px;
 }

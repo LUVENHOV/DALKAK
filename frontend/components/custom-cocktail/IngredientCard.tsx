@@ -68,7 +68,7 @@ export default function IngredientCard<T extends IngredientType>({
   // }
 
   // eslint-disable-next-line no-plusplus
-  for (let i = 0; i < refgList.length; i++) {
+  for (let i = 0; i < refgList?.length; i++) {
     if (
       (ingredient as Cocktail_Ingredients)?.id === refgList[i].id ||
       (ingredient as Custom_Ingredients)?.ingredient?.id === refgList[i].id

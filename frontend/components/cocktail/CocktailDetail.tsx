@@ -1,13 +1,16 @@
+'use client';
+
 import React from 'react';
+
+import AddIcon from '@mui/icons-material/Add';
 
 import Link from 'next/link';
 
 import styles from './CocktailDetail.module.scss';
+import CustomFour from './CustomFour';
 import BtnWithIcon from '@/components/common/BtnWithIcon';
 
 import LikeCount from '@/components/common/LikeCount';
-
-import CustomCocktailCardWrapper from '@/components/custom-cocktail/CustomCocktailCardWrapper';
 
 import CustomCocktailImage from '@/components/custom-cocktail/CustomCocktailImage';
 import CustomCocktailRecipe from '@/components/custom-cocktail/CustomCocktailRecipe';
@@ -29,51 +32,12 @@ interface Cocktail_Ingredients {
   unit: Unit;
 }
 
-interface Cocktail_Tools {
-  id: number;
-  name: string;
-  image: string;
-}
-
-interface Custom_Cocktails {
-  id: number;
-  image: string;
-  name: string;
-  summary: string;
-  user: {
-    id: number;
-    nickname: string;
-  };
-}
-
-interface Data {
-  id: number;
-  name: string;
-  korean_name: string;
-  image: string;
-  heart_count: number;
-  heart: boolean;
-  view_count: number;
-  alcohol_content: number;
-  sweetness: number;
-  recipe: string;
-  cocktail_ingredients: Cocktail_Ingredients[];
-  cocktail_tools: Cocktail_Tools[];
-  custom_cocktails: Custom_Cocktails[];
-}
-
-interface ApiResponse {
-  code: number;
-  messages: string[];
-  data: Data;
-}
-
 interface Props {
   cocktailId: number;
 }
 
 const authorization =
-  'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTE3ODk1MDgsImV4cCI6MTcxMjE0OTUwOCwiaWQiOjN9.rxVLMICLt23rj4vV_btj7QtObPgxszooG-rzQG_et3A';
+  'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTIxOTc5OTksImV4cCI6MTcxMjYyOTk5OSwiaWQiOjZ9.w_9FzZor4EvYAWqZCvsi-fOkIvvwcD8jaWitynt12hI';
 
 export async function getData({ cocktailId }: Props) {
   const response = await fetch(
@@ -86,13 +50,11 @@ export async function getData({ cocktailId }: Props) {
   );
 
   if (!response.ok) {
-    const error = new Error('Failed to fetch data');
-    console.log(error);
-    throw error;
-  } else {
-    const data: ApiResponse = await response.json();
-    return data.data;
+    // const error = new Error('Failed to fetch data');
+    return 401;
   }
+  const data = await response.json();
+  return (await data).data;
 }
 
 export default async function CocktailDetail({ cocktailId }: Props) {
@@ -100,6 +62,7 @@ export default async function CocktailDetail({ cocktailId }: Props) {
   const cocktailIngredients: Cocktail_Ingredients[] =
     cocktailDetailData.cocktail_ingredients;
   // console.log(cocktailDetailData);
+
   return (
     <div className={styles['flex-container']}>
       <div className={styles.container}>
@@ -108,11 +71,7 @@ export default async function CocktailDetail({ cocktailId }: Props) {
             <div className={styles.name}>{cocktailDetailData.name}</div>
 
             <div className={styles.nickname}>
-              <LikeCount
-                count={cocktailDetailData.heart_count}
-                cocktailId={cocktailId}
-                isLiked={cocktailDetailData.heart}
-              />
+              <LikeCount cocktailId={cocktailId} />
               <div className={styles.info}>
                 {cocktailDetailData.alcohol_content}도
               </div>
@@ -129,7 +88,11 @@ export default async function CocktailDetail({ cocktailId }: Props) {
                 query: { id: cocktailId },
               }}
             >
-              <BtnWithIcon text="커스텀 레시피 만들기" btnStyle="full-point" />
+              <BtnWithIcon
+                icon={AddIcon}
+                text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;커스텀 레시피 만들기"
+                btnStyle="full-point"
+              />
             </Link>
           </div>
         </div>
@@ -150,44 +113,10 @@ export default async function CocktailDetail({ cocktailId }: Props) {
 
         <hr className={styles.hr2} />
         <div className={styles.flex}>
-          <div className={styles.title}>커스텀 칵테일</div>
-
-          <div className={styles.all}>
-            {cocktailDetailData.custom_cocktails?.length > 0 ? (
-              <Link
-                href={{
-                  pathname: '/cocktail/customs',
-                  query: { id: cocktailId },
-                }}
-              >
-                <BtnWithIcon text="전체보기" btnStyle="full-point" />
-              </Link>
-            ) : null}
-          </div>
-        </div>
-        <div>
-          {cocktailDetailData.custom_cocktails?.length > 0 ? (
-            <CustomCocktailCardWrapper
-              dummy={cocktailDetailData.custom_cocktails}
-              type="small"
-              cocktailId={cocktailId}
-            />
-          ) : (
-            <div className={styles['no-custom']}>
-              등록된 커스텀 칵테일이 없습니다.
-            </div>
-          )}
+          <CustomFour cocktailId={cocktailId} />
         </div>
       </div>
+      <div />
     </div>
   );
-  // );
-}
-
-interface Custom_Cocktails {
-  custom_id: number;
-  custom_name: string;
-  custom_summary: string;
-  user_id: number;
-  user_nickname: string;
 }

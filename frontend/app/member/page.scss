@@ -6,13 +6,13 @@
 
   margin-top: 80px;
   hr {
-    width: 70%;
+    width: 90%;
     align-self: center;
     margin-top: 28px;
     margin-bottom: 28px;
   }
   .container {
-    width: 70%;
+    width: 90%;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -30,7 +30,21 @@
     }
     .list-wrapper {
       width: 100%;
-      align-items: end;
+      display: flex;
+      justify-content: flex-start;
+      // align-items: end;
+      a > div {
+        width: 20vw;
+        height: 20vw;
+        padding: 0.4vh;
+      }
+    }
+    .visited {
+      Image {
+        width: 80%;
+      }
+      width: 100%;
+      display: inline-flex;
     }
     .container {
       width: 100%;
@@ -76,5 +90,18 @@
   cursor: pointer;
   &:hover {
     background-color: rgb(241, 241, 241);
+  }
+}
+.sized-container {
+  width: 234px;
+}
+.title-with-btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  button {
+    width: 56px;
+    height: 30px;
+    text-align: center;
   }
 }

@@ -6,6 +6,7 @@ import styles from './CustomCocktailDetail.module.scss';
 
 import CustomCocktailDeleteButton from '../CustomCocktailDeleteButton';
 import CustomCocktailModifyButton from '../CustomCocktailModifyButton';
+import memberStore from '@/store/memberStore';
 
 // import memberStore from '@/store/memberStore';
 
@@ -20,15 +21,14 @@ export default function CustomCocktailDetailButtonArea({
   originId,
   authorId,
 }: Props) {
-  //   const id = memberStore((state) => state.id);
   const [isAuthor, setIsAuthor] = useState(false);
-  //   const { id } = memberStore();
+  const { id } = memberStore();
 
   useEffect(() => {
-    if (authorId === 3) {
+    if (authorId === id) {
       setIsAuthor(true);
     }
-  }, [authorId]);
+  }, [authorId, id]);
 
   return (
     <div>
