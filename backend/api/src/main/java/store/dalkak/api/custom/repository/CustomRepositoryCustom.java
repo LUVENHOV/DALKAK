@@ -1,16 +1,16 @@
 package store.dalkak.api.custom.repository;
 
-import java.util.List;
-
-import store.dalkak.api.cocktail.dto.CocktailCustomDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import store.dalkak.api.cocktail.domain.Cocktail;
 import store.dalkak.api.custom.domain.Custom;
-import store.dalkak.api.custom.domain.CustomIngredient;
 import store.dalkak.api.custom.dto.CustomModifyDto;
+import store.dalkak.api.user.dto.MemberDto;
 
 public interface CustomRepositoryCustom {
-    void modifyCustomIngredients(Custom custom, List<CustomIngredient> customIngredientList);
 
     void modifyCustomCocktail(Long customCocktailId, CustomModifyDto customModifyDto);
 
-    List<CocktailCustomDto> findAllByCocktailId(Long cocktailId);
+    Page<Custom> findAllCustom(MemberDto memberDto, Cocktail targetCocktail, Pageable pageable);
+
 }

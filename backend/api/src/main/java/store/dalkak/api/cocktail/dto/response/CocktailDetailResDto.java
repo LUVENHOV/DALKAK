@@ -9,7 +9,7 @@ import lombok.Getter;
 import store.dalkak.api.cocktail.domain.Cocktail;
 import store.dalkak.api.cocktail.dto.CocktailIngredientDto;
 import store.dalkak.api.cocktail.dto.ToolDto;
-import store.dalkak.api.cocktail.dto.CocktailCustomDto;
+import store.dalkak.api.custom.dto.CustomCocktailDto;
 
 @Getter
 @Builder
@@ -17,6 +17,9 @@ import store.dalkak.api.cocktail.dto.CocktailCustomDto;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CocktailDetailResDto {
 
+    List<CocktailIngredientDto> cocktailIngredients;
+    List<ToolDto> cocktailTools;
+    List<CustomCocktailDto> customCocktails;
     private Long id;
     private String name;
     private String koreanName;
@@ -26,13 +29,11 @@ public class CocktailDetailResDto {
     private Integer alcoholContent;
     private Integer sweetness;
     private String recipe;
-    List<CocktailIngredientDto> cocktailIngredients;
-    List<ToolDto> cocktailTools;
-    List<CocktailCustomDto> customCocktails;
+    private Boolean heart;
 
     public static CocktailDetailResDto of(Cocktail cocktail,
         List<CocktailIngredientDto> ingredients, List<ToolDto> tools,
-        List<CocktailCustomDto> customCocktails) {
+        List<CustomCocktailDto> customCocktails, Boolean heart) {
 
         return CocktailDetailResDto.builder()
             .id(cocktail.getId())
@@ -47,6 +48,7 @@ public class CocktailDetailResDto {
             .cocktailIngredients(ingredients)
             .cocktailTools(tools)
             .customCocktails(customCocktails)
+            .heart(heart)
             .build();
     }
 }

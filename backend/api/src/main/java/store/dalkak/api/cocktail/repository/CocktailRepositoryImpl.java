@@ -1,10 +1,10 @@
 package store.dalkak.api.cocktail.repository;
 
+import static store.dalkak.api.cocktail.domain.QCocktail.cocktail;
 import static store.dalkak.api.cocktail.domain.base.QBase.base;
 import static store.dalkak.api.cocktail.domain.base.QCocktailBase.cocktailBase;
 import static store.dalkak.api.cocktail.domain.ingredient.QCocktailIngredient.cocktailIngredient;
 import static store.dalkak.api.cocktail.domain.ingredient.QIngredient.ingredient;
-import static store.dalkak.api.cocktail.domain.QCocktail.cocktail;
 
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
@@ -18,7 +18,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import store.dalkak.api.cocktail.dto.response.CocktailFindResDto;
+import store.dalkak.api.cocktail.dto.CocktailDto;
 
 
 @Transactional(readOnly = true)
@@ -80,23 +80,13 @@ public class CocktailRepositoryImpl implements CocktailRepositoryCustom {
         return sweetness != null ? cocktail.sweetness.eq(sweetness) : null;
     }
 
-    public Page<CocktailFindResDto> findCocktailsByOption(Pageable page, String cocktailName,
+    public Page<CocktailDto> findCocktailsByOption(Pageable page, String cocktailName,
         List<Long> ingredients, Long baseDrink, Integer minAlcoholContent,
         Integer maxAlcoholContent, Long cocktailColor,
         Integer sweetness, Integer orderBy) {
 
         OrderSpecifier<?> orderSpecifier = orderByCondition(orderBy);
 
-//        int currentPage = page.getPageNumber();
-//        int pageSize = page.getPageSize();
-//
-//        if (currentPage < 0) {
-//
-//             throw new CocktailException(FAIL_TO_FIND_PAGE); // 사용자 정의 예외를 사용하는 경우
-//        } else {
-//
-//            page = PageRequest.of(currentPage, pageSize);
-//        }
         List<Long> distinctCocktailIds = queryFactory
             .select(cocktail.id)
             .from(cocktail)
@@ -115,9 +105,9 @@ public class CocktailRepositoryImpl implements CocktailRepositoryCustom {
             .groupBy(cocktail.id)
             .fetch();
 
-        List<CocktailFindResDto> cocktailFindResDtoQueryResults = queryFactory
+        List<CocktailDto> cocktailDtoQueryResults = queryFactory
             .select(Projections.constructor(
-                CocktailFindResDto.class,
+                CocktailDto.class,
                 cocktail.id,
                 cocktail.name,
                 cocktail.krName,
@@ -132,8 +122,20 @@ public class CocktailRepositoryImpl implements CocktailRepositoryCustom {
 
         long total = distinctCocktailIds.size();
 
-        return new PageImpl<>(cocktailFindResDtoQueryResults, page, total);
+        return new PageImpl<>(cocktailDtoQueryResults, page, total);
 
+    }
+
+    @Override
+    public void modifyHeartCount(Long cocktailId, int count) {
+        queryFactory.update(cocktail).set(cocktail.heartCount, count)
+            .where(cocktail.id.eq(cocktailId)).execute();
+    }
+
+    @Override
+    public void modifyViewCount(Long cocktailId, int count) {
+        queryFactory.update(cocktail).set(cocktail.viewCount, count)
+            .where(cocktail.id.eq(cocktailId)).execute();
     }
 
 }

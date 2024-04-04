@@ -1,17 +1,22 @@
 package store.dalkak.api.custom.repository;
 
-import com.querydsl.core.types.Projections;
+import static store.dalkak.api.custom.domain.QCustom.custom;
+
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
-import static store.dalkak.api.custom.domain.QCustom.custom;
-import store.dalkak.api.cocktail.dto.CocktailCustomDto;
+import store.dalkak.api.cocktail.domain.Cocktail;
 import store.dalkak.api.custom.domain.Custom;
-import store.dalkak.api.custom.domain.CustomIngredient;
 import store.dalkak.api.custom.domain.QCustom;
 import store.dalkak.api.custom.dto.CustomModifyDto;
+import store.dalkak.api.user.dto.MemberDto;
 
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class CustomRepositoryImpl implements CustomRepositoryCustom {
@@ -19,16 +24,8 @@ public class CustomRepositoryImpl implements CustomRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public void modifyCustomIngredients(Custom custom,
-        List<CustomIngredient> customIngredientList) {
-        QCustom qCustom = QCustom.custom;
-        queryFactory.update(qCustom).set(qCustom.customIngredients, customIngredientList)
-            .where(qCustom.eq(custom)).execute();
-    }
-
-    @Override
     public void modifyCustomCocktail(Long customCocktailId, CustomModifyDto customModifyDto) {
-        QCustom qCustom = QCustom.custom;
+        QCustom qCustom = custom;
         queryFactory.update(qCustom).set(qCustom.name, customModifyDto.getCustomName())
             .set(qCustom.comment, customModifyDto.getCustomComment())
             .set(qCustom.recipe, customModifyDto.getCustomRecipe())
@@ -39,11 +36,40 @@ public class CustomRepositoryImpl implements CustomRepositoryCustom {
     }
 
     @Override
-    public List<CocktailCustomDto> findAllByCocktailId(Long cocktailId) {
-        return queryFactory.select(Projections.constructor
-            (CocktailCustomDto.class, custom.id, custom.name, custom.summary, custom.member.id, custom.member.nickname))
-            .from(custom)
-            .where(custom.cocktail.id.eq(cocktailId))
+    public Page<Custom> findAllCustom(MemberDto memberDto, Cocktail targetCocktail,
+        Pageable pageable) {
+        List<Custom> customList = queryFactory
+            .selectFrom(custom)
+            .where(custom.cocktail.id.eq(targetCocktail.getId())
+                .and(custom.open.isTrue())
+                .or(
+                    custom.cocktail.id.eq(targetCocktail.getId())
+                        .and(custom.member.id.eq(memberDto.getId()))
+                        .and(custom.open.isFalse())
+                )
+            )
+            .orderBy(custom.id.desc())
+            .offset(pageable.getOffset())
+            .limit(pageable.getPageSize())
             .fetch();
+
+        Long totalCount = queryFactory
+            .select(custom.count())
+            .from(custom)
+            .where(custom.cocktail.id.eq(targetCocktail.getId())
+                .and(custom.open.isTrue())
+                .or(
+                    custom.cocktail.id.eq(targetCocktail.getId())
+                        .and(custom.member.id.eq(memberDto.getId()))
+                        .and(custom.open.isFalse())
+                )
+            )
+            .fetchOne();
+
+        long total = totalCount != null ? totalCount : 0;
+
+        return new PageImpl<>(customList, pageable, total);
     }
+
+
 }

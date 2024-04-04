@@ -5,6 +5,8 @@ import org.springframework.data.domain.Pageable;
 import store.dalkak.api.cocktail.dto.IngredientDto;
 import store.dalkak.api.cocktail.dto.response.CocktailDetailResDto;
 import store.dalkak.api.cocktail.dto.response.CocktailPageResDto;
+import store.dalkak.api.global.elastic.dto.ElasticDto;
+import store.dalkak.api.user.dto.MemberDto;
 
 
 public interface CocktailService {
@@ -15,7 +17,17 @@ public interface CocktailService {
         Integer sweetness,
         Integer orderBy);
 
-    CocktailDetailResDto findCocktail(Long originCocktailId);
+    CocktailDetailResDto findCocktail(MemberDto memberDto, Long originCocktailId);
 
     List<IngredientDto> findIngredient(String ingredientName);
+
+    void createHeart(MemberDto memberDto, Long cocktailId);
+
+    void deleteHeart(MemberDto memberDto, Long cocktailId);
+
+    void migrateHeart();
+
+    void migrateView(List<ElasticDto> viewLogList);
+
+    void modifyRank(List<ElasticDto> viewLogList, List<ElasticDto> heartLogList);
 }

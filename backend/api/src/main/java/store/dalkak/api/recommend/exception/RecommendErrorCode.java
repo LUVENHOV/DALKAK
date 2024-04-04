@@ -1,4 +1,4 @@
-package store.dalkak.api.cocktail.exception;
+package store.dalkak.api.recommend.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,11 +6,10 @@ import store.dalkak.api.global.exception.ErrorCode;
 
 @Getter
 @AllArgsConstructor
-public enum CocktailPageErrorCode implements ErrorCode {
-    FAIL_TO_FIND_PAGE(400,"COCKTAIL_02","해당 페이지가 존재하지 않습니다.");
+public enum RecommendErrorCode implements ErrorCode {
+    EXAMPLE_ERROR(500, "RECOMMEND_01", "에러메세지");
     private final int statusCode;
     private final String errorCode;
     private final String message;
-
 
 }

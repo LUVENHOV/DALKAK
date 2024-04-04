@@ -1,7 +1,7 @@
 package store.dalkak.api.global.oauth.service;
 
-import static store.dalkak.api.global.util.DecodeUtil.payloadDecoder;
 import static store.dalkak.api.global.util.DecodeUtil.urlDecoder;
+import static store.dalkak.api.global.util.VerifyUtil.googleIdTokenVerify;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,8 @@ import store.dalkak.api.global.oauth.dto.GoogleUserAuthDto;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class GoogleService implements ProviderService{
+public class GoogleService implements ProviderService {
+
     @Value("${google.auth_base_url}")
     private String authBaseUrl;
     @Value("${google.client_id}")
@@ -29,34 +30,33 @@ public class GoogleService implements ProviderService{
 
     @Override
     public String userInfo(String token) {
-        String jwtPayload= token.split("\\.")[1];
-        return payloadDecoder(jwtPayload);
+        return googleIdTokenVerify(token);
     }
 
     @Override
     public String userAuth(String code) {
 
         // webclient로 통신해서 access token, refresh token받아오기
-        WebClient webClient=WebClient.builder()
+        WebClient webClient = WebClient.builder()
             .baseUrl(authBaseUrl)
             .build();
 
-        MultiValueMap<String, String> formData=new LinkedMultiValueMap<>();
-        formData.add("grant_type","authorization_code");
-        formData.add("client_id",clientId);
-        formData.add("redirect_uri",redirectUri);
-        formData.add("client_secret",clientSecret);
+        MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
+        formData.add("grant_type", "authorization_code");
+        formData.add("client_id", clientId);
+        formData.add("redirect_uri", redirectUri);
+        formData.add("client_secret", clientSecret);
         formData.add("code", urlDecoder(code));
 
-        try{
-            GoogleUserAuthDto googleUserAuthDto= webClient
+        try {
+            GoogleUserAuthDto googleUserAuthDto = webClient
                 .post()
                 .bodyValue(formData)
                 .retrieve()
                 .bodyToMono(GoogleUserAuthDto.class)
                 .block();
             return googleUserAuthDto.getIdToken();
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new DalkakException(DalkakErrorCode.INTERNAL_SERVER_ERROR);
         }
     }

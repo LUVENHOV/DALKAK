@@ -6,6 +6,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import store.dalkak.api.cocktail.dto.CocktailDto;
 
 @Getter
 @Builder
@@ -13,7 +14,7 @@ import lombok.Getter;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CocktailPageResDto {
 
-    private List<CocktailFindResDto> cocktails;
+    private List<CocktailDto> cocktails;
     private Long totalElements;
     private Integer totalPage;
     private Integer currentPage;

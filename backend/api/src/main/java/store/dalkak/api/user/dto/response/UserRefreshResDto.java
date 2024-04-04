@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserRefreshResDto {
+
     private String accessToken;
     private Long accessTokenExpiresIn;
     private Long id;

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum Provider {
-    NAVER("NAVER"), KAKAO("KAKAO"), GOOGLE("GOOGLE");
+    NAVER("NAVER"), KAKAO("KAKAO"), GOOGLE("GOOGLE"), NONE("NONE");
 
     private final String value;
 
@@ -13,14 +13,15 @@ public enum Provider {
     }
 
     @JsonCreator
-    public static Provider from(String value){
-        for(Provider provider:Provider.values()){
-            if(provider.getValue().equals(value)){
+    public static Provider from(String value) {
+        for (Provider provider : Provider.values()) {
+            if (provider.getValue().equals(value)) {
                 return provider;
             }
         }
         return null;
     }
+
     @JsonValue
     public String getValue() {
         return value;

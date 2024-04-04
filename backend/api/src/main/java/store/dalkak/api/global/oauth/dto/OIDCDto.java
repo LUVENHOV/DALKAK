@@ -15,8 +15,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-@JsonIgnoreProperties(ignoreUnknown =true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class OIDCDto {
-    @NotNull(message="sub 반드시")
+
+    private String iss;
+    private String aud;
+
+    @NotNull(message = "sub 반드시")
     private String sub;
+    private long iat;
+    private long exp;
+    private String nonce;
+
 }

@@ -18,6 +18,14 @@ public class CustomIngredientRepositoryImpl implements CustomIngredientCustom {
         queryFactory.update(qCustomIngredient)
             .set(qCustomIngredient.amount, customIngredientModifyDto.getAmount())
             .set(qCustomIngredient.unit, customIngredientModifyDto.getUnit())
-            .where(qCustomIngredient.custom.id.eq(customIngredientModifyDto.getCustomCocktailId())).execute();
+            .where(qCustomIngredient.custom.id.eq(customIngredientModifyDto.getCustomCocktailId()))
+            .execute();
+    }
+
+    @Override
+    public void deleteCustomIngredeintsByCustomId(Long customCocktailId) {
+        QCustomIngredient qCustomIngredient = QCustomIngredient.customIngredient;
+        queryFactory.delete(qCustomIngredient)
+            .where(qCustomIngredient.custom.id.eq(customCocktailId)).execute();
     }
 }

@@ -27,20 +27,21 @@ public class ExceptionControllerAdvice {
 
     //@Valid 예외
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiResponse<?>> handleException(MethodArgumentNotValidException e){
+    public ResponseEntity<ApiResponse<?>> handleException(MethodArgumentNotValidException e) {
         List<String> errors = new ArrayList<>();
         e.getBindingResult().getFieldErrors().forEach(error -> {
             errors.add(error.getDefaultMessage());
         });
-        ApiResponse<?> ErrorResponse = ApiResponse.fail(HttpStatus.BAD_REQUEST,errors);
+        ApiResponse<?> ErrorResponse = ApiResponse.fail(HttpStatus.BAD_REQUEST, errors);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponse);
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    public ResponseEntity<ApiResponse<?>> handleException(HttpRequestMethodNotSupportedException e){
+    public ResponseEntity<ApiResponse<?>> handleException(
+        HttpRequestMethodNotSupportedException e) {
         List<String> errors = new ArrayList<>();
         errors.add(e.getMessage());
-        ApiResponse<?> ErrorResponse = ApiResponse.fail(HttpStatus.METHOD_NOT_ALLOWED,errors);
+        ApiResponse<?> ErrorResponse = ApiResponse.fail(HttpStatus.METHOD_NOT_ALLOWED, errors);
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(ErrorResponse);
     }
 

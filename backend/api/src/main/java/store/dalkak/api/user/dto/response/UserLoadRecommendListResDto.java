@@ -7,12 +7,13 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import store.dalkak.api.user.dto.CocktailDto;
+import store.dalkak.api.cocktail.dto.CocktailDto;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class UserLoadRecommendListResDto {
+
     List<CocktailDto> cocktails;
     Long totalCount;
     Integer totalPage;

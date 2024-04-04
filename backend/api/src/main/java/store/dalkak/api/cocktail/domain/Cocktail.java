@@ -37,17 +37,17 @@ public class Cocktail {
 
     //칵테일글라스
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name= "glass_id", nullable = false)
+    @JoinColumn(name = "glass_id", nullable = false)
     private Glass glass;
 
     //칵테일색상
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name= "color_id", nullable = false)
+    @JoinColumn(name = "color_id", nullable = false)
     private Color color;
 
     //칵테일시기
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name= "occasion_id")
+    @JoinColumn(name = "occasion_id")
     private Occasion occasion;
 
     //칵테일도구
@@ -105,7 +105,14 @@ public class Cocktail {
 
     //조회수
     @ColumnDefault("0")
-    @Column(name = "view_count",nullable = false)
+    @Column(name = "view_count", nullable = false)
     private Integer viewCount;
 
+    public void updateCocktailHeart(Integer heartCount) {
+        this.heartCount = heartCount;
+    }
+
+    public void updateCocktailView(Integer viewCount) {
+        this.viewCount = viewCount;
+    }
 }

@@ -14,13 +14,14 @@ import store.dalkak.api.global.jwt.Exception.JwtErrorCode;
 import store.dalkak.api.global.jwt.Exception.JwtException;
 import store.dalkak.api.global.jwt.JwtProvider;
 import store.dalkak.api.user.domain.Member;
-import store.dalkak.api.user.repository.MemberRepository;
 import store.dalkak.api.user.dto.MemberDto;
+import store.dalkak.api.user.repository.MemberRepository;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver {
+
     private final JwtProvider jwtProvider;
     private final MemberRepository memberRepository;
 
@@ -34,18 +35,17 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-        NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        log.info("----token ");
-        HttpServletRequest httpServletRequest = webRequest.getNativeRequest(HttpServletRequest.class);
-        if(httpServletRequest!=null){
-            String token=httpServletRequest.getHeader("Authorization");
-
-            if(token!=null){
-                token=token.split(" ")[1]; //Bearer token
-                if(jwtProvider.validateToken(token)){
+        NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
+        HttpServletRequest httpServletRequest = webRequest.getNativeRequest(
+            HttpServletRequest.class);
+        if (httpServletRequest != null) {
+            String token = httpServletRequest.getHeader("Authorization");
+            if (token != null && !token.isEmpty()) {
+                token = token.split(" ")[1]; //Bearer token
+                if (jwtProvider.validateToken(token)) {
                     long memberId = jwtProvider.getMemberPrimaryKeyId(token);
                     Member member = memberRepository.findById(memberId).orElseThrow(
-                        ()-> new JwtException(JwtErrorCode.INVALID_TOKEN)
+                        () -> new JwtException(JwtErrorCode.INVALID_TOKEN)
                     );
                     return MemberDto.builder()
                         .id(member.getId())

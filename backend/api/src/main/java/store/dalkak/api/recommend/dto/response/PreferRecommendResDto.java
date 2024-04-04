@@ -1,21 +1,20 @@
-package store.dalkak.api.cocktail.dto.response;
+package store.dalkak.api.recommend.dto.response;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import store.dalkak.api.cocktail.dto.CocktailDto;
 
 @Getter
-@Builder
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class CocktailFindResDto {
+public class PreferRecommendResDto {
 
-    private Long id;
-    private String name;
-    private String koreanName;
-    private String image;
-    private Integer heartCount;
-
+    List<CocktailDto> cocktails;
 }

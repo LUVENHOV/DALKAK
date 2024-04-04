@@ -7,10 +7,12 @@ import store.dalkak.api.user.domain.Member;
 import store.dalkak.api.user.domain.embed.Provider;
 
 @Repository
-public interface MemberRepository extends JpaRepository<Member,Long> {
+public interface MemberRepository extends JpaRepository<Member, Long> {
 
     Boolean existsByNickname(String nickname);
+
     Optional<Member> findByOauthSubAndOauthProvider(String sub, Provider provider);
+
     Boolean existsByOauthSubAndOauthProvider(String sub, Provider provider);
 
     Member findMemberById(Long memberId);

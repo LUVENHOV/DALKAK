@@ -13,6 +13,7 @@ import store.dalkak.api.cocktail.domain.ingredient.Unit;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class IngredientResDto {
+
     private Long ingredientId;
     private String ingredientName;
     private String ingredientImage;

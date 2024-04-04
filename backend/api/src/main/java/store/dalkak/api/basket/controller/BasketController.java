@@ -17,6 +17,7 @@ import store.dalkak.api.basket.service.BasketService;
 import store.dalkak.api.cocktail.dto.IngredientDto;
 import store.dalkak.api.global.annotation.LoginUser;
 import store.dalkak.api.global.response.ApiResponse;
+import store.dalkak.api.refrigerator.dto.RefDto;
 import store.dalkak.api.user.dto.MemberDto;
 
 @Slf4j
@@ -31,10 +32,10 @@ public class BasketController {
     //재료 추가
     @PostMapping
     public ResponseEntity<ApiResponse<String>> addToRef(@LoginUser MemberDto memberDto,
-        @RequestBody Long ingredientId) {
-        basketService.addBasket(memberDto, ingredientId);
+        @RequestBody RefDto refDto) {
+        basketService.addBasket(memberDto, refDto.getIngredientId());
         return ResponseEntity.status(HttpStatus.CREATED)
-            .body(ApiResponse.of(201, "냉장고에 재료를 담았습니다."));
+            .body(ApiResponse.of(201, "위시리스트에 재료를 담았습니다."));
     }
 
     //재료 삭제
@@ -42,7 +43,8 @@ public class BasketController {
     public ResponseEntity<ApiResponse<String>> deleteFromRef(@LoginUser MemberDto memberDto,
         @PathVariable("ingredientId") Long ingredientId) {
         basketService.deleteBasket(memberDto, ingredientId);
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.of(200, "냉장고에서 재료를 제거했습니다."));
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(ApiResponse.of(200, "위시리스트에서 재료를 제거했습니다."));
     }
 
 

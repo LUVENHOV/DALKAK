@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import store.dalkak.api.cocktail.dto.IngredientDto;
 import store.dalkak.api.global.annotation.LoginUser;
 import store.dalkak.api.global.response.ApiResponse;
+import store.dalkak.api.refrigerator.dto.RefDto;
 import store.dalkak.api.refrigerator.repository.RefrigeratorRepository;
 import store.dalkak.api.refrigerator.service.RefrigeratorService;
 import store.dalkak.api.user.dto.MemberDto;
@@ -31,8 +32,8 @@ public class RefrigeratorController {
     //재료 추가
     @PostMapping
     public ResponseEntity<ApiResponse<String>> addToRef(@LoginUser MemberDto memberDto,
-        @RequestBody Long ingredientId) {
-        refrigeratorService.addRefrigerator(memberDto, ingredientId);
+        @RequestBody RefDto refDto) {
+        refrigeratorService.addRefrigerator(memberDto, refDto.getIngredientId());
         return ResponseEntity.status(HttpStatus.CREATED)
             .body(ApiResponse.of(201, "냉장고에 재료를 담았습니다."));
     }

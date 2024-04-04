@@ -6,11 +6,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PageConfig {
+
     @Bean
     public PageableHandlerMethodArgumentResolverCustomizer customizePageable() {
         return p -> {
-            p.setOneIndexedParameters(true);	// 1부터 시작
-            p.setMaxPageSize(20);		// size=20
+            p.setOneIndexedParameters(true);    // 1부터 시작
+            p.setMaxPageSize(20);        // size=20
         };
     }
 }

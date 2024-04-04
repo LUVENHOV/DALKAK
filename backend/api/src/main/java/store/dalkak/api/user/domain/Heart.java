@@ -12,16 +12,18 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import store.dalkak.api.cocktail.domain.Cocktail;
 
 @Entity
-@Table(name="HEART")
+@Table(name = "HEART")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Heart {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -37,7 +39,13 @@ public class Heart {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @Column(name="created_date")
+    @Column(name = "created_date")
     @CreationTimestamp
     private LocalDateTime createdDate;
+
+    @Builder
+    public Heart(Cocktail cocktail, Member member) {
+        this.cocktail = cocktail;
+        this.member = member;
+    }
 }
