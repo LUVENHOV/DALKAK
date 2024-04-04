@@ -17,7 +17,6 @@ import CustomCocktailRecipe from '@/components/custom-cocktail/CustomCocktailRec
 
 import IngredientCardWrapper from '@/components/custom-cocktail/IngredientCardWrapper';
 import ToolCardWrapper from '@/components/custom-cocktail/ToolCardWrapper';
-import authStore from '@/store/authStore';
 
 interface Unit {
   id: number;
@@ -37,7 +36,8 @@ interface Props {
   cocktailId: number;
 }
 
-const authorization = authStore.getState().accessToken;
+const authorization =
+  'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MTIxOTc5OTksImV4cCI6MTcxMjYyOTk5OSwiaWQiOjZ9.w_9FzZor4EvYAWqZCvsi-fOkIvvwcD8jaWitynt12hI';
 
 export async function getData({ cocktailId }: Props) {
   const response = await fetch(
