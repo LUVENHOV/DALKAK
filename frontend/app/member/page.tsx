@@ -47,7 +47,6 @@ export default function Page() {
   const visitedCocktails = memberStore((state) => state.visited);
   const setMyLikeCocktails = memberStore((state) => state.setMyCocktails);
   const setMyCustomCocktails = memberStore((state) => state.setCustomCocktails);
-  console.log(visitedCocktails);
   const loadProfile = async () => {
     setLoading(true);
     try {
@@ -62,13 +61,12 @@ export default function Page() {
         setMyCustomCocktails(data.custom_cocktails);
         setProfile(data);
       } else if (response.status === 401) {
-        window.location.replace('/');
+        alert('로그인이 필요합니다.');
+        window.location.replace('/oauth');
       }
     } catch (e) {
-      console.error(e);
       alert('프로필을 불러오는데 실패했습니다.');
     } finally {
-      console.log('done');
       setLoading(false);
     }
   };

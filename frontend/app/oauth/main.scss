@@ -8,6 +8,10 @@
     padding-top: 10vh;
     font-size: 1.4rem;
     margin: 1rem 0;
+    display: flex;
+    justify-self: center;
+    width: 300px;
+    margin-left: auto;
   }
   .subtitle-main {
     font-size: 1.2rem;
@@ -21,4 +25,20 @@
     color: white;
     background-color: var(--color-point);
   }
+}
+.flex {
+  margin-top: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-comment {
+  font-size: 0.9rem;
+  color: grey;
+}
+.oauth-buttons {
+  margin: 1vw;
+  display: flex;
+  justify-content: space-around;
+  width: 15vw;
 }

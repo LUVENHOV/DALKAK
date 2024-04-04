@@ -83,22 +83,22 @@ export default function CustomCocktailWrite(props: Props) {
 
   // const changedRecipe = customRecipe.split('\n\n').join('|');
 
-  const confirmData = () => {
-    // console.log('여기부터');
-    // console.log('image');
-    // console.log(customImage);
-    // console.log(cocktailId);
-    // console.log(customName);
-    // console.log(customSummary);
-    // console.log(customComment);
-    console.log(customRecipe);
-    console.log(changedRecipe);
-    // console.log(open);
-    // console.log('>>', inputValues);
-    // console.log('>>>', inputUnitValues);
-    // console.log(tempList);
-    // console.log(filteredList);
-  };
+  // const confirmData = () => {
+  //   // console.log('여기부터');
+  //   // console.log('image');
+  //   // console.log(customImage);
+  //   // console.log(cocktailId);
+  //   // console.log(customName);
+  //   // console.log(customSummary);
+  //   // console.log(customComment);
+  //   console.log(customRecipe);
+  //   console.log(changedRecipe);
+  //   // console.log(open);
+  //   // console.log('>>', inputValues);
+  //   // console.log('>>>', inputUnitValues);
+  //   // console.log(tempList);
+  //   // console.log(filteredList);
+  // };
 
   const infoPlaceholder =
     '추가 설명이나 후기를 알려주세요.\n\n 이런 내용이 들어가면 좋아요!| 이 재료는 다른 걸로 대체할 수 있어요 | - 기존 레시피와 비교해서 맛이 이렇게 달라요 | - 이럴 때 마시는 걸 추천해요';
@@ -337,14 +337,16 @@ export default function CustomCocktailWrite(props: Props) {
     <div className={styles['flex-container']}>
       <div className={styles.container}>
         <div className={styles['title-container']}>
-          <div className={styles.name}>
-            활용한 칵테일
-            <span className={styles['divide-line']}>&nbsp;&nbsp;&nbsp;|</span>
-          </div>
+          <div className={styles.left}>
+            <div className={styles.name}>
+              활용한 칵테일
+              <span className={styles['divide-line']}>&nbsp;&nbsp;&nbsp;|</span>
+            </div>
 
-          <div className={styles.explain}>
-            {/* &nbsp;&nbsp; {englishName}, {koreanName} */}
-            &nbsp;&nbsp;&nbsp;{names}
+            <div className={styles.explain}>
+              {/* &nbsp;&nbsp; {englishName}, {koreanName} */}
+              &nbsp;&nbsp;&nbsp;{names}
+            </div>
           </div>
           <div />
 
@@ -366,9 +368,9 @@ export default function CustomCocktailWrite(props: Props) {
             </div>
           </div>
         </div>
-        <button type="button" onClick={confirmData}>
+        {/* <button type="button" onClick={confirmData}>
           저장된 데이터 확인
-        </button>
+        </button> */}
         <div className={styles['inner-container']}>
           <div className={styles.space}>
             <CustomCocktailImageUpload handleImageProps={handleImageProps} />

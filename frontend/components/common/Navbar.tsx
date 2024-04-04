@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.scss';
 import NavbarTopRank from './NavbarTopRank';
 import { Logout } from '@/apis/Auth';
-import logo from '@/public/assets/imgs/logo.png';
+import logo from '@/public/assets/dalkak_logo.png';
 import authStore from '@/store/authStore';
 import memberStore from '@/store/memberStore';
 
@@ -31,9 +31,9 @@ export default function Navbar() {
   const LogoutFunction = async () => {
     try {
       const response = await Logout();
+      clearAll();
+      clearTokens();
       if (response.status === 200 || response.status === 401) {
-        clearAll();
-        clearTokens();
         window.location.replace('/');
       }
     } catch (error) {
@@ -46,11 +46,11 @@ export default function Navbar() {
       <div className={styles.left}>
         <div className={styles.logo}>
           <Link href="/">
-            <Image src={logo} width={100} height={100} alt="logo" />
+            <Image src={logo} width={140} height={100} alt="logo" />
           </Link>
         </div>
         <div className={styles.pages}>
-          <Link href="/cocktail">
+          <Link href={isLoggedIn ? '/cocktail' : '/oauth'}>
             <div
               className={pathName?.startsWith('/cocktail') ? styles.active : ''}
             >
@@ -58,7 +58,7 @@ export default function Navbar() {
             </div>
           </Link>
 
-          <Link href="/storage">
+          <Link href={isLoggedIn ? '/storage' : '/oauth'}>
             <div
               className={pathName?.startsWith('/storage') ? styles.active : ''}
             >

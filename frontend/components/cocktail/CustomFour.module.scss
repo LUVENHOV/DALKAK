@@ -1,0 +1,30 @@
+.container {
+  width: 93%;
+  margin: 0 auto;
+}
+
+.flexContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  display: flex;
+  margin-bottom: 20px;
+  font-size: 1.3vw;
+  font-weight: 600;
+  margin-bottom: 50px;
+
+  button {
+    display: flex;
+    justify-content: center;
+    padding: 10px 20px;
+    font-size: 1.2vw;
+    margin-left: auto;
+  }
+}
+
+.content {
+  display: flex;
+  justify-content: space-evenly;
+}
