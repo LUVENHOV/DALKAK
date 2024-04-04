@@ -10,6 +10,8 @@ import PublicOutlined from '@mui/icons-material/PublicOutlined';
 
 import { useRouter } from 'next/navigation';
 
+import Swal from 'sweetalert2';
+
 import styles from './CustomCocktailWrite.module.scss';
 
 import BtnWithIcon from '@/components/common/BtnWithIcon';
@@ -149,33 +151,6 @@ export default function CustomCocktailWrite(props: Props) {
     setTempList((prevList) => prevList.filter((data) => data.id !== id));
   };
 
-  // const addItem: AddItemFunction = (id: number, name: string) => {
-  //   if (tempList.length < 12) {
-  //     const newItem = {
-  //       id,
-  //       name,
-  //       amount: 0,
-  //       image: '',
-  //       category_id: 0,
-  //       unit: {
-  //         id: 1,
-  //         name: '',
-  //       },
-  //     };
-  //     // 중복 여부 확인
-  //     const isDuplicate = tempList.some((item) => item.id === id);
-  //     // 중복이 없을 경우에만 새로운 아이템 추가
-  //     if (!isDuplicate) {
-  //       setTempList((prevList) => [...prevList, newItem]);
-  //     } else {
-  //       // 중복된 아이템이 있다면 여기에 대한 처리를 추가할 수 있습니다.
-  //       alert('이미 추가된 재료입니다');
-  //     }
-  //   } else {
-  //     alert('재료는 최대 12개까지 추가할 수 있습니다.');
-  //   }
-  // };
-
   const handleInputChangeTest = (value: number, id: number) => {
     const updatedList = tempList.map((item) => {
       if (item.id === id) {
@@ -247,12 +222,18 @@ export default function CustomCocktailWrite(props: Props) {
     const isAlreadyAdded = tempList.some((item) => item.id === id);
 
     if (isAlreadyAdded) {
-      alert('이미 추가된 항목입니다.');
+      Swal.fire({
+        title: '이미 추가된 항목입니다.',
+        icon: 'warning',
+      });
       return;
     }
 
     if (tempList.length >= 12) {
-      alert('더 이상 재료를 추가할 수 없습니다.');
+      Swal.fire({
+        title: '더 이상 재료를 추가할 수 없습니다.',
+        icon: 'warning',
+      });
       return;
     }
     const updatedList: CustomIngredientList[] = [
@@ -310,23 +291,44 @@ export default function CustomCocktailWrite(props: Props) {
           },
         );
         if (response.ok) {
-          alert('커스텀 레시피가 등록되었습니다.');
+          Swal.fire({
+            title: '커스텀 칵테일이 등록되었습니다.',
+            icon: 'success',
+          });
           router.push(`/cocktail/customs?id=${cocktailId}`);
         } else {
           console.error('커스텀 레시피 등록 실패');
         }
       } else if (!customImage) {
-        alert('커스텀 칵테일 이미지를 업로드해주세요.');
+        Swal.fire({
+          title: '커스텀 칵테일 이미지를 업로드해주세요.',
+          icon: 'warning',
+        });
       } else if (!customName) {
-        alert('커스텀 칵테일 이름을 작성해주세요.');
+        Swal.fire({
+          title: '커스텀 칵테일 이름을 작성해주세요.',
+          icon: 'warning',
+        });
       } else if (!customSummary) {
-        alert('커스텀 칵테일 한 줄 요약(summary)을 작성해주세요.');
+        Swal.fire({
+          title: '커스텀 칵테일 한 줄 요약(summary)을 작성해주세요.',
+          icon: 'warning',
+        });
       } else if (!customComment) {
-        alert('커스텀 칵테일 간단한 설명(comment)를 작성해주세요.');
+        Swal.fire({
+          title: '커스텀 칵테일 간단한 설명(comment)를 작성해주세요.',
+          icon: 'warning',
+        });
       } else if (!customRecipe || customRecipe.trim() === '') {
-        alert('커스텀 칵테일 레시피를 작성해주세요.');
+        Swal.fire({
+          title: '커스텀 칵테일 레시피를 작성해주세요.',
+          icon: 'warning',
+        });
       } else if (filteredList.length < 1) {
-        alert('커스텀 칵테일 재료를 추가해주세요.');
+        Swal.fire({
+          title: '커스텀 칵테일 재료를 추가해주세요.',
+          icon: 'warning',
+        });
       }
     } catch (error) {
       console.log('서버와 통신 중 오류 발생');

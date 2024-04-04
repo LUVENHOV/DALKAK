@@ -3,6 +3,8 @@
 import React from 'react';
 import { useEffect } from 'react';
 // eslint-disable-next-line import/extensions, import/no-unresolved
+
+import Swal from 'sweetalert2';
 import surveyStore from '../../store/surveyStore';
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import AlcoholSurvey from '@/components/survey/AlcoholSurvey.tsx';
@@ -20,8 +22,12 @@ export default function Survey() {
   const isLoggedIn = memberStore((state) => state.isLoggedIn);
   useEffect(() => {
     if (!isLoggedIn) {
+      Swal.fire({
+        title: '로그인이 필요합니다',
+        icon: 'warning',
+      });
+      window.location.replace('/oauth');
       alert('로그인이 필요합니다');
-      // window.location.replace('/oauth');
     }
   }, [isLoggedIn]);
   switch (progress) {

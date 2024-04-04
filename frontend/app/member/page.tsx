@@ -3,6 +3,9 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+
+import Swal from 'sweetalert2';
+
 import { getProfile } from '@/apis/Member';
 import CocktailCard from '@/components/cocktail-list/CocktailCard';
 import BtnWithIcon from '@/components/common/BtnWithIcon';
@@ -61,11 +64,17 @@ export default function Page() {
         setMyCustomCocktails(data.custom_cocktails);
         setProfile(data);
       } else if (response.status === 401) {
-        alert('로그인이 필요합니다.');
+        Swal.fire({
+          title: '로그인이 필요합니다',
+          icon: 'warning',
+        });
         window.location.replace('/oauth');
       }
     } catch (e) {
-      alert('프로필을 불러오는데 실패했습니다.');
+      Swal.fire({
+        title: '프로필을 불러오는데 실패하였습니다.',
+        icon: 'warning',
+      });
     } finally {
       setLoading(false);
     }
