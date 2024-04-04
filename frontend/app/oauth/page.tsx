@@ -9,11 +9,7 @@ export default function page() {
   return (
     <div className="mainWrapper">
       <div className="flex">
-        <Image
-          src={logo}
-          width={140}
-          alt="Oops"
-        />
+        <Image src={logo} width={140} alt="Oops" />
       </div>
       <div className="subtitle-main">내가 원하는 칵테일을 찾아볼까요?</div>
       <div className="login-comment">SNS로 간편하게 로그인/회원가입 하기</div>
