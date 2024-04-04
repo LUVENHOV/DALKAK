@@ -1,0 +1,29 @@
+.grid-container {
+  width: 40vw;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex {
+  display: flex;
+  margin-bottom: 1vw;
+}
+
+.title {
+  font-size: 1.3vw;
+  margin-left: 1.3vw;
+  font-weight: 600;
+}
+
+.info {
+  font-size: 0.85vw;
+  color: var(--color-placeholder);
+  align-self: end;
+  margin-bottom: 0.1vw;
+  margin-left: 0.8vw;
+}
+
+.non {
+  font-size: 1vw;
+  margin: 2vw 0 2vw 1vw;
+}

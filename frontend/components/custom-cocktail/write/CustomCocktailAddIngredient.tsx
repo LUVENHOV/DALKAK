@@ -1,134 +1,140 @@
-'use client';
+// 'use client';
 
-import { ChangeEvent, useState, useEffect } from 'react';
+// import { ChangeEvent, useState, useEffect } from 'react';
 
-import styles from './CustomCocktailAddIngredient.module.scss';
+// import styles from './CustomCocktailAddIngredient.module.scss';
 
-interface Origin {
-  ingredient: {
-    id: number;
-    name: string;
-  };
-  ingredient_amount: number;
-  unit: {
-    id: number;
-    name: string;
-  };
-}
+// interface Unit {
+//   id: number;
+//   name: string;
+// }
 
-interface Props {
-  origin: Origin[];
-}
+// interface Origin {
+//   id: number;
+//   name: string;
+//   image: string;
+//   category_id: number;
+//   amount: number;
+//   unit: Unit;
+// }
 
-// const unitList = ['조각', '슬라이스', '그램', 'ml', '개'];
+// interface Props {
+//   origin: Origin[];
+// }
 
-export default function CustomCocktailAddIngredient({ origin }: Props) {
-  const [tempList, setTempList] = useState(origin);
-  // const [amount, setAmount] = useState(origin.ingredient_amount)
-  const [inputValues, setInputValues] = useState<string[]>(
-    origin.map((item) => String(item.ingredient_amount)),
-  );
+// export default function CustomCocktailAddIngredient({ origin }: Props) {
+//   // console.log(origin);
+//   const [tempList, setTempList] = useState<Origin[]>([]);
+//   // const [amount, setAmount] = useState(origin.ingredient_amount)
+//   const [inputValues, setInputValues] = useState<string[]>([]);
+//   // const [tempValues, setTempValues] = useState<string[]>([]);
+//   const [inputUnitValues, setInputUnitValues] = useState<string[]>([]);
 
-  const [inputUnitValues, setInputUnitValues] = useState<string[]>(
-    origin.map((item) => String(item.unit.name)),
-  );
+//   useEffect(() => {
+//     setTempList(origin);
+//     setInputValues(origin.map((item) => String(item.amount)));
+//     // setTempValues(inputValues);
+//     setInputUnitValues(origin.map((item) => String(item.unit.name)));
+//   }, [origin]);
 
-  useEffect(() => {
-    console.log(tempList);
-  }, [tempList]);
+//   const removeItem = (id: number) => {
+//     setTempList((prevList) => prevList.filter((data) => data.id !== id));
+//   };
 
-  const removeItem = (id: number) => {
-    setTempList((prevList) => {
-      const updatedList = prevList.filter((data) => data.ingredient.id !== id);
-      return updatedList;
-    });
-  };
+//   const handleInputChangeTest = (
+//     e: ChangeEvent<HTMLInputElement>,
+//     id: number,
+//     index: number[],
+//   ) => {
+//     const tempNum = e.target.value;
+//     const indexToUpdate = index[0];
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>, id: number) => {
-    const { value } = e.target;
-    setInputValues((prevValues) => {
-      const updatedValues = [...prevValues];
-      updatedValues[id - 1] = value;
-      return updatedValues;
-    });
+//     setInputValues((prevInputValues) => {
+//       const newInputValues = [...prevInputValues];
+//       newInputValues[indexToUpdate] = tempNum;
+//       return newInputValues;
+//     });
+//   };
 
-    console.log(inputValues);
-  };
+//   const handleUnitInputChange = (
+//     e: ChangeEvent<HTMLSelectElement>,
+//     id: number,
+//     index: number[],
+//   ) => {
+//     const indexToUpdate = index[0];
+//     const unitValue = e.target.value;
+//     setInputUnitValues((prevUnitValues) => {
+//       const updatedUnitValues = [...prevUnitValues];
+//       updatedUnitValues[indexToUpdate] = unitValue;
+//       return updatedUnitValues;
+//     });
+//   };
 
-  const handleUnitInputChange = (
-    e: ChangeEvent<HTMLSelectElement>,
-    id: number,
-  ) => {
-    const { value } = e.target;
-    setInputUnitValues((prevUnitValues) => {
-      const updatedUnitValues = [...prevUnitValues];
-      updatedUnitValues[id - 1] = value;
-      return updatedUnitValues;
-    });
+//   return (
+//     <div>
+//       <div className={styles.title}>재료</div>
 
-    console.log(inputUnitValues);
-  };
-
-  return (
-    <div>
-      <div className={styles.title}>재료</div>
-
-      <div className={styles.scrollable}>
-        <div className={styles.add}>
-          {tempList.map((data, index) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <div key={index}>
-              <div className={styles['grid-container']}>
-                <div>{data.ingredient.name}</div>
-                <div />
-                <div>
-                  <input
-                    type="text"
-                    pattern="[0-9]+"
-                    className={styles['amount-input']}
-                    value={inputValues[index]}
-                    onChange={(e) => handleInputChange(e, data.ingredient.id)}
-                    maxLength={4}
-                  />
-                </div>
-                <div>
-                  <select
-                    className={styles['unit-input']}
-                    value={inputUnitValues[index]}
-                    onChange={(e) => handleUnitInputChange(e, data.ingredient.id)}
-                  >
-                    <option>개</option>
-                    <option>웨지</option>
-                    <option>슬라이스</option>
-                    <option>꼬집</option>
-                    <option>조각</option>
-                    <option>ml</option>
-                    <option>스쿱</option>
-                    <option>방울</option>
-                    <option>그램</option>
-                    <option>잎</option>
-                    <option>none</option>
-                  </select>
-                </div>
-                <div />
-                <div>
-                  <button
-                    type="button"
-                    className={styles['delete-button']}
-                    onClick={() => removeItem(data.ingredient.id)}
-                  >
-                    ✕
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      <input
-        className={styles['ingredient-input-style']}
-        placeholder="추가할 재료를 검색해보세요!"
-      />
-    </div>
-  );
-}
+//       <div className={styles.scrollable}>
+//         <div className={styles.add}>
+//           {tempList.map((data, index) => (
+//             // eslint-disable-next-line react/no-array-index-key
+//             <div key={index}>
+//               <div className={styles['grid-container']}>
+//                 <div>{data.name}</div>
+//                 <div />
+//                 <div>
+//                   <input
+//                     type="text"
+//                     pattern="[0-9]+"
+//                     className={styles['amount-input']}
+//                     value={inputValues[index]}
+//                     // value={tempValues[index]}
+//                     // onChange={(e) => handleInputChange(e, data.id)}
+//                     maxLength={4}
+//                     onChange={(e) => handleInputChangeTest(e, data.id, [index])}
+//                   />
+//                 </div>
+//                 <div>
+//                   <select
+//                     className={styles['unit-input']}
+//                     value={inputUnitValues[index]}
+//                     onChange={
+//                       (e) => handleUnitInputChange(e, data.id, [index])
+//                       // eslint-disable-next-line react/jsx-curly-newline
+//                     }
+//                   >
+//                     <option>개</option>
+//                     <option>웨지</option>
+//                     <option>슬라이스</option>
+//                     <option>꼬집</option>
+//                     <option>조각</option>
+//                     <option>ml</option>
+//                     <option>스쿱</option>
+//                     <option>방울</option>
+//                     <option>그램</option>
+//                     <option>잎</option>
+//                     <option>none</option>
+//                   </select>
+//                 </div>
+//                 <div />
+//                 <div>
+//                   <button
+//                     type="button"
+//                     className={styles['delete-button']}
+//                     onClick={() => removeItem(data.id)}
+//                   >
+//                     ✕
+//                   </button>
+//                 </div>
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//       <input
+//         className={styles['ingredient-input-style']}
+//         placeholder="추가할 재료를 검색해보세요!"
+//       />
+//     </div>
+//   );
+// }

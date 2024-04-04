@@ -1,35 +1,44 @@
-.keyword-search-container {
+.cocktailName-search-container {
   width: 40vw;
-  height: 5vw;
+  height: 40px;
   text-align: center;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 10vh auto 0 auto;
-  padding: 1vw;
+  padding: 10px;
   box-sizing: border-box;
-  border: 0.25vw solid var(--color-text);
-  border-radius: 1.5vw;
+  border: 1.5px solid var(--color-placeholder);
+  border-radius: 10px;
 
   input {
     width: 35vw;
-    height: 3vw;
+    height: 20px;
     border: none;
-    padding: 0 1vw;
+    padding: 0 5px;
+    box-sizing: border-box;
+    font-size: 0.8rem;
   }
   input:focus {
     outline: none;
   }
 
   button {
+    height: 20px;
+    cursor: pointer;
+
     svg {
-      font-size: 2vw;
+      font-size: 1.2rem;
+      fill: var(--color-placeholder);
     }
   }
 }
 
 .detail-search-container {
+  // background-color: pink;
   text-align: center;
+  width: 500px;
+  margin: 0 auto;
 
   .header {
     display: flex;
@@ -46,8 +55,8 @@
 
   .body {
     // background-color: skyblue;
-    border-top: 0.2vw solid var(--color-base);
-    border-bottom: 0.2vw solid var(--color-base);
+    border-top: 3px solid var(--color-base);
+    border-bottom: 3px solid var(--color-base);
     padding: 5vh 0;
 
     .reset {
@@ -59,27 +68,52 @@
     }
 
     .searchRow {
-      width: 60vw;
-      line-height: 5vh;
+      // background-color: orange;
+      width: 500px;
       text-align: start;
-      margin: 0 auto 5vh auto;
+      margin: 0 auto 30px auto;
       display: flex;
-      gap: 1vw;
+      align-items: center;
 
       .title {
-        width: 7vw;
-        font-size: 1.2rem;
+        // background-color: red;
+        width: 60px;
+        font-size: 0.8rem;
+        font-weight: 700;
+      }
+
+      .content {
+        // background-color: yellow;
+        width: 440px;
       }
     }
 
     .searchBtn {
       button {
-        font-size: 2vw;
-        font-weight: 900;
-        padding: 0.8vw 3vw;
-        border-radius: 1vw;
+        font-size: 1rem;
+        // font-weight: 700;
+        padding: 5px 30px;
+        border-radius: 10px;
         margin: 0 auto;
       }
     }
+  }
+}
+
+.ingredients-container {
+  // background-color: pink;
+  width: 52vw;
+  display: flex;
+  flex-direction: column;
+
+  .selected-container {
+    // background-color: gray;
+    width: 52vw;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  input {
+    height: 40px;
   }
 }

@@ -1,0 +1,26 @@
+.container {
+  background-color: rgba($color: #000000, $alpha: 0.05);
+  width: 70%;
+  padding: 10vh;
+  box-sizing: border-box;
+  margin: 0 auto;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .textContainer {
+    height: fit-content;
+    text-align: left;
+    margin-left: 20px;
+
+    h1 {
+      font-size: 1.2rem;
+      margin-bottom: 1vh;
+    }
+    div {
+      font-size: 0.8rem;
+      line-height: 20px;
+    }
+  }
+}

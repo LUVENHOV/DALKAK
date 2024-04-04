@@ -1,0 +1,25 @@
+.container {
+  width: 100%;
+
+  input {
+    width: 100%;
+    border: 1.5px solid var(--color-placeholder);
+    border-radius: 20px;
+    padding: 0 1vw;
+    box-sizing: border-box;
+    font-size: 0.7rem;
+  }
+  input:focus {
+    outline: none;
+  }
+
+  .results-container {
+    width: 95%;
+    margin: 0 auto;
+    max-height: 20vh;
+    overflow-x: auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

@@ -1,57 +1,103 @@
-/* eslint-disable implicit-arrow-linebreak */
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
-interface MemberActions {
-  setId: (id: string) => void;
-  setNickname: (nickname: string) => void;
-  setBirthDate: (birthDate: string) => void;
-  setGender: (gender: string) => void;
-  setIsLoggedIn: (isLoggedIn: boolean) => void;
-  clearAll: () => void;
-  tmp: () => void;
+interface ICocktailType {
+  id: number;
+  name: string;
+  koreanName: string;
+  image: string;
+  heartCount: number;
 }
-
+interface ICustomCocktailType {
+  id: number;
+  image: string;
+  name: string;
+  summary: string;
+  user: {
+    id: number;
+    nickname: string;
+  };
+}
 interface StoreState {
-  actions: MemberActions;
-  id: string;
+  id: number;
   nickname: string;
   birthDate: string;
   gender: string;
   isLoggedIn: boolean;
+  surveyCompletion: boolean;
+  myCocktails: ICocktailType[];
+  customCocktails: ICustomCocktailType[];
+  visited: ICocktailType[];
+  setId: (id: number) => void;
+  setNickname: (nickname: string) => void;
+  setBirthDate: (birthDate: string) => void;
+  setGender: (gender: string) => void;
+  setIsLoggedIn: (isLoggedIn: boolean) => void;
+  setSurveyCompletion: (surveyCompletion: boolean) => void;
+  setMyCocktails: (myCocktails: ICocktailType[]) => void;
+  setCustomCocktails: (customCocktails: ICustomCocktailType[]) => void;
+  setVisited: (cocktail: ICocktailType) => void;
+  clearAll: () => void;
+  setMemberStateLogin: (
+    id: number,
+    nickname: string,
+    surveyCompletion: boolean,
+  ) => void;
 }
 
 const memberStore = create(
   persist<StoreState>(
     (set) => ({
-      id: '',
+      // 초기 상태
+      id: 0,
       nickname: '',
       birthDate: '',
       gender: '',
       isLoggedIn: true,
-      actions: {
-        setId: (id: string) => set({ id }),
-        setNickname: (nickname: string) => set({ nickname }),
-        setBirthDate: (birthDate: string) => set({ birthDate }),
-        setGender: (gender: string) => set({ gender }),
-        setIsLoggedIn: (isLoggedIn: boolean) => set({ isLoggedIn }),
-        clearAll: () =>
-          set({
-            id: '',
-            nickname: '',
-            birthDate: '',
-            gender: '',
-            isLoggedIn: false,
-          }),
-
-        tmp: () =>
-          set({
-            id: 'tmp',
-            nickname: '김형진',
-            birthDate: '1998-01-17 ',
-            gender: 'male',
-            isLoggedIn: true,
-          }),
+      surveyCompletion: false,
+      myCocktails: [],
+      customCocktails: [],
+      visited: [],
+      setId: (id: number) => set({ id }),
+      setNickname: (nickname: string) => set({ nickname }),
+      setBirthDate: (birthDate: string) => set({ birthDate }),
+      setGender: (gender: string) => set({ gender }),
+      setIsLoggedIn: (isLoggedIn: boolean) => set({ isLoggedIn }),
+      setSurveyCompletion(surveyCompletion) {
+        set({ surveyCompletion });
+      },
+      setMyCocktails(myCocktails) {
+        set({ myCocktails });
+      },
+      setCustomCocktails(customCocktails) {
+        set({ customCocktails });
+      },
+      setVisited: (cocktail) => {
+        set((state) => {
+          const updatedVisited = [cocktail, ...state.visited].slice(0, 10);
+          return { visited: updatedVisited };
+        });
+      },
+      clearAll: () =>
+        set({
+          id: 0,
+          nickname: '',
+          birthDate: '',
+          gender: '',
+          isLoggedIn: false,
+          visited: [],
+        }),
+      setMemberStateLogin: (
+        id: number,
+        nickname: string,
+        surveyCompletion: boolean,
+      ) => {
+        set({
+          id,
+          nickname,
+          surveyCompletion,
+          isLoggedIn: true,
+        });
       },
     }),
     {

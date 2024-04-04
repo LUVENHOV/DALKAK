@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.divide-line {
+  background-color: var(--color-base);
+  width: 80vw;
+  height: 1px;
+  margin: 0 auto;
+}

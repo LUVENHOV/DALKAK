@@ -1,25 +1,36 @@
+/* eslint-disable react/prop-types */
+
+'use client';
+
 import React from 'react';
 
-import { FavoriteBorder } from '@mui/icons-material';
+import { Favorite } from '@mui/icons-material';
 import Link from 'next/link';
 import styles from './CocktailCard.module.scss';
+import authStore from '@/store/authStore';
 
-interface propsType {
-  id: string;
+interface ICocktailType {
+  id: number;
   name: string;
   koreanName: string;
   image: string;
   heartCount: number;
 }
 
-export default function CocktailCard(props: propsType) {
-  const {
-    id: cocktailId, name, koreanName, image, heartCount,
-  } = props;
+export default function CocktailCard(props: ICocktailType) {
+  const { id, name, koreanName, image, heartCount } = props;
+
+  const getAccessToken = () => authStore.getState().accessToken;
+  const authorization = getAccessToken();
+  const createLog = () => {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cocktails/${id}/log`, {
+      headers: { authorization },
+    });
+  };
 
   return (
-    <Link href={`/cocktail/${cocktailId}`}>
-      <div className={styles.container}>
+    <Link href={`/cocktail/${id}/`}>
+      <button type="button" className={styles.container} onClick={createLog}>
         <div className={styles.image}>
           <img src={image} alt={name} />
         </div>
@@ -29,11 +40,11 @@ export default function CocktailCard(props: propsType) {
             <h3 className={styles.kor}>{koreanName}</h3>
           </div>
           <div className={styles.like}>
-            <FavoriteBorder />
+            <Favorite />
             {heartCount}
           </div>
         </div>
-      </div>
+      </button>
     </Link>
   );
 }

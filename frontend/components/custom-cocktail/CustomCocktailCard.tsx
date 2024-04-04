@@ -2,45 +2,51 @@
 
 import React from 'react';
 
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+// import { useRouter } from 'next/navigation';
 
 import styles from './CustomCocktailCard.module.scss';
 
-interface Custom {
-  title: string;
-  comment: string;
-  author: string;
-  imageLink: string;
+interface Custom_Cocktails {
+  id: number;
+  image: string;
+  name: string;
+  summary: string;
+  user: {
+    id: number;
+    nickname: string;
+  };
 }
 
 interface Props {
-  custom: Custom;
+  custom: Custom_Cocktails;
+  type: string;
 }
 
-export default function CustomCocktailCard({ custom }: Props) {
-  const router = useRouter();
-  const goToDetail = () => {
-    router.push('/cocktail/custom/detail/1');
-  };
+export default function CustomCocktailCard({ custom, type }: Props) {
+  const previewImageName =
+    type === 'big' ? styles['custom-img'] : styles['custom-img-preview'];
+
+  const previewTitleName =
+    type === 'big' ? styles.title : styles['title-preview'];
+
+  const previewCommentName =
+    type === 'big' ? styles.comment : styles['comment-preview'];
+
   return (
-    <div className={styles['grid-item']}>
-      <button
-        type="button"
-        onClick={goToDetail}
-        className={styles['image-box']}
-      >
-        <img
-          className={styles['custom-img']}
-          src={custom.imageLink}
-          alt={custom.title}
-        />
-        <div className={styles.author}>
-          by&nbsp;
-          {custom.author}
+    <Link href={{ pathname: '/cocktail/detail', query: { id: custom.id } }}>
+      <div className={styles['grid-item']}>
+        <div className={styles['image-box']}>
+          <img
+            className={previewImageName}
+            src={custom.image}
+            alt={custom.name}
+          />
+          <div className={styles.author}>by {custom.user.nickname}</div>
         </div>
-      </button>
-      <div className={styles.title}>{custom.title}</div>
-      <div className={styles.comment}>{custom.comment}</div>
-    </div>
+        <div className={previewTitleName}>{custom.name}</div>
+        <div className={previewCommentName}>{custom.summary}</div>
+      </div>
+    </Link>
   );
 }

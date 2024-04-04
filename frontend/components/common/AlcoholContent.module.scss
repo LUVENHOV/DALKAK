@@ -1,0 +1,50 @@
+.container {
+  // background-color: skyblue;
+  display: flex;
+  width: 440px;
+  align-items: center;
+
+  .barArea {
+    width: 100%;
+    background-color: var(--color-base);
+    border-radius: 1vw;
+    position: relative;
+
+    .bar {
+      height: 10px;
+      width: 428px;
+      display: flex;
+      position: relative;
+      left: 0.6vw;
+
+      .btn {
+        position: absolute;
+        cursor: pointer;
+        width: 14px;
+        display: flex;
+        flex-direction: column;
+        transform: translate(-8px, -2px);
+
+        .btnCircle {
+          width: 14px;
+          height: 14px;
+          border-radius: 100%;
+          background-color: var(--color-text);
+        }
+
+        .btnNum {
+          font-size: 0.7rem;
+        }
+      }
+      .btn:focus {
+        outline: none;
+      }
+
+      .mid {
+        position: absolute;
+        background-color: var(--color-text);
+        height: 10px;
+      }
+    }
+  }
+}
