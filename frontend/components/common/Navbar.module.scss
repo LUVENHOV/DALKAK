@@ -1,0 +1,108 @@
+.navbar {
+  display: flex;
+  box-shadow: 0.1vw 0vw 0.4vw 0.03vw var(--color-base);
+  line-height: 5vh;
+  box-sizing: border-box;
+  font-size: 80%;
+  align-items: center;
+
+  .left,
+  .center,
+  .right {
+    flex: 1;
+  }
+
+  // .left {
+  //   flex: 1;
+  // }
+  // .center {
+  //   flex: 1.5;
+  // }
+  // .right {
+  //   flex: 1;
+  // }
+
+  .left {
+    display: flex;
+
+    .logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 2vw;
+
+      a {
+        line-height: 5vh;
+        display: flex;
+        align-items: center;
+      }
+
+      img {
+        width: 3vh;
+        height: 3vh;
+      }
+    }
+
+    .pages {
+      display: flex;
+
+      div {
+        text-align: center;
+        padding: 0 2vw;
+      }
+    }
+  }
+
+  .center {
+    display: flex;
+    align-items: center;
+
+    .fix {
+      margin-left: 9vw;
+    }
+  }
+
+  .right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    a {
+      line-height: 5vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .nickname {
+      color: var(--color-point);
+      font-weight: 700;
+    }
+
+    svg {
+      margin: 0 2vw 0 1vw;
+    }
+  }
+}
+
+.active {
+  color: var(--color-point);
+  font-weight: 700;
+}
+
+.dalkak {
+  font-size: 1vw;
+  font-weight: 950;
+  text-align: start;
+}
+
+.nickname {
+  color: var(--color-point);
+  font-weight: 700;
+  margin-right: 1vw;
+}
+
+.btn {
+  &:hover {
+    cursor: pointer;
+  }
+}

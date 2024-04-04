@@ -1,0 +1,58 @@
+.btn {
+  padding: 3px 7px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  font-size: 0.7rem;
+  cursor: pointer;
+
+  svg {
+    margin-right: 5px;
+    font-size: 1rem;
+  }
+}
+
+.empty-dark {
+  color: var(--color-text);
+  border: 1.5px solid var(--color-text);
+  background-color: white;
+
+  svg {
+    fill: var(--color-text);
+  }
+}
+
+.empty-light {
+  color: var(--color-placeholder);
+  border: 1.5px solid var(--color-placeholder);
+  background-color: white;
+
+  svg {
+    fill: var(--color-placeholder);
+  }
+}
+
+.no-border {
+  color: var(--color-placeholder);
+
+  svg {
+    fill: var(--color-placeholder);
+  }
+}
+
+.full-point {
+  color: white;
+  background-color: var(--color-point);
+
+  svg {
+    fill: var(--color-placeholder);
+  }
+}
+
+.full-dark {
+  background-color: var(--color-text);
+  color: white;
+  svg {
+    fill: var(--color-placeholder);
+  }
+}

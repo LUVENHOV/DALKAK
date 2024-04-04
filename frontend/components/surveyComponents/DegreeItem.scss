@@ -1,0 +1,22 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.degree-item {
+  padding: 20px;
+  border-radius: 20px;
+  border: 3px solid transparent;
+  align-self: center;
+  width: 100px;
+  height: auto;
+  cursor: pointer;
+  margin: 30px;
+  div {
+    margin-top: 6px;
+    text-align: center;
+  }
+}
+
+.selected {
+  border: 3px solid var(--color-point);
+}

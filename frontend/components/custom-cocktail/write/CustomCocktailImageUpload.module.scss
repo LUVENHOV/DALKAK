@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.uploaded-image {
+  border-radius: 10%;
+  width: 19vw;
+  height: 19vw;
+  background-color: var(--color-base);
+  overflow: hidden;
+  position: relative;
+
+  img {
+    width: 19vw;
+    height: 19vw;
+    border-radius: 10%;
+    object-fit: cover;
+  }
+}
+
+.upload-button {
+  align-self: end;
+  margin-top: 1vw;
+
+  button {
+    font-size: 1.2vw;
+    justify-content: center;
+    width: 6.5vw;
+    height: 2.8vw;
+    cursor: pointer;
+  }
+}
+
+.uploaded {
+  border-radius: 10%;
+
+  input {
+    display: none;
+  }
+}

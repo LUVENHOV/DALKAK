@@ -1,0 +1,42 @@
+.container {
+  // background-color: pink;
+  height: 95vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .content-container {
+    // background-color: skyblue;
+    width: fit-content;
+    padding: 50px;
+    position: relative;
+  }
+
+  .image-container {
+    // background-color: palevioletred;
+    animation: shake 0.5s infinite ease-in-out;
+  }
+
+  .text-container {
+    // background-color: darkcyan;
+    margin-top: 50px;
+
+    .text {
+      text-align: center;
+      line-height: 30px;
+    }
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-10px);
+  }
+  75% {
+    transform: translateY(10px);
+  }
+}

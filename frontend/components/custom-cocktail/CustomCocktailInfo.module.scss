@@ -1,0 +1,20 @@
+.content {
+  margin-top: 2.5vw;
+  font-size: 1vw;
+}
+
+.base {
+  font-weight: 700;
+  font-size: 1.2vw;
+  margin-bottom: 0.5vw;
+  color: var(--color-point);
+}
+
+.left-border {
+  border: solid var(--color-point);
+  border-width: 0px 0px 0px 3.5px;
+
+  .margin {
+    margin-left: 1vw;
+  }
+}

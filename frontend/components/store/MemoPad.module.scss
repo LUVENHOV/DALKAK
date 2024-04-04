@@ -1,0 +1,10 @@
+.container {
+  background-color: var(--color-memo);
+  width: 90%;
+  max-height: 50vh;
+  margin-left: auto;
+  overflow: auto;
+}
+.containerr::-webkit-scrollbar {
+  width: 0;
+}

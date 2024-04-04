@@ -1,0 +1,119 @@
+.cocktailName-search-container {
+  width: 40vw;
+  height: 40px;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10vh auto 0 auto;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1.5px solid var(--color-placeholder);
+  border-radius: 10px;
+
+  input {
+    width: 35vw;
+    height: 20px;
+    border: none;
+    padding: 0 5px;
+    box-sizing: border-box;
+    font-size: 0.8rem;
+  }
+  input:focus {
+    outline: none;
+  }
+
+  button {
+    height: 20px;
+    cursor: pointer;
+
+    svg {
+      font-size: 1.2rem;
+      fill: var(--color-placeholder);
+    }
+  }
+}
+
+.detail-search-container {
+  // background-color: pink;
+  text-align: center;
+  width: 500px;
+  margin: 0 auto;
+
+  .header {
+    display: flex;
+    margin: 2vh auto;
+    line-height: 5vh;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+
+    svg {
+      fill: var(--color-placeholder);
+    }
+  }
+
+  .body {
+    // background-color: skyblue;
+    border-top: 3px solid var(--color-base);
+    border-bottom: 3px solid var(--color-base);
+    padding: 5vh 0;
+
+    .reset {
+      margin-bottom: 3vh;
+
+      button {
+        margin-left: auto;
+      }
+    }
+
+    .searchRow {
+      // background-color: orange;
+      width: 500px;
+      text-align: start;
+      margin: 0 auto 30px auto;
+      display: flex;
+      align-items: center;
+
+      .title {
+        // background-color: red;
+        width: 60px;
+        font-size: 0.8rem;
+        font-weight: 700;
+      }
+
+      .content {
+        // background-color: yellow;
+        width: 440px;
+      }
+    }
+
+    .searchBtn {
+      button {
+        font-size: 1rem;
+        // font-weight: 700;
+        padding: 5px 30px;
+        border-radius: 10px;
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+.ingredients-container {
+  // background-color: pink;
+  width: 52vw;
+  display: flex;
+  flex-direction: column;
+
+  .selected-container {
+    // background-color: gray;
+    width: 52vw;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  input {
+    height: 40px;
+  }
+}

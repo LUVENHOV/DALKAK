@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  width: 100%;
+
+  .block {
+    height: 30px;
+    background-color: white;
+    padding: 0 10px;
+    border-top: 1.5px solid var(--color-placeholder);
+    border-left: 1.5px solid var(--color-placeholder);
+    border-bottom: 1.5px solid var(--color-placeholder);
+    box-sizing: border-box;
+    font-size: 0.6rem;
+    cursor: pointer;
+  }
+
+  .block:first-child {
+    padding-left: 12px;
+    border-radius: 20px 0 0 20px;
+  }
+  .block:last-child {
+    padding-right: 12px;
+    border-radius: 0 20px 20px 0;
+    border-right: 2px solid var(--color-placeholder);
+  }
+
+  .selected {
+    color: white;
+    background-color: var(--color-placeholder);
+    font-weight: 900;
+  }
+}
