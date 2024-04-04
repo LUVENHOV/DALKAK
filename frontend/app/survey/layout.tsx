@@ -3,6 +3,9 @@
 import React, { useEffect } from 'react';
 
 import { useRouter } from 'next/navigation';
+
+import Swal from 'sweetalert2';
+
 import surveyStore from '../../store/surveyStore';
 import { submitSurvey } from '@/apis/Member';
 import authStore from '@/store/authStore';
@@ -43,7 +46,10 @@ export default function Layout({
     const { nickname, birthDate, gender } = surveyStore.getState();
 
     if (nickname === '' || birthDate === '' || gender === '') {
-      alert('모든 항목을 입력해주세요');
+      Swal.fire({
+        title: '모든 항목을 입력해주세요',
+        icon: 'warning',
+      });
     } else {
       fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users/profile`, {
         method: 'PATCH',
@@ -86,7 +92,10 @@ export default function Layout({
         survey_ingredients: [1, 2, 3],
       });
       if (response.status === 201) {
-        alert('제출 완료!');
+        Swal.fire({
+          title: '제출 완료',
+          icon: 'success',
+        });
         router.push('/');
       }
     } catch (error) {
@@ -131,28 +140,40 @@ export default function Layout({
                   if (surveyStore.getState().surveyCocktails.length !== 0) {
                     nextProgress();
                   } else {
-                    alert('최소 1개의 칵테일을 선택해주세요!');
+                    Swal.fire({
+                      title: '최소 1개의 칵테일을 선택해주세요!',
+                      icon: 'warning',
+                    });
                   }
                   break;
                 case 2:
                   if (surveyStore.getState().occassionId !== 0) {
                     nextProgress();
                   } else {
-                    alert('언제 마시나요!');
+                    Swal.fire({
+                      title: '언제 마시나요!',
+                      icon: 'warning',
+                    });
                   }
                   break;
                 case 3:
                   if (surveyStore.getState().baseId !== 0) {
                     nextProgress();
                   } else {
-                    alert('베이스를 선택해주세요!');
+                    Swal.fire({
+                      title: '베이스를 선택해주세요!',
+                      icon: 'warning',
+                    });
                   }
                   break;
                 case 4:
                   if (surveyStore.getState().alcoholContent !== 0) {
                     nextProgress();
                   } else {
-                    alert('도수를 선택해주세요!');
+                    Swal.fire({
+                      title: '도수를 선택해주세요!',
+                      icon: 'warning',
+                    });
                   }
                   break;
                 default:
