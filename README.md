@@ -81,11 +81,11 @@
 
 ## 칵테일
 
-| <img src='./산출물/GIFs/cocktail/Search_Cocktails.gif' width='500px' height='250px'> | <img src='./산출물/GIFs/cocktail/Detail_Cocktail.gif' width='500px' height='250px'> |
+| <img src='./산출물/GIFs/cocktail/Search_Cocktails.gif' width='400px' height='200px'> | <img src='./산출물/GIFs/cocktail/Detail_Cocktail.gif' width='400px' height='200px'> |
 | :----------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------: |
 |                                 **칵테일 상세 검색**                                 |                               **칵테일 상세 페이지**                                |
 
-| <img src='./산출물/GIFs/custom/FindAll_Custom_Cocktail.gif' width='500px' height='250px'> | <img src='./산출물/GIFs/custom/Create_Custom_Cocktail.gif' width='500px' height='250px'> |
+| <img src='./산출물/GIFs/custom/FindAll_Custom_Cocktail.gif' width='400px' height='200px'> | <img src='./산출물/GIFs/custom/Create_Custom_Cocktail.gif' width='400px' height='200px'> |
 | :---------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------: |
 |                           **기저 칵테일의 커스텀 칵테일 목록**                            |                                  **커스텀 칵테일 생성**                                  |
 
@@ -96,11 +96,11 @@
 
 ## 냉장고
 
-| <img src='./산출물/GIFs/refrigerator/Create_Refrigerator.gif' width='500px' height='250px'> | <img src='./산출물/GIFs/refrigerator/Delete_Refrigerator.gif' width='500px' height='250px'> |
+| <img src='./산출물/GIFs/refrigerator/Create_Refrigerator.gif' width='400px' height='200px'> | <img src='./산출물/GIFs/refrigerator/Delete_Refrigerator.gif' width='400px' height='200px'> |
 | :-----------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------: |
 |                                       **냉장고 생성**                                       |                                       **냉장고 삭제**                                       |
 
-| <img src='./산출물/GIFs/refrigerator/Create_Wishlist.gif' width='500px' height='250px'> | <img src='./산출물/GIFs/refrigerator/Delete_Wishlist.gif' width='500px' height='250px'> |
+| <img src='./산출물/GIFs/refrigerator/Create_Wishlist.gif' width='400px' height='200px'> | <img src='./산출물/GIFs/refrigerator/Delete_Wishlist.gif' width='400px' height='200px'> |
 | :-------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------: |
 |                                     **메모장 생성**                                     |                                     **메모장 삭제**                                     |
 
@@ -110,11 +110,11 @@
 
 ## 마이페이지
 
-| <img src='./산출물/GIFs/mypage/Find_MyPage.gif' width='500px' height='250px'> | <img src='./산출물/GIFs/custom/Modify_Custom_Cocktail.gif' width='500px' height='250px'> |
+| <img src='./산출물/GIFs/mypage/Find_MyPage.gif' width='400px' height='200px'> | <img src='./산출물/GIFs/custom/Modify_Custom_Cocktail.gif' width='400px' height='200px'> |
 | :---------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------: |
 |                    **개인정보 확인 및 저장된 칵테일 목록**                    |                           **자신이 생성한 커스텀 칵테일 수정**                           |
 
-| <img src='./산출물/GIFs/custom/Delete_Custom_Cocktail.gif' width='500px' height='250px'> |
+| <img src='./산출물/GIFs/custom/Delete_Custom_Cocktail.gif' width='400px' height='200px'> |
 | :--------------------------------------------------------------------------------------: |
 |                           **자신이 생성한 커스텀 칵테일 삭제**                           |
 
@@ -123,11 +123,11 @@
 
 ## 추천
 
-| <img src='./산출물/GIFs/recommend/Recommend_New.gif' width='500px' height='250px'> | <img src='./산출물/GIFs/recommend/Recommend_Origin.gif' width='500px' height='250px'> |
+| <img src='./산출물/GIFs/recommend/Recommend_New.gif' width='400px' height='200px'> | <img src='./산출물/GIFs/recommend/Recommend_Origin.gif' width='400px' height='200px'> |
 | :--------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------: |
 |                            **새로운 가입자 메인 화면**                             |                               **기존 사용자 메인 화면**                               |
 
-| <img src='./산출물/GIFs/recommend/Recommend_Refrigerator.gif' width='500px' height='250px'> |
+| <img src='./산출물/GIFs/recommend/Recommend_Refrigerator.gif' width='400px' height='200px'> |
 | :-----------------------------------------------------------------------------------------: |
 |                                  **냉장고 재료 기반 추천**                                  |
 
@@ -137,7 +137,7 @@
 
 ## 설문
 
-| <img src='./산출물/GIFs/survey/Survey.gif' width='500px' height='250px'> |
+| <img src='./산출물/GIFs/survey/Survey.gif' width='400px' height='200px'> |
 | :----------------------------------------------------------------------: |
 |                               **설문조사**                               |
 
