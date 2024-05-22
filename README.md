@@ -81,7 +81,7 @@
 
 ## 칵테일
 
-| <img src='./산출물/GIFs/cocktail/Search_Cocktails.gif' width='360px' height='180px'> | <img src='./산출물/GIFs/cocktail/Detail_Cocktail.gif' width='360px' height='180px'> |
+| <img src='./산출물/GIFs/cocktail/Search_Cocktails.gif' width='380px' height='200px'> | <img src='./산출물/GIFs/cocktail/Detail_Cocktail.gif' width='360px' height='180px'> |
 | :----------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------: |
 |                                 **칵테일 상세 검색**                                 |                               **칵테일 상세 페이지**                                |
 
