@@ -171,7 +171,7 @@
 
 # 팀원 소개
 
-| **Profile**  |          <img src='./산출물/profile/KHJ.jpg' width='200px' height='150px'>          |          <img src='./산출물/profile/YHJ.jpg' width='200px' height='150px'>          |   <img src='./산출물/profile/BCJ.jpg' width='200px' height='150px'>   |         <img src='./산출물/profile/CJH.jpg' width='200px' height='150px'>          |  <img src='./산출물/profile/LSY.JPG' width='200px' height='150px'>   |  <img src='./산출물/profile/KHW.jpg' width='200px' height='150px'>   |
+| **Profile**  |          <img src='./산출물/profile/KHJ.jpg' width='200px' height='140px'>          |          <img src='./산출물/profile/YHJ.jpg' width='200px' height='140px'>          |   <img src='./산출물/profile/BCJ.jpg' width='200px' height='140px'>   |         <img src='./산출물/profile/CJH.jpg' width='200px' height='140px'>          |  <img src='./산출물/profile/LSY.JPG' width='200px' height='140px'>   |  <img src='./산출물/profile/KHW.jpg' width='200px' height='140px'>   |
 | :----------: | :--------------------: | :--------------------: | :------: | :-------------------: | :-----: | :-----: |
 |     **Name**     |         <a href='https://github.com/HyeongjinKim98'>김형진</a>         |         <a href='https://github.com/YooHyunJi'>유현지</a>         |  <a href='https://github.com/lookoblong'>백천주</a>  |        <a href='https://github.com/green339'>최지희</a>         | <a href='https://github.com/LUVENHOV'>이승연</a>  | <a href='https://github.com/HiWoong'>곽희웅</a>  |
 | **Position** | Team Leader & Frontend | Part Leader & Frontend | Frontend | Part Leader & Backend | Backend | Backend & Infra |
